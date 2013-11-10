@@ -11,7 +11,48 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131108004803) do
+ActiveRecord::Schema.define(:version => 20131108130213) do
+
+  create_table "courses", :force => true do |t|
+    t.string   "name"
+    t.string   "desc"
+    t.boolean  "is_open"
+    t.integer  "stu_class_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "homeworks", :force => true do |t|
+    t.integer  "course_id"
+    t.datetime "end_time"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "enjoin"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "desc"
+    t.integer  "category_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "questions", :force => true do |t|
+    t.string   "title"
+    t.integer  "homework_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "student_homeworks", :force => true do |t|
+    t.integer  "student_id"
+    t.integer  "homework_id"
+    t.string   "status"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
