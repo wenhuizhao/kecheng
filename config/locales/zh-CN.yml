@@ -2,4 +2,23 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 zh-CN:
-  hello: "你好"
+  
+
+  activerecord:
+    models:
+      user: '帐号'
+    attributes:
+      user:
+        email: '电子邮件'
+        password: '密码'
+        login: '用户名'
+        email: '电子邮件'
+        auth_code: '验证码'
+    errors:
+      messages:
+        blank: "不能为空"
+        confirmation: "与重复值不符合"
+        invalid: "是无效的"
+        taken: "已经被使用"
+        too_short: "太短"
+        not_a_number: "不是数字"
