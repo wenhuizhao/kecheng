@@ -4,6 +4,12 @@
   <%= devise_error_messages! %>
   <%= f.hidden_field :reset_password_token %>
 
+  <div><%= f.label :联系方式 %><br />
+  <%= f.email_field :email, :autofocus => true, placeholder: '邮箱地址' %></div>
+
+  <div><%= f.label :验证码 %><br />
+  <%= text_field_tag :auth_code %></div>
+
   <div><%= f.label :password, "新密码" %><br />
   <%= f.password_field :password, :autofocus => true %></div>
 
