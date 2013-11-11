@@ -12,3 +12,10 @@ Role.create([
   {name: '管理员（教育局）'},
   {name: '管理员（校领导）'}
 ])
+
+Course.create([
+  {name: '语文'},
+  {name: '数学'},
+  {name: '英语'},
+  {name: '自然'}
+])
