@@ -1,0 +1,17 @@
+#login-form
+  h2 登录
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    table
+      tr
+        td = f.label :用户名
+        td = f.text_field :login, :autofocus => true
+      tr
+        td = f.label :密码
+        td = f.password_field :password
+      tr
+        td = f.label :身份
+        td = f.select :role_id, Role.all.collect {|s| [s.name, s.id]}
+      tr
+        td colspan=10
+           = f.submit "登录"
+      tr = render "devise/shared/links"
