@@ -2,13 +2,15 @@
 <html>
 <head>
   <title>Kecheng</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= stylesheet_link_tag "#{current_user ? 'after-' : ''}login" %>
+  <%= stylesheet_link_tag "normalize" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+  <%= render partial: 'layouts/header' if current_user %>
+  <%= yield %>
 
 </body>
 </html>
