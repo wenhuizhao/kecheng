@@ -9,7 +9,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= render partial: 'layouts/header' if current_user %>
+  <% if current_user %>
+    <%= render partial: 'layouts/header' %>
+    <div id='content'>
+      <%= render partial: 'layouts/left' %>
+      <%= render partial: 'layouts/right' %>
+    </div>
+  <% end %>
   <%= yield %>
 
 </body>

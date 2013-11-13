@@ -1,6 +1,22 @@
+$header-height: 80px
+$body-width: 1024px
+$body-height: 768px
+
 header
-  height: 80px
+  height: $header-height
   background: rgb(0,204,204)
   h1
     text-align: center
     font-weight: bold
+
+#content
+  .left
+    width: 212px
+    height: $body-height - $header-height
+    background: rgb(0,255,204)
+    text-align: center
+    .course-title, .course-toggle-title
+      background: rgb(0,204,153)
+      padding: 10px 0
+    .courses
+      background: rgb(51,255,153)
