@@ -5,9 +5,23 @@ $body-height: 768px
 header
   height: $header-height
   background: rgb(0,204,204)
+  .h-left, h1, .h-right
+    float: left
+    display: inline-block
+    height: 100%
+  .h-left
+    background: ''
   h1
+    width: 60%
     text-align: center
     font-weight: bold
+    margin: 15px 0 -15px 0
+  .h-right:
+    background: ''
+  .h-left, .h-right
+    width: 20%
+    text-align: center
+    font-size: 22px
 
 #content
   .left
