@@ -11,4 +11,9 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   validates_uniqueness_of :email, :case_sensitive => false
   validates :login, presence: true
+  
+  belongs_to :role
+  
+  Role.all.each {|r| define_method("is_#{r.en_name}?") {role and role.name == r.name}}
+
 end

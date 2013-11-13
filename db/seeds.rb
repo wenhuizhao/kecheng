@@ -6,16 +6,19 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Role.create([
-  {name: '学生'},
-  {name: '教师'},
-  {name: '管理员（教育局）'},
-  {name: '管理员（校领导）'}
-])
-
-Course.create([
-  {name: '语文'},
-  {name: '数学'},
-  {name: '英语'},
-  {name: '自然'}
-])
+if Role.count == 0
+  Role.create([
+    {name: '学生', en_name: 'student'},
+    {name: '教师', en_name: 'teacher'},
+    {name: '管理员（教育局）', en_name: 'admin_jyj'},
+    {name: '管理员（校领导）', en_name: 'admin_xld'}
+  ])
+end
+if Course.count == 0
+  Course.create([
+    {name: '语文'},
+    {name: '数学'},
+    {name: '英语'},
+    {name: '自然'}
+  ])
+end
