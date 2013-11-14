@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131113125241) do
+ActiveRecord::Schema.define(:version => 20131114061809) do
+
+  create_table "books", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "courses", :force => true do |t|
     t.string   "name"
@@ -20,6 +32,20 @@ ActiveRecord::Schema.define(:version => 20131113125241) do
     t.integer  "stu_class_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "exercises", :force => true do |t|
+    t.string   "title"
+    t.string   "note"
+    t.string   "answer"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.integer  "category_id"
+    t.integer  "book_id"
   end
 
   create_table "homeworks", :force => true do |t|

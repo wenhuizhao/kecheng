@@ -1,0 +1,27 @@
+= form_for @exercise do |f|
+  - if @exercise.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@exercise.errors.count, "error")} prohibited this exercise from being saved:"
+      ul
+        - @exercise.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :book
+    = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name))
+  .field
+    = f.label :category
+    = f.select(:category_id, options_from_collection_for_select(Category.all, :id, :name))
+  .field
+    = f.label :title
+    = f.text_area :title, {:rows=>5, :cols=>80}
+  .field
+    = f.label :note
+    = f.text_area :note, {:rows=>2, :cols=>80}
+  .field
+    = f.label :answer
+    = f.text_area :answer, {:rows=>5, :cols=>80}
+  .field
+    = f.label :photo
+    = f.file_field :photo
+  .actions = f.submit 'Save'
