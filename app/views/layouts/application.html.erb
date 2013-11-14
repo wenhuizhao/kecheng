@@ -9,14 +9,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= flash[:notice] %>
   <% if current_user %>
     <%= render partial: 'layouts/header' %>
     <div id='content'>
       <%= render partial: 'layouts/left' %>
       <%= render partial: 'layouts/right' %>
     </div>
+  <% else %>
+    <%= yield %>
   <% end %>
-  <%= yield %>
 
 </body>
 </html>

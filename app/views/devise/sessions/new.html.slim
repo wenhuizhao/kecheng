@@ -10,7 +10,7 @@
         td = f.password_field :password
       tr
         td = f.label :身份
-        td = f.select :role_id, Role.all.collect {|s| [s.name, s.id]}
+        td = select_tag :role_id, options_from_collection_for_select(Role.all, :id, :name)
       tr
         td colspan=10
            = f.submit "登录"

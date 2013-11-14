@@ -7,3 +7,35 @@
     .courses
       - @courses.each do |c|
         h1 = c.name
+
+  - if current_user.is_teacher?
+    .course-title
+      h1 开课
+    .course-toggle-title
+      h1 已开课程 >
+    .courses
+      - @courses.each do |c|
+        h1 = c.name
+
+  - if current_user.is_admin_jyj?
+    .course-title
+      h1 统计
+    .course-toggle-title
+      h1 查看 >
+    .courses
+      - @courses.each do |c|
+        h1 = c.name
+
+  - if current_user.is_admin_xld?
+    .course-title
+      h1 统计
+    .course-toggle-title
+      h1 查看 >
+    .courses
+      - @courses.each do |c|
+        h1 = c.name
+
+  - if current_user.is_admin?
+    .courses
+      h1 = link_to '课程管理', courses_path
+      h1 = link_to '用户管理', users_path

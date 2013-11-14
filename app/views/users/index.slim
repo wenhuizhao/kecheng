@@ -1,0 +1,7 @@
+= render partial: 'shared/header', locals: {title: '用户管理'}
+table.list
+  - @users.each do |c|
+    tr
+      td.long = link_to c.name, user_path(c)
+      td = link_to '编辑', edit_user_path(c)
+      td = link_to '删除', c, confirm: '确定删除么？', method: :delete

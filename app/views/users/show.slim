@@ -1,0 +1,4 @@
+= render partial: 'shared/header', locals: {title: '用户: ' + @user.name}
+ul.list
+  li = @user.name
+  li = link_to 'back', users_path

@@ -14,11 +14,27 @@ if Role.count == 0
     {name: '管理员（校领导）', en_name: 'admin_xld'}
   ])
 end
+
 if Course.count == 0
   Course.create([
     {name: '语文'},
     {name: '数学'},
     {name: '英语'},
     {name: '自然'}
+  ])
+end
+
+if School.count == 0
+  School.create([
+    {name: '青年路小学'},
+    {name: '三晋小学'},
+    {name: '狄村小学'},
+    {name: '双塔北路小学'}
+  ])
+end
+
+if User.count == 0
+  User.create([
+    {login: 'admin', email: 'admin@admin.com', password: '11112222', password_confirmation: '11112222'}
   ])
 end

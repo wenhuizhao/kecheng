@@ -1,6 +1,7 @@
 $header-height: 80px
 $body-width: 1024px
 $body-height: 768px
+$list-width: 400px
 
 header
   height: $header-height
@@ -24,6 +25,8 @@ header
     font-size: 22px
 
 #content
+  .left, .right
+    float: left
   .left
     width: 212px
     height: $body-height - $header-height
@@ -34,3 +37,14 @@ header
       padding: 10px 0
     .courses
       background: rgb(51,255,153)
+  .right
+    padding: 20px
+  .list
+    width: $list-width
+  table.list
+    tr
+      td
+        padding: 4px 5px
+        border: 1px #999 solid
+        &.long
+          width: 0.7 * $list-width
