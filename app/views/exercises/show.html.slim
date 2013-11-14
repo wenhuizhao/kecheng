@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Book:
+  = @exercise.book.name
+p
+  strong Category:
+  = @exercise.category.name
+p
+  strong Title:
+  = @exercise.title
+p
+  strong Note:
+  = @exercise.note
+p
+  strong Answer:
+  = @exercise.answer
+
+p
+  strong photo:
+  image src=@exercise.photo.url /
+= link_to 'Edit', edit_exercise_path(@exercise)
+'|
+= link_to 'Back', exercises_path

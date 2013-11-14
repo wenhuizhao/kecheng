@@ -1,4 +1,7 @@
 Kecheng::Application.routes.draw do
+  resources :exercises
+
+
   get "home/index"
 
   devise_for :users
