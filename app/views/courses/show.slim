@@ -1,0 +1,4 @@
+= render partial: 'shared/header', locals: {title: '课程: ' + @course.name}
+ul.list
+  li = @course.name
+  li = link_to 'back', courses_path
