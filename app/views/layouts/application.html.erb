@@ -9,7 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= flash[:notice] %>
+  <div id='notice'><%= flash[:notice] %></div>
   <% if current_user %>
     <%= render partial: 'layouts/header' %>
     <div id='content'>

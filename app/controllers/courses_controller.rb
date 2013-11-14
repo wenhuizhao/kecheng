@@ -14,17 +14,29 @@ class CoursesController < ApplicationController
   end
 
   def new
+    @course = Course.new
   end
 
   def update
+    if @course.update_attributes(params[:course])
+      redirect_to courses_path
+    else
+      render action: 'edit'
+    end
   end
 
   def create
+    @course = Course.new(params[:course])
+    if @course.save
+      redirect_to courses_path
+    else
+      render action: 'new'
+    end
   end
 
   def destroy
-  	@course.destroy
-  	redirect_to courses_path
+    @course.destroy
+    redirect_to courses_path
   end
   
   private

@@ -1,0 +1,38 @@
+- action = action_name == 'edit' ? 'update' : 'create_user_from_admin'
+= form_tag action: action
+  table.list-big
+    - if @user.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+        ul
+          - @user.errors.full_messages.each do |message|
+            li = message
+    - if action_name == 'new' || action_name == 'create_user_from_admin'
+      tr
+        td = label_tag :邮件
+        td = text_field :user, :email
+
+    tr
+      td = label_tag :用户名
+      td = text_field :user, :login
+    tr
+      td = label_tag :姓名
+      td = text_field :user, :firstname
+    - if current_user.is_admin?
+      tr
+        td = label_tag :角色
+        td = select :user, :role_id, Role.all.map {|r| [r.name, r.id]}
+      tr
+        td = label_tag :学校
+        td = select :user, :school_id, School.all.map {|r| [r.name, r.id]}
+      - if action_name == 'new' || action_name == 'create_user_from_admin'
+        tr 
+          td = label_tag :密码
+          td = password_field :user, :password
+        tr 
+          td = label_tag :重复密码
+          td = password_field :user, :password_confirmation
+    tr
+      td.actions colspan=10
+        = link_to '返回', users_path, class: 'btn'
+        = submit_tag '保存', class: 'btn'

@@ -1,8 +1,4 @@
-$header-height: 80px
-$body-width: 1024px
-$body-height: 768px
-$list-width: 400px
-$big-list-width: 600px
+@import variables
 
 header
   height: $header-height
@@ -22,8 +18,9 @@ header
     background: ''
   .h-left, .h-right
     width: 20%
+    margin: 20px 0 -20px 0
     text-align: center
-    font-size: 22px
+    font-size: $font-size-large
 
 #content
   .left, .right
@@ -37,6 +34,7 @@ header
       background: rgb(0,204,153)
       padding: 10px 0
     .courses
+      padding: 20px 0
       background: rgb(51,255,153)
   .right
     padding: 20px
@@ -52,4 +50,5 @@ header
         &.long
           width: 0.7 * $list-width
         &.actions
-          width: 100px 
+          width: 100px
+          text-align: center
