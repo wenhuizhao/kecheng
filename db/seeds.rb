@@ -33,7 +33,7 @@ if School.count == 0
   ])
 end
 
-if User.count == 0
+if User.where(email: 'admin@admin.com').size ==  0
   User.create([
     {login: 'admin', email: 'admin@admin.com', password: '11112222', password_confirmation: '11112222'}
   ])
