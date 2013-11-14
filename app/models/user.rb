@@ -25,4 +25,8 @@ class User < ActiveRecord::Base
   def name
     login
   end
+  
+  def role_name
+    role ? role.name : '超级管理员'
+  end
 end

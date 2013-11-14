@@ -2,6 +2,7 @@ $header-height: 80px
 $body-width: 1024px
 $body-height: 768px
 $list-width: 400px
+$big-list-width: 600px
 
 header
   height: $header-height
@@ -41,10 +42,14 @@ header
     padding: 20px
   .list
     width: $list-width
-  table.list
+  .list-big
+    width: $big-list-width
+  table.list, table.list-big
     tr
       td
         padding: 4px 5px
         border: 1px #999 solid
         &.long
           width: 0.7 * $list-width
+        &.actions
+          width: 100px 
