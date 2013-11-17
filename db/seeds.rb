@@ -39,5 +39,5 @@ if User.where(email: 'admin@admin.com').size ==  0
   ])
 end
 
-Settings.grades = [1,2,3,4,5]
-Settings.classes = [1,2,3,4,5]
+Settings.grades = [1,2,3,4,5] if Settings.grades.nil?
+Settings.classes = [1,2,3,4,5] if Settings.classes.nil?
