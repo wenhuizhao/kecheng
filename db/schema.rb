@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131114061809) do
+ActiveRecord::Schema.define(:version => 20131117133235) do
 
   create_table "books", :force => true do |t|
     t.string   "name"
@@ -28,10 +28,8 @@ ActiveRecord::Schema.define(:version => 20131114061809) do
   create_table "courses", :force => true do |t|
     t.string   "name"
     t.string   "desc"
-    t.boolean  "is_open"
-    t.integer  "stu_class_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "exercises", :force => true do |t|
@@ -46,6 +44,15 @@ ActiveRecord::Schema.define(:version => 20131114061809) do
     t.datetime "photo_updated_at"
     t.integer  "category_id"
     t.integer  "book_id"
+  end
+
+  create_table "grades_courses", :force => true do |t|
+    t.integer  "grade_num"
+    t.string   "class_num"
+    t.integer  "course_id"
+    t.boolean  "is_open"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "homeworks", :force => true do |t|
@@ -94,6 +101,17 @@ ActiveRecord::Schema.define(:version => 20131114061809) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "settings", :force => true do |t|
+    t.string   "var",                      :null => false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", :limit => 30
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
 
   create_table "student_homeworks", :force => true do |t|
     t.integer  "student_id"
