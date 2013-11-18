@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    firstname
+    firstname || '沒有' 
   end
   
   def role_name
