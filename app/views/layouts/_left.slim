@@ -10,7 +10,7 @@
 
   - if current_user.is_teacher?
     .course-title
-      h1 开课
+      h1 = link_to '开课', home_open_courses_path
     .course-toggle-title
       h1 已开课程 >
     .courses

@@ -34,4 +34,12 @@ class User < ActiveRecord::Base
   def school_name
     school ? school.name : '暂无学校信息'
   end
+  
+  def opened_courses
+    Course.all
+  end
+
+  def selected_courses
+    Course.all
+  end
 end

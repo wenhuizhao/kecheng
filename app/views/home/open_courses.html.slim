@@ -1,0 +1,19 @@
+= render partial: 'shared/header', locals: {title: '开课'}
+.btns
+  .add-course.big-btn 添加
+  
+= form_tag home_open_courses_path
+  .select-div.grades
+    - Settings.grades.each do |grade|
+      .words data-id='#{grade}' id='g#{grade}'
+        = App::ChineseNum[grade] + '年级'
+
+  .select-div.classes
+    - Settings.classes.each do |c|
+      .words data-id='#{c}' id='c#{c}'
+        = App::ChineseNum[c] + '班'
+  
+  = hidden_field_tag :grade_num
+  = hidden_field_tag :class_num
+
+  = submit_tag '确定添加'
