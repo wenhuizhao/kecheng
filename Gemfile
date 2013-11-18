@@ -50,3 +50,4 @@ gem "figaro", ">= 0.5.3"
 gem "better_errors", ">= 0.3.2", :group => :development
 gem "binding_of_caller", ">= 0.6.8", :group => :development
 gem "rails-settings-cached", "0.2.4"
+gem "magic_encoding"

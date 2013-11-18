@@ -110,6 +110,7 @@ GEM
     json (1.8.1)
     launchy (2.4.0)
       addressable (~> 2.3)
+    magic_encoding (0.0.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -234,6 +235,7 @@ DEPENDENCIES
   figaro (>= 0.5.3)
   jquery-rails
   launchy (>= 2.1.2)
+  magic_encoding
   mysql2
   paperclip
   quiet_assets (>= 1.0.1)
