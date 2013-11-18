@@ -6,6 +6,6 @@ class HomeController < ApplicationController
   end
   
   def open_courses
-    
+    @gc = GradesCourse.create(params[:grc]) if request.post?
   end
 end

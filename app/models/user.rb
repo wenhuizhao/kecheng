@@ -42,4 +42,8 @@ class User < ActiveRecord::Base
   def selected_courses
     Course.all
   end
+
+  def self.teachers
+    select{|u| u.role_name == '教师'}
+  end
 end
