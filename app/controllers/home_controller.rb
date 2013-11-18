@@ -6,6 +6,6 @@ class HomeController < ApplicationController
   end
   
   def open_courses
-    @gc = GradesCourse.create(params[:grc]) if request.post?
+    @grade_course = GradesCourse.where(params[:grc]).first_or_create if request.post?
   end
 end
