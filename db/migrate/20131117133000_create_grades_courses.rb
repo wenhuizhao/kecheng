@@ -8,8 +8,9 @@ class CreateGradesCourses < ActiveRecord::Migration
 
       t.timestamps
     end
+ 
+    add_index :grades_courses, :course_id
+    add_index :grades_courses, :grade_num
+    add_index :grades_courses, :class_num
   end
-  add_index :grades_courses, :course_id
-  add_index :grades_courses, :grade_num
-  add_index :grades_courses, :class_num
 end
