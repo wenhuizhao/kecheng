@@ -5,7 +5,7 @@ class GradesCoursesController < ApplicationController
   before_filter :get_grades_course, except: [:index, :create, :new]
   
   def index
-    @grades_courses = GradesCourse.all
+
   end
 
   def show

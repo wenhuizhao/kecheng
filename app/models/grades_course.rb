@@ -9,6 +9,10 @@ class GradesCourse < ActiveRecord::Base
   def course_name
     course ? course.name : ''
   end
+  
+  def status
+    is_open ? '已开放' : '关闭'
+  end
 
   def teacher_name
     teacher ? teacher.name : ''

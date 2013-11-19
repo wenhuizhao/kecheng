@@ -1,11 +1,19 @@
 = render partial: 'shared/header', locals: {title: '开课列表'}
 
 
-table.list
-  - @grades_courses.each do |c|
+table.list-big
+  tr
+    th 班级
+    th 课程
+    th 课程数
+    th 状态
+    th 操作
+  - @courses.each do |c|
     tr
       td = get_grades(c) 
       td = c.course_name
-      td 
+      td = c.lesson_num
+      td = c.status
+      td.center
         = link_to '编辑', edit_grades_course_path(c)
         = link_to '删除', c, confirm: '确定删除么？', method: :delete
