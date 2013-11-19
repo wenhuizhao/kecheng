@@ -1,0 +1,37 @@
+= render partial: 'shared/header', locals: {title: '开课'}
+.btns
+  .add-course.big-btn 添加
+  
+= form_tag home_open_courses_path
+  - if @grade_course
+    = @grade_course.grade_num
+    = @grade_course.class_num
+    = @grade_course.course_name
+    = @grade_course.teacher_name
+  - else
+    .select-div.grades
+      - Settings.grades.each do |grade|
+        .words data-id='#{grade}'
+          = App::ChineseNum[grade] + '年级'
+
+    .select-div.classes
+      - Settings.classes.each do |c|
+        .words data-id='#{c}'
+          = App::ChineseNum[c] + '班'
+
+    .select-div.courses
+      - Course.all.each do |c|
+        .words data-id='#{c.id}'
+          = c.name
+
+    .select-div.teachers
+      - User.teachers.each do |c|
+        .words data-id='#{c.id}'
+          = c.name
+    
+    = hidden_field_tag :grade_num, nil, name: 'grc[grade_num]'
+    = hidden_field_tag :class_num, nil, name: 'grc[class_num]'
+    = hidden_field_tag :course_id, nil, name: 'grc[course_id]'
+    = hidden_field_tag :teacher_id, nil, name: 'grc[teacher_id]'
+
+  .block = submit_tag '确定添加', class: 'block'

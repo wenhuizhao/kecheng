@@ -3,8 +3,9 @@ Kecheng::Application.routes.draw do
 
 
   get "home/index"
+  match "home/open_courses"
 
-  devise_for :users
+  devise_for :users, controllers: {registrations: 'registrations'}
   
   resources :courses
   resources :users do

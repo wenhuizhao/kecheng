@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    firstname
+    firstname || '沒有' 
   end
   
   def role_name
@@ -33,5 +33,17 @@ class User < ActiveRecord::Base
 
   def school_name
     school ? school.name : '暂无学校信息'
+  end
+  
+  def opened_courses
+    Course.all
+  end
+
+  def selected_courses
+    Course.all
+  end
+
+  def self.teachers
+    select{|u| u.role_name == '教师'}
   end
 end

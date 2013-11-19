@@ -38,3 +38,6 @@ if User.where(email: 'admin@admin.com').size ==  0
     {login: 'admin', email: 'admin@admin.com', password: '11112222', password_confirmation: '11112222'}
   ])
 end
+
+Settings.grades = [1,2,3,4,5] if Settings.grades.nil?
+Settings.classes = [1,2,3,4,5] if Settings.classes.nil?
