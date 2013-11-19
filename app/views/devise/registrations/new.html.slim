@@ -30,7 +30,7 @@
         td = text_field_tag :auth_code
       tr
         td colspan=10
-          = f.hidden_field :role_id, value: 1
+          = f.hidden_field :role_id, value: Role.student.id 
           = f.submit "确认注册"
 
       tr = render "devise/shared/links"

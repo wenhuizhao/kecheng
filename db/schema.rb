@@ -57,6 +57,10 @@ ActiveRecord::Schema.define(:version => 20131118115002) do
     t.integer  "teacher_id"
   end
 
+  add_index "grades_courses", ["class_num"], :name => "index_grades_courses_on_class_num"
+  add_index "grades_courses", ["course_id"], :name => "index_grades_courses_on_course_id"
+  add_index "grades_courses", ["grade_num"], :name => "index_grades_courses_on_grade_num"
+
   create_table "homeworks", :force => true do |t|
     t.datetime "end_time"
     t.datetime "created_at", :null => false
