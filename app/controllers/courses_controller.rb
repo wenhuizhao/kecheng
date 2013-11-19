@@ -2,6 +2,7 @@ class CoursesController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :get_course, except: [:index, :create, :new]
+  before_filter :require_admin
   
   def index
     @courses = Course.all

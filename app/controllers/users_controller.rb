@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   
   before_filter :authenticate_user!
+  before_filter :require_admin
   before_filter :get_user, except: [:index, :create_user_from_admin, :new]
   
   def index

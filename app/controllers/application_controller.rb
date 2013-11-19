@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
       @courses ||= current_user.opened_courses
     end
   end
+  
+  def require_admin
+    return render text: '您无此权限' unless current_user.is_admin?
+  end
 end

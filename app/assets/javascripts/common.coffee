@@ -4,9 +4,15 @@ $(document).ready ->
     grade: 'g1'
     cls: 'c1'
   
-  $('.course-toggle-title').click ->
+  $('.teacher-left').click ->
     # $('.left .courses').toggle()
     redirect_to '/grades_courses'
+
+  $('.xld-left').click ->
+    redirect_to '/'
+  
+  $('.jyj-left').click ->
+    redirect_to '/'
 
   $('.grades').find('.words').each (i, obj) ->
     $(obj).click ->

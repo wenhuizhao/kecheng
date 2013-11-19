@@ -4,3 +4,25 @@
   h1 = "欢迎你: " + current_user.email + '(' + current_user.role_name + ')'
   .h-right
     = link_to '退出', destroy_user_session_path, method: :delete
+
+- if current_user.is_admin_xld?
+  .bar.grades
+    .words.white 年级:
+    .words 全部
+    - Settings.grades.each do |grade|
+      .words data-id='#{grade}'
+        = App::ChineseNum[grade] + '年级'
+  br
+  .bar.classes
+    .words.white 班级:
+    .words 全部
+    - Settings.classes.each do |c|
+      .words data-id='#{c}'
+        = App::ChineseNum[c] + '班'
+  br
+  .bar.courses
+    .words.white 科目:
+    .words 全部
+    - Course.all.each do |c|
+      .words data-id='#{c.id}'
+        = c.name

@@ -11,7 +11,7 @@
   - if current_user.is_teacher?
     .course-title
       h1 = link_to '开课', new_grades_course_path
-    .course-toggle-title
+    .course-toggle-title.teacher-left
       h1 已开课程 >
     .courses
       - @courses.each do |c|
@@ -20,20 +20,16 @@
   - if current_user.is_admin_jyj?
     .course-title
       h1 统计
-    .course-toggle-title
+    .course-toggle-title.jyj-left
       h1 查看 >
     .courses
-      - @courses.each do |c|
-        h1 = c.name
 
   - if current_user.is_admin_xld?
     .course-title
       h1 统计
-    .course-toggle-title
+    .course-toggle-title.xld-left
       h1 查看 >
     .courses
-      - @courses.each do |c|
-        h1 = c.name
 
   - if current_user.is_admin?
     .courses
