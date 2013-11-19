@@ -5,7 +5,7 @@ $(document).ready ->
     cls: 'c1'
   
   $('.course-toggle-title').click ->
-    $('.courses').toggle()
+    $('.left .courses').toggle()
 
   $('.grades').find('.words').each (i, obj) ->
     $(obj).click ->

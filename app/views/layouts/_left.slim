@@ -10,12 +10,12 @@
 
   - if current_user.is_teacher?
     .course-title
-      h1 = link_to '开课', home_open_courses_path
+      h1 = link_to '开课', new_grades_course_path
     .course-toggle-title
       h1 已开课程 >
     .courses
       - @courses.each do |c|
-        h1 = c.name
+        h1 = link_to get_grades(c), edit_grades_course_path(c)
 
   - if current_user.is_admin_jyj?
     .course-title

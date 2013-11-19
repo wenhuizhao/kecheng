@@ -8,6 +8,8 @@ Kecheng::Application.routes.draw do
   devise_for :users, controllers: {registrations: 'registrations'}
   
   resources :courses
+  resources :grades_courses
+
   resources :users do
     collection do
       post :create_user_from_admin

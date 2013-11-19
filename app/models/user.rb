@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   end
   
   def opened_courses
-    Course.all
+    GradesCourse.where(teacher_id: self.id) 
   end
 
   def selected_courses
