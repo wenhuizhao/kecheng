@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def require_teacher
+  end
+  
   def require_admin
     return render text: '您无此权限' unless current_user.is_admin?
   end

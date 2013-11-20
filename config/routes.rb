@@ -8,7 +8,9 @@ Kecheng::Application.routes.draw do
   devise_for :users, controllers: {registrations: 'registrations'}
   
   resources :courses
-  resources :grades_courses
+  resources :grades_courses do
+    resources :homeworks
+  end
 
   resources :users do
     collection do
