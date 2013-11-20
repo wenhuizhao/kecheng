@@ -15,7 +15,7 @@
       h1 已开课程 >
     .courses
       - @courses.each do |c|
-        h2 = link_to get_grades(c) + c.course_name, edit_grades_course_path(c)
+        h2 = link_to get_grades(c) + c.course_name, grades_course_path(c)
 
   - if current_user.is_admin_jyj?
     .course-title

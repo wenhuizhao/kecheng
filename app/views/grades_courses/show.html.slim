@@ -1,0 +1,8 @@
+.notice-bar
+  = @grades_course.course_name  
+
+.lessons-content
+  .title
+  .lessons
+    - (1..(@grades_course.lesson_num.to_i)).each do |lesson|
+      .lesson = "第#{lesson}课" 
