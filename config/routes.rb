@@ -1,4 +1,7 @@
+# -*- encoding : utf-8 -*-
 Kecheng::Application.routes.draw do
+  resources :book_categories
+  resources :books
   resources :exercises
 
 

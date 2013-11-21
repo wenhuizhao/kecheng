@@ -1,0 +1,21 @@
+h1 Listing book_categories
+
+table
+  tr
+    th Name
+    th Parent
+    th
+    th
+    th
+
+  - @book_categories.each do |book_category|
+    tr
+      td = book_category.name
+      td = book_category.parent.nil? ? "" : book_category.parent.name
+      td = link_to 'Show', book_category
+      td = link_to 'Edit', edit_book_category_path(book_category)
+      td = link_to 'Destroy', book_category, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to 'New Book category', new_book_category_path

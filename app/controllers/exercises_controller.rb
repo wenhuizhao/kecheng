@@ -1,8 +1,13 @@
+# -*- encoding : utf-8 -*-
 class ExercisesController < ApplicationController
   # GET /exercises
   # GET /exercises.json
   def index
-    @exercises = Exercise.all
+    if params[:book_id].nil?
+      @exercises = Exercise.all
+    else
+      @exercises = Exercise.find_all_by_book_id(params[:book_id])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
