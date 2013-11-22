@@ -20,6 +20,7 @@ class GradesCoursesController < ApplicationController
 
   def update
     if @grades_course.update_attributes(params[:grades_course])
+      do_lessons
       redirect_to grades_courses_path
     else
       render action: 'edit'
@@ -30,6 +31,7 @@ class GradesCoursesController < ApplicationController
     @grades_course = GradesCourse.new(params[:grades_course])
     @grades_course.teacher_id = current_user.id 
     if @grades_course.save
+      do_lessons
       redirect_to grades_courses_path
     else
       render action: 'new'
@@ -42,7 +44,13 @@ class GradesCoursesController < ApplicationController
   end
   
   private
-
+  
+  def do_lessons
+    1.upto(@grades_course.lesson_num.to_i).each do |i|
+      Lesson.where(grades_course_id: @grades_course.id, num: i).first_or_create
+    end
+  end
+  
   def get_grades_course
     @grades_course = GradesCourse.find(params[:id])
   end

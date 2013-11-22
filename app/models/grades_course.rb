@@ -3,7 +3,7 @@ class GradesCourse < ActiveRecord::Base
 
   belongs_to :course
   belongs_to :teacher, class_name: 'User'
-  has_many :homeworks
+  has_many :lessons
 
   validates :class_num, :grade_num, :course_id, presence: true
   

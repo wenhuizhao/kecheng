@@ -1,0 +1,6 @@
+= form_for [:grades_course, @lesson] do |f| 
+  table.list
+    tr
+      td 备注 
+      td = f.text_area :note
+  .block = submit_tag '确定添加', class: 'block'

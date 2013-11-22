@@ -1,0 +1,10 @@
+.notice-bar
+  = @grades_course.full_name
+  = @lesson.title
+
+.lessons-content
+  .title
+  .lessons
+    .lesson 布置作业
+    - @homeworks.each_with_index do |hw, i|
+      .lesson = link_to "第#{i + 1}课", '' 
