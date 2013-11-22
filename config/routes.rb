@@ -12,7 +12,9 @@ Kecheng::Application.routes.draw do
   
   resources :courses
   resources :grades_courses do
-    resources :homeworks
+    resources :lessons do
+      resources :homeworks
+    end
   end
 
   resources :users do

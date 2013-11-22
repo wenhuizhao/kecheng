@@ -4,10 +4,10 @@ class HomeworksController < ApplicationController
   before_filter :get_left_courses
   before_filter :get_homework, except: [:index, :create, :new]
   before_filter :require_teacher
-  before_filter :get_grades_course
+  before_filter :get_lesson
   
   def index
-    @homeworks = @grades_course.homeworks 
+    @homeworks = @lesson.homeworks 
   end
 
   def show
@@ -48,7 +48,7 @@ class HomeworksController < ApplicationController
     @homework = Homework.find(params[:id])
   end
   
-  def get_grades_course
-    @grades_course = GradesCourse.find(params[:grades_course_id])
+  def get_lesson
+    @lesson = Lesson.find(params[:lesson_id])
   end
 end

@@ -1,4 +1,7 @@
-= render partial: 'shared/header', locals: {title: '开课列表'}
+= render partial: 'shared/header', locals: {title: '作业列表'}
+
+.notice-bar
+  = @grades_course.full_name  
 
 table.list-big
   tr
