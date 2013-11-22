@@ -1,31 +1,13 @@
-= form_for @grades_course do |f| 
-  .select-div.grades
-    - Settings.grades.each do |grade|
-      .words data-id='#{grade}' class='#{grade == @grades_course.grade_num.to_i ? 'hover' : ''}' 
-        = App::ChineseNum[grade] + '年级'
+= form_for [:grades_course, :lesson, @homework] do |f| 
 
-  .select-div.classes
-    - Settings.classes.each do |c|
-      .words data-id='#{c}' class='#{c == @grades_course.class_num.to_i ? 'hover' : ''}'
-        = App::ChineseNum[c] + '班'
-
-  .select-div.courses
-    - Course.all.each do |c|
-      .words data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
-        = c.name
-
-  = f.hidden_field :grade_num, id: 'grade_num'
-  = f.hidden_field :class_num, id: 'class_num'
-  = f.hidden_field :course_id, id: 'course_id'
-
+  table.questions
+    - @lesson.questions.each_with_index do |q, i|
+      tr
+        td = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids.include?(q.id)
+        td = "#{i + 1}、#{q.title}"
   table.list
     tr
-      td 课程大纲 
-      td = f.text_area :outline
-    tr
-      td 课程节数 
-      td = f.text_field :lesson_num
-    tr
-      td 是否开放
-      td = f.select :is_open, [['是', 'true'], ['否', 'false']] 
+      td 我的叮嘱
+      td = f.text_area :enjoin, rows: 10
+  = f.hidden_field :num, value: @lesson.homeworks.size if action_name == 'new'
   .block = submit_tag '确定添加', class: 'block'

@@ -1,5 +1,7 @@
 = render partial: 'shared/header', locals: {title: '开课'}
-.btns
-  .add-course.big-btn 添加
+
+.notice-bar
+  = link_to '全部 >>', grades_course_path(@grades_course)
+  = "#{@lesson.title} >> 布置作业"
 
 = render 'form' 

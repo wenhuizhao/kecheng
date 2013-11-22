@@ -1,7 +1,6 @@
 class HomeworksController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :get_left_courses
   before_filter :get_homework, except: [:index, :create, :new]
   before_filter :require_teacher
   before_filter :get_lesson
@@ -17,21 +16,21 @@ class HomeworksController < ApplicationController
   end
 
   def new
-    @homework = Homework.new
+    @homework = @lesson.homeworks.new
   end
 
   def update
     if @homework.update_attributes(params[:homework])
-      redirect_to homeworks_path
+      redirect_to grades_course_lesson_path(@grades_course,@lesson)
     else
       render action: 'edit'
     end
   end
 
   def create
-    @homework = Homework.new(params[:homework])
+    @homework = @lesson.homeworks.new(params[:homework])
     if @homework.save
-      redirect_to homeworks_path
+      redirect_to grades_course_lesson_path(@grades_course,@lesson)
     else
       render action: 'new'
     end
@@ -39,7 +38,7 @@ class HomeworksController < ApplicationController
 
   def destroy
     @homework.destroy
-    redirect_to homeworks_path
+    redirect_to grades_course_lesson_path(@grades_course,@lesson)
   end
   
   private
@@ -49,6 +48,7 @@ class HomeworksController < ApplicationController
   end
   
   def get_lesson
+    @grades_course = GradesCourse.find(params[:grades_course_id])
     @lesson = Lesson.find(params[:lesson_id])
   end
 end

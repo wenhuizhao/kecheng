@@ -7,4 +7,8 @@ class Lesson < ActiveRecord::Base
   def title
     "第#{num}课"
   end
+  
+  def questions
+    Exercise.limit(12)
+  end
 end

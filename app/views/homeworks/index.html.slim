@@ -6,14 +6,10 @@
 table.list-big
   tr
     th 班级
-    th 课程
-    th 状态
+    th 我的叮嘱 
     th 操作
   - @homeworks.each do |c|
     tr
-      td = get_grades(c) 
-      td = c.homework_name
-      td = c.status
-      td.center
-        = link_to '编辑', edit_grades_homework_path(c)
-        = link_to '删除', c, confirm: '确定删除么？', method: :delete
+      td = get_grades(c.lesson.grades_course) 
+      td = c.enjoin
+      td = link_to '删除', c, confirm: '确定删除么？', method: :delete

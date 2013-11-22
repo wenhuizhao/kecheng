@@ -1,7 +1,6 @@
 class GradesCoursesController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :get_left_courses
   before_filter :get_grades_course, except: [:index, :create, :new]
   
   def index

@@ -5,6 +5,6 @@
 .lessons-content
   .title
   .lessons
-    .lesson 布置作业
+    .lesson = link_to '布置作业', new_grades_course_lesson_homework_path(@grades_course, @lesson)
     - @homeworks.each_with_index do |hw, i|
-      .lesson = link_to "第#{i + 1}课", '' 
+      .lesson = link_to "作业#{i + 1}", grades_course_lesson_homework_path(@grades_course, @lesson, hw) 

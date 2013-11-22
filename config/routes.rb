@@ -17,6 +17,7 @@ Kecheng::Application.routes.draw do
     end
   end
 
+  resources :homeworks
   resources :users do
     collection do
       post :create_user_from_admin

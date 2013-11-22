@@ -1,7 +1,6 @@
 class LessonsController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :get_left_courses
   before_filter :get_grades_course
   before_filter :get_lesson, except: [:index, :create, :new]
   before_filter :require_teacher
@@ -42,7 +41,7 @@ class LessonsController < ApplicationController
   private
 
   def get_lesson
-    @lesson = @grades_course.lessons.find_by_num(params[:id])
+    @lesson = @grades_course.lessons.find(params[:id])
     # redirect_to action: :new if @lesson.nil?
   end
   

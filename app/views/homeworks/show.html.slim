@@ -1,8 +1,8 @@
-.notice-bar
-  = @grades_course.full_name  
+= render partial: 'shared/header', locals: {title: '开课'}
 
-.lessons-content
-  .title
-  .lessons
-    - (1..(@grades_course.lesson_num.to_i)).each do |lesson|
-      .lesson = link_to "第#{lesson}课", '' 
+.notice-bar
+  = link_to '全部 >>', grades_course_lesson_path(@grades_course, @lesson)
+  = "#{@lesson.title} >> 作业#{@homework.num}"
+
+.btns
+  = link_to '编辑', edit_grades_course_lesson_homework_path
