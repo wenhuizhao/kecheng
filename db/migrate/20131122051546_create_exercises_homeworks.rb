@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateExercisesHomeworks < ActiveRecord::Migration
   def change
     create_table :exercises_homeworks, id: false do |t|

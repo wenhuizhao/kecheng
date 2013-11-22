@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddBookIdToHomeworks < ActiveRecord::Migration
   def change
     add_column :homeworks, :book_id, :integer

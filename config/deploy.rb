@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 set :application, 'kecheng'
 set :repository, 'git@github.com:wenhuizhao/kecheng.git'
 set :branch, "develop"

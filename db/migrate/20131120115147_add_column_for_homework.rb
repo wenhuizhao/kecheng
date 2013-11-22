@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddColumnForHomework < ActiveRecord::Migration
   def up
     add_column :homeworks, :grades_course_id, :integer

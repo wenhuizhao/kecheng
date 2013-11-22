@@ -1,8 +1,9 @@
-= render partial: 'shared/header', locals: {title: '开课'}
+= render partial: 'shared/header', locals: {title: '作业详情'}
 
 .notice-bar
-  = link_to '全部 >>', grades_course_lesson_path(@grades_course, @lesson)
-  = "#{@lesson.title} >> 作业#{@homework.num}"
+  = link_to '全部 >>', grades_course_path(@grades_course)
+  = link_to "#{@lesson.title} >>", grades_course_lesson_path(@grades_course, @lesson)
+  = "作业#{@homework.num}"
 
 .btns
   = link_to '编辑', edit_grades_course_lesson_homework_path

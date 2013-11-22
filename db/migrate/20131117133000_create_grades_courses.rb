@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateGradesCourses < ActiveRecord::Migration
   def change
     create_table :grades_courses do |t|

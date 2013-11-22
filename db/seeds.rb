@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -41,3 +42,4 @@ end
 
 Settings.grades = [1,2,3,4,5] if Settings.grades.nil?
 Settings.classes = [1,2,3,4,5] if Settings.classes.nil?
+Settings.homework_status = %w(未批阅 待改错 已改错 已完成) if Settings.homework_status.nil?

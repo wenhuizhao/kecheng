@@ -6,7 +6,7 @@
       h1 已选课程 >
     .courses
       - @courses.each do |c|
-        h1 = c.name
+        h1 = c.course_name
 
   - if current_user.is_teacher?
     .course-title

@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- encoding : utf-8 -*-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131122054934) do
+ActiveRecord::Schema.define(:version => 20131122140947) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(:version => 20131122054934) do
     t.integer "exercise_id"
     t.integer "homework_id"
   end
+
+  create_table "grade_students", :force => true do |t|
+    t.integer  "grade_num"
+    t.integer  "class_num"
+    t.integer  "student_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "grade_students", ["class_num"], :name => "index_grade_students_on_class_num"
+  add_index "grade_students", ["grade_num"], :name => "index_grade_students_on_grade_num"
+  add_index "grade_students", ["student_id"], :name => "index_grade_students_on_student_id"
 
   create_table "grades_courses", :force => true do |t|
     t.integer  "grade_num"
@@ -143,12 +155,27 @@ ActiveRecord::Schema.define(:version => 20131122054934) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "student_courses", :force => true do |t|
+    t.integer  "grades_course_id"
+    t.integer  "student_id"
+    t.string   "note"
+    t.string   "score"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "student_courses", ["grades_course_id"], :name => "index_student_courses_on_grades_course_id"
+  add_index "student_courses", ["student_id"], :name => "index_student_courses_on_student_id"
+
   create_table "student_homeworks", :force => true do |t|
     t.integer  "student_id"
     t.integer  "homework_id"
     t.string   "status"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "score"
+    t.string   "level"
+    t.string   "ask_note"
   end
 
   create_table "users", :force => true do |t|

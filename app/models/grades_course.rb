@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GradesCourse < ActiveRecord::Base
   attr_accessible :class_num, :course_id, :grade_num, :is_open, :teacher_id, :lesson_num, :outline
 

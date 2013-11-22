@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RemoveColumnsFromCourses < ActiveRecord::Migration
   def up
     remove_column :courses, :stu_class_id

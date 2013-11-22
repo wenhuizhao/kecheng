@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateSchools < ActiveRecord::Migration
   def change
     create_table :schools do |t|

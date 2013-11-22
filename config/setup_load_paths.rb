@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 if ENV['MY_RUBY_HOME'] && ENV['MY_RUBY_HOME'].include?('rvm')
   begin
     require 'rvm'

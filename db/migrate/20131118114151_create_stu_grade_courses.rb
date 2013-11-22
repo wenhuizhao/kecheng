@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateStuGradeCourses < ActiveRecord::Migration
   def change
     create_table :stu_grade_courses do |t|

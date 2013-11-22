@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeColumnForHomework < ActiveRecord::Migration
   def up
     rename_column :homeworks, :lession_id, :lesson_id

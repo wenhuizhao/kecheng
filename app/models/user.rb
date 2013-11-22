@@ -1,4 +1,4 @@
-#encoding: utf-8
+# -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -16,7 +16,12 @@ class User < ActiveRecord::Base
   
   belongs_to :role
   belongs_to :school
-  
+  has_many :student_homeworks, foreign_key: 'student_id'
+  has_many :homeworks, through: :student_homeworks
+
+  has_many :student_courses, foreign_key: 'student_id'
+  # has_many :selected_courses, through: :student_courses
+
   Role.all.each {|r| define_method("is_#{r.en_name}?") {role and role.name == r.name}}
 
   def is_admin?
@@ -40,7 +45,9 @@ class User < ActiveRecord::Base
   end
 
   def selected_courses
-    Course.all
+    StudentCourse.where(student_id: self.id).inject([]) do |courses, sgc|
+      courses << sgc.grades_course.course
+    end
   end
 
   def self.teachers

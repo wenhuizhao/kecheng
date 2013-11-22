@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateStudentHomeworks < ActiveRecord::Migration
   def change
     create_table :student_homeworks do |t|

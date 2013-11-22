@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddFieldsToUsers < ActiveRecord::Migration
   def change
     add_column :users, :login, :string

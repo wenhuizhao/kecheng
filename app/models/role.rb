@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Role < ActiveRecord::Base
   attr_accessible :name, :en_name
   
