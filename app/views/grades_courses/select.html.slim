@@ -1,0 +1,17 @@
+= render partial: 'shared/header', locals: {title: '已开课程'}
+
+= form_tag select_grades_courses_path
+  table.list-big
+    tr
+      th 
+      th 课程
+      th 课程数
+      th 教师
+    - @all_courses.each do |c|
+      tr
+        td = check_box_tag 'student[course_ids][]', c.id, current_user.selected_courses.include?(c)
+        td = c.course_name
+        td = c.lesson_num
+        td = c.teacher_name
+
+  .block = submit_tag "保存"

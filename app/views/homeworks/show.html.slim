@@ -5,5 +5,8 @@
   = link_to "#{@lesson.title} >>", grades_course_lesson_path(@grades_course, @lesson)
   = "作业#{@homework.num}"
 
-.btns
-  = link_to '编辑', edit_grades_course_lesson_homework_path
+
+- if current_user.is_student?
+  = render 'student'
+- else
+  = render 'teacher' 

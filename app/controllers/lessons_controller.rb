@@ -4,7 +4,7 @@ class LessonsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_grades_course
   before_filter :get_lesson, except: [:index, :create, :new]
-  before_filter :require_teacher
+  before_filter :require_teacher, except: [:show]
   
   def show
     @homeworks = @lesson.homeworks

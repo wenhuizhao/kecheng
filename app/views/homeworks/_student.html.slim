@@ -1,0 +1,12 @@
+- if @homework.exercises.size > 0
+  table.list
+    - @homework.exercises.each do |hwq|
+      tr
+        td = hwq.title
+        td
+
+  .enjoin
+    | 老师的叮嘱
+    = text_area_tag :enjoin, @homework.enjoin
+- else
+  | 暂无练习题

@@ -1,12 +1,12 @@
 .left
   - if current_user.is_student?
     .course-title
-      h1 选课
+      h1 = link_to '选课', select_grades_courses_path
     .course-toggle-title
       h1 已选课程 >
     .courses
       - @courses.each do |c|
-        h1 = c.course_name
+        h2 = link_to c.course_name, grades_course_path(c)
 
   - if current_user.is_teacher?
     .course-title

@@ -5,6 +5,10 @@
 .lessons-content
   .title
   .lessons
-    .lesson = link_to '布置作业', new_grades_course_lesson_homework_path(@grades_course, @lesson)
-    - @homeworks.each_with_index do |hw, i|
-      .lesson = link_to "作业#{i + 1}", grades_course_lesson_homework_path(@grades_course, @lesson, hw) 
+    - if current_user.is_teacher?
+      .lesson = link_to '布置作业', new_grades_course_lesson_homework_path(@grades_course, @lesson)
+    - if @homeworks.size > 0
+      - @homeworks.each_with_index do |hw, i|
+        .lesson = link_to "作业#{i + 1}", grades_course_lesson_homework_path(@grades_course, @lesson, hw)
+    - else
+      .lesson 暂无作业 

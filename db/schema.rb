@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131122140947) do
+ActiveRecord::Schema.define(:version => 20131123140329) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(:version => 20131122140947) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "exercise_options", :force => true do |t|
+    t.string   "name"
+    t.integer  "exercise_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
+
   create_table "exercises", :force => true do |t|
     t.string   "title"
     t.string   "note"
@@ -52,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20131122140947) do
     t.datetime "photo_updated_at"
     t.integer  "category_id"
     t.integer  "book_id"
+    t.integer  "qtype_id"
   end
 
   create_table "exercises_homeworks", :id => false, :force => true do |t|
@@ -73,7 +85,7 @@ ActiveRecord::Schema.define(:version => 20131122140947) do
 
   create_table "grades_courses", :force => true do |t|
     t.integer  "grade_num"
-    t.string   "class_num"
+    t.integer  "class_num"
     t.integer  "course_id"
     t.boolean  "is_open"
     t.datetime "created_at", :null => false
@@ -115,6 +127,12 @@ ActiveRecord::Schema.define(:version => 20131122140947) do
     t.integer  "category_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "qtypes", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "questions", :force => true do |t|

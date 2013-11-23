@@ -8,11 +8,15 @@ Kecheng::Application.routes.draw do
 
   get "home/index"
   match "home/open_courses"
+  match "select_grades" => 'grades_courses#select_grades'
 
   devise_for :users, controllers: {registrations: 'registrations'}
   
   resources :courses
   resources :grades_courses do
+    collection do
+      match 'select'
+    end
     resources :lessons do
       resources :homeworks
     end

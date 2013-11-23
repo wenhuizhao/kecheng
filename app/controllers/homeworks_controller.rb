@@ -3,7 +3,7 @@ class HomeworksController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :get_homework, except: [:index, :create, :new]
-  before_filter :require_teacher
+  before_filter :require_teacher, except: [:show]
   before_filter :get_lesson
   
   def index

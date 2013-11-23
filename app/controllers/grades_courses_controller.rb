@@ -2,7 +2,7 @@
 class GradesCoursesController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :get_grades_course, except: [:index, :create, :new]
+  before_filter :get_grades_course, except: [:index, :create, :new, :select, :select_grades]
   
   def index
 
@@ -12,6 +12,30 @@ class GradesCoursesController < ApplicationController
   end
 
   def edit
+  end
+  
+  def select
+    redirect_to select_grades_path unless current_user.grades
+    if request.post?
+      params[:student][:course_ids].each do |gcid|
+        StudentCourse.where(grades_course_id: gcid.to_i, student_id: current_user.id).first_or_create
+      end
+      redirect_to root_path
+    else
+      @all_courses = current_user.courses_of_select
+    end
+  end
+
+  def select_grades
+    return unless request.post?
+    h = {grade_num: params[:grade_num], class_num: params[:class_num]}
+    if current_user.grades
+      current_user.grades.update_attributes(h)
+    else
+      GradeStudent.create(h.merge(student_id: current_user.id))
+      redirect_to select_grades_courses_path
+    end
+    flash[:notice] = '保存成功'
   end
 
   def new
