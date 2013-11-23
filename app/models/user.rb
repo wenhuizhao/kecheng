@@ -64,6 +64,10 @@ class User < ActiveRecord::Base
     GradeStudent.where(student_id: self.id).last
   end
 
+  def clear_selected_courses
+    StudentCourse.where(student_id: self.id).each {|s| s.delete}
+  end
+
   def grade_num
     grades.try :grade_num
   end

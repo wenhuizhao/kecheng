@@ -8,6 +8,10 @@ $(document).ready ->
     # $('.left .courses').toggle()
     redirect_to '/grades_courses'
 
+  $('.student-left').click ->
+    $('.left .courses').toggle()
+    # redirect_to '/grades_courses/select'
+
   $('.xld-left').click ->
     redirect_to '/'
   

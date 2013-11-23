@@ -1,12 +1,14 @@
 - if @homework.exercises.size > 0
-  table.list
+  table.list-big
     - @homework.exercises.each do |hwq|
       tr
         td = hwq.title
-        td
+        td 
+          = link_to '回答问题'
 
   .enjoin
-    | 老师的叮嘱
-    = text_area_tag :enjoin, @homework.enjoin
+    | 老师的叮嘱: 
+    = text_area_tag :enjoin, @homework.enjoin, rows: 10, cols: 50
+
 - else
   | 暂无练习题

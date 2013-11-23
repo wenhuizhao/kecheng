@@ -19,7 +19,7 @@ class GradesCoursesController < ApplicationController
     if request.post?
       params[:student][:course_ids].each do |gcid|
         StudentCourse.where(grades_course_id: gcid.to_i, student_id: current_user.id).first_or_create
-      end
+      end rescue current_user.clear_selected_courses
       redirect_to root_path
     else
       @all_courses = current_user.courses_of_select
