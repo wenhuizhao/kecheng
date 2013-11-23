@@ -12,4 +12,8 @@ class Lesson < ActiveRecord::Base
   def questions
     Exercise.limit(12)
   end
+
+  def students
+  	self.grades_course.students
+  end
 end

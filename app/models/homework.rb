@@ -5,5 +5,12 @@ class Homework < ActiveRecord::Base
   belongs_to :lesson
   has_and_belongs_to_many :exercises
   
+  has_many :student_homeworks
+  has_many :students, through: :student_homeworks
+
   validates :enjoin, presence: true
+
+  def unsubmit_students
+    self.lesson.students - self.students
+  end
 end

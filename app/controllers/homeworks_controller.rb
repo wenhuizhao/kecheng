@@ -11,6 +11,7 @@ class HomeworksController < ApplicationController
   end
 
   def show
+    @unsubmit_students = @homework.unsubmit_students
   end
 
   def edit

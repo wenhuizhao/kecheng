@@ -9,3 +9,13 @@ $font-size-big: 18px
 $font-size-large: 22px
 
 $main-color: rgb(0,204,204)
+
+
+@mixin block($color: $main-color, $margin: 20px)
+  text-align: center
+  width: 65px
+  line-height: 40px
+  margin: $margin
+  background: $color
+  display: inline-block
+  // float: left

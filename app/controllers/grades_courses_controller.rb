@@ -5,7 +5,6 @@ class GradesCoursesController < ApplicationController
   before_filter :get_grades_course, except: [:index, :create, :new, :select, :select_grades]
   
   def index
-
   end
 
   def show
@@ -20,10 +19,10 @@ class GradesCoursesController < ApplicationController
       params[:student][:course_ids].each do |gcid|
         StudentCourse.where(grades_course_id: gcid.to_i, student_id: current_user.id).first_or_create
       end rescue current_user.clear_selected_courses
-      redirect_to root_path
-    else
-      @all_courses = current_user.courses_of_select
+      # redirect_to root_path
+      flash[:notice] = '保存成功'
     end
+    @all_courses = current_user.courses_of_select
   end
 
   def select_grades

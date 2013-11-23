@@ -29,7 +29,8 @@ class User < ActiveRecord::Base
   end
 
   def name
-    firstname || '沒有' 
+    # firstname || '沒有' 
+    login || '沒有' 
   end
   
   def role_name
@@ -40,40 +41,10 @@ class User < ActiveRecord::Base
     school ? school.name : '暂无学校信息'
   end
   
-  #teachers
-  def opened_courses
-    GradesCourse.where(teacher_id: self.id) 
-  end
-  
   def self.teachers
     select{|u| u.role_name == '教师'}
   end
 
-  #students
-  def selected_courses
-    StudentCourse.where(student_id: self.id).inject([]) do |courses, sgc|
-      courses << sgc.grades_course
-    end
-  end
-
-  def courses_of_select
-    GradesCourse.where(grade_num: self.grade_num, class_num: self.class_num)
-  end
-  
-  def grades
-    GradeStudent.where(student_id: self.id).last
-  end
-
-  def clear_selected_courses
-    StudentCourse.where(student_id: self.id).each {|s| s.delete}
-  end
-
-  def grade_num
-    grades.try :grade_num
-  end
-
-  def class_num
-    grades.try :class_num
-  end
-
+  include Student
+  include Teacher
 end

@@ -5,6 +5,8 @@ class GradesCourse < ActiveRecord::Base
   belongs_to :course
   belongs_to :teacher, class_name: 'User'
   has_many :lessons
+  has_many :student_courses
+  has_many :students, through: :student_courses
 
   validates :class_num, :grade_num, :course_id, :outline, presence: true
   
