@@ -10,6 +10,9 @@ p
   strong Title:
   = @exercise.title
 p
+  strong Options:
+  = @exercise.options.map(&:name)
+p
   strong Note:
   = @exercise.note
 p

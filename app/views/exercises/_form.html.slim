@@ -1,4 +1,4 @@
-= form_for @exercise do |f|
+= form_for setup_exercise(@exercise) do |f|
   - if @exercise.errors.any?
     #error_explanation
       h2 = "#{pluralize(@exercise.errors.count, "error")} prohibited this exercise from being saved:"
@@ -13,8 +13,17 @@
     = f.label :category
     = f.select(:category_id, options_from_collection_for_select(Category.all, :id, :name))
   .field
+    = f.label :question_type
+    = f.select(:qtype_id, options_from_collection_for_select(Qtype.all, :id, :name), {}, :onchange => "$('#option').show()")
+  .field
     = f.label :title
     = f.text_area :title, {:rows=>5, :cols=>80}
+  div id="option" style="display:block"
+    .field
+      = f.fields_for :options do |ff|
+        = ff.label :option
+        = ff.text_field :name
+
   .field
     = f.label :note
     = f.text_area :note, {:rows=>2, :cols=>80}
@@ -25,3 +34,6 @@
     = f.label :photo
     = f.file_field :photo
   .actions = f.submit 'Save'
+
+
+
