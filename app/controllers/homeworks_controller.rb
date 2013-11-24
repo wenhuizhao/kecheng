@@ -4,7 +4,7 @@ class HomeworksController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_homework, except: [:index, :create, :new]
   before_filter :require_teacher, except: [:show]
-  before_filter :get_lesson
+  before_filter :get_lesson, except: [:check]
   
   def index
     @homeworks = @lesson.homeworks 
@@ -16,6 +16,10 @@ class HomeworksController < ApplicationController
     else
       @student_homework = @homework.student_homeworks.last || StudentHomework.new
     end
+  end
+
+  def check
+    @student_homework = StudentHomework.where(student_id: params[:student_id], homework_id: params[:id]).last
   end
 
   def edit

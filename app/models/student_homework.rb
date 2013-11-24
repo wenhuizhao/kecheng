@@ -8,6 +8,6 @@ class StudentHomework < ActiveRecord::Base
   before_create :set_status
 
   def set_status
-    status = Settings.homework_status.first
+    self.status = Settings.homework_status.first
   end
 end

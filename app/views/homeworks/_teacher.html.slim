@@ -11,5 +11,6 @@
   - shs = StudentHomework.where(status: status)
   .status 
     .name = status + "#{shs.size}人"
-    .student test
+    - shs.each do |sh|
+      .student = link_to sh.student.name, check_homework_path(student_id: sh.student_id)
 

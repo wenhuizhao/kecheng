@@ -1,0 +1,8 @@
+= render partial: 'shared/header', locals: {title: '作业批阅'}
+
+.notice-bar
+  = link_to '全部 >>', grades_course_path(@homework.grades_course)
+  = link_to "#{@homework.lesson.title} >>", grades_course_lesson_path(@homework.grades_course, @homework.lesson)
+  = link_to "作业#{@homework.num} >>", grades_course_lesson_homework_path(@homework.grades_course, @homework.lesson)
+
+= render 'show_form'

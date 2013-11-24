@@ -1,0 +1,17 @@
+= form_for @student_homework do |f|
+  table.list-big
+    - @homework.exercises.each do |hwq|
+      tr
+        td = hwq.title
+        td 
+          = '批阅'
+    tr
+      td 作业评级
+      td = f.select :level, Settings.homework_levels.map {|sl| [sl, sl]}
+    tr
+      td 改错提交
+      td = f.select :status, [ ['否', '已完成'], ['是', '待改错']]
+
+  = f.hidden_field :homework_id, value: @homework.id
+  .block 
+    = submit_tag '批阅作业'

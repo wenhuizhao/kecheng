@@ -24,7 +24,11 @@ Kecheng::Application.routes.draw do
     end
   end
 
-  resources :homeworks
+  resources :homeworks do
+    member do
+      match :check
+    end
+  end
   resources :users do
     collection do
       post :create_user_from_admin
