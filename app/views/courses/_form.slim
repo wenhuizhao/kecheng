@@ -1,3 +1,4 @@
+= render partial: 'shared/header', locals: {title: '课程管理'}
 table.list-big
   = form_for @course do |f|
     - if @course.errors.any?

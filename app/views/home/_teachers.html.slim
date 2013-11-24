@@ -1,0 +1,4 @@
+.teachers 教师
+
+- User.teachers.each do |tc|
+  .student = link_to tc.name, grades_courses_path(teacher_id: tc.id)

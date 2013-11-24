@@ -1,3 +1,4 @@
+= render partial: 'shared/header', locals: {title: '课程管理'}
 - action = action_name == 'edit' || action_name == 'update' ? 'update' : 'create_user_from_admin'
 = form_tag action: action
   = render partial: 'shared/error_msgs', locals: {target: @user}

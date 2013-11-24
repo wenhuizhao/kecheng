@@ -14,5 +14,8 @@ table.list-big
       td = c.lesson_num
       td = c.status
       td.center
-        = link_to '编辑', edit_grades_course_path(c)
-        = link_to '删除', c, confirm: '确定删除么？', method: :delete
+        - if current_user.is_teacher?
+          = link_to '编辑', edit_grades_course_path(c)
+          = link_to '删除', c, confirm: '确定删除么？', method: :delete
+        - else
+          = link_to '查看', grades_course_path(c)

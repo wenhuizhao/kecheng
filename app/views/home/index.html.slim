@@ -1,11 +1,6 @@
-- content_for :header
-  .h-left
-    
-  h1 = "欢迎你: " + current_user.email + '(' + current_user.role_name + ')'
-  .h-right
-    = link_to '退出', destroy_user_session_path, method: :delete
-
 - if current_user.is_admin_xld?
+  = render partial: 'shared/header', locals: {title: current_user.school_name}
+
   .bar.grades
     .words.white 年级:
     .words 全部
@@ -26,3 +21,5 @@
     - Course.all.each do |c|
       .words data-id='#{c.id}'
         = c.name
+  br
+  = render 'teachers'
