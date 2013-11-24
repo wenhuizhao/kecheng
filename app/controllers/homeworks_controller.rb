@@ -11,7 +11,7 @@ class HomeworksController < ApplicationController
   end
 
   def show
-    if current_user.is_teacher?
+    unless current_user.is_student?
       @unsubmit_students = @homework.unsubmit_students
     else
       @student_homework = @homework.student_homeworks.last || StudentHomework.new

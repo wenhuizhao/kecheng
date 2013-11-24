@@ -5,4 +5,7 @@
   = link_to "#{@homework.lesson.title} >>", grades_course_lesson_path(@homework.grades_course, @homework.lesson)
   = link_to "作业#{@homework.num} >>", grades_course_lesson_homework_path(@homework.grades_course, @homework.lesson)
 
+.block 
+  | 作业提交时间： 
+  = into_datetime(@student_homework.updated_at)
 = render 'show_form'

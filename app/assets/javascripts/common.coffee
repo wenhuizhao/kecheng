@@ -1,5 +1,7 @@
 $(document).ready ->
   
+  # setTimeout $('#notice').hide(1000)
+
   window.App =
     grade: 'g1'
     cls: 'c1'

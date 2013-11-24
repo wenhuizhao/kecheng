@@ -44,7 +44,7 @@ class StudentHomeworksController < ApplicationController
   def reto_homework_path
     homework = @student_homework.homework
     grades_course, lesson = homework.grades_course, homework.lesson
-    flash[:notice] = '作业提交成功'
+    flash[:notice] = current_user.is_student? ? '作业提交成功' : '作业批阅成功'
     redirect_to grades_course_lesson_homework_path(grades_course, lesson, homework)
   end
 
