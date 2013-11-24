@@ -1,0 +1,8 @@
+- if target.errors.any?
+  .alert.alert-error
+    strong
+      = target.errors.count
+      | 个错误
+    ol
+      - target.errors.full_messages.each do |msg|
+        li = msg

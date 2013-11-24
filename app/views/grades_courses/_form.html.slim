@@ -1,4 +1,5 @@
 = form_for @grades_course do |f| 
+  / = render partial: 'shared/error_msgs', locals: {target: @grades_course}
   .select-div.grades
     - Settings.grades.each do |grade|
       .words data-id='#{grade}' class='#{grade == @grades_course.grade_num.to_i ? 'hover' : ''}' 

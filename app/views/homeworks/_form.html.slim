@@ -1,5 +1,5 @@
 = form_for [:grades_course, :lesson, @homework] do |f| 
-
+  = render partial: 'shared/error_msgs', locals: {target: @homework}
   table.questions
     - @lesson.questions.each_with_index do |q, i|
       tr

@@ -1,17 +1,11 @@
-- action = action_name == 'edit' ? 'update' : 'create_user_from_admin'
+- action = action_name == 'edit' || action_name == 'update' ? 'update' : 'create_user_from_admin'
 = form_tag action: action
+  = render partial: 'shared/error_msgs', locals: {target: @user}
   table.list-big
-    - if @user.errors.any?
-      #error_explanation
-        h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
-        ul
-          - @user.errors.full_messages.each do |message|
-            li = message
     - if action_name == 'new' || action_name == 'create_user_from_admin'
       tr
         td = label_tag :邮件
         td = text_field :user, :email
-
     tr
       td = label_tag :用户名
       td = text_field :user, :login

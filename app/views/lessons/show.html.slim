@@ -1,7 +1,7 @@
 = render partial: 'shared/header', locals: {title: '课程详情'}
 
 .notice-bar
-  = @grades_course.full_name
+  = link_to @grades_course.full_name, grades_course_path(@grades_course)
   = @lesson.title
 
 .lessons-content

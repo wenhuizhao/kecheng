@@ -2,11 +2,12 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 zh-CN:
-  
 
   activerecord:
     models:
       user: '帐号'
+      homework: 作业
+      grades_course: 课程
     attributes:
       user:
         email: '电子邮件'
@@ -14,6 +15,13 @@ zh-CN:
         login: '用户名'
         email: '电子邮件'
         auth_code: '验证码'
+      homework:
+        enjoin: 叮嘱
+      grades_course:
+        grades_num: 年级
+        class_num: 班
+        lesson_num: 课程节数
+        outline: 大纲
     errors:
       messages:
         blank: "不能为空"

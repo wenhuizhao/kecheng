@@ -1,4 +1,6 @@
 = render partial: 'shared/header', locals: {title: '用户管理'}
+.btns
+  = link_to '添加用户', new_user_path
 table.list-big
   tr
     th 用户名
