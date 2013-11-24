@@ -3,7 +3,7 @@ class GradesCoursesController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :get_grades_course, except: [:index, :create, :new, :select, :select_grades]
-  before_filter :require_teacher, except: [:select, :select_grades]
+  before_filter :require_teacher, except: [:select, :select_grades, :show]
 
   def index
   end

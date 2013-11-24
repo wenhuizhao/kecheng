@@ -13,6 +13,8 @@ Kecheng::Application.routes.draw do
   devise_for :users, controllers: {registrations: 'registrations'}
   
   resources :courses
+  resources :student_homeworks
+
   resources :grades_courses do
     collection do
       match 'select'

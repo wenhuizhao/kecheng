@@ -11,7 +11,11 @@ class HomeworksController < ApplicationController
   end
 
   def show
-    @unsubmit_students = @homework.unsubmit_students
+    if current_user.is_teacher?
+      @unsubmit_students = @homework.unsubmit_students
+    else
+      @student_homework = @homework.student_homeworks.last || StudentHomework.new
+    end
   end
 
   def edit

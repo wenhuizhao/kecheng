@@ -1,14 +1,17 @@
 - if @homework.exercises.size > 0
-  table.list-big
-    - @homework.exercises.each do |hwq|
-      tr
-        td = hwq.title
-        td 
-          = link_to '回答问题'
+  = form_for @student_homework do |f|
+    table.list-big
+      - @homework.exercises.each do |hwq|
+        tr
+          td = hwq.title
+          td 
+            = link_to '回答问题'
 
-  .enjoin
-    | 老师的叮嘱: 
-    = text_area_tag :enjoin, @homework.enjoin, rows: 10, cols: 50
+    .enjoin
+      | 老师的叮嘱: 
+      = @homework.enjoin
+    = f.hidden_field :homework_id, value: @homework.id
+    =  submit_tag '提交作业'
 
 - else
   | 暂无练习题

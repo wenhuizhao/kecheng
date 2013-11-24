@@ -1,6 +1,10 @@
 - if current_user.is_admin_xld?
-  = render partial: 'shared/header', locals: {title: current_user.school_name}
+  - title = current_user.school_name
+- else
+  - title = '欢迎你： ' + current_user.name + "(#{current_user.role_name})"
 
+= render partial: 'shared/header', locals: {title: title}
+- if current_user.is_admin_xld?
   .bar.grades
     .words.white 年级:
     .words 全部
