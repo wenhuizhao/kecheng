@@ -7,13 +7,14 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :lastname, :firstname, :login, :gender, :auth_code, :school_id, :role_id
+  attr_accessible :lastname, :firstname, :login, :gender, :auth_code, :school_id, :role_id, :real_name
   # attr_accessible :title, :body
 
   validates_uniqueness_of :email, :case_sensitive => false
 
   validates :login, presence: true, uniqueness: true, length: { minimum: 3, maximum: 20 }
-  
+  validates :real_name, presence: true
+
   belongs_to :role
   belongs_to :school
   has_many :student_homeworks, foreign_key: 'student_id'
@@ -30,7 +31,7 @@ class User < ActiveRecord::Base
 
   def name
     # firstname || '沒有' 
-    login || '沒有' 
+    real_name || '沒有' 
   end
   
   def role_name
