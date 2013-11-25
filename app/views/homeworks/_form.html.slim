@@ -1,4 +1,4 @@
-= form_for [:grades_course, :lesson, @homework] do |f| 
+= form_for [@grades_course, @lesson, @homework] do |f| 
   = render partial: 'shared/error_msgs', locals: {target: @homework}
   table.questions
     - @lesson.questions.each_with_index do |q, i|
@@ -9,5 +9,8 @@
     tr
       td 我的叮嘱
       td = f.text_area :enjoin, rows: 10
+    tr
+      td 截止时间
+      td = f.datetime_select :end_time, use_month_numbers: true, order: [:year, :month, :day]
   = f.hidden_field :num, value: @lesson.homeworks.size if action_name == 'new'
   .block = submit_tag '确定添加', class: 'block'

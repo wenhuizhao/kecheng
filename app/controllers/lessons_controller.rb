@@ -19,7 +19,7 @@ class LessonsController < ApplicationController
 
   def update
     if @lesson.update_attributes(params[:lesson])
-      redirect_to lessons_path
+      redirect_to grades_course_lesson_path(@grades_course, @lesson)
     else
       render action: 'edit'
     end
@@ -28,7 +28,7 @@ class LessonsController < ApplicationController
   def create
     @lesson = Lesson.new(params[:lesson])
     if @lesson.save
-      redirect_to lessons_path
+      redirect_to grades_course_lesson_path(@grades_course, @lesson)
     else
       render action: 'new'
     end
@@ -36,7 +36,7 @@ class LessonsController < ApplicationController
 
   def destroy
     @lesson.destroy
-    redirect_to lessons_path
+    redirect_to grades_course_lesson_path(@grades_course, @lesson)
   end
   
   private

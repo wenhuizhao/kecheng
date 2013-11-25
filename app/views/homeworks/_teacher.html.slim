@@ -1,5 +1,5 @@
 .btns
-  / # = link_to '编辑作业', edit_grades_course_lesson_homework_path
+  = link_to '编辑作业', edit_grades_course_lesson_homework_path
 
 .status-students
 
@@ -8,8 +8,8 @@
   - @unsubmit_students.each do |s|
     .student = s.name
 - Settings.homework_status.each do |status|
-  - shs = StudentHomework.where(status: status)
-  .status 
+  - shs = StudentHomework.where(status: status, homework_id: @homework.id)
+  .status
     .name = status + "#{shs.size}人"
     - shs.each do |sh|
       .student = link_to sh.student.name, check_homework_path(student_id: sh.student_id)
