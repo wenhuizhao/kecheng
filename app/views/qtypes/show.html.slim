@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @qtype.name
+
+= link_to 'Edit', edit_qtype_path(@qtype)
+'|
+= link_to 'Back', qtypes_path

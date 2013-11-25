@@ -1,0 +1,23 @@
+= form_for @exercise_text do |f|
+  - if @exercise_text.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@exercise_text.errors.count, "error")} prohibited this exercise_text from being saved:"
+      ul
+        - @exercise_text.errors.full_messages.each do |message|
+          li = message
+  .field
+    = f.label :book
+    = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name))
+  .field
+    = f.label :section
+    = f.text_field :section
+  .field
+    = f.label :page
+    = f.number_field :page
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :content
+    = f.text_area :content
+  .actions = f.submit 'Save'

@@ -1,0 +1,19 @@
+h1 Listing qtypes
+
+table
+  tr
+    th Name
+    th
+    th
+    th
+
+  - @qtypes.each do |qtype|
+    tr
+      td = qtype.name
+      td = link_to 'Show', qtype
+      td = link_to 'Edit', edit_qtype_path(qtype)
+      td = link_to 'Destroy', qtype, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to 'New Qtype', new_qtype_path

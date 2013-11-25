@@ -1,0 +1,25 @@
+h1 Listing exercise_texts
+
+table
+  tr
+    th Content
+    th Book
+    th Section
+    th Page
+    th
+    th
+    th
+
+  - @exercise_texts.each do |exercise_text|
+    tr
+      td = exercise_text.content
+      td = exercise_text.book_id
+      td = exercise_text.section
+      td = exercise_text.page
+      td = link_to 'Show', exercise_text
+      td = link_to 'Edit', edit_exercise_text_path(exercise_text)
+      td = link_to 'Destroy', exercise_text, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to 'New Exercise text', new_exercise_text_path

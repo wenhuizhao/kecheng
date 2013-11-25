@@ -1,0 +1,20 @@
+p#notice = notice
+p
+  strong Book:
+  = @exercise_text.book.name
+p
+  strong Section:
+  = @exercise_text.section
+p
+  strong Page:
+  = @exercise_text.page
+p
+  strong Title:
+  = @exercise_text.title
+p
+  strong Content:
+  = @exercise_text.content
+
+= link_to 'Edit', edit_exercise_text_path(@exercise_text)
+'|
+= link_to 'Back', exercise_texts_path

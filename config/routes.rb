@@ -1,17 +1,20 @@
 # -*- encoding : utf-8 -*-
 Kecheng::Application.routes.draw do
-  resources :qtypes
-  resources :book_categories
-  resources :books
-  resources :exercises
 
 
   get "home/index"
   match "home/open_courses"
   match "select_grades" => 'grades_courses#select_grades'
+  match "exercises/update_text" => "exercises#update_text", :as => "update_text"
 
   devise_for :users, controllers: {registrations: 'registrations'}
-  
+
+  resources :exercise_texts
+  resources :qtypes
+  resources :book_categories
+  resources :books
+  resources :exercises
+
   resources :courses
   resources :student_homeworks
 

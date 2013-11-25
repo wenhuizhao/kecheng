@@ -36,4 +36,7 @@ Kecheng::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  Slim::Engine.set_default_options :pretty => true, :sort_attrs => false
+
 end
