@@ -85,4 +85,12 @@ class ExercisesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def update_text
+    book = Book.find(params[:book_id])
+    @exercise_texts = book.exercise_texts.map{|t| [t.title, t.id]}
+    respond_to do |format|
+      format.js
+    end
+  end
 end
