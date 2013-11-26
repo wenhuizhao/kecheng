@@ -14,6 +14,7 @@ Kecheng::Application.routes.draw do
   resources :book_categories
   resources :books
   resources :exercises
+  resources :messages
 
   resources :courses
   resources :student_homeworks

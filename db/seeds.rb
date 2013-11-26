@@ -36,7 +36,7 @@ end
 
 if User.where(email: 'admin@admin.com').size ==  0
   User.create([
-    {login: 'admin', email: 'admin@admin.com', password: '11112222', password_confirmation: '11112222'}
+    {real_name: 'admin', login: 'admin', email: 'admin@admin.com', password: '11112222', password_confirmation: '11112222'}
   ])
 end
 
@@ -44,4 +44,5 @@ Settings.grades = [1,2,3,4,5] if Settings.grades.nil?
 Settings.classes = [1,2,3,4,5] if Settings.classes.nil?
 Settings.homework_status = %w(未批阅 待改错 已改错 已完成) if Settings.homework_status.nil?
 Settings.homework_levels = %w(优 良 中 差) if Settings.homework_levels.nil?
+Settings.message_types = %w(群 个人) if Settings.message_types.nil?
 
