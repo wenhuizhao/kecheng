@@ -29,7 +29,7 @@ header
   .left, .right
     float: left
   .left
-    width: 212px
+    width: $left-width 
     height: $body-height - $header-height
     background: rgb(0,255,204)
     text-align: center
@@ -43,6 +43,7 @@ header
       overflow-y: scroll
   .right
     padding: 20px
+    width: $body-width - $left-width - 40px
     .bar, .bar .words
       display: inline
       line-height: 50px
