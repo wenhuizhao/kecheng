@@ -5,7 +5,7 @@ p
   = @exercise.book.name
 p
   strong Text:
-  = @exercise.exercise_text.content
+  = @exercise.exercise_text.nil? ? "" : @exercise.exercise_text.content
 p
   strong Category:
   = @exercise.category.name
