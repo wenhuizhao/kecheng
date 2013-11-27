@@ -40,6 +40,14 @@ if User.where(email: 'admin@admin.com').size ==  0
   ])
 end
 
+if Grade.count == 0
+  1.upto(5).each do |gn|
+    1.upto(5).each do |cn|
+      Grade.create(grade_num: gn, class_num: cn)
+    end
+  end
+end
+
 Settings.grades = [1,2,3,4,5] if Settings.grades.nil?
 Settings.classes = [1,2,3,4,5] if Settings.classes.nil?
 Settings.homework_status = %w(未批阅 待改错 已改错 已完成) if Settings.homework_status.nil?

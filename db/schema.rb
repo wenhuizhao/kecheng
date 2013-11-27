@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131127134301) do
+ActiveRecord::Schema.define(:version => 20131127144758) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -83,21 +83,26 @@ ActiveRecord::Schema.define(:version => 20131127134301) do
   end
 
   create_table "grade_students", :force => true do |t|
-    t.integer  "grade_num"
-    t.integer  "class_num"
     t.integer  "student_id"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
     t.boolean  "is_accept",  :default => false
+    t.integer  "grade_id"
   end
 
-  add_index "grade_students", ["class_num"], :name => "index_grade_students_on_class_num"
-  add_index "grade_students", ["grade_num"], :name => "index_grade_students_on_grade_num"
+  add_index "grade_students", ["grade_id"], :name => "index_grade_students_on_grade_id"
   add_index "grade_students", ["student_id"], :name => "index_grade_students_on_student_id"
 
-  create_table "grades_courses", :force => true do |t|
+  create_table "grades", :force => true do |t|
     t.integer  "grade_num"
     t.integer  "class_num"
+    t.string   "full_name"
+    t.string   "period"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "grades_courses", :force => true do |t|
     t.integer  "course_id"
     t.boolean  "is_open"
     t.datetime "created_at", :null => false
@@ -105,11 +110,11 @@ ActiveRecord::Schema.define(:version => 20131127134301) do
     t.string   "lesson_num"
     t.integer  "teacher_id"
     t.text     "outline"
+    t.integer  "grade_id"
   end
 
-  add_index "grades_courses", ["class_num"], :name => "index_grades_courses_on_class_num"
   add_index "grades_courses", ["course_id"], :name => "index_grades_courses_on_course_id"
-  add_index "grades_courses", ["grade_num"], :name => "index_grades_courses_on_grade_num"
+  add_index "grades_courses", ["grade_id"], :name => "index_grades_courses_on_grade_id"
 
   create_table "homeworks", :force => true do |t|
     t.datetime "end_time"
@@ -143,8 +148,10 @@ ActiveRecord::Schema.define(:version => 20131127134301) do
     t.integer  "parent_id"
     t.string   "type_name"
     t.boolean  "is_accept",   :default => false
+    t.integer  "grade_id"
   end
 
+  add_index "messages", ["grade_id"], :name => "index_messages_on_grade_id"
   add_index "messages", ["parent_id"], :name => "index_messages_on_parent_id"
 
   create_table "qtypes", :force => true do |t|

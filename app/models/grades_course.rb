@@ -1,9 +1,11 @@
 # -*- encoding : utf-8 -*-
 class GradesCourse < ActiveRecord::Base
-  attr_accessible :class_num, :course_id, :grade_num, :is_open, :teacher_id, :lesson_num, :outline
+  attr_accessible :course_id, :grade_id, :is_open, :teacher_id, :lesson_num, :outline
 
   belongs_to :course
   belongs_to :teacher, class_name: 'User'
+  belongs_to :grade
+
   has_many :lessons
   has_many :student_courses
   has_many :students, through: :student_courses
