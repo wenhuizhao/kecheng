@@ -40,6 +40,12 @@ class MessagesController < ApplicationController
     @message.destroy
     redirect_to messages_path
   end
+  
+  def accept_select_grades
+    @message.approved_applied_student
+    flash[:notice] = '已经同意'
+    redirect_to messages_path
+  end
 
   private
 

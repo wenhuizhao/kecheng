@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131126132218) do
+ActiveRecord::Schema.define(:version => 20131127134301) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -86,8 +86,9 @@ ActiveRecord::Schema.define(:version => 20131126132218) do
     t.integer  "grade_num"
     t.integer  "class_num"
     t.integer  "student_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "is_accept",  :default => false
   end
 
   add_index "grade_students", ["class_num"], :name => "index_grade_students_on_class_num"
@@ -141,6 +142,7 @@ ActiveRecord::Schema.define(:version => 20131126132218) do
     t.boolean  "is_open",     :default => false
     t.integer  "parent_id"
     t.string   "type_name"
+    t.boolean  "is_accept",   :default => false
   end
 
   add_index "messages", ["parent_id"], :name => "index_messages_on_parent_id"

@@ -44,5 +44,5 @@ Settings.grades = [1,2,3,4,5] if Settings.grades.nil?
 Settings.classes = [1,2,3,4,5] if Settings.classes.nil?
 Settings.homework_status = %w(未批阅 待改错 已改错 已完成) if Settings.homework_status.nil?
 Settings.homework_levels = %w(优 良 中 差) if Settings.homework_levels.nil?
-Settings.message_types = %w(群 个人) if Settings.message_types.nil?
+Settings.message_types = %w(system p2p apply_grades) # if Settings.message_types.nil?
 

@@ -11,7 +11,7 @@ class GradesCourse < ActiveRecord::Base
   validates :class_num, :grade_num, :course_id, :outline, presence: true
   
   def course_name
-    course ? course.name : ''
+    course.try :name
   end
   
   def status
@@ -19,7 +19,7 @@ class GradesCourse < ActiveRecord::Base
   end
 
   def teacher_name
-    teacher ? teacher.name : ''
+    teacher.try :name
   end
   
   def grades

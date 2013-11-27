@@ -10,9 +10,12 @@
           td 
              / # = "#{i + 1}、" 
              = m.sender.name + m.sender.role_name + ': ' 
-             = m.desc
+             = m.content
           td.actions 
-            = link_to '回复'
-            = link_to '编辑', edit_message_path(m) if m.sender_id == current_user.id
+            - if m.is_apply_grades?
+              = m.is_accept ? '已接受' : link_to('接受', accept_select_grades_path(id: m.id))
+            - else
+              = link_to '回复'
+              = link_to '编辑', edit_message_path(m) if m.sender_id == current_user.id
 .block
-  = link_to '发送群消息', new_message_path
+  = link_to '发送系统消息', new_message_path
