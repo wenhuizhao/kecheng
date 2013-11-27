@@ -17,8 +17,6 @@ module Student
     grades.try :is_accept
   end
 
-  def 
-
   def clear_selected_courses
     # StudentCourse.where(student_id: self.id).each {|s| s.delete}
   end
