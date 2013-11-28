@@ -21,7 +21,8 @@ header
     margin: 20px 0 -20px 0
     text-align: center
     font-size: $font-size-large
-
+  a
+    margin: 0 0 0 10px
 .course-toggle-title
   cursor: pointer 
  
@@ -29,7 +30,7 @@ header
   .left, .right
     float: left
   .left
-    width: 212px
+    width: $left-width 
     height: $body-height - $header-height
     background: rgb(0,255,204)
     text-align: center
@@ -43,6 +44,7 @@ header
       overflow-y: scroll
   .right
     padding: 20px
+    width: $body-width - $left-width - 40px
     .bar, .bar .words
       display: inline
       line-height: 50px
@@ -89,6 +91,9 @@ header
     padding: 2px 6px
     margin: 8px
 
-
-
+.messages
+  margin: 50px
+  font-size: $font-size-large
+  table
+    width: 650px
 

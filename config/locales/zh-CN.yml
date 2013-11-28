@@ -8,6 +8,7 @@ zh-CN:
       user: '帐号'
       homework: 作业
       grades_course: 课程
+      message: 消息
     attributes:
       user:
         email: '电子邮件'
@@ -23,6 +24,8 @@ zh-CN:
         class_num: 班
         lesson_num: 课程节数
         outline: 大纲
+      message:
+        desc: 消息内容
     errors:
       messages:
         blank: "不能为空"

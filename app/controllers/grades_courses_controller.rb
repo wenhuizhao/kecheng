@@ -15,12 +15,11 @@ class GradesCoursesController < ApplicationController
   end
   
   def select
-    redirect_to select_grades_path unless current_user.grades
+    redirect_to select_grades_path unless current_user.grades_accept?
     if request.post?
       params[:student][:course_ids].each do |gcid|
         StudentCourse.where(grades_course_id: gcid.to_i, student_id: current_user.id).first_or_create
-      end rescue current_user.clear_selected_courses
-      # redirect_to root_path
+      end rescue nil # current_user.clear_selected_courses
       flash[:notice] = '保存成功'
     end
     @all_courses = current_user.courses_of_select
@@ -29,13 +28,8 @@ class GradesCoursesController < ApplicationController
   def select_grades
     return unless request.post?
     h = {grade_num: params[:grade_num], class_num: params[:class_num]}
-    if current_user.grades
-      current_user.grades.update_attributes(h)
-    else
-      GradeStudent.create(h.merge(student_id: current_user.id))
-      redirect_to select_grades_courses_path
-    end
-    flash[:notice] = '保存成功'
+    GradeStudent.create(h.merge(student_id: current_user.id))
+    send_request_grades(h.values.join(',')) #, h.head_teacher
   end
 
   def new
