@@ -17,7 +17,7 @@ class GradesCoursesController < ApplicationController
   end
   
   def select
-    redirect_to select_grades_path unless current_user.grade_accept?
+    return redirect_to select_grades_path unless current_user.grade_accept?
     if request.post?
       params[:student][:course_ids].each do |gcid|
         StudentCourse.where(grades_course_id: gcid.to_i, student_id: current_user.id).first_or_create
