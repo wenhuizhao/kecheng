@@ -29,6 +29,8 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(params[:message])
     @message.sender_id = current_user.id
+    @message.school_id = current_user.school_id
+    @message.grade_id = current_user.grade.try :id
     if @message.save
       redirect_to messages_path
     else

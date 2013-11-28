@@ -10,6 +10,7 @@ class Message < ActiveRecord::Base
   validates :desc, :type_name, :sender_id, presence: true
 
   scope :system_msgs, -> { where(type_name: 'system') }
+  # scope :system_msgs, -> (user) { where(type_name: 'system', school_id: user.school_id) }
   scope :apply_grades_msgs, -> { where(type_name: 'apply_grades') }
   scope :apply_courses_msgs, -> { where(type_name: 'apply_courses') }
   scope :messages_of, -> (user) { where(receiver_id: user.id) }
