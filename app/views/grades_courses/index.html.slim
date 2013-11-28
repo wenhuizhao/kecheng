@@ -9,13 +9,13 @@ table.list-big
     th 操作
   - @all_courses.each do |c|
     tr
-      td = get_grades(c) 
+      td = c.grades 
       td = c.course_name
       td = c.lesson_num
       td = c.status
       td.center
         - if current_user.is_teacher?
           = link_to '编辑', edit_grades_course_path(c)
-          = link_to '删除', c, confirm: '确定删除么？', method: :delete
+          / = link_to '删除', c, confirm: '确定删除么？', method: :delete
         - else
           = link_to '查看', grades_course_path(c)

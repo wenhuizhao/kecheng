@@ -3,9 +3,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :get_left_courses
-  
+  include Exts
   include Tool
-  include Mgrade::CtrlMeths  
+  include Mgrade::CtrlMeths
+
   private
     def get_left_courses
       return nil unless current_user

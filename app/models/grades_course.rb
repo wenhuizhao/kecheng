@@ -3,6 +3,7 @@ class GradesCourse < ActiveRecord::Base
   attr_accessible :course_id, :grade_id, :is_open, :teacher_id, :lesson_num, :outline, :is_accept
 
   include Mgrade
+  include Grade::Name
 
   belongs_to :course
   belongs_to :teacher, class_name: 'User'
@@ -32,10 +33,6 @@ class GradesCourse < ActiveRecord::Base
 
   def teacher_name
     teacher.try :name
-  end
-  
-  def grades
-    App::ChineseNum[self.grade_num.to_i] + '年级' + App::ChineseNum[self.class_num.to_i] + "班" if self.grade_num
   end
   
   def full_name

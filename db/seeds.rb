@@ -6,7 +6,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
+ require 'exts'
 if Role.count == 0
   Role.create([
     {name: '学生', en_name: 'student'},

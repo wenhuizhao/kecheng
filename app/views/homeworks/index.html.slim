@@ -10,6 +10,6 @@ table.list-big
     th 操作
   - @homeworks.each do |c|
     tr
-      td = get_grades(c.lesson.grades_course) 
+      td = c.lesson.grades_course.grades
       td = c.enjoin
       td = link_to '删除', c, confirm: '确定删除么？', method: :delete

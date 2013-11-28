@@ -11,7 +11,7 @@ table.list-big
     th 操作
   - @homeworks.each do |c|
     tr
-      td = get_grades(c) 
+      td = c.grades
       td = c.homework_name
       td = c.status
       td.center

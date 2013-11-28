@@ -1,24 +1,24 @@
 = form_for @grades_course do |f| 
   = render partial: 'shared/error_msgs', locals: {target: @grades_course}
-  .select-div.grades
-    - Settings.grades.each do |grade|
-      .words data-id='#{grade}' class='#{grade == @grades_course.grade_num.to_i ? 'hover' : ''}' 
-        = App::ChineseNum[grade] + '年级'
+  - if !@grades_course.is_accept
+    .select-div.grades
+      - Settings.grades.each do |grade|
+        .words data-id='#{grade}' class='#{grade == @grades_course.grade_num.to_i ? 'hover' : ''}' 
+          = grade.to_cnum + '年级'
 
-  .select-div.classes
-    - Settings.classes.each do |c|
-      .words data-id='#{c}' class='#{c == @grades_course.class_num.to_i ? 'hover' : ''}'
-        = App::ChineseNum[c] + '班'
+    .select-div.classes
+      - Settings.classes.each do |c|
+        .words data-id='#{c}' class='#{c == @grades_course.class_num.to_i ? 'hover' : ''}'
+          = c.to_cnum + '班'
 
-  .select-div.courses
-    - Course.all.each do |c|
-      .words data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
-        = c.name
+    .select-div.courses
+      - Course.all.each do |c|
+        .words data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
+          = c.name
 
-  = hidden_field_tag :grade_num, @grades_course.grade_num
-  = hidden_field_tag :class_num, @grades_course.class_num
-  = f.hidden_field :course_id, id: 'course_id'
-
+    = f.hidden_field :course_id, id: 'course_id'
+  - else
+   = @grades_course.full_name
   table.list
     tr
       td 课程大纲 
@@ -29,4 +29,7 @@
     tr
       td 是否开放
       td = f.select :is_open, [['是', 'true'], ['否', 'false']] 
+      
+  = hidden_field_tag :grade_num, @grades_course.grade_num
+  = hidden_field_tag :class_num, @grades_course.class_num
   .block = submit_tag '保存', class: 'block'
