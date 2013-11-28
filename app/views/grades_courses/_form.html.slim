@@ -1,5 +1,5 @@
 = form_for @grades_course do |f| 
-  / = render partial: 'shared/error_msgs', locals: {target: @grades_course}
+  = render partial: 'shared/error_msgs', locals: {target: @grades_course}
   .select-div.grades
     - Settings.grades.each do |grade|
       .words data-id='#{grade}' class='#{grade == @grades_course.grade_num.to_i ? 'hover' : ''}' 
@@ -15,8 +15,8 @@
       .words data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
         = c.name
 
-  = f.hidden_field :grade_num, id: 'grade_num'
-  = f.hidden_field :class_num, id: 'class_num'
+  = hidden_field_tag :grade_num, @grades_course.grade_num
+  = hidden_field_tag :class_num, @grades_course.class_num
   = f.hidden_field :course_id, id: 'course_id'
 
   table.list

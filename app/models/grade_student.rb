@@ -5,6 +5,8 @@ class GradeStudent < ActiveRecord::Base
   belongs_to :student, class_name: 'User'
   belongs_to :grade
 
+  include Mgrade
+
   def approved
     update_attribute :is_accept, true
   end

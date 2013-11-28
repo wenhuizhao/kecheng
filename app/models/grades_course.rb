@@ -2,6 +2,8 @@
 class GradesCourse < ActiveRecord::Base
   attr_accessible :course_id, :grade_id, :is_open, :teacher_id, :lesson_num, :outline
 
+  include Mgrade
+
   belongs_to :course
   belongs_to :teacher, class_name: 'User'
   belongs_to :grade
@@ -10,7 +12,7 @@ class GradesCourse < ActiveRecord::Base
   has_many :student_courses
   has_many :students, through: :student_courses
 
-  validates :class_num, :grade_num, :course_id, :outline, presence: true
+  validates :grade_id, :course_id, :outline, presence: true
   
   def course_name
     course.try :name

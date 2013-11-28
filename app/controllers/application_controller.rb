@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :get_left_courses
   
   include Tool
-  
+  include Mgrade::CtrlMeths  
   private
     def get_left_courses
       return nil unless current_user

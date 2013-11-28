@@ -37,6 +37,7 @@ class GradesCoursesController < ApplicationController
   end
 
   def update
+    @grades_course.grade_id = get_grade.id
     if @grades_course.update_attributes(params[:grades_course])
       do_lessons
       redirect_to grades_courses_path
@@ -48,6 +49,7 @@ class GradesCoursesController < ApplicationController
   def create
     @grades_course = GradesCourse.new(params[:grades_course])
     @grades_course.teacher_id = current_user.id 
+    @grades_course.grade_id = get_grade.id
     if @grades_course.save
       do_lessons
       redirect_to grades_courses_path

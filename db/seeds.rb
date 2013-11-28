@@ -46,6 +46,8 @@ if Grade.count == 0
       Grade.create(grade_num: gn, class_num: cn)
     end
   end
+  GradeStudent.delete_all
+  GradesCourse.delete_all
 end
 
 Settings.grades = [1,2,3,4,5] if Settings.grades.nil?
