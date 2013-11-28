@@ -7,6 +7,7 @@ class GradesCoursesController < ApplicationController
   before_filter :require_teacher, except: [:select, :select_grades, :show]
 
   def index
+    @all_courses = GradesCourse.all_courses_of(current_user)
   end
 
   def show
@@ -23,13 +24,13 @@ class GradesCoursesController < ApplicationController
       end rescue nil # current_user.clear_selected_courses
       flash[:notice] = '保存成功'
     end
-    @all_courses = current_user.courses_of_select
+    @all_courses = GradesCourse.for_select(current_user.grade) 
   end
 
   def select_grades
     return unless request.post?
     GradeStudent.where(student_id: current_user.id, grade_id: @grade.id).first_or_create
-    send_request_grades(@grade) #, h.head_teacher
+    send_apply_request('apply_grades', grade_id: @grade.id)
   end
 
   def new
@@ -52,6 +53,7 @@ class GradesCoursesController < ApplicationController
     @grades_course.grade_id = @grade.id
     if @grades_course.save
       do_lessons
+      send_apply_request('apply_courses', grade_id: @grade.id, course_id: @grades_course.course_id)
       redirect_to grades_courses_path
     else
       render action: 'new'

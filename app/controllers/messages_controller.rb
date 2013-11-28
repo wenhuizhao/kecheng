@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-  	@messages = Message.all_for(current_user)
+    @messages = Message.all_for(current_user)
   end
   
   def show
@@ -42,7 +42,7 @@ class MessagesController < ApplicationController
   end
   
   def accept_select_grades
-    @message.approved_applied_student
+    @message.approved_applied
     flash[:notice] = '已经同意'
     redirect_to messages_path
   end

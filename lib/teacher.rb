@@ -1,5 +1,10 @@
 module Teacher
-  def opened_courses
-    GradesCourse.where(teacher_id: self.id) 
+  
+  def accepted_courses
+    GradesCourse.accepted_courses_of(self) 
+  end
+  
+  def tgrades
+    accepted_courses.inject([]){|tgs, pgc| tgs << pgc.grade}.uniq
   end
 end

@@ -7,7 +7,7 @@ table.list-big
     th 课程数
     th 状态
     th 操作
-  - @courses.each do |c|
+  - @all_courses.each do |c|
     tr
       td = get_grades(c) 
       td = c.course_name

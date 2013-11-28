@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131127144758) do
+ActiveRecord::Schema.define(:version => 20131128051529) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20131127144758) do
     t.integer  "teacher_id"
     t.text     "outline"
     t.integer  "grade_id"
+    t.boolean  "is_accept"
   end
 
   add_index "grades_courses", ["course_id"], :name => "index_grades_courses_on_course_id"
@@ -149,10 +150,14 @@ ActiveRecord::Schema.define(:version => 20131127144758) do
     t.string   "type_name"
     t.boolean  "is_accept",   :default => false
     t.integer  "grade_id"
+    t.integer  "school_id"
+    t.integer  "course_id"
   end
 
+  add_index "messages", ["course_id"], :name => "index_messages_on_course_id"
   add_index "messages", ["grade_id"], :name => "index_messages_on_grade_id"
   add_index "messages", ["parent_id"], :name => "index_messages_on_parent_id"
+  add_index "messages", ["school_id"], :name => "index_messages_on_school_id"
 
   create_table "qtypes", :force => true do |t|
     t.string   "name"

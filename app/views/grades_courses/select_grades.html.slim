@@ -1,4 +1,4 @@
-- if current_user.grades and !params[:edit]
+- if current_user.grade and !params[:edit]
   = render partial: 'shared/header', locals: {title: '请等候'}
   .block 请耐心等候老师接受您的选班请求。方可进行选课.
   = link_to '修改我的班级申请', select_grades_path(edit: true)

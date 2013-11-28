@@ -12,7 +12,7 @@
              = m.sender.name + m.sender.role_name + ': ' 
              = m.content
           td.actions 
-            - if m.is_apply_grades?
+            - if m.is_apply? 
               - if m.is_accept?
                 = '已接受'
               - else
