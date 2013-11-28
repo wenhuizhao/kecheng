@@ -1,7 +1,9 @@
 # -*- encoding : utf-8 -*-
 class Message < ActiveRecord::Base
-  attr_accessible :category_id, :desc, :receiver_id, :sender_id, :is_open, :type_name, :parent_id, :is_accept
+  attr_accessible :grade_id, :category_id, :desc, :receiver_id, :sender_id, :is_open, :type_name, :parent_id, :is_accept
+  include Mgrade 
   
+  belongs_to :grade
   belongs_to :sender, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
   
@@ -11,11 +13,11 @@ class Message < ActiveRecord::Base
   scope :messages_of, -> (user) { where(receiver_id: user.id) }
 
   def self.all_for(user)
-    messages_of(user) + global_messages
+    (messages_of(user) + global_messages).sort_by(&:created_at).reverse
   end
 
   def content
-    return '申请加入' + grades if is_apply_grades?
+    # return '申请加入' + grades if is_apply_grades?
     desc
   end
 
@@ -27,16 +29,8 @@ class Message < ActiveRecord::Base
     App::ChineseNum[grade_num.to_i] + '年级' + App::ChineseNum[class_num.to_i] + "班"
   end
 
-  def grade_num
-    desc.split(',')[0]
-  end
-
-  def class_num
-    desc.split(',')[1]
-  end
-
   def applied_student
-    GradeStudent.where(grade_num: grade_num, class_num: class_num, student_id: sender_id).last
+    GradeStudent.where(grade_id: grade_id, student_id: sender_id).last
   end
 
   def approved_applied_student

@@ -1,7 +1,7 @@
 = render partial: 'shared/header', locals: {title: '已开课程'}
 
 - if @all_courses.empty?
-  .alert 当前班级没有可选的课程
+  .alert #{current_user.grade.full_name}当前班级没有可选的课程
 - else
 
   = form_tag select_grades_courses_path
