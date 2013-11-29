@@ -12,10 +12,15 @@
              = m.sender.name + m.sender.role_name + ': ' 
              = m.content
           td.actions 
-            - if m.is_apply_grades?
-              = m.is_accept ? '已接受' : link_to('接受', accept_select_grades_path(id: m.id))
+            - if m.is_apply? 
+              - if m.is_accept?
+                = '已接受'
+              - else
+                = link_to('接受', accept_select_grades_path(id: m.id))
+                = link_to('拒绝', accept_select_grades_path(id: m.id, status: 'refuse'))
             - else
               = link_to '回复'
               = link_to '编辑', edit_message_path(m) if m.sender_id == current_user.id
 .block
-  = link_to '发送系统消息', new_message_path
+  - unless current_user.is_student?
+    = link_to '发送系统消息', new_message_path

@@ -24,10 +24,4 @@ module Tool
     User.where(role_id: nil).first
   end
 
-  def send_request_grades(desc, header_teacher = super_admin)
-    Message.create(sender_id: current_user.id, 
-                   receiver_id: header_teacher.id,
-                   type_name: 'apply_grades',
-                   desc: desc)
-  end
 end

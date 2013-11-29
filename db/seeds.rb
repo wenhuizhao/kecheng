@@ -6,7 +6,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
+ require 'exts'
 if Role.count == 0
   Role.create([
     {name: '学生', en_name: 'student'},
@@ -40,9 +40,19 @@ if User.where(email: 'admin@admin.com').size ==  0
   ])
 end
 
+if Grade.count == 0
+  1.upto(5).each do |gn|
+    1.upto(5).each do |cn|
+      Grade.create(grade_num: gn, class_num: cn)
+    end
+  end
+  GradeStudent.delete_all
+  GradesCourse.delete_all
+end
+
 Settings.grades = [1,2,3,4,5] if Settings.grades.nil?
 Settings.classes = [1,2,3,4,5] if Settings.classes.nil?
 Settings.homework_status = %w(未批阅 待改错 已改错 已完成) if Settings.homework_status.nil?
 Settings.homework_levels = %w(优 良 中 差) if Settings.homework_levels.nil?
-Settings.message_types = %w(system p2p apply_grades) # if Settings.message_types.nil?
+Settings.message_types = %w(system p2p apply_grades apply_courses) # if Settings.message_types.nil?
 

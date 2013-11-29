@@ -1,31 +1,29 @@
 module Student
+
   def selected_courses
-    StudentCourse.where(student_id: self.id).inject([]) do |courses, sgc|
-      courses << sgc.grades_course
+    StudentCourse.where(student_id: self.id).inject([]) do |courses, sc|
+      courses << sc.grades_course
     end
   end
+  
+  def grade_stus
+    GradeStudent.where(student_id: self.id)
+  end
 
-  def courses_of_select
-    GradesCourse.where(grade_num: self.grade_num, class_num: self.class_num)
+  def grade_stu
+    grade_stus.last
   end
   
-  def grades
-    GradeStudent.where(student_id: self.id).last
+  def grade_accept?
+    grade_stu.try :is_accept
   end
 
-  def grades_accept?
-    grades.try :is_accept
+  def grade
+    grades.last
   end
 
   def clear_selected_courses
     # StudentCourse.where(student_id: self.id).each {|s| s.delete}
   end
-
-  def grade_num
-    grades.try :grade_num
-  end
-
-  def class_num
-    grades.try :class_num
-  end
+  include Mgrade
 end

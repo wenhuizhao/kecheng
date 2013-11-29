@@ -3,16 +3,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :get_left_courses
-  
+  include Exts
   include Tool
-  
+  include Mgrade::CtrlMeths
+
   private
     def get_left_courses
       return nil unless current_user
       if current_user.is_student?
         @courses ||= current_user.selected_courses
       elsif current_user.is_teacher?
-        @courses ||= current_user.opened_courses
+        @courses ||= current_user.accepted_courses
       else
         @courses ||= User.find(params[:teacher_id]).opened_courses if params[:teacher_id]
       end

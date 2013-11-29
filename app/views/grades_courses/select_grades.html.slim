@@ -1,4 +1,4 @@
-- if current_user.grades and !params[:edit]
+- if current_user.grade and !params[:edit]
   = render partial: 'shared/header', locals: {title: '请等候'}
   .block 请耐心等候老师接受您的选班请求。方可进行选课.
   = link_to '修改我的班级申请', select_grades_path(edit: true)
@@ -9,12 +9,12 @@
     .select-div.grades
       - Settings.grades.each do |grade|
         .words data-id='#{grade}' class='#{grade == current_user.grade_num.to_i ? 'hover' : ''}' 
-          = App::ChineseNum[grade] + '年级'
+          = grade.to_cnum + '年级'
 
     .select-div.classes
       - Settings.classes.each do |c|
         .words data-id='#{c}' class='#{c == current_user.class_num.to_i ? 'hover' : ''}'
-          = App::ChineseNum[c] + '班'
+          = c.to_cnum + '班'
 
     = hidden_field_tag :grade_num, current_user.grade_num
     = hidden_field_tag :class_num, current_user.class_num

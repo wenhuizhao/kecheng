@@ -14,12 +14,13 @@ class User < ActiveRecord::Base
 
   validates :login, presence: true, uniqueness: true, length: { minimum: 3, maximum: 20 }
   validates :real_name, presence: true
-
+  
   belongs_to :role
   belongs_to :school
   has_many :student_homeworks, foreign_key: 'student_id'
   has_many :homeworks, through: :student_homeworks
-
+  
+  has_and_belongs_to_many :grades, foreign_key: :student_id, join_table: 'grade_students'
   has_many :student_courses, foreign_key: 'student_id'
   # has_many :selected_courses, through: :student_courses
 

@@ -2,10 +2,12 @@
 class GradesCoursesController < ApplicationController
   
   before_filter :authenticate_user!
+  before_filter :requested_grade, only: [:select_grades, :create, :update]
   before_filter :get_grades_course, except: [:index, :create, :new, :select, :select_grades]
   before_filter :require_teacher, except: [:select, :select_grades, :show]
 
   def index
+    @all_courses = GradesCourse.all_courses_of(current_user)
   end
 
   def show
@@ -15,21 +17,20 @@ class GradesCoursesController < ApplicationController
   end
   
   def select
-    redirect_to select_grades_path unless current_user.grades_accept?
+    return redirect_to select_grades_path unless current_user.grade_accept?
     if request.post?
       params[:student][:course_ids].each do |gcid|
         StudentCourse.where(grades_course_id: gcid.to_i, student_id: current_user.id).first_or_create
       end rescue nil # current_user.clear_selected_courses
       flash[:notice] = '保存成功'
     end
-    @all_courses = current_user.courses_of_select
+    @all_courses = GradesCourse.for_select(current_user.grade) 
   end
 
   def select_grades
     return unless request.post?
-    h = {grade_num: params[:grade_num], class_num: params[:class_num]}
-    GradeStudent.create(h.merge(student_id: current_user.id))
-    send_request_grades(h.values.join(',')) #, h.head_teacher
+    GradeStudent.where(student_id: current_user.id, grade_id: @grade.id).first_or_create
+    send_apply_request('apply_grades', grade_id: @grade.id)
   end
 
   def new
@@ -37,6 +38,7 @@ class GradesCoursesController < ApplicationController
   end
 
   def update
+    @grades_course.grade_id = @grade.id
     if @grades_course.update_attributes(params[:grades_course])
       do_lessons
       redirect_to grades_courses_path
@@ -48,8 +50,10 @@ class GradesCoursesController < ApplicationController
   def create
     @grades_course = GradesCourse.new(params[:grades_course])
     @grades_course.teacher_id = current_user.id 
+    @grades_course.grade_id = @grade.id
     if @grades_course.save
       do_lessons
+      send_apply_request('apply_courses', grade_id: @grade.id, course_id: @grades_course.course_id)
       redirect_to grades_courses_path
     else
       render action: 'new'
@@ -62,6 +66,10 @@ class GradesCoursesController < ApplicationController
   end
   
   private
+
+  def requested_grade
+    get_grade
+  end
   
   def do_lessons
     1.upto(@grades_course.lesson_num.to_i).each do |i|

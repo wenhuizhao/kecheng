@@ -1,0 +1,29 @@
+module Mgrade
+  
+  def grade_num
+    grade.try :grade_num  
+  end
+
+  def class_num
+    grade.try :class_num
+  end
+  
+  module CtrlMeths
+    def get_grade(grade_num = params[:grade_num], class_num = params[:class_num])
+      @grade ||= Grade.where(grade_num: grade_num.to_i, class_num: class_num.to_i).last
+    end
+
+    def send_apply_request(*args)
+      type, opts = args[0], args.extract_options! #, opts
+      grade_id, course_id = opts.values 
+      desc = '申请加入' + Grade.find(grade_id).full_name if type == 'apply_grades'
+      desc = '申请' + Grade.find(grade_id).full_name + Course.find(course_id).name + '课' if type == 'apply_courses'
+      Message.create(sender_id: current_user.id, 
+                     type_name: type,
+                     grade_id: grade_id,
+                     course_id: course_id,
+                     school_id: current_user.school_id,
+                     desc: desc)
+    end
+  end
+end
