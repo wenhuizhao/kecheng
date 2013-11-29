@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131128051529) do
+ActiveRecord::Schema.define(:version => 20131129142719) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -84,9 +84,9 @@ ActiveRecord::Schema.define(:version => 20131128051529) do
 
   create_table "grade_students", :force => true do |t|
     t.integer  "student_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.boolean  "is_accept",  :default => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "is_accept"
     t.integer  "grade_id"
   end
 
@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(:version => 20131128051529) do
     t.boolean  "is_open",     :default => false
     t.integer  "parent_id"
     t.string   "type_name"
-    t.boolean  "is_accept",   :default => false
+    t.boolean  "is_accept"
     t.integer  "grade_id"
     t.integer  "school_id"
     t.integer  "course_id"

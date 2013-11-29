@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   end
 
   def name
-    # firstname || '沒有' 
     real_name || '沒有' 
   end
   

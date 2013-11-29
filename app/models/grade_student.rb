@@ -7,7 +7,4 @@ class GradeStudent < ActiveRecord::Base
 
   include Mgrade
 
-  def approved
-    update_attribute :is_accept, true
-  end
 end

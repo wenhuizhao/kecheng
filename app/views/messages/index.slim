@@ -13,11 +13,11 @@
              = m.content
           td.actions 
             - if m.is_apply? 
-              - if m.is_accept?
-                = '已接受'
-              - else
+              - if m.is_accept.nil?
                 = link_to('接受', accept_select_grades_path(id: m.id))
                 = link_to('拒绝', accept_select_grades_path(id: m.id, status: 'refuse'))
+              - else
+                = m.is_accept ? '已接受' : '已拒绝'
             - else
               = link_to '回复'
               = link_to '编辑', edit_message_path(m) if m.sender_id == current_user.id

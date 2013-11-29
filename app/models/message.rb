@@ -33,18 +33,17 @@ class Message < ActiveRecord::Base
   end
 
   def applied_student
-    GradeStudent.where(grade_id: grade_id, student_id: sender_id).last
+    GradeStudent.where(grade_id: grade_id, student_id: sender_id, is_accept: nil).last
   end
   
   def applied_teacher
-    gsc = GradesCourse.where(grade_id: self.grade_id, course_id: self.course_id).last
-    gsc.update_attribute(:is_accept, true)
+    GradesCourse.where(grade_id: self.grade_id, course_id: self.course_id, is_accept: nil).last
   end
 
-  def approved_applied
-    self.update_attribute :is_accept, true
-    applied_student.try :approved if is_apply_grades? 
-    applied_teacher if is_apply_course?
+  def sync_role(meth)
+    send meth
+    applied_student.try meth if is_apply_grades? 
+    applied_teacher.try meth if is_apply_course?
   end
 
   class << self

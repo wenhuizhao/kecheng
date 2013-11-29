@@ -37,8 +37,12 @@ class CoursesController < ApplicationController
   end
 
   def destroy
-    @course.destroy
-    redirect_to courses_path
+    if @course.grades_courses.empty?
+      @course.destroy
+      redirect_to courses_path
+    else
+      redirect_with_message '不能删除', action: :index
+    end
   end
   
   private
