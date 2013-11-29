@@ -1,12 +1,7 @@
 = render partial: 'shared/header', locals: {title: '课程管理'}
 table.list-big
   = form_for @course do |f|
-    - if @course.errors.any?
-      #error_explanation
-        h2 = "#{pluralize(@course.errors.count, "error")} prohibited this course from being saved:"
-        ul
-          - @course.errors.full_messages.each do |message|
-            li = message
+    = render partial: 'shared/error_msgs', locals: {target: @course}
     tr
       td = f.label :课程名
       td = f.text_field :name

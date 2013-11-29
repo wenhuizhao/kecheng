@@ -1,11 +1,5 @@
 = form_for @qtype do |f|
-  - if @qtype.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@qtype.errors.count, "error")} prohibited this qtype from being saved:"
-      ul
-        - @qtype.errors.full_messages.each do |message|
-          li = message
-
+  = render partial: 'shared/error_msgs', locals: {target: @qtype}
   .field
     = f.label :name
     = f.text_field :name
