@@ -1,4 +1,4 @@
----------------# -*- encoding : utf-8 -*-
+# -*- encoding : utf-8 -*-
 class MessagesController < ApplicationController
 
   before_filter :get_message, except: [:index, :create, :new]
