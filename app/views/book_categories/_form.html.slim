@@ -1,11 +1,5 @@
 = form_for @book_category do |f|
-  - if @book_category.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@book_category.errors.count, "error")} prohibited this book_category from being saved:"
-      ul
-        - @book_category.errors.full_messages.each do |message|
-          li = message
-
+  = render partial: 'shared/error_msgs', locals: {target: @book_category}
   .field
     = f.label :name
     = f.text_field :name

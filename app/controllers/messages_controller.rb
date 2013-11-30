@@ -44,9 +44,13 @@ class MessagesController < ApplicationController
   end
   
   def accept_select_grades
-    @message.approved_applied
-    flash[:notice] = '已经同意'
-    redirect_to messages_path
+    if params[:status]
+      @message.sync_role(:refused)
+      redirect_with_message '已经拒绝', action: :index
+    else
+      @message.sync_role(:approved)
+      redirect_with_message '已经同意', action: :index
+    end
   end
 
   private

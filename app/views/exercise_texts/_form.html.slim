@@ -1,10 +1,5 @@
 = form_for @exercise_text do |f|
-  - if @exercise_text.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@exercise_text.errors.count, "error")} prohibited this exercise_text from being saved:"
-      ul
-        - @exercise_text.errors.full_messages.each do |message|
-          li = message
+  = render partial: 'shared/error_msgs', locals: {target: @exercise_text}
   .field
     = f.label :book
     = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name))
