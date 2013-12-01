@@ -35,11 +35,11 @@ class User < ActiveRecord::Base
   end
   
   def role_name
-    role ? role.name : '超级管理员'
+    role.try(:name) || '超级管理员'
   end
 
   def school_name
-    school ? school.name : '暂无学校信息'
+    school.try(:name) || '暂无学校信息'
   end
   
   def self.teachers

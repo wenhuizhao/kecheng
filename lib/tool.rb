@@ -3,8 +3,9 @@ module Tool
   def send_sms(opts)
     default_opts = {
       action: 'send',
-      account: '',
-      password: ''
+      userID: Settings.sms_userid,
+      account: Settings.sms_account,
+      password: Settings.sms_password
     }
     url = 'http://www.qf106.com/sms.aspx'
     post_data(url, default_opts.merge(opts))

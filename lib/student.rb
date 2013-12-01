@@ -3,7 +3,7 @@ module Student
   def selected_courses
     StudentCourse.where(student_id: self.id).inject([]) do |courses, sc|
       courses << sc.grades_course
-    end
+    end.compact
   end
   
   def grade_stus
