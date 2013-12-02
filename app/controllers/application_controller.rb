@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
       elsif current_user.is_teacher?
         @courses ||= current_user.accepted_courses
       else
-        @courses ||= User.find(params[:teacher_id]).opened_courses if params[:teacher_id]
+        @courses ||= User.find(params[:teacher_id]).accepted_courses if params[:teacher_id]
       end
     end
     

@@ -4,8 +4,7 @@ class HomeController < ApplicationController
   
   def index
   end
-  
-  def open_courses
-    @grade_course = GradesCourse.where(params[:grc]).first_or_create if request.post?
-  end
+
+  def settings
+  end  
 end

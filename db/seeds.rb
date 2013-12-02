@@ -56,3 +56,8 @@ Settings.homework_status = %w(未批阅 待改错 已改错 已完成) if Settin
 Settings.homework_levels = %w(优 良 中 差) if Settings.homework_levels.nil?
 Settings.message_types = %w(system p2p apply_grades apply_courses) # if Settings.message_types.nil?
 
+Grade.where(school_id: nil).each do |g|
+  g.update_attribute :school_id, School.first.id
+end
+
+

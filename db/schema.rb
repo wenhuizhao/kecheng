@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131129142719) do
+ActiveRecord::Schema.define(:version => 20131202133216) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -100,7 +100,10 @@ ActiveRecord::Schema.define(:version => 20131129142719) do
     t.string   "period"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "school_id"
   end
+
+  add_index "grades", ["school_id"], :name => "index_grades_on_school_id"
 
   create_table "grades_courses", :force => true do |t|
     t.integer  "course_id"

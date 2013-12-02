@@ -3,7 +3,7 @@ Kecheng::Application.routes.draw do
 
 
   get "home/index"
-  match "home/open_courses"
+  match "settings" => 'home#settings'
   match "select_grades" => 'grades_courses#select_grades'
   match "exercises/update_text" => "exercises#update_text", :as => "update_text"
 
