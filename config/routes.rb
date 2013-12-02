@@ -7,7 +7,10 @@ Kecheng::Application.routes.draw do
   match "select_grades" => 'grades_courses#select_grades'
   match "exercises/update_text" => "exercises#update_text", :as => "update_text"
 
-  devise_for :users, controllers: {registrations: 'registrations'}
+  devise_for :users, controllers: {
+    passwords: 'passwords',
+    sessions: 'sessions',
+    registrations: 'registrations'}
 
   resources :exercise_texts
   resources :qtypes

@@ -3,16 +3,15 @@ class RegistrationsController < Devise::RegistrationsController
   
   def create
     return render text: '非法註冊' if params[:user][:role_id].nil?
-    # resource.first_name, esource.last_name = get_names params[:real_name]
-    super
+    build_resource(sign_up_params)
+    
+    # resource = User.new(params[:user])
+    if resource.save
+      redirect_to root_path
+    else
+      clean_up_passwords resource
+      respond_with resource
+    end
   end
 
-  # private
-  #   def get_names(name)
-  #     if name.include?(' ')
-  #       name.split(' ')
-  #     else
-  #       [name[1,5], name[0]]
-  #     end
-  #   end
 end
