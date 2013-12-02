@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131202133216) do
+ActiveRecord::Schema.define(:version => 20131202134355) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20131202133216) do
     t.integer  "lesson_id"
     t.integer  "book_id"
     t.integer  "num"
+    t.string   "status"
   end
 
   create_table "lessons", :force => true do |t|
