@@ -14,6 +14,6 @@ class Lesson < ActiveRecord::Base
   end
 
   def students
-  	self.grades_course.students
+    self.grades_course.students
   end
 end

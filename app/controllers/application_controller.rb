@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     end
     
     def require_admin
-      return render text: '您无此权限' unless current_user.is_admin?
+      return render text: '您无此权限' if current_user.is_student? || current_user.is_teacher?
     end
 
     def redirect_with_message(*args)

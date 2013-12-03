@@ -24,9 +24,6 @@
       td 课程大纲 
       td = f.text_area :outline, rows: 10
     tr
-      td 课程节数 
-      td = f.text_field :lesson_num
-    tr
       td 是否开放
       td = f.select :is_open, [['是', 'true'], ['否', 'false']] 
       

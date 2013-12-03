@@ -33,6 +33,7 @@
     .course-toggle-title.xld-left
       h1 查看 >
     .courses
+      h1 = link_to '用户管理', users_path
 
   - if current_user.is_admin?
     .courses

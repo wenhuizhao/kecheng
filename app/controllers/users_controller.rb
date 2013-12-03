@@ -6,7 +6,13 @@ class UsersController < ApplicationController
   before_filter :get_user, except: [:index, :create_user_from_admin, :new]
   
   def index
-    @users = User.all
+    if current_user.is_admin? || current_user.is_admin_jyj?
+      @users = User.all
+    elsif current_user.is_admin_xld?
+      @users = current_user.school.users 
+    else
+      @users = []
+    end
   end
 
   def show
