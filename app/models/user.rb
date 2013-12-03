@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   # validates_uniqueness_of :email, :case_sensitive => false
 
   validates :login, presence: true, uniqueness: true, length: { minimum: 3, maximum: 20 }
-  validates :phone, presence: true, uniqueness: true, length: { minimum: 11, maximum: 13 }
+  # validates :phone, presence: true, uniqueness: true, length: { minimum: 11, maximum: 13 }
   validates :real_name, presence: true
   
   belongs_to :role
@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
   
   def self.teachers
     select{|u| u.role_name == '教师'}
+  end
+
+  def email_required?
+    false
   end
 
   include Student
