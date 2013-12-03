@@ -60,4 +60,9 @@ Grade.where(school_id: nil).each do |g|
   g.update_attribute :school_id, School.first.id
 end
 
+if Role.find_by_en_name('admin_xld').id  > Role.find_by_en_name('admin_jyj').id
+  Role.find_by_en_name('admin_xld').update_attributes(name: '管理员（教育局）', en_name: 'admin_jyj')
+  Role.find_by_en_name('admin_jyj').update_attributes(name: '管理员（校领导）', en_name: 'admin_xld')
+  User.where(email: 'admin@admin.com').last.update_attribute :school_id, nil
+end
 

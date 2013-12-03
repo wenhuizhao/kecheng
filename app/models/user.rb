@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
     role_id.nil?
   end
 
+  def admins?
+    role_name.include?("管理员")
+  end
+
   def name
     real_name || '沒有' 
   end

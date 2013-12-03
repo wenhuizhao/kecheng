@@ -7,7 +7,7 @@ table.list-big
     th 姓名
     th 角色
     th 学校
-    th 邮件
+    / th 邮件
     th 操作 
   - @users.each do |c|
     tr
@@ -15,7 +15,7 @@ table.list-big
       td = link_to c.name, user_path(c)
       td = c.role_name
       td = c.school_name
-      td = c.email
+      / td = c.email
       td.actions
         = link_to '编辑', edit_user_path(c)
         = link_to '删除', c, confirm: '确定删除么？', method: :delete

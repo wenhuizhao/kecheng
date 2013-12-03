@@ -37,6 +37,7 @@ class UsersController < ApplicationController
   def create_user_from_admin
     @user = User.new(params[:user])
     if @user.save
+      @user.update_attribute(:school_id, current_user.school_id) if current_user.is_admin_xld?
       redirect_to users_path
     else
       render action: 'new'
