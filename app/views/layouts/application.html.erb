@@ -17,7 +17,12 @@
       <%= render partial: 'layouts/right' %>
     </div>
   <% else %>
-    <%= yield %>
+    <div id='header'></div>
+    <div id='middle'>
+      <div class='content'>
+        <%= yield %>
+      </div>
+    </div>
   <% end %>
 
 </body>
