@@ -10,7 +10,7 @@
     = f.select :book_id, options_from_collection_for_select(Book.all, :id, :name), {}, {:id=>:book_select}
   .field
     = f.label "Parent Section"
-    = f.select :parent_id, options_for_select(Section.all.map{|s| [s.name, s.id]}<<['', nil])
+    = f.select :parent_id, options_for_select([['',nil]] + Section.all.map{|s| [s.name, s.id]})
 
   .field
     = f.label :number
