@@ -2,6 +2,9 @@
 Kecheng::Application.routes.draw do
 
 
+  resources :sections
+
+
   get "home/index"
   match "settings" => 'home#settings'
   match "select_grades" => 'grades_courses#select_grades'
