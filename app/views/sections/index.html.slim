@@ -2,6 +2,7 @@ h1 Listing sections
 
 table
   tr
+    th Number
     th Name
     th Parent
     th Book
@@ -11,6 +12,7 @@ table
 
   - @sections.each do |section|
     tr
+      td = section.number
       td = section.name
       td = section.parent.nil? ? "" : section.parent.name
       td = section.book.nil? ? "" : section.book.name
