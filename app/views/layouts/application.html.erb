@@ -11,18 +11,18 @@
 <body>
   <div id='notice'><%= flash[:notice] %></div>
   <% if current_user %>
-    <%= render partial: 'layouts/header' %>
+    <%= render 'layouts/header' %>
     <div id='content'>
-      <%= render partial: 'layouts/left' %>
-      <%= render partial: 'layouts/right' %>
+      <%= render 'layouts/left' %>
+      <%= render 'layouts/right' %>
     </div>
   <% else %>
     <div id='header'></div>
-    <div id='middle'>
-    </div>
+    <div id='middle'></div>
     <div class='content'>
       <%= yield %>
     </div>
+    <%= render 'layouts/sections' %>
   <% end %>
 
 </body>
