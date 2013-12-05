@@ -4,6 +4,9 @@
     = f.label :book
     = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name), {}, {:id=>'book_select'})
   .field
+    = f.label :section
+    = f.select(:section_id, {},{}, {:id => "section_select"})
+  .field
     = f.label :text
     = f.select(:exercise_text_id,{},{}, {:id => 'text_select'})
   .field
@@ -43,5 +46,6 @@ javascript:
          },
          dataType: "script"
        });
+
      });
   });

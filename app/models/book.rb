@@ -5,4 +5,5 @@ class Book < ActiveRecord::Base
   has_many :homeworks
   has_many :exercises
   has_many :exercise_texts
+  has_many :sections
 end

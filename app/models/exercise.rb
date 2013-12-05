@@ -10,4 +10,5 @@ class Exercise < ActiveRecord::Base
   accepts_nested_attributes_for :options, :allow_destroy => true, :reject_if =>  :all_blank
   belongs_to :qtype
   belongs_to :exercise_text
+  belongs_to :section
 end

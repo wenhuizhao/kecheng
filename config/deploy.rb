@@ -40,7 +40,7 @@ namespace :deploy do
    task :db_migrate, :roles => :db do
      %x[bundle exec rake db:migrate]
    end
-   task :db_seed: :roles => :db do
+   task :db_seed, :roles => :db do
      %x[bundle exec rake db:seed]
    end
    task :start do ; end
