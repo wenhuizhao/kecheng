@@ -1,0 +1,23 @@
+h1 Listing sections
+
+table
+  tr
+    th Name
+    th Parent
+    th Book
+    th
+    th
+    th
+
+  - @sections.each do |section|
+    tr
+      td = section.name
+      td = section.parent.nil? ? "" : section.parent.name
+      td = section.book.nil? ? "" : section.book.name
+      td = link_to 'Show', section
+      td = link_to 'Edit', edit_section_path(section)
+      td = link_to 'Destroy', section, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to 'New Section', new_section_path
