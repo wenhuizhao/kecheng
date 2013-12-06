@@ -12,7 +12,10 @@ $font-size-big: 18px
 $font-size-large: 22px
 
 $main-color: rgb(38,222,198)
+$main-color-hover: rgb(147,229,218)
+$red: #e62526
 
+$login-box: 'login-box.png'
 
 @mixin block($color: $main-color, $margin: 20px)
   text-align: center
@@ -22,3 +25,13 @@ $main-color: rgb(38,222,198)
   background: $color
   display: inline-block
   // float: left
+
+@mixin btn($fsize: $font-size-large, $bcolor: $main-color, $bradius: 5px)
+  color: white
+  vertical-align: middle
+  text-align: center
+  font-size: $fsize
+  border: 1px #ccc solid
+  background: $main-color
+  display: block
+  @include border-radius($bradius)

@@ -1,5 +1,5 @@
 @import variables
-// @import "compass/css3"
+@import "compass/css3"
 
 $login-height: 526px
 
@@ -51,16 +51,33 @@ body
     .link
       float: right
       a
-        color: red
+        color: $red
 
 h2
   text-align: center
 
+.btns
+  a
+    span
+      display: block
+
 #login-form
   text-align: center
-  height: 302px
-  width: 410px
+  width: 302px
+  height: 480px - 128px
+  padding-top: 128px
+  margin: -35px 0 0 0
   float: right
-  margin: 16px 0
+  background: url($login-box)
   table
     margin: 0 auto
+  .btns
+    margin: 41px 0 0 26px
+  .btn-login
+    @include btn
+    height: 50px
+    width: 242px
+    span
+      margin: 10px 0 0 0 
+  .btn-login:hover
+    background: $main-color-hover

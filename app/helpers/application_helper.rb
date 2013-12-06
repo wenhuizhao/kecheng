@@ -10,4 +10,8 @@ module ApplicationHelper
   def into_datetime(datetime)
     datetime.strftime('%F %T')
   end
+
+  def main_btn
+  	'btn btn-main'
+  end
 end

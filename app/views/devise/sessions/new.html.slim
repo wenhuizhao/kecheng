@@ -2,15 +2,15 @@
   = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
     table
       tr
-        td = f.label :用户名
-        td = f.text_field :login, :autofocus => true
+        td = f.text_field :login, autofocus: true, placeholder: '用户名'
       tr
-        td = f.label :密码
-        td = f.password_field :password
+        td = f.password_field :password, placeholder: '密码'
       / tr
       /   td = f.label :身份
       /   td = select_tag :role_id, options_from_collection_for_select(Role.all, :id, :name)
-      tr
-        td colspan=10
-           = f.submit "登录"
-      tr = render "devise/shared/links"
+    
+    .btns  
+      = f.submit "登录", class: 'btn-login'
+        
+      = link_to new_registration_path(resource_name), class: 'btn-login mt10' do
+        span 注册
