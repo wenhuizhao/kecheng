@@ -8,7 +8,7 @@ $list-width: 400px
 $big-list-width: $body-width * 0.7
 $font-size-small: 12px
 $font-size: 14px
-$font-size-big: 18px
+$font-size-big: 20px
 $font-size-large: 22px
 
 $main-color: rgb(38,222,198)
@@ -32,6 +32,19 @@ $login-box: 'login-box.png'
   text-align: center
   font-size: $fsize
   border: 1px #ccc solid
-  background: $main-color
+  background: $bcolor
   display: block
   @include border-radius($bradius)
+
+@mixin input($fsize: $font-size-big, $color: rgb(38,32,28), $bradius: 2px)
+  color: $color
+  font-size: $fsize
+  padding: 2px 4px
+  vertical-align: middle
+  border: none
+  background: white
+  display: block
+  @include box-shadow(0 3px 3px #ccc inset)
+  @include border-radius($bradius)
+
+

@@ -4,13 +4,12 @@
       tr
         td = f.text_field :login, autofocus: true, placeholder: '用户名'
       tr
-        td = f.password_field :password, placeholder: '密码'
+        td = f.password_field :password, placeholder: '密   码', class: 'mt10'
       / tr
       /   td = f.label :身份
       /   td = select_tag :role_id, options_from_collection_for_select(Role.all, :id, :name)
     
     .btns  
       = f.submit "登录", class: 'btn-login'
-        
-      = link_to new_registration_path(resource_name), class: 'btn-login mt10' do
+      = link_to new_registration_path(resource_name), class: 'btn-login mt10'
         span 注册
