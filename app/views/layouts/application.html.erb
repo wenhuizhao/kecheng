@@ -6,7 +6,7 @@
   <%= stylesheet_link_tag "#{current_user ? 'after-' : ''}login" %>
   <%= stylesheet_link_tag "normalize" %>
   <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "login" unless current_user %>
+  <%= javascript_include_tag "login" if controller_name == 'sessions' && !current_user %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -19,11 +19,11 @@
     </div>
   <% else %>
     <div id='header'></div>
-    <div id='middle'></div>
+    <div id='middle' class='<%= controller_name %>'></div>
     <div class='content'>
       <%= yield %>
     </div>
-    <%= render 'layouts/sections' %>
+    <%= render 'layouts/sections' if controller_name == 'sessions' %>
   <% end %>
 
 </body>
