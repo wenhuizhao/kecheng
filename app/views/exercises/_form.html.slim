@@ -2,7 +2,7 @@
   = render partial: 'shared/error_msgs', locals: {target: @exercise}
   .field
     = f.label :book
-    = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name), {}, {:id=>'book_select'})
+    = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected => @exercise.book.id), {}, {:id=>'book_select'})
   .field
     = f.label :section
     = f.select(:section_id, {},{}, {:id => "section_select"})
@@ -11,10 +11,10 @@
     = f.select(:exercise_text_id,{},{}, {:id => 'text_select'})
   .field
     = f.label :category
-    = f.select(:category_id, options_from_collection_for_select(Category.all, :id, :name))
+    = f.select(:category_id, options_from_collection_for_select(Category.all, :id, :name, :selected => @exercise.category.id))
   .field
     = f.label :question_type
-    = f.select(:qtype_id, options_from_collection_for_select(Qtype.all, :id, :name), {}, :onchange => "$('#option').show()")
+    = f.select(:qtype_id, options_from_collection_for_select(Qtype.all, :id, :name, :selected => @exercise.qtype.id), {}, :onchange => "$('#option').show()")
   .field
     = f.label :title
     = f.text_area :title, {:rows=>5, :cols=>80}
@@ -37,15 +37,17 @@
 
 
 javascript:
+  function update_field() {
+         $.ajax({
+           url: "#{update_text_path}",
+           data: {
+             book_id: $('#book_select').val(),
+             exercise_id: "#{@exercise.id}"
+           },
+           dataType: "script"
+         });
+  }
   $(document).ready(function() {
-     $('#book_select').change(function() {
-       $.ajax({
-         url: "#{update_text_path}",
-         data: {
-           book_id: $('#book_select').val()
-         },
-         dataType: "script"
-       });
-
-     });
+     update_field();
+     $('#book_select').change(update_field);
   });

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 #encoding: utf-8
 class Exercise < ActiveRecord::Base
-  attr_accessible :answer, :note, :title, :photo, :book_id, :category_id, :qtype_id, :exercise_text_id, :options_attributes
+  attr_accessible :answer, :note, :title, :photo, :book_id, :category_id, :qtype_id, :exercise_text_id, :options_attributes, :section_id
   has_attached_file :photo
   belongs_to :book
   belongs_to :category
@@ -11,4 +11,14 @@ class Exercise < ActiveRecord::Base
   belongs_to :qtype
   belongs_to :exercise_text
   belongs_to :section
+
+  def is_fill_blank?
+    qtype.name == "填空题"
+  end
+  def is_multi_choice?
+    qtype.name == "选择题"
+  end
+  def is_q_and_a?
+    qtype.name == "问答题"
+  end
 end

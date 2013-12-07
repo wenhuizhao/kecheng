@@ -1,2 +1,2 @@
-$("#text_select").html("<%=escape_javascript(options_for_select(@exercise_texts))%>");
-$("#section_select").html("<%=escape_javascript(options_for_select(@sections))%>");
+$("#text_select").html("<%=escape_javascript(options_for_select(@exercise_texts, :selected=>@exercise.exercise_text.nil? ? nil: @exercise.exercise_text.id))%>");
+$("#section_select").html("<%=escape_javascript(options_for_select(@sections, :selected=>@exercise.section.nil? ? nil: @exercise.section.id))%>");
