@@ -1,4 +1,5 @@
 class SectionsController < ApplicationController
+  layout  "blank"
   # GET /sections
   # GET /sections.json
   def index

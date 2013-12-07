@@ -1,4 +1,5 @@
 class ExerciseTextsController < ApplicationController
+  layout  "blank"
   # GET /exercise_texts
   # GET /exercise_texts.json
   def index

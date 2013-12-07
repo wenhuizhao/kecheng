@@ -18,6 +18,9 @@
   .field
     = f.label :title
     = f.text_area :title, {:rows=>5, :cols=>80}
+  .field
+    = f.label :photo
+    = f.file_field :photo
   div id="option" style="display:block"
     .field
       = f.fields_for :options do |ff|
@@ -31,8 +34,9 @@
     = f.label :answer
     = f.text_area :answer, {:rows=>5, :cols=>80}
   .field
-    = f.label :photo
-    = f.file_field :photo
+    = f.label :answerphoto
+    = f.file_field :answerphoto
+
   .actions = f.submit 'Save'
 
 

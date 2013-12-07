@@ -1,0 +1,48 @@
+<div>
+Book: <%=@exercise.book.name if @exercise.book%>,
+Section: <%=@exercise.section.name if @exercise.section%><br/>
+Type: <%=@exercise.qtype.name if @exercise.qtype%><br/>
+Category: <%=@exercise.category.name if @exercise.category%><br/>
+
+</div>
+
+<div>
+   <%=@exercise.exercise_text.name if @exercise.exercise_text%>
+   <div><%= @exercise.title %> </div>
+   <div>
+   <% if @exercise.is_multi_choice? %>
+       <% @exercise.options.each_with_index do |o, i| %>
+            (<%=ExerciseOption::OPTION_NUM[i]%>)<%=o.name%>
+       <% end %>
+   <% end %>
+   </div>
+   <%=@exercise.note%>
+</div>
+<% if !@exercise.photo_file_name.nil? %>
+  <canvas id="canvas" width="800" height="400"></canvas>
+  <%= image_tag @exercise.photo.url, {:id=>"photo", :style => "display:none" } %>
+    <script type="text/javascript">
+        var canvas = new fabric.Canvas('canvas');
+        var photo = document.getElementById('photo');
+        var imgInstance = new fabric.Image(photo, {
+            left:10,
+            top:10
+        });
+        canvas.add(imgInstance);
+    </script>
+<% end %>
+<div>
+Answer:
+<% if @exercise.answerphoto_file_name.nil? %>
+  <%= @exercise.answer %>
+<% else %>
+  <%= image_tag @exercise.answerphoto.url  %>
+<% end %>
+</div>
+<p>
+  <%= link_to 'Edit', edit_exercise_path(@exercise) %>
+'|
+ <%= link_to 'Back', exercises_path %>
+</p>
+
+
