@@ -1,2 +1,2 @@
-$("#text_select").html("<%=escape_javascript(options_for_select(@exercise_texts, :selected=>@exercise.exercise_text.nil? ? nil: @exercise.exercise_text.id))%>");
-$("#section_select").html("<%=escape_javascript(options_for_select(@sections, :selected=>@exercise.section.nil? ? nil: @exercise.section.id))%>");
+$("#text_select").html("<%=escape_javascript(options_for_select(@exercise_texts, :selected=>@exercise && @exercise.exercise_text ? @exercise.exercise_text.id : nil))%>");
+$("#section_select").html("<%=escape_javascript(options_for_select(@sections, :selected=>@exercise && @exercise.section ? @exercise.section.id : nil))%>");
