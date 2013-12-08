@@ -97,22 +97,28 @@ h2
   text-align: center
   height: 1300px
   padding-top: 128px
-  margin: -640px auto 0 -250px
-  background: url("register-box.png")
-  position: relative
+  width: 695px
+  margin: -640px auto
+  background: url("register-box.png") no-repeat
   table
     color: $input-font-color
-    margin: 60px 0 0 452px
+    margin: 60px 0 0 57px
     td
-      .send-code, #auth_code
-        display: inline-block
-      .send-code
-        width: 188px
-        height: 66px
-        font-size: 26px
-        @include border-radius(2px)
-        border: 1px solid #ddd
-        background: white
+      .inline
+        margin: 44px 0 0 0
+        #auth_code
+          margin: 0
+        .send-code, #auth_code
+          display: inline-block
+        .send-code
+          color: $input-font-color
+          width: 188px
+          padding-top: 12px
+          height: 58px
+          font-size: 26px
+          @include border-radius(2px)
+          border: 1px solid #ddd
+          background: white
       .genders
         height: 65px
         font-size: 26px
@@ -129,7 +135,7 @@ h2
       height: 65px
       margin: 44px 0 0 0
   .btns
-    margin: 44px 0 0 457px
+    margin: 44px 0 0 70px
   .btn-login
     @include btn(36px)
     height: 70px

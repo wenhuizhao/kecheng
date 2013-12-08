@@ -16,8 +16,9 @@
       tr: td = f.select :school_id, School.all.collect {|s| [s.name, s.id]}
       tr: td = f.text_field :phone, :autofocus => true, placeholder: '手机号码'
       tr: td 
-        = text_field_tag :auth_code, '', placeholder: '验证码'
-        .ml14.send-code = '发送验证码'
+        .inline
+          = text_field_tag :auth_code, '', placeholder: '验证码'
+          .ml10.send-code = '发送验证码'
 
     .btns 
       = f.hidden_field :role_id, value: Role.student.id
