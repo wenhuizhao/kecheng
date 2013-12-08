@@ -1,11 +1,13 @@
 
-$header-height: 80px
+@import compass/css3
+$header-height: 76px
 $body-width: 1024px
 $main-width: 960px
 $left-width: 212px
 $body-height: 768px
 $list-width: 400px
 $big-list-width: $body-width * 0.7
+
 $font-size-small: 12px
 $font-size: 14px
 $font-size-big: 20px
@@ -14,7 +16,7 @@ $font-size-large: 22px
 $main-color: rgb(38,222,198)
 $main-color-hover: rgb(147,229,218)
 $red: #e62526
-$input-font-color: rgb(89,89,89)
+$input-font-color: #898989
 
 $login-box: 'login-box.png'
 $register-box: 'register-box.png'
@@ -48,5 +50,18 @@ $register-box: 'register-box.png'
   display: block
   @include box-shadow(0 3px 3px #ccc inset)
   @include border-radius($bradius)
+
+@mixin area($bcolor: rgb(38,32,28), $fsize: 24px)
+  text-align: center
+  font-size: $fsize
+  width: 274px
+  color: white
+  padding: 65px 0
+  float: left
+  @include box-shadow(0 3px 3px $bcolor)
+
+
+
+
 
 

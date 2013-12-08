@@ -12,11 +12,7 @@
 <body>
   <div id='notice'><%= flash[:notice] %></div>
   <% if current_user %>
-    <%= render 'layouts/header' %>
-    <div id='content'>
-      <%= render 'layouts/left' %>
-      <%= render 'layouts/right' %>
-    </div>
+    <%= render 'layouts/common' %>
   <% else %>
     <div id='header'></div>
     <div id='middle' class='<%= controller_name %>'></div>

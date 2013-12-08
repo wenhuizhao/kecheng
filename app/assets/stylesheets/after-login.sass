@@ -2,7 +2,7 @@
 
 header
   height: $header-height
-  background: $main-color
+  background: rgb(253,243,240)
   .h-left, h1, .h-right
     float: left
     display: inline-block
@@ -27,6 +27,7 @@ header
   cursor: pointer 
  
 #content
+  background: $main-color
   .left, .right
     float: left
   .left
@@ -96,4 +97,37 @@ header
   font-size: $font-size-large
   table
     width: 650px
+
+.areas
+  margin: 132px 21px
+  .area
+    @include area
+    margin: 0 0 28px 25px
+    a
+      color: white
+  .fenhong
+    background: rgb(250,175,154)
+  .caolv
+    background: rgb(113,202,94)
+  .tianlan
+    background: rgb(140,225,255)
+  .huanglv
+    background: rgb(184,210,1)
+  .zilan
+    background: rgb(113,137,223)
+  .hong
+    background: rgb(226,36,62)
+  .fenlan
+    background: rgb(36,200,210)
+  .fen
+    background: rgb(231,151,220)
+  .zi
+    background: rgb(104,69,153)
+
+
+
+
+
+
+
 
