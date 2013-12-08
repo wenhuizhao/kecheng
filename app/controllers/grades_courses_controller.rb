@@ -29,6 +29,7 @@ class GradesCoursesController < ApplicationController
 
   def select_grades
     return unless request.post?
+    return if params[:grade_num].empty?
     GradeStudent.where(student_id: current_user.id, grade_id: @grade.id, is_accept: nil).first_or_create
     send_apply_request('apply_grades', grade_id: @grade.id)
   end
