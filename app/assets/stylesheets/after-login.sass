@@ -7,7 +7,11 @@
   width: 170px
   display: inline-block
 
+body
+  background: rgb(253,243,240)
+
 header
+  display: none
   height: $header-height
   background: rgb(253,243,240)
   .h-left, h1, .h-right
@@ -34,7 +38,7 @@ header
   cursor: pointer 
  
 #content
-  background: $main-color
+  padding-top: 77px
   .left, .right
     float: left
   .left
@@ -106,7 +110,8 @@ header
     width: 650px
 
 .areas
-  margin: 132px 21px
+  margin: 129px 21px
+  position: absolute
   .area
     @include area
     margin: 0 0 28px 25px
@@ -131,9 +136,29 @@ header
   .zi
     background: rgb(104,69,153)
 
+.exit
+  float: right
+  margin: -13px 23px
+  font-size: 24px
+  color: black
 
+.body-bg
+  background: url('/assets/student-bg0.png')
+  //margin-top: -76px
 
+.avatar
+  position: absolute
+  margin: -47px 0 0 0
 
+.welcome
+  margin-left: 15px
+  display: inline-block
+  width: 100px
+  font-size: 24px
+  color: white
+  span.name
+    display: block
+    font-size: 34px
 
 
 

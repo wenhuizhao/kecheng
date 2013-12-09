@@ -1,4 +1,12 @@
-#content
-  header.title
-    = yield :header
-  = yield
+/ header.title
+/   = yield :header
+
+.body-bg
+  #content
+    .exit = link_to '退出', destroy_user_session_path, method: :delete
+    .avatar
+      = image_tag 'avatar.png'
+      .welcome 
+        span.name = '小红'
+        = '欢迎您！'
+    = yield
