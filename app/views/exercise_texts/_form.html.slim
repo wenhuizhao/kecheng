@@ -2,10 +2,10 @@
   = render partial: 'shared/error_msgs', locals: {target: @exercise_text}
   .field
     = f.label :book
-    = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name))
+    = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected=>@exercise_text.book ? @exercise_text.book.id : Book.first.id),{}, {:id=>'book_select'})
   .field
     = f.label :section
-    = f.text_field :section
+    = f.select(:section_id, {}, {}, {:id=>"section_select"})
   .field
     = f.label :page
     = f.number_field :page
@@ -15,4 +15,23 @@
   .field
     = f.label :content
     = f.text_area :content
+  .field
+    = f.label :photo
+    = f.file_field :photo
   .actions = f.submit 'Save'
+
+javascript:
+  function update_field() {
+         $.ajax({
+           url: "#{update_text_path}",
+           data: {
+             book_id: $('#book_select').val(),
+             exercise_text_id: "#{@exercise_text.id}"
+           },
+           dataType: "script"
+         });
+  }
+  $(document).ready(function() {
+     update_field();
+     $('#book_select').change(update_field);
+  });

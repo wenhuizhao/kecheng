@@ -7,7 +7,7 @@ Category: <%=@exercise.category.name if @exercise.category%><br/>
 </div>
 
 <div>
-   <%=@exercise.exercise_text.name if @exercise.exercise_text%>
+   <%=@exercise.exercise_text.content if @exercise.exercise_text%>
    <div><%= @exercise.title %> </div>
    <div>
    <% if @exercise.is_multi_choice? %>
@@ -20,7 +20,7 @@ Category: <%=@exercise.category.name if @exercise.category%><br/>
 </div>
 <% if !@exercise.photo_file_name.nil? %>
   <canvas id="canvas" width="800" height="400"></canvas>
-  <%= image_tag @exercise.photo.url, {:id=>"photo", :style => "display:none" } %>
+  <%= image_tag @exercise.photo.url, {:id=>"photo"} %>
     <script type="text/javascript">
         var canvas = new fabric.Canvas('canvas');
         var photo = document.getElementById('photo');

@@ -89,8 +89,9 @@ class ExercisesController < ApplicationController
 
   def update_text
     @exercise = Exercise.find(params[:exercise_id]) unless params[:exercise_id].blank?
+    @exercise_text = ExerciseText.find(params[:exercise_text_id]) unless params[:exercise_text_id].blank?
     book = Book.find(params[:book_id])
-    @exercise_texts = book.exercise_texts.map{|t| [t.title, t.id]}
+    @exercise_texts = book.exercise_texts.map{|t| [t.title.truncate(20), t.id]}
     @sections = book.sections.map{|t| [t.num_name, t.id]}
     respond_to do |format|
       format.js

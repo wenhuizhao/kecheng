@@ -4,6 +4,7 @@ class Section < ActiveRecord::Base
   belongs_to :parent, :class_name => "Section", :foreign_key => "parent_id"
   belongs_to :book
   has_many :exercises
+  has_many :exercise_texts
   def num_name
     "#{number} #{name}"
   end
