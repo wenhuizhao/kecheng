@@ -164,6 +164,9 @@ header
     display: block
     font-size: 34px
 
+.actions a
+  margin: 0 0 0 10px
+
 .lists
   .back, .title
     padding: 5px 38px 21px 38px
@@ -193,6 +196,18 @@ header
       font-weight: bold
       background: white
       border-bottom: 1px #999 solid
+      .date
+        color: #ccc
+        margin: 20px 0
+      .actions
+        width: 430px
+        margin: 0 37px -5px 500px
+        a
+          @include btn(24px, rgb(179, 221, 108), 1px)
+          padding: 5px 32px
+          width: 111px
+          display: inline
+
 
 
 

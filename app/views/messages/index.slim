@@ -13,6 +13,8 @@
         .desc
           = m.sender.name + m.sender.role_name + ': ' 
           = m.content
+
+          .date = into_datetime m.updated_at
           .actions 
             - if m.is_apply? 
               - if m.is_accept.nil?
@@ -21,8 +23,10 @@
               - else
                 = m.is_accept ? '已接受' : '已拒绝'
             - else
-              = link_to '回复'
-              = link_to '编辑', edit_message_path(m) if m.sender_id == current_user.id
-.block
+              - if m.sender_id == current_user.id
+                = link_to '编辑', edit_message_path(m) 
+              - else
+                = link_to '回复'
+.block 
   - unless current_user.is_student?
     = link_to '发送系统消息', new_message_path

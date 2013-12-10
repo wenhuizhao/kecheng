@@ -6,6 +6,10 @@ $(document).ready ->
     grade: 'g1'
     cls: 'c1'
   
+  if $('.actions').find('a').length is 1
+    $('.actions').css
+      "margin-left": "620px"
+
   $('.back').on 'click', ->
     history.go(-1)
 
