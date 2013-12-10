@@ -6,6 +6,9 @@ $(document).ready ->
     grade: 'g1'
     cls: 'c1'
   
+  $('.back').on 'click', ->
+    history.go(-1)
+
   $('.teacher-left').click ->
     # $('.left .courses').toggle()
     redirect_to '/grades_courses'

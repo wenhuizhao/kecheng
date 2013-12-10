@@ -1,17 +1,19 @@
 = render partial: 'shared/header', locals: {title: '消息中心'}
 
-.messages
+//= render partial: 'shared/lists', locals: {objs: @messages, title: "消息(#{@messages.size})"}
+
+.lists
+  .back 返回
   - if @messages.empty?
-    | 暂无消息
+    .title 暂无消息
   - else
-    table
+    .title = "消息(#{@messages.size})"
+    .descs
       - @messages.each_with_index do |m, i|
-        tr
-          td 
-             / # = "#{i + 1}、" 
-             = m.sender.name + m.sender.role_name + ': ' 
-             = m.content
-          td.actions 
+        .desc
+          = m.sender.name + m.sender.role_name + ': ' 
+          = m.content
+          .actions 
             - if m.is_apply? 
               - if m.is_accept.nil?
                 = link_to('接受', accept_select_grades_path(id: m.id))
