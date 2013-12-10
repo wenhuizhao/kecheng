@@ -5,6 +5,8 @@ class Grade < ActiveRecord::Base
 
   has_many :grades_courses
   has_many :teachers, through: :grades_courses
+
+  # scope :history_of, -> (user) {all}
   
   def uteachers
     teachers.uniq

@@ -1,0 +1,16 @@
+
+.lists
+  = link_to_home
+  - if @grades.empty?
+    .title 暂无历史班级
+  - else
+    .title 历史班级
+    .descs
+      - @grades.each do |m|
+        .desc
+          = m.period
+          |      
+          = m.full_name
+.block 
+  - unless current_user.is_student?
+    = link_to '发送系统消息', new_message_path

@@ -19,6 +19,7 @@ Kecheng::Application.routes.draw do
   resources :qtypes
   resources :book_categories
   resources :books
+  resources :grades
   resources :exercises
   resources :messages
   

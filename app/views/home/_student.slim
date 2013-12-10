@@ -13,8 +13,8 @@
   .area.hong
     = link_to '英语',''
   .area.fenlan
-    = link_to '我的班级', select_grades_courses_path
+    = link_to '我的班级', grades_path
   .area.fen
-    = link_to '历史班级',''
+    = link_to '历史班级', grades_path(history: true)
   .area.zi
-    = link_to '班级设置',''
+    = link_to '班级设置', grades_path
