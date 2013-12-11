@@ -55,6 +55,15 @@ class User < ActiveRecord::Base
     false
   end
 
+  def set_bg_num
+    if self.bg_num.to_i < 2
+      self.bg_num = self.bg_num.to_i + 1
+    else
+      self.bg_num = '0'
+    end
+    self.save
+  end
+
   include Student
   include Teacher
 end

@@ -9,8 +9,14 @@
   <%= javascript_include_tag "login" if controller_name == 'sessions' && !current_user %>
   <%= csrf_meta_tags %>
 </head>
+<% if current_user %>
+  <style type="text/css">
+    .exit{background: url('/assets/scircle<%= current_user.bg_num %>.png');}
+    .body-bg{background: url('/assets/student-bg<%= current_user.bg_num %>.png') no-repeat;}
+  </style>
+<% end %>
 <body>
-  <div id='notice'><%= flash[:notice] %></div>
+  <!-- <div id='notice'><%= flash[:notice] %></div> -->
   <% if current_user %>
     <%= render 'layouts/common' %>
   <% else %>
