@@ -109,4 +109,13 @@ class ExercisesController < ApplicationController
     end
   end
 
+  def save_canvas
+    @exercise = Exercise.find(params[:id])
+    @exercise.extra = params[:data]
+    @exercise.save
+  end
+  def load_canvas
+    @exercise = Exercise.find(params[:id])
+    render :text => @exercise.extra
+  end
 end

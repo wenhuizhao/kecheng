@@ -23,11 +23,13 @@
     <canvas id="canvas" width="600" height="400"></canvas>
   </div>
   <div id="toolBox"style="display: inline-block; margin-left: 10px; vertical-align: top;">
-    <button id="clearCanvas" >Clear</button><br/>
-    <label for="drawing-line-width">Line width:</label>
+    <button id="clearCanvas" >清除</button>
+    <button id="saveCanvas" >保存</button>
+    <button id="loadCanvas" >打开</button><br/>
+    <label for="drawing-line-width">线宽:</label>
     <span class="info">1</span><input type="range" value="1" min="0" max="20" id="drawing-line-width"><br>
 
-    <label for="drawing-color">Line color:</label>
+    <label for="drawing-color">线颜色:</label>
     <input type="color" value="#005E7A" id="drawing-color"><br>
 
   </div>
@@ -36,8 +38,11 @@
         var canvas = new fabric.Canvas('canvas', {isDrawingMode: true});
         var photo = $('#photo')[0];
         var clearEl = $('#clearCanvas')[0];
+        var saveEl = $('#saveCanvas')[0];
+        var loadEl = $('#loadCanvas')[0];
         var drawingColorEl = $('#drawing-color')[0];
         var drawingLineWidthEl = $('#drawing-line-width')[0];
+
         var imgInstance = new fabric.Image(photo, {
             left:0,
             top:0
@@ -52,6 +57,23 @@
             canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
             this.previousSibling.innerHTML = this.value;
         };
+
+        saveEl.onclick = function() {
+            var str = JSON.stringify(canvas);
+            $.ajax({
+                url: "<%=save_canvas_path(@exercise)%>",
+                type: "post",
+                data: {
+                    data: str
+                }
+            });
+        }
+        loadEl.onclick = function() {
+            var str;
+            $.get("<%=load_canvas_path(@exercise)%>", function(data, textStatus) {
+                canvas.loadFromJSON(data, canvas.renderAll.bind(canvas));
+            });
+        }
 
   </script>
 <% end %>
