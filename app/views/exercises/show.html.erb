@@ -7,8 +7,8 @@
 </div>
 
 <div>
-   <%=@exercise.exercise_text.content if @exercise.exercise_text%>
-   <div><%= @exercise.title %> </div>
+   <%=raw simple_format h(@exercise.exercise_text.content) if @exercise.exercise_text%>
+   <div><%= raw simple_format h(@exercise.title) %> </div>
    <div>
    <% if @exercise.is_multi_choice? %>
        <% @exercise.options.each_with_index do |o, i| %>
