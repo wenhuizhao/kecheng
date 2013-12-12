@@ -119,9 +119,13 @@ header
     @include area
     margin: 0 0 28px 25px
     a
+      margin: 60px 0 10px
+      display: block
       color: white
   .fenhong
     background: rgb(250,175,154)
+  .fenhongt
+    background: rgb(250,124,129)
   .caolv
     background: rgb(113,202,94)
   .tianlan
@@ -138,6 +142,8 @@ header
     background: rgb(231,151,220)
   .zi
     background: rgb(104,69,153)
+  .green
+    background: rgb(77,216,151)
 
 .exit
   float: right
@@ -218,14 +224,15 @@ header
       .date
         color: #ccc
         margin: 20px 0
-      .actions
-        width: 430px
-        margin: 0 37px -5px 500px
-        a
-          @include btn(24px, rgb(179, 221, 108), 1px)
-          padding: 5px 32px
-          width: 111px
-          display: inline
+.desc, .main-desc
+  .actions
+    width: 430px
+    margin: 0 37px -5px 500px
+    a
+      @include btn(24px, rgb(179, 221, 108), 1px)
+      padding: 5px 32px
+      width: 111px
+      display: inline
 
 
 

@@ -13,7 +13,7 @@ class GradesCourse < ActiveRecord::Base
   has_many :student_courses
   has_many :students, through: :student_courses
 
-  validates :grade_id, :course_id, :outline, presence: true
+  validates :grade_id, :course_id, presence: true
   
   validates :course_id, uniqueness: {scope: :grade_id}
   

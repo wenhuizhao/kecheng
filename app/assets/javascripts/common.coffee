@@ -13,14 +13,6 @@ $(document).ready ->
   $('.back').on 'click', ->
     history.go(-1)
 
-  $('.teacher-left').click ->
-    # $('.left .courses').toggle()
-    redirect_to '/grades_courses'
-
-  $('.student-left').click ->
-    $('.left .courses').toggle()
-    # redirect_to '/grades_courses/select'
-
   $('.xld-left').click ->
     redirect_to '/'
   

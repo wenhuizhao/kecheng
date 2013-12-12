@@ -13,7 +13,14 @@ body
 
 .btn
   @include btn
-  
+  &.cancle, a
+    background: #eee
+    height: 44px
+    border: none
+    margin: 0 0 0 10px
+    span
+      display: block
+      margin: 6px 0
 a
   text-decoration: inherit
 
@@ -75,6 +82,9 @@ ul
 .fright
   float: right
 
+.vh
+  visibility: hidden
+  
 .ml600
   margin-left: 600px
 @for $i from 1 to 20

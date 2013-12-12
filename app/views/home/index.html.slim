@@ -28,5 +28,7 @@
   br
   = render 'teachers'
 
-- if current_user.is_student?
-  = render 'student'    
+- if current_user.is_admin?
+  = render 'admin'
+- else
+  = render current_user.role.en_name    
