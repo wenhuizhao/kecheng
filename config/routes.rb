@@ -9,7 +9,7 @@ Kecheng::Application.routes.draw do
   match "settings" => 'home#settings'
   match "select_grades" => 'grades_courses#select_grades'
   match "exercises/update_text" => "exercises#update_text", :as => "update_text"
-
+  match "exercises/answer/:id" => "exercises#answer", :as => "answer_exercise"
   devise_for :users, controllers: {
     passwords: 'passwords',
     sessions: 'sessions',

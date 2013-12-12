@@ -100,4 +100,13 @@ class ExercisesController < ApplicationController
     end
   end
 
+  def answer
+    @exercise = Exercise.find(params[:id])
+
+    respond_to do |format|
+      format.html # answer.html.erb
+      format.json { render json: @exercise }
+    end
+  end
+
 end

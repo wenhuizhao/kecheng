@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  layout  "blank"
   # GET /categories
   # GET /categories.json
   def index
