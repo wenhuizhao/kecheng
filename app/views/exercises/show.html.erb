@@ -1,8 +1,8 @@
 <div>
-Book: <%=@exercise.book.name if @exercise.book%>,
-Section: <%=@exercise.section.name if @exercise.section%><br/>
-Type: <%=@exercise.qtype.name if @exercise.qtype%><br/>
-Category: <%=@exercise.category.name if @exercise.category%><br/>
+书名: <%=@exercise.book.name if @exercise.book%>,
+章节: <%=@exercise.section.name if @exercise.section%><br/>
+类别: <%=@exercise.qtype.name if @exercise.qtype%><br/>
+题型: <%=@exercise.category.name if @exercise.category%><br/>
 
 </div>
 
@@ -32,7 +32,7 @@ Category: <%=@exercise.category.name if @exercise.category%><br/>
     </script>
 <% end %>
 <div>
-Answer:
+答案:
 <% if @exercise.answerphoto_file_name.nil? %>
   <%= @exercise.answer %>
 <% else %>
@@ -40,9 +40,9 @@ Answer:
 <% end %>
 </div>
 <p>
-  <%= link_to 'Edit', edit_exercise_path(@exercise) %>
+  <%= link_to '修改', edit_exercise_path(@exercise) %>
 '|
- <%= link_to 'Back', exercises_path %>
+ <%= link_to '返回列表', exercises_path %>
 </p>
 
 

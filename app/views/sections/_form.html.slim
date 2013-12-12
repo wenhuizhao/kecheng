@@ -5,17 +5,23 @@
       ul
         - @section.errors.full_messages.each do |message|
           li = message
-  .field
-    = f.label :book
-    = f.select :book_id, options_from_collection_for_select(Book.all, :id, :name), {}, {:id=>:book_select}
-  .field
-    = f.label "Parent Section"
-    = f.select :parent_id, options_for_select([['',nil]] + Section.all.map{|s| [s.name, s.id]})
+  table
+    tr
+      td = f.label '书'
+      td = f.select :book_id, options_from_collection_for_select(Book.all, :id, :name), {}, {:id=>:book_select}
 
-  .field
-    = f.label :number
-    = f.text_field :number
-  .field
-    = f.label :name
-    = f.text_field :name
-  .actions = f.submit 'Save'
+    tr
+      td = f.label "父章节"
+      td = f.select :parent_id, options_for_select([['',nil]] + Section.all.map{|s| [s.name, s.id]})
+
+
+    tr
+      td = f.label '章节编号'
+      td = f.text_field :number
+
+    tr
+      td = f.label '章节名称'
+      td = f.text_field :name
+
+    tr
+      td =  f.submit '保存'

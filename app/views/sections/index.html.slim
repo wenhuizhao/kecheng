@@ -1,11 +1,12 @@
-h1 Listing sections
-
+h2 = @book.name if @book
+h3 章节列表
+<br/>
 table
   tr
-    th Number
-    th Name
-    th Parent
-    th Book
+    th 章节编号
+    th 章节名称
+    th 父章节
+    th 练习题
     th
     th
     th
@@ -15,11 +16,11 @@ table
       td = section.number
       td = section.name
       td = section.parent.nil? ? "" : section.parent.name
-      td = section.book.nil? ? "" : section.book.name
-      td = link_to 'Show', section
-      td = link_to 'Edit', edit_section_path(section)
-      td = link_to 'Destroy', section, :confirm => 'Are you sure?', :method => :delete
+      td = link_to '练习题', :controller => 'exercises', :action => 'index', :section_id => section
+      td = link_to '查看', section
+      td = link_to '修改', edit_section_path(section)
+      td = link_to '删除', section, :confirm => 'Are you sure?', :method => :delete
 
 br
 
-= link_to 'New Section', new_section_path
+= link_to '添加章节', new_section_path

@@ -1,43 +1,54 @@
 = form_for setup_exercise(@exercise) do |f|
   = render partial: 'shared/error_msgs', locals: {target: @exercise}
-  .field
-    = f.label :book
-    = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected => @exercise && @exercise.book ? @exercise.book.id : nil), {}, {:id=>'book_select'})
-  .field
-    = f.label :section
-    = f.select(:section_id, {},{}, {:id => "section_select"})
-  .field
-    = f.label :text
-    = f.select(:exercise_text_id,{},{}, {:id => 'text_select'})
-  .field
-    = f.label :category
-    = f.select(:category_id, options_from_collection_for_select(Category.all, :id, :name, :selected => @exercise && @exercise.category ? @exercise.category.id : nil))
-  .field
-    = f.label :question_type
-    = f.select(:qtype_id, options_from_collection_for_select(Qtype.all, :id, :name, :selected => @exercise && @exercise.qtype ? @exercise.qtype.id : nil), {}, :onchange => "$('#option').show()")
-  .field
-    = f.label :title
-    = f.text_area :title, {:rows=>5, :cols=>80}
-  .field
-    = f.label :photo
-    = f.file_field :photo
-  div id="option" style="display:block"
-    .field
+  table
+    tr
+      td = f.label '书'
+      td = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected => @exercise && @exercise.book ? @exercise.book.id : nil), {}, {:id=>'book_select'})
+
+    tr
+      td = f.label '章节'
+      td = f.select(:section_id, {},{}, {:id => "section_select"})
+
+    tr
+      td = f.label '文章'
+      td = f.select(:exercise_text_id,{},{}, {:id => 'text_select'})
+
+    tr
+      td = f.label '类别'
+      td = f.select(:category_id, options_from_collection_for_select(Category.all, :id, :name, :selected => @exercise && @exercise.category ? @exercise.category.id : nil))
+
+    tr
+      td = f.label '题型'
+      td = f.select(:qtype_id, options_from_collection_for_select(Qtype.all, :id, :name, :selected => @exercise && @exercise.qtype ? @exercise.qtype.id : nil), {}, :onchange => "$('#option').show()")
+
+    tr
+      td = f.label '题目'
+      td = f.text_area :title, {:rows=>5, :cols=>80}
+
+    tr
+      td = f.label '图片'
+      td = f.file_field :photo
+
+    div id="option" style="display:block"
+    tr
       = f.fields_for :options do |ff|
-        = ff.label :option
-        = ff.text_field :name
+        td  = ff.label :option
+        td = ff.text_field :name
 
-  .field
-    = f.label :note
-    = f.text_area :note, {:rows=>2, :cols=>80}
-  .field
-    = f.label :answer
-    = f.text_area :answer, {:rows=>5, :cols=>80}
-  .field
-    = f.label :answerphoto
-    = f.file_field :answerphoto
+    tr
+      td = f.label '备注'
+      td = f.text_area :note, {:rows=>2, :cols=>80}
 
-  .actions = f.submit 'Save'
+    tr
+      td = f.label '答案'
+      td = f.text_area :answer, {:rows=>5, :cols=>80}
+
+    tr
+      td = f.label '答案图片'
+      td = f.file_field :answerphoto
+
+    tr
+      td = f.submit '保存'
 
 
 javascript:

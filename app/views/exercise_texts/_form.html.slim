@@ -1,24 +1,32 @@
 = form_for @exercise_text do |f|
   = render partial: 'shared/error_msgs', locals: {target: @exercise_text}
-  .field
-    = f.label :book
-    = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected=>@exercise_text.book ? @exercise_text.book.id : Book.first.id),{}, {:id=>'book_select'})
-  .field
-    = f.label :section
-    = f.select(:section_id, {}, {}, {:id=>"section_select"})
-  .field
-    = f.label :page
-    = f.number_field :page
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :content
-    = f.text_area :content
-  .field
-    = f.label :photo
-    = f.file_field :photo
-  .actions = f.submit 'Save'
+  table
+    tr
+      td = f.label '书名'
+      td = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected=>@exercise_text.book ? @exercise_text.book.id : Book.first.id),{}, {:id=>'book_select'})
+
+    tr
+      td = f.label '章节'
+      td = f.select(:section_id, {}, {}, {:id=>"section_select"})
+
+    tr
+      td = f.label '页'
+      td = f.number_field :page
+
+    tr
+      td = f.label '标题'
+      td = f.text_field :title
+
+    tr
+      td = f.label '内容'
+      td = f.text_area :content, {:rows=>10, :cols=>80}
+
+    tr
+      td = f.label '图片'
+      td = f.file_field :photo
+
+    tr
+      td = f.submit '保存'
 
 javascript:
   function update_field() {

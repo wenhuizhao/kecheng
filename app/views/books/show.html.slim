@@ -1,12 +1,12 @@
 p#notice = notice
 
 p
-  strong Category:
+  strong 类别:
   = @book.category.full_name
 p
-  strong Name:
+  strong 书名:
   = @book.name
 
-= link_to 'Edit', edit_book_path(@book)
+= link_to '修改', edit_book_path(@book)
 '|
-= link_to 'Back', books_path
+= link_to '返回列表', books_path

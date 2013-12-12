@@ -1,9 +1,9 @@
 = form_for @book do |f|
   = render partial: 'shared/error_msgs', locals: {target: @book}
   .field
-    = f.label :category
+    = f.label '类别'
     = f.select :category_id, options_for_select(BookCategory.all.map{|b| [b.full_name, b.id]})
   .field
-    = f.label :name
+    = f.label '书名'
     = f.text_field :name
-  .actions = f.submit 'Save'
+  .actions = f.submit '保存'

@@ -3,7 +3,12 @@ class SectionsController < ApplicationController
   # GET /sections
   # GET /sections.json
   def index
-    @sections = Section.all
+    if params[:book_id].blank?
+      @sections = Section.all
+    else
+      @sections = Section.find_all_by_book_id(params[:book_id])
+      @book = Book.find(params[:book_id])
+    end
 
     respond_to do |format|
       format.html # index.html.erb

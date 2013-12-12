@@ -1,0 +1,21 @@
+h1 添加题目类别
+
+table
+  tr
+    th id
+    th 名字
+    th
+    th
+    th
+
+  - @categories.each do |category|
+    tr
+      td = category.id
+      td = category.name
+      td = link_to '查看', category
+      td = link_to '修改', edit_category_path(category)
+      td = link_to '删除', category, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to '添加题目类别', new_category_path

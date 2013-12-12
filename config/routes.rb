@@ -22,6 +22,7 @@ Kecheng::Application.routes.draw do
   resources :grades
   resources :exercises
   resources :messages
+  resources :categories
   
   get 'accept_select_grades' => 'messages#accept_select_grades', as: 'accept_select_grades'
 

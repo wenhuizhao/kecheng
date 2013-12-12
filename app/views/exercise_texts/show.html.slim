@@ -4,7 +4,7 @@ p
   = @exercise_text.book.name
 p
   strong Section:
-  = @exercise_text.section.name
+  = @exercise_text.section.name if @exercise_text.section
 p
   strong Page:
   = @exercise_text.page

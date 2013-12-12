@@ -4,10 +4,12 @@ class ExercisesController < ApplicationController
   # GET /exercises
   # GET /exercises.json
   def index
-    if params[:book_id].nil?
-      @exercises = Exercise.all
-    else
+    if !params[:book_id].blank?
       @exercises = Exercise.find_all_by_book_id(params[:book_id])
+    elsif !params[:section_id].blank?
+      @exercises = Exercise.find_all_by_section_id(params[:section_id])
+    else
+      @exercises = Exercise.all
     end
 
     respond_to do |format|

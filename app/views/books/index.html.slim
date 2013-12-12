@@ -2,9 +2,10 @@ h1 Listing books
 
 table
   tr
-    th Category
-    th Name
-    th Exercises
+    th 类别
+    th 书名
+    th 章节
+    th 练习题
     th
     th
 
@@ -12,11 +13,12 @@ table
     tr
       td = book.category.full_name
       td = book.name
-      td = link_to 'Exercises', :controller => "exercises", :action => "index", :book_id => book
-      td = link_to 'Show', book
-      td = link_to 'Edit', edit_book_path(book)
-      td = link_to 'Destroy', book, :confirm => 'Are you sure?', :method => :delete
+      td = link_to '章节', :controller => "sections", :action => "index", :book_id => book
+      td = link_to '练习题', :controller => "exercises", :action => "index", :book_id => book
+      td = link_to '查看', book
+      td = link_to '修改', edit_book_path(book)
+      td = link_to '删除', book, :confirm => 'Are you sure?', :method => :delete
 
 br
 
-= link_to 'New Book', new_book_path
+= link_to '添加新书', new_book_path

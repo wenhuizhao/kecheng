@@ -1,18 +1,18 @@
 p#notice = notice
 
 p
-  strong Number:
+  strong 章节编号:
   = @section.number
 p
-  strong Name:
+  strong 章节名称:
   = @section.name
 p
-  strong Parent:
+  strong 父章节:
   = @section.parent.nil? ? "" : @section.parent.name
 p
-  strong Book:
+  strong 书名:
   = @section.book.nil? ? "" : @section.book.name
 
-= link_to 'Edit', edit_section_path(@section)
+= link_to '修改', edit_section_path(@section)
 '|
-= link_to 'Back', sections_path
+= link_to '返回章节列表', sections_path
