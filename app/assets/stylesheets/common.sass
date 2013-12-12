@@ -13,14 +13,15 @@ body
 
 .btn
   @include btn
-  &.cancle, a
+  &.cancle
     background: #eee
+  &.cancle, &.ok
     height: 44px
     border: none
     margin: 0 0 0 10px
     span
       display: block
-      margin: 6px 0
+      margin: 8px 0
 a
   text-decoration: inherit
 

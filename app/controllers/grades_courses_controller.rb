@@ -7,6 +7,7 @@ class GradesCoursesController < ApplicationController
   before_filter :require_teacher, except: [:select, :select_grades, :show]
 
   def index
+    # params[:history]
     @all_courses = GradesCourse.all_courses_of(current_user)
   end
 

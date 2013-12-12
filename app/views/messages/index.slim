@@ -18,10 +18,10 @@
           .actions 
             - if m.is_apply? 
               - if m.is_accept.nil?
-                = link_to('接受', accept_select_grades_path(id: m.id))
+                = link_to('批准', accept_select_grades_path(id: m.id))
                 = link_to('拒绝', accept_select_grades_path(id: m.id, status: 'refuse'))
               - else
-                = m.is_accept ? '已接受' : '已拒绝'
+                = m.is_accept ? '已批准' : '已拒绝'
             - else
               - if m.sender_id == current_user.id
                 = link_to '编辑', edit_message_path(m) 

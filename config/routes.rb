@@ -2,6 +2,8 @@
 Kecheng::Application.routes.draw do
 
 
+  get "statistics/index"
+
   resources :sections
 
 

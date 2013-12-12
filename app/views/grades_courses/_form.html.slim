@@ -19,11 +19,12 @@
 
       = f.hidden_field :course_id, id: 'course_id'
     - else
-     = @grades_course.full_name
-        
+      .field
+        = f.label :是否开放
+        = f.select :is_open, [["是",'true'], ["否", 'false']]
     = hidden_field_tag :grade_num, @grades_course.grade_num
     = hidden_field_tag :class_num, @grades_course.class_num
     .block
       = submit_tag '确定', class: 'block'
-      = link_to messages_path, class: 'btn cancle'
+      = link_to root_path, class: 'btn cancle'
         span 取消

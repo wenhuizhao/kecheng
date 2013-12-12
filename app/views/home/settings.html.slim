@@ -1,14 +1,15 @@
-- title = '欢迎你： ' + current_user.name + "(#{current_user.role_name})"
-
-= render partial: 'shared/header', locals: {title: title}
-
-table.list
-  tr
-    th 学校
-    th 班级情况
-    th 操作
-  - School.all.each do |s|
-    tr
-      td = s.name
-      td = s.grades.size.to_s + '个班级'
-      td = link_to '新增班级'
+.lists
+  = link_to_home
+  .title 班级管理
+  .main-descs
+    .main-desc
+      table.list-big
+        tr
+          th 学校
+          th 班级情况
+          th 操作
+        - School.all.each do |s|
+          tr
+            td = s.name
+            td = s.grades.size.to_s + '个班级'
+            td = link_to '新增班级'

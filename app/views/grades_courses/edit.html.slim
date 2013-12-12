@@ -1,5 +1,5 @@
-= render partial: 'shared/header', locals: {title: '开课'}
-.block.btns
-  .add-course.big-btn 编辑 
- 
-= render 'form' 
+.lists
+  = link_to_home
+  .title = "编辑#{@grades_course.full_name}"
+  .main-descs
+    = render 'form'
