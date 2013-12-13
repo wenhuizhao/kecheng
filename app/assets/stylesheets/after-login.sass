@@ -25,7 +25,7 @@ header
     text-align: center
     font-weight: bold
     margin: 15px 0 -15px 0
-  .h-right:
+  .h-right
     background: ''
   .h-left, .h-right
     width: 20%
@@ -73,11 +73,6 @@ header
     font-size: 18px
     .tactions
       font-size: 18px
-  .lessons
-    width: 0.7 * $body-width  
-    .lesson
-      @include block
-      padding: 12px 16px
   .notice-bar
     height: 50px
     border-bottom: 2px #000 solid
@@ -198,8 +193,8 @@ header
   .back, .title
     padding: 13px 38px
     background: white
-    border: 1px #26dec6 solid
-    color: #26dec6
+    border: 1px $blue solid
+    color: $blue
     font-weight: bold
   .back
     float: right
@@ -237,7 +232,56 @@ header
       width: 111px
       display: inline
 
-
-
+.lessons-content
+  clear: both
+  padding: 30px 0
+  .tcontent
+    div
+      display: inline-block
+      height: 40px
+      padding-top: 15px
+    .course-str
+      background: $blue
+    .student-str
+      background: white
+      color: $input-font-color
+      margin: 0 0 0 -6px
+  .lessons
+    width: 0.7 * $body-width 
+    width: 800px
+    border-left: 13px white solid
+    margin: 0 0 0 56px 
+    padding: 20px 0
+    .lesson
+      margin: 50px 20px
+      .line-node
+        background: url('line-node.png')
+        width: 58px
+        height: 16px
+        position: absolute
+        margin: 13px -38px
+      .ltitle, .leave-homework
+        margin: 0 0 0 20px
+        text-align: center
+        width: 114px
+        line-height: 18px
+        color: $blue
+        border: 1px $blue solid
+        font-size: 24px
+        background: white
+        display: block
+        cursor: pointer
+        padding: 12px 0px
+      .leave-homework
+        display: inline-block
+        margin: -44px 0 0 150px
+        color: $input-font-color
+        float: left
+      .leave-homework, .lesson-content
+        display: none
+      .lesson-content
+        background: white
+        padding: 20px
+        margin: 20px 0 0 20px
 
 

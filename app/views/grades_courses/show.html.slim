@@ -1,10 +1,17 @@
-= render partial: 'shared/header', locals: {title: @grades_course.full_name + '课程详情'}
+.lists
+  = link_to_home
+  .title = @grades_course.full_name
+  .lessons-content
+    .tcontent
+      .course-str.btn 课程
+      .student-str.btn = '学生(' + @grades_course.students.size.to_s + ')'
+    .lessons
+      - @grades_course.lessons.each_with_index do |lesson, i|
+        .lesson
+          .line-node
+          .ltitle = "第#{i + 1}课"
+          .leave-homework = link_to '布置作业', new_grades_course_lesson_homework_path(@grades_course, lesson)
+          .lesson-content
+            .area
+              .htitle 进行中的作业
 
-.notice-bar
-  = @grades_course.full_name  
-
-.lessons-content
-  .title
-  .lessons
-    - @grades_course.lessons.each_with_index do |lesson, i|
-      .lesson = link_to "第#{i + 1}课", grades_course_lesson_path(@grades_course, lesson)

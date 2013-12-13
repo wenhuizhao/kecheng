@@ -9,6 +9,10 @@ $(document).ready ->
   if $('.actions').find('a').length is 1
     $('.actions').css
       "margin-left": "620px"
+    
+  $('#content').find('.ltitle').click ->
+    $(this).parent().find('.leave-homework').toggle()
+    $(this).parent().find('.lesson-content').toggle()
 
   $('.back').on 'click', ->
     history.go(-1)
