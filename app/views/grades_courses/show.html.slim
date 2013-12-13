@@ -3,8 +3,8 @@
   .title = @grades_course.full_name
   .lessons-content
     .tcontent
-      .course-str.btn 课程
-      .student-str.btn = '学生(' + @grades_course.students.size.to_s + ')'
+      .course-str.btn = link_to '课程', grades_course_path(@grades_course)
+      .student-str.btn = link_to '学生(' + @grades_course.students.size.to_s + ')', students_grades_course_path
     .lessons
       - @grades_course.lessons.each_with_index do |lesson, i|
         .lesson
@@ -14,4 +14,3 @@
           .lesson-content
             .area
               .htitle 进行中的作业
-

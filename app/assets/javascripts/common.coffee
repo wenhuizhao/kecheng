@@ -49,6 +49,6 @@ $(document).ready ->
   #     num = $(o).attr('data-id')
   #     $(e2).attr('value', num)
   #     $(e).addClass('hover')
-  redirect_to = (url) ->
+  window.redirect_to = (url) ->
     window.location.href = url
     

@@ -1,0 +1,11 @@
+.lists
+  = link_to_home
+  .title = @grades_course.full_name
+  .lessons-content
+    .tcontent
+      .course-str.btn = link_to '课程', grades_course_path(@grades_course)
+      .student-str.btn = link_to '学生(' + @grades_course.students.size.to_s + ')', students_grades_course_path
+    .students style="border: none"
+      - @grades_course.students.each_with_index do |s, i|
+        .student
+          .stitle = s.real_name

@@ -67,6 +67,9 @@ class GradesCoursesController < ApplicationController
     redirect_to grades_courses_path
   end
   
+  def students
+  end
+  
   private
 
   def requested_grade
