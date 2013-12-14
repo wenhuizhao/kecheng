@@ -16,7 +16,8 @@ module ApplicationHelper
   end
 
   def link_to_back
-    link_to_function '返回', 'history.go(-1)'
+    link_to_function '<span>返回</span>'.html_safe, 'history.go(-1)', class: 'btn ok'
+    # link_to_function '返回', 'history.go(-1)'
   end
 
   def link_to_home

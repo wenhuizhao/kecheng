@@ -13,7 +13,6 @@ body
   margin: 0 auto
 
 .btn
-  @include btn
   &.cancle
     background: #eee
   &.cancle, &.ok
@@ -89,6 +88,11 @@ ul
   
 .ml600
   margin-left: 600px
+
+@for $i from 18 to 30
+  .fs#{$i}
+    font-size: #{$i}px
+
 @for $i from 1 to 20
   .mt#{$i}
     margin-top: #{$i}px

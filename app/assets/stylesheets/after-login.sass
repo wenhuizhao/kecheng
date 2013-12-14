@@ -96,10 +96,6 @@ header
     font-size: $font-size-big
     border-bottom: 2px black solid
     clear: both
-  .student
-    @include block
-    padding: 2px 6px
-    margin: 8px
 
 .messages
   margin: 50px
@@ -246,10 +242,10 @@ header
       background: white
       color: $input-font-color
       margin: 0 0 0 -6px
-    .wbg
-      background: white important
-    .bbg
-      background: $blue important
+    .white
+      background: white
+    .blue
+      background: $blue
   .lessons
     width: 0.7 * $body-width 
     width: 800px
@@ -287,5 +283,32 @@ header
         background: white
         padding: 20px
         margin: 20px 0 0 20px
-
+  .students
+    width: $main-width - 96px
+    border: 2px #ddd solid
+    background: white
+    min-height: 500px
+    padding: 21px 48px
+    .student
+      width: 178px
+      height: 76px
+      display: inline-block
+      margin: 0 0 36px 33px
+      span
+        display: block
+        width: 70px
+        float: left
+        margin: 10px 0 0 10px
+        &.mess
+          a
+            color: $input-font-color
+      .savatar
+        float: left
+        width: 76px
+        height: 76px
+    .send-message
+      margin: 0 0 50px 600px
+      a
+        font-size: 22px
+        padding: 5px 0
 
