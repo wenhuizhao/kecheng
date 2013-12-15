@@ -6,6 +6,7 @@ class Message < ActiveRecord::Base
   belongs_to :grade
   belongs_to :sender, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
+  has_and_belongs_to_many :users, join_table: 'users_messages'
   
   validates :desc, :type_name, :sender_id, presence: true
 
