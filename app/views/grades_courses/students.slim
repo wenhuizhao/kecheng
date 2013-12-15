@@ -3,15 +3,17 @@
   .title = @grades_course.full_name
   .lessons-content
     .tcontent
-      .course-str.btn.white = link_to '课程', grades_course_path(@grades_course)
+      .course-str.btn.white = link_to '课程', grades_course_path(@grades_course), style: 'color: #26dec6'
       .student-str.btn.blue = link_to '学生(' + @grades_course.students.size.to_s + ')', students_grades_course_path
     .students style="border: none"
-      .send-message = link_to '群发消息', new_message_path, class: 'btn'
+      .send-message = link_to '群发消息', new_message_path(grades_course_id: @grades_course.id), class: 'btn'
       - @grades_course.students.each_with_index do |s, i|
         .student
-          .stitle = s.real_name
+          = image_tag 'avatar.png', class: 'savatar'
+          span.stitle.fs24 小明
+          span.stitle.fs22.mess = link_to '发消息', new_message_path(student_id: s.id)
       - (1..10).each do |i|
         .student
           = image_tag 'avatar.png', class: 'savatar'
           span.stitle.fs24 小明
-          span.stitle.fs22.mess = link_to '发消息', new_message_path
+          span.stitle.fs22.mess = link_to '发消息', new_message_path(student_id: i)
