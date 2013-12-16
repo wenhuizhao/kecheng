@@ -1,9 +1,9 @@
-= form_for @exercise_text do |f|
+= form_for [@section, @exercise_text] do |f|
   = render partial: 'shared/error_msgs', locals: {target: @exercise_text}
   table
     tr
       td = f.label '书名'
-      td = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected=>@exercise_text.book ? @exercise_text.book.id : Book.first.id),{}, {:id=>'book_select'})
+      td = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected => @book ? @book.id : (@exercise_text.book ? @exercise_text.book.id : Book.first.id)),{}, {:id=>'book_select'})
 
     tr
       td = f.label '章节'
@@ -34,7 +34,8 @@ javascript:
            url: "#{update_text_path}",
            data: {
              book_id: $('#book_select').val(),
-             exercise_text_id: "#{@exercise_text.id}"
+             exercise_text_id: "#{@exercise_text.id}",
+             section_id : "#{@section ? @section.id : nil}"
            },
            dataType: "script"
          });

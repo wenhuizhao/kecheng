@@ -1,4 +1,4 @@
-= form_for @section do |f|
+= form_for [@book, @section] do |f|
   - if @section.errors.any?
     #error_explanation
       h2 = "#{pluralize(@section.errors.count, "error")} prohibited this section from being saved:"
@@ -6,13 +6,10 @@
         - @section.errors.full_messages.each do |message|
           li = message
   table
-    tr
-      td = f.label '书'
-      td = f.select :book_id, options_from_collection_for_select(Book.all, :id, :name), {}, {:id=>:book_select}
 
     tr
       td = f.label "父章节"
-      td = f.select :parent_id, options_for_select([['',nil]] + Section.all.map{|s| [s.name, s.id]})
+      td = f.select :parent_id, options_for_select([['',nil]] + Section.find_all_by_book_id(@book ? @book.id : @section.book.id).map{|s| [s.name, s.id]}, :selected => @section.parent_id)
 
 
     tr

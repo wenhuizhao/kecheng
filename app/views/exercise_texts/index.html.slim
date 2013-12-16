@@ -1,25 +1,27 @@
-h1 Listing exercise_texts
+h1 文章列表
 
 table
   tr
-    th Content
-    th Book
-    th Section
-    th Page
+    th 书
+    th |章节
+    th |页
+    th |标题
+    th |内容
     th
     th
     th
 
   - @exercise_texts.each do |exercise_text|
     tr
-      td = exercise_text.content
-      td = exercise_text.book_id
-      td = exercise_text.section
+      td = exercise_text.section.book.name
+      td = exercise_text.section.name
       td = exercise_text.page
-      td = link_to 'Show', exercise_text
-      td = link_to 'Edit', edit_exercise_text_path(exercise_text)
-      td = link_to 'Destroy', exercise_text, :confirm => 'Are you sure?', :method => :delete
+      td = exercise_text.title
+      td = exercise_text.content.truncate(20)
+      td = link_to '|查看', exercise_text
+      td = link_to '|修改', edit_exercise_text_path(exercise_text)
+      td = link_to '|删除', exercise_text, :confirm => 'Are you sure?', :method => :delete
 
 br
 
-= link_to 'New Exercise text', new_exercise_text_path
+= link_to '增加文章', new_section_exercise_text_path(@section)

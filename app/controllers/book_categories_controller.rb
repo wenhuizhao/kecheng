@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class BookCategoriesController < ApplicationController
+  layout "blank"
   # GET /book_categories
   # GET /book_categories.json
   def index

@@ -3,7 +3,7 @@ h1 添加题目类别
 table
   tr
     th id
-    th 名字
+    th |名字
     th
     th
     th
@@ -12,9 +12,9 @@ table
     tr
       td = category.id
       td = category.name
-      td = link_to '查看', category
-      td = link_to '修改', edit_category_path(category)
-      td = link_to '删除', category, :confirm => 'Are you sure?', :method => :delete
+      td = link_to '|查看', category
+      td = link_to '|修改', edit_category_path(category)
+      td = link_to '|删除', category, :confirm => 'Are you sure?', :method => :delete
 
 br
 

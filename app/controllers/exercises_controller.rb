@@ -4,10 +4,15 @@ class ExercisesController < ApplicationController
   # GET /exercises
   # GET /exercises.json
   def index
-    if !params[:book_id].blank?
+    if !params[:id].blank?
+      @exercises = Exercise.find_all_by_book_id(params[:id])
+      @book = Book.find(params[:id])
+    elsif !params[:book_id].blank?
       @exercises = Exercise.find_all_by_book_id(params[:book_id])
+      @book = Book.find(params[:book_id])
     elsif !params[:section_id].blank?
       @exercises = Exercise.find_all_by_section_id(params[:section_id])
+      @section = Section.find(params[:section_id])
     else
       @exercises = Exercise.all
     end
@@ -33,7 +38,8 @@ class ExercisesController < ApplicationController
   # GET /exercises/new.json
   def new
     @exercise = Exercise.new
-
+    @section = Section.find(params[:section_id])
+    @book = @section.book
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @exercise }
@@ -92,9 +98,14 @@ class ExercisesController < ApplicationController
   def update_text
     @exercise = Exercise.find(params[:exercise_id]) unless params[:exercise_id].blank?
     @exercise_text = ExerciseText.find(params[:exercise_text_id]) unless params[:exercise_text_id].blank?
-    book = Book.find(params[:book_id])
-    @exercise_texts = book.exercise_texts.map{|t| [t.title.truncate(20), t.id]}
-    @sections = book.sections.map{|t| [t.num_name, t.id]}
+    if !params[:section_id].blank?
+      @section = Section.find(params[:section_id])
+      @book = @section.book
+    else
+      @book = Book.find(params[:book_id])
+    end
+    @exercise_texts = ["", nil] + @book.exercise_texts.map{|t| [t.title.truncate(20), t.id]}
+    @sections = @book.sections.map{|t| [t.num_name, t.id]}
     respond_to do |format|
       format.js
     end

@@ -1,8 +1,8 @@
-h1 Editing exercise_text
+h1 修改文章
 
 == render 'form'
 
-= link_to 'Show', @exercise_text
+= link_to '查看', @exercise_text
 '|
-= link_to 'Back', exercise_texts_path
+= link_to '返回文章列表', section_exercise_texts_path(@exercise_text.section)
 

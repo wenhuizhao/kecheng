@@ -1,20 +1,20 @@
 p#notice = notice
 p
-  strong Book:
+  strong 书:
   = @exercise_text.book.name
 p
-  strong Section:
+  strong 章节:
   = @exercise_text.section.name if @exercise_text.section
 p
-  strong Page:
+  strong 页码:
   = @exercise_text.page
 p
-  strong Title:
+  strong 标题:
   = @exercise_text.title
 p
-  strong Content:
+  strong 内容:
   = @exercise_text.content
 
-= link_to 'Edit', edit_exercise_text_path(@exercise_text)
+= link_to '修改', edit_exercise_text_path(@exercise_text)
 '|
-= link_to 'Back', exercise_texts_path
+= link_to '返回文章列表', section_exercise_texts_path(@exercise_text.section)

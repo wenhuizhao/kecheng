@@ -3,7 +3,12 @@ class ExerciseTextsController < ApplicationController
   # GET /exercise_texts
   # GET /exercise_texts.json
   def index
-    @exercise_texts = ExerciseText.all
+    if params[:section_id]
+      @exercise_texts = ExerciseText.find_all_by_section_id(params[:section_id])
+      @section = Section.find(params[:section_id])
+    else
+      @exercise_texts = ExerciseText.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,7 +31,8 @@ class ExerciseTextsController < ApplicationController
   # GET /exercise_texts/new.json
   def new
     @exercise_text = ExerciseText.new
-
+    @section = Section.find(params[:section_id])
+    @book = @section.book
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @exercise_text }

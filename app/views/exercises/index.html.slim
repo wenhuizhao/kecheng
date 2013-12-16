@@ -3,8 +3,8 @@ h1 练习题列表
 table
   tr
     th id
-    th 题目
-    th 答案
+    th |题目
+    th |答案
     th
     th
     th
@@ -14,10 +14,10 @@ table
       td = exercise.id
       td = truncate(exercise.title, :length=>20)
       td = truncate(exercise.answer, :length=>20)
-      td = link_to '查看', exercise
-      td = link_to '修改', edit_exercise_path(exercise)
-      td = link_to '删除', exercise, :confirm => 'Are you sure?', :method => :delete
+      td = link_to '|查看', exercise
+      td = link_to '|修改', edit_exercise_path(exercise)
+      td = link_to '|删除', exercise, :confirm => 'Are you sure?', :method => :delete
 
 br
 
-= link_to '添加练习题', new_exercise_path
+= link_to '添加练习题', new_section_exercise_path(@section)

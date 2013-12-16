@@ -3,11 +3,12 @@ class SectionsController < ApplicationController
   # GET /sections
   # GET /sections.json
   def index
-    if params[:book_id].blank?
+    if params[:book_id].blank?  && params[:id].blank?
       @sections = Section.all
     else
-      @sections = Section.find_all_by_book_id(params[:book_id])
-      @book = Book.find(params[:book_id])
+      book_id = params[:id] ? params[:id] : params[:book_id]
+      @sections = Section.find_all_by_book_id(book_id)
+      @book = Book.find(book_id)
     end
 
     respond_to do |format|
@@ -31,7 +32,7 @@ class SectionsController < ApplicationController
   # GET /sections/new.json
   def new
     @section = Section.new
-
+    @book = Book.find(params[:book_id])
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @section }
@@ -47,7 +48,7 @@ class SectionsController < ApplicationController
   # POST /sections.json
   def create
     @section = Section.new(params[:section])
-
+    @section.book_id = params[:book_id]
     respond_to do |format|
       if @section.save
         format.html { redirect_to @section, notice: 'Section was successfully created.' }
@@ -79,10 +80,10 @@ class SectionsController < ApplicationController
   # DELETE /sections/1.json
   def destroy
     @section = Section.find(params[:id])
+    book = @section.book
     @section.destroy
-
     respond_to do |format|
-      format.html { redirect_to sections_url }
+      format.html { redirect_to book_sections_url(book) }
       format.json { head :no_content }
     end
   end

@@ -4,11 +4,11 @@ Kecheng::Application.routes.draw do
 
   get "statistics/index"
 
-  resources :sections
 
   get "home/index"
   match "settings" => 'home#settings'
   match "select_grades" => 'grades_courses#select_grades'
+  get "books/:book_id/exercises" => "exercises#index", :as => "book_exercises"
   match "exercises/update_text" => "exercises#update_text", :as => "update_text"
   match "exercises/answer/:id" => "exercises#answer", :as => "answer_exercise"
   get "exercises/load_canvas/:id" => "exercises#load_canvas", :as =>"load_canvas"
@@ -18,12 +18,15 @@ Kecheng::Application.routes.draw do
     sessions: 'sessions',
     registrations: 'registrations'}
 
-  resources :exercise_texts
+  resources :books, shallow: true do
+    resources :sections, shallow: true do
+      resources :exercises
+      resources :exercise_texts
+    end
+  end
   resources :qtypes
   resources :book_categories
-  resources :books
   resources :grades
-  resources :exercises
   resources :messages
   resources :categories
   
