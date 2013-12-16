@@ -10,7 +10,7 @@
         .lesson
           .line-node
           .ltitle = "第#{i + 1}课"
-          .leave-homework = link_to '布置作业', new_grades_course_lesson_homework_path(@grades_course, lesson)
+          .leave-homework = link_to '布置作业', new_section_homework_path(lesson, grades_course_id: @grades_course.id)
           .lesson-content
             .area
               .htitle 进行中的作业

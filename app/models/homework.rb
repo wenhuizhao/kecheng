@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Homework < ActiveRecord::Base
-  attr_accessible :lesson_id, :end_time, :enjoin, :book_id, :exercise_ids, :num
+  attr_accessible :grades_course_id, :lesson_id, :end_time, :enjoin, :book_id, :exercise_ids, :num
   belongs_to :book
   belongs_to :lesson
 

@@ -1,7 +1,7 @@
-= form_for [@grades_course, @lesson, @homework] do |f| 
+= form_for [@section, @homework] do |f| 
   = render partial: 'shared/error_msgs', locals: {target: @homework}
   table.questions
-    - @lesson.questions.each_with_index do |q, i|
+    - @section.exercises.each_with_index do |q, i|
       tr
         td = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids.include?(q.id)
         td = "#{i + 1}、#{q.title}"
@@ -12,5 +12,7 @@
     tr
       td 截止时间
       td = f.datetime_select :end_time, use_month_numbers: true, order: [:year, :month, :day]
-  = f.hidden_field :num, value: @lesson.homeworks.size if action_name == 'new'
+  = hidden_field_tag :grades_course_id, @grades_course.id
+  = f.hidden_field :grades_course_id, value: @grades_course.id
+  = f.hidden_field :num, value: @section.homeworks.size if action_name == 'new'
   .block = submit_tag '确定添加', class: 'block'
