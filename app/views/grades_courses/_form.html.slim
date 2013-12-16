@@ -17,6 +17,8 @@
           .words data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
             = c.name
 
+      = f.label :选择教材
+      = f.select :book_id, Book.for_course.map{|b| [b.name, b.id]}
       = f.hidden_field :course_id, id: 'course_id'
     - else
       .field

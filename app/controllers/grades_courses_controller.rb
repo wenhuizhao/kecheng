@@ -77,9 +77,9 @@ class GradesCoursesController < ApplicationController
   end
   
   def do_lessons
-    1.upto(@grades_course.lesson_num.to_i).each do |i|
-      Lesson.where(grades_course_id: @grades_course.id, num: i).first_or_create
-    end
+    # 1.upto(@grades_course.lesson_num.to_i).each do |i|
+    #   Lesson.where(grades_course_id: @grades_course.id, num: i).first_or_create
+    # end
   end
   
   def get_grades_course

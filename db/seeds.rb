@@ -66,3 +66,15 @@ if Role.find_by_en_name('admin_xld').id  > Role.find_by_en_name('admin_jyj').id
   User.where(email: 'admin@admin.com').last.update_attribute :school_id, nil
 end
 
+if BookCategory.all.all?{|b| b.grade_num.nil?}
+  BookCategory.all.each do |g|
+    App::ChineseNum.each_with_index do |n, i| g.update_attribute :grade_num, i if g.name.include?(n) end
+  end
+end
+
+if GradesCourse.all.all?{|b| b.book_id.nil?}
+  GradesCourse.destroy_all 
+  Lesson.destroy_all 
+  Homework.destroy_all 
+end
+

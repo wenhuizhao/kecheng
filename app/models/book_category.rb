@@ -5,6 +5,8 @@ class BookCategory < ActiveRecord::Base
   has_many :categories, :class_name => "BookCategory", :foreign_key => "parent_id"
   has_many :books
 
+  scope :for_course, -> { where('parent_id is not null') }
+
   def full_name
     self.parent.nil? ? self.name : "#{self.parent.full_name}-#{self.name}"
   end

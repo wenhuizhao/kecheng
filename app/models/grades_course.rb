@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class GradesCourse < ActiveRecord::Base
-  attr_accessible :course_id, :grade_id, :is_open, :teacher_id, :lesson_num, :outline, :is_accept
+  attr_accessible :course_id, :grade_id, :book_id, :is_open, :teacher_id, :lesson_num, :outline, :is_accept
 
   include Mgrade
   include Grade::Name
@@ -8,14 +8,16 @@ class GradesCourse < ActiveRecord::Base
   belongs_to :course
   belongs_to :teacher, class_name: 'User'
   belongs_to :grade
+  belongs_to :book
 
   has_many :lessons
   has_many :student_courses
   has_many :students, through: :student_courses
 
-  validates :grade_id, :course_id, presence: true
+  validates :grade_id, :course_id, :book_id, presence: true
   
   validates :course_id, uniqueness: {scope: :grade_id}
+  validates :book_id, uniqueness: {scope: :course_id}
   
   scope :all_courses_of, -> (user) {where(teacher_id: user.id)}
   scope :opened, -> {where(is_open: true)}
@@ -37,5 +39,9 @@ class GradesCourse < ActiveRecord::Base
   
   def full_name
     grades ? grades + self.course_name : ''
+  end
+
+  def sections
+    self.book.sections
   end
 end

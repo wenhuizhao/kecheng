@@ -6,4 +6,10 @@ class Book < ActiveRecord::Base
   has_many :exercises
   has_many :exercise_texts
   has_many :sections
+
+  scope :for_course, -> { where('parent_id is not null') }
+
+  def self.for_course
+    select{|b| b.category.grade_num.nil?}
+  end
 end

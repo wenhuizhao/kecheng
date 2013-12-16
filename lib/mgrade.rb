@@ -18,6 +18,7 @@ module Mgrade
 
   module CtrlMeths
     def get_grade(grade_num = params[:grade_num], class_num = params[:class_num])
+      return redirect_with_message '请选择班级', action: :new if grade_num.empty? || class_num.empty?
       @grade ||= Grade.where(grade_num: grade_num.to_i, class_num: class_num.to_i).last
     end
 

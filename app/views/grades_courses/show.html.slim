@@ -6,7 +6,7 @@
       .course-str.btn = link_to '课程', grades_course_path(@grades_course)
       .student-str.btn = link_to '学生(' + @grades_course.students.size.to_s + ')', students_grades_course_path, style: 'color: #26dec6'
     .lessons
-      - @grades_course.lessons.each_with_index do |lesson, i|
+      - @grades_course.sections.each_with_index do |lesson, i|
         .lesson
           .line-node
           .ltitle = "第#{i + 1}课"

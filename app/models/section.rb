@@ -5,6 +5,7 @@ class Section < ActiveRecord::Base
   belongs_to :book
   has_many :exercises
   has_many :exercise_texts
+  has_many :homeworks
 
   def num_name
     "#{number} #{name}"
