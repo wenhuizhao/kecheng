@@ -17,9 +17,11 @@ class Exercise < ActiveRecord::Base
   def is_fill_blank?
     qtype and qtype.name == "填空题"
   end
+
   def is_multi_choice?
     qtype and qtype.name == "选择题"
   end
+  
   def is_q_and_a?
     qtype and qtype.name == "问答题"
   end

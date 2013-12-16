@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131215132220) do
+ActiveRecord::Schema.define(:version => 20131216125208) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
     t.integer  "parent_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "grade_num"
   end
 
   create_table "books", :force => true do |t|
@@ -59,11 +60,11 @@ ActiveRecord::Schema.define(:version => 20131215132220) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "title"
-    t.integer  "section_id"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.integer  "section_id"
   end
 
   create_table "exercises", :force => true do |t|
@@ -126,8 +127,10 @@ ActiveRecord::Schema.define(:version => 20131215132220) do
     t.text     "outline"
     t.integer  "grade_id"
     t.boolean  "is_accept"
+    t.integer  "book_id"
   end
 
+  add_index "grades_courses", ["book_id"], :name => "index_grades_courses_on_book_id"
   add_index "grades_courses", ["course_id"], :name => "index_grades_courses_on_course_id"
   add_index "grades_courses", ["grade_id"], :name => "index_grades_courses_on_grade_id"
 
@@ -140,7 +143,10 @@ ActiveRecord::Schema.define(:version => 20131215132220) do
     t.integer  "book_id"
     t.integer  "num"
     t.string   "status"
+    t.integer  "section_id"
   end
+
+  add_index "homeworks", ["section_id"], :name => "index_homeworks_on_section_id"
 
   create_table "lessons", :force => true do |t|
     t.integer  "teacher_id"

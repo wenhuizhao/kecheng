@@ -13,6 +13,7 @@ Kecheng::Application.routes.draw do
   match "exercises/answer/:id" => "exercises#answer", :as => "answer_exercise"
   get "exercises/load_canvas/:id" => "exercises#load_canvas", :as =>"load_canvas"
   match "exercises/save_canvas/:id" => "exercises#save_canvas", :as => "save_canvas"
+  
   devise_for :users, controllers: {
     passwords: 'passwords',
     sessions: 'sessions',
