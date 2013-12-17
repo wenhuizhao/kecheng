@@ -20,7 +20,16 @@ module ApplicationHelper
     # link_to_function '返回', 'history.go(-1)'
   end
 
+  def link_back(link = root_path)
+    content_tag :div, (link_to '返回', link), class: 'back'
+  end
+
   def link_to_home
-    content_tag :div, (link_to '返回', root_path), class: 'back'
+    link_back
+  end
+
+  def check_all(selector = 'select_all')
+    c = check_box_tag selector, '', false, onclick: 'select_all_records()'
+    c + content_tag(:span, '全选')
   end
 end

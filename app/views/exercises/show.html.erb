@@ -5,31 +5,7 @@
 题型: <%=@exercise.category.name if @exercise.category%><br/>
 
 </div>
-
-<div>
-   <%=raw simple_format h(@exercise.exercise_text.content) if @exercise.exercise_text%>
-   <div><%= raw simple_format h(@exercise.title) %> </div>
-   <div>
-   <% if @exercise.is_multi_choice? %>
-       <% @exercise.options.each_with_index do |o, i| %>
-            (<%=ExerciseOption::OPTION_NUM[i]%>)<%=o.name%>
-       <% end %>
-   <% end %>
-   </div>
-   <%=@exercise.note%>
-</div>
-<% if !@exercise.photo_file_name.nil? %>
-  <%= image_tag @exercise.photo.url, {:id=>"photo"} %>
-
-<% end %>
-<div>
-答案:
-<% if @exercise.answerphoto_file_name.nil? %>
-  <%= @exercise.answer %>
-<% else %>
-  <%= image_tag @exercise.answerphoto.url  %>
-<% end %>
-</div>
+<%= render partial: 'show', locals: {exercise: @exercise, answer: true} %>
 <p>
   <%= link_to '修改', edit_exercise_path(@exercise) %>
   |

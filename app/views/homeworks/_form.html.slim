@@ -1,18 +1,27 @@
-= form_for [@section, @homework] do |f| 
-  = render partial: 'shared/error_msgs', locals: {target: @homework}
-  table.questions
-    - @section.exercises.each_with_index do |q, i|
-      tr
-        td = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids.include?(q.id)
-        td = "#{i + 1}、#{q.title}"
-  table.list
-    tr
-      td 我的叮嘱
-      td = f.text_area :enjoin, rows: 10
-    tr
-      td 截止时间
-      td = f.datetime_select :end_time, use_month_numbers: true, order: [:year, :month, :day]
-  = hidden_field_tag :grades_course_id, @grades_course.id
-  = f.hidden_field :grades_course_id, value: @grades_course.id
-  = f.hidden_field :num, value: @section.homeworks.size if action_name == 'new'
-  .block = submit_tag '确定添加', class: 'block'
+.lists
+  = link_back grades_course_path(@grades_course)
+  .title = @grades_course.full_name + ' > 第' + @section.id.to_s + '课'
+  .main-descs
+    .main-desc
+      = form_for [@section, @homework] do |f| 
+        = render partial: 'shared/error_msgs', locals: {target: @homework}
+        - if @section.exercises.empty?
+          .area.m19.red 本课尚未添加练习题!!
+        - else
+          = check_all
+          table.questions
+            - @section.exercises.each_with_index do |q, i|
+              tr
+                td = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids.include?(q.id)
+                td = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+        table.list
+          tr
+            td 我的叮嘱
+            td = f.text_area :enjoin, rows: 10, cols: 100
+          tr
+            td 截止时间
+            td = f.datetime_select :end_time, use_month_numbers: true, order: [:year, :month, :day]
+        = hidden_field_tag :grades_course_id, @grades_course.id
+        = f.hidden_field :grades_course_id, value: @grades_course.id
+        = f.hidden_field :num, value: @section.homeworks.size if action_name == 'new'
+        .block = submit_tag '确定添加', class: 'block'

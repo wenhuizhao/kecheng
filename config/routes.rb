@@ -23,9 +23,13 @@ Kecheng::Application.routes.draw do
     resources :sections, shallow: true do
       resources :exercises
       resources :exercise_texts
-      resources :homeworks
     end
   end
+
+  resources :sections do
+    resources :homeworks
+  end
+  
   resources :qtypes
   resources :book_categories
   resources :grades

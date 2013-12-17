@@ -1,0 +1,20 @@
+
+= raw simple_format h(exercise.exercise_text.content) if exercise.exercise_text
+= raw simple_format h(exercise.title)
+
+- if exercise.is_multi_choice?
+  - exercise.options.each_with_index do |o, i|
+    = ExerciseOption::OPTION_NUM[i]
+    = o.name
+
+p = exercise.note
+
+- if !exercise.photo_file_name.nil?
+  = image_tag exercise.photo.url, {:id=>"photo"}
+
+- if answer
+  .answer 答案:
+  - if exercise.answerphoto_file_name.nil?
+    = exercise.answer
+  - else
+    = image_tag exercise.answerphoto.url 

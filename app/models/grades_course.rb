@@ -42,6 +42,6 @@ class GradesCourse < ActiveRecord::Base
   end
 
   def sections
-    self.book.sections
+    book.sections
   end
 end

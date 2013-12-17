@@ -3,6 +3,8 @@ class Homework < ActiveRecord::Base
   attr_accessible :grades_course_id, :lesson_id, :end_time, :enjoin, :book_id, :exercise_ids, :num
   belongs_to :book
   belongs_to :lesson
+  belongs_to :section
+  belongs_to :grades_course
 
   has_and_belongs_to_many :exercises
   
@@ -12,10 +14,12 @@ class Homework < ActiveRecord::Base
   validates :enjoin, presence: true
 
   def unsubmit_students
-    self.lesson.students - self.students
+    # self.lesson.students - self.students
+    self.grades_course.students - self.students
   end
 
-  def grades_course
-    lesson.try :grades_course
+  def full_name
+    grades_course.full_name + '第' + section.num.to_s + '课作业' + num.to_s
   end
+
 end

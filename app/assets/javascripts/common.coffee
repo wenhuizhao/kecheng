@@ -10,9 +10,9 @@ $(document).ready ->
     $('.actions').css
       "margin-left": "620px"
     
-  $('#content').find('.ltitle').click ->
-    $(this).parent().find('.leave-homework').toggle()
-    $(this).parent().find('.lesson-content').toggle()
+  # $('#content').find('.ltitle').click ->
+  #   $(this).parent().find('.leave-homework').toggle()
+  #   $(this).parent().find('.lesson-content').toggle()
 
   $('.back').on 'click', ->
     history.go(-1)
@@ -51,4 +51,14 @@ $(document).ready ->
   #     $(e).addClass('hover')
   window.redirect_to = (url) ->
     window.location.href = url
-    
+  
+  window.toggle_course = (obj) ->
+    $(obj).parent().find('.leave-homework').toggle()
+    $(obj).parent().find('.lesson-content').toggle()
+
+  window.select_all_records = ->
+    if ($('#select_all').get(0).checked)
+      $('input[type="checkbox"]').attr('checked', true)
+    else
+      $('input[type="checkbox"]').attr('checked', false)
+    return null
