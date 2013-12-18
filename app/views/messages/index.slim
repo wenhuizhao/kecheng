@@ -22,4 +22,7 @@
               - if m.sender_id == current_user.id
                 = link_to '编辑', edit_message_path(m) 
               - else
-                = link_to '回复', new_message_path(parent_id: m.id)
+                - if m.children.empty?
+                  = link_to '回复', new_message_path(parent_id: m.id)
+                - else
+                  = link_to '对话', dialog_message_path(m)

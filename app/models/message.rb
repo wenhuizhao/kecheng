@@ -52,6 +52,10 @@ class Message < ActiveRecord::Base
     Message.where(parent_id: self.id)
   end
 
+  def with_children
+    [self] + children
+  end
+
   class << self
     def all_for(user)
       msgs = messages_of(user) + system_msgs

@@ -1,9 +1,7 @@
 # -*- encoding : utf-8 -*-
 Kecheng::Application.routes.draw do
 
-
   get "statistics/index"
-
 
   get "home/index"
   match "settings" => 'home#settings'
@@ -33,13 +31,17 @@ Kecheng::Application.routes.draw do
   resources :qtypes
   resources :book_categories
   resources :grades
-  resources :messages
   resources :categories
+  resources :courses
+  resources :student_homeworks
   
   get 'accept_select_grades' => 'messages#accept_select_grades', as: 'accept_select_grades'
 
-  resources :courses
-  resources :student_homeworks
+  resources :messages do
+    member do 
+      get :dialog
+    end
+  end
 
   resources :grades_courses do
     collection do

@@ -1,0 +1,10 @@
+.lists
+  = link_to_home
+  .title = "消息对话记录"
+  .descs
+    .desc
+      - @message.with_children.each_with_index do |m, i|
+        .parent.block 
+          = m.sender.name + m.sender.role_name + ': ' 
+          = m.content
+          = "    (#{into_datetime m.updated_at})"

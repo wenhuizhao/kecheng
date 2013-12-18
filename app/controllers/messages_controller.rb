@@ -25,6 +25,10 @@ class MessagesController < ApplicationController
       render action: 'edit'
     end
   end
+  
+  def dialog
+    @message = Message.find(params[:id])
+  end
 
   def create
     @message = Message.new(params[:message])
