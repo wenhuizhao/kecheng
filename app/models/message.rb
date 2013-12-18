@@ -7,6 +7,7 @@ class Message < ActiveRecord::Base
   belongs_to :sender, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
   has_and_belongs_to_many :users, join_table: 'users_messages'
+  belongs_to :parent, class_name: "Message", foreign_key: "parent_id"
   
   validates :desc, :type_name, :sender_id, presence: true
 
@@ -47,12 +48,17 @@ class Message < ActiveRecord::Base
     applied_teacher.try meth if is_apply_course?
   end
 
+  def children
+    Message.where(parent_id: self.id)
+  end
+
   class << self
     def all_for(user)
       msgs = messages_of(user) + system_msgs
       msgs += apply_grades_msgs.select{|m| user.tgrades.include?(m.grade)} if user.is_teacher?
       msgs += apply_courses_msgs if user.is_admin_xld?
-      msgs.sort_by(&:created_at).reverse
+      # msgs.sort_by(&:created_at).reverse
+      msgs.sort_by(&:created_at).reverse.reject{|m| !m.parent_id.nil?}
     end
   end
 end

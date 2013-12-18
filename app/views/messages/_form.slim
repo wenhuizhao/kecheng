@@ -1,16 +1,20 @@
-= render partial: 'shared/header', locals: {title: '消息中心'}
-table.list-big
-  = form_for @message do |f|
-    = render partial: 'shared/error_msgs', locals: {target: @message}
-    tr
-      td = f.label :消息详情
-      td = f.text_area :desc, row: 10, cols: 50
-    / tr
-    /   td = f.label :类型
-    /   td = f.select :type_name, Settings.message_types.map {|m| [m, m]}
-      
-    tr
-      td.actions colspan=10
-        = f.hidden_field :type_name, value: 'system'
-        = f.submit '保存', class: 'btn'
-        = link_to_back
+.lists
+  .title 消息中心
+  = link_to_back
+  .main-descs
+    .main-desc
+      table.list-big
+        = form_for @message do |f|
+          = render partial: 'shared/error_msgs', locals: {target: @message}
+          tr
+            td = f.label :消息详情
+            td = f.text_area :desc, row: 10, cols: 50
+          / tr
+          /   td = f.label :类型
+          /   td = f.select :type_name, Settings.message_types.map {|m| [m, m]}
+            
+          tr
+            td.actions colspan=10
+              = f.hidden_field :type_name, value: 'system'
+              = f.hidden_field :parent_id, value: params[:parent_id]
+              = f.submit '发送', class: 'btn'

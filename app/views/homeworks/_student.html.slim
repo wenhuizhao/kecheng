@@ -18,7 +18,8 @@
       - @homework.exercises.each do |hwq|
         tr
           td = hwq.title
-          td = link_to '回答问题', ''
+          td 
+            = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
 
     .enjoin
       | 老师的叮嘱: 

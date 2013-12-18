@@ -1,7 +1,3 @@
-= render partial: 'shared/header', locals: {title: '消息中心'}
-
-//= render partial: 'shared/lists', locals: {objs: @messages, title: "消息(#{@messages.size})"}
-
 .lists
   = link_to_home
   - if @messages.empty?
@@ -26,4 +22,4 @@
               - if m.sender_id == current_user.id
                 = link_to '编辑', edit_message_path(m) 
               - else
-                = link_to '回复'
+                = link_to '回复', new_message_path(parent_id: m.id)
