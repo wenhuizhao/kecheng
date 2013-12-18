@@ -22,8 +22,13 @@ module Student
     grades.last
   end
 
+  def history_grades
+    grades.select{|g| GradeStudent.where(is_accept: true, student_id: self.id, grade_id: g.id).size > 0}
+  end
+  
   def clear_selected_courses
     # StudentCourse.where(student_id: self.id).each {|s| s.delete}
   end
+  
   include Mgrade
 end

@@ -2,7 +2,7 @@
 class GradesCoursesController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :requested_grade, only: [:select_grades, :create, :update]
+  before_filter :require_grade, only: [:create, :update]
   before_filter :get_grades_course, except: [:index, :create, :new, :select, :select_grades]
   before_filter :require_teacher, except: [:select, :select_grades, :show]
 
@@ -31,6 +31,7 @@ class GradesCoursesController < ApplicationController
   def select_grades
     return unless request.post?
     return if params[:grade_num].empty?
+    get_grade
     GradeStudent.where(student_id: current_user.id, grade_id: @grade.id, is_accept: nil).first_or_create
     send_apply_request('apply_grades', grade_id: @grade.id)
   end
@@ -72,7 +73,7 @@ class GradesCoursesController < ApplicationController
   
   private
 
-  def requested_grade
+  def require_grade
     get_grade
   end
   

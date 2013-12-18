@@ -17,7 +17,7 @@ class GradesCourse < ActiveRecord::Base
   validates :grade_id, :course_id, :book_id, presence: true
   
   validates :course_id, uniqueness: {scope: :grade_id}
-  validates :book_id, uniqueness: {scope: :course_id}
+  # validates :book_id, uniqueness: {scope: :course_id}
   
   scope :all_courses_of, -> (user) {where(teacher_id: user.id)}
   scope :opened, -> {where(is_open: true)}

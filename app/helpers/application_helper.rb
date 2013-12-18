@@ -32,4 +32,8 @@ module ApplicationHelper
     c = check_box_tag selector, '', false, onclick: 'select_all_records()'
     c + content_tag(:span, '全选')
   end
+  
+  def need_canvas
+    %w(exercises homeworks) 
+  end
 end

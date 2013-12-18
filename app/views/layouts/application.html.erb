@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag "#{current_user ? 'after-' : ''}login" %>
   <%= stylesheet_link_tag "normalize" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "fabric" if need_canvas.include?(controller_name) %>
   <%= javascript_include_tag "login" if controller_name == 'sessions' && !current_user %>
   <%= csrf_meta_tags %>
 </head>

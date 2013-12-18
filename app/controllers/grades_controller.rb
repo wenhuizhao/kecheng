@@ -6,7 +6,7 @@ class GradesController < ApplicationController
   before_filter :get_grade, except: [:index, :create, :new]
   
   def index
-    @grades = params[:history] ? current_user.grades : [current_user.grade]
+    @grades = params[:history] ? current_user.history_grades : [current_user.grade]
   end
 
   def show
