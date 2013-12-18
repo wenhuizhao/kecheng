@@ -23,7 +23,8 @@ class GradesCoursesController < ApplicationController
       params[:student][:course_ids].each do |gcid|
         StudentCourse.where(grades_course_id: gcid.to_i, student_id: current_user.id).first_or_create
       end rescue nil # current_user.clear_selected_courses
-      flash[:notice] = '保存成功'
+      # flash[:notice] = '选课申请已发出，请等候老师批准'
+      flash[:notice] = '选课成功'
     end
     @all_courses = GradesCourse.for_select(current_user.grade) 
   end

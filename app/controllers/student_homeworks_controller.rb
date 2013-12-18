@@ -29,6 +29,7 @@ class StudentHomeworksController < ApplicationController
   def create
     @student_homework = StudentHomework.new(params[:student_homework])
     @student_homework.student_id = current_user.id
+    @student_homework
     if @student_homework.save
       reto_homework_path
     else
@@ -45,7 +46,7 @@ class StudentHomeworksController < ApplicationController
     homework = @student_homework.homework
     grades_course, lesson = homework.grades_course, homework.lesson
     flash[:notice] = current_user.is_student? ? '作业提交成功' : '作业批阅成功'
-    redirect_to grades_course_lesson_homework_path(grades_course, lesson, homework)
+    redirect_to section_homework_path(homework.section, homework, grades_course_id: grades_course.id)
   end
 
   def get_student_homework

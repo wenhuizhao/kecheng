@@ -10,10 +10,5 @@
       - @grades_course.students.each_with_index do |s, i|
         .student
           = image_tag 'avatar.png', class: 'savatar'
-          span.stitle.fs24 小明
+          span.stitle.fs24 = s.real_name
           span.stitle.fs22.mess = link_to '发消息', new_message_path(student_id: s.id)
-      - (1..10).each do |i|
-        .student
-          = image_tag 'avatar.png', class: 'savatar'
-          span.stitle.fs24 小明
-          span.stitle.fs22.mess = link_to '发消息', new_message_path(student_id: i)

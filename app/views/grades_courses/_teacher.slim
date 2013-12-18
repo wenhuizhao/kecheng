@@ -1,0 +1,19 @@
+.lists
+  = link_to_home
+  .title = @grades_course.full_name
+  .lessons-content
+    .tcontent
+      .course-str.btn = link_to '课程', grades_course_path(@grades_course)
+      .student-str.btn = link_to '学生(' + @grades_course.students.size.to_s + ')', students_grades_course_path, style: 'color: #26dec6'
+    .lessons
+      - @grades_course.sections.each_with_index do |lesson, i|
+        .lesson
+          .line-node
+          .ltitle = "第#{i + 1}课"
+          .leave-homework = link_to '布置作业', new_section_homework_path(lesson, grades_course_id: @grades_course.id) 
+          .lesson-content
+            .area
+              .htitle 进行中的作业
+              .homeworks
+                - lesson.homeworks.each_with_index do |h, i|
+                  = link_to "作业#{i + 1}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)

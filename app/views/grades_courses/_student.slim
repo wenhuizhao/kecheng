@@ -1,0 +1,18 @@
+.lists
+  = link_to_home
+  .title = @grades_course.course_name
+  .lessons-content
+    .tcontent
+      css:
+        .lessons-content {padding: 0}
+    .lessons
+      - @grades_course.sections.each_with_index do |lesson, i|
+        .lesson
+          .line-node
+          .ltitle = "第#{i + 1}课"
+          .lesson-content
+            .area
+              .htitle 进行中的作业
+              .homeworks
+                - lesson.homeworks.each_with_index do |h, i|
+                  = link_to "作业#{i + 1}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)

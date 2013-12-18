@@ -1,5 +1,12 @@
-
-- if current_user.is_student?
-  = render 'student'
-- else
-  = render 'teacher' 
+.lists
+  = link_to_home
+  - if current_user.is_student?
+    .title = "#{@homework.short_name}【#{@student_homework.status_name}】"
+    .main-descs
+      .main-desc
+        = render 'student'
+  - else
+    .title = "#{@homework.full_name}"
+    .main-descs
+      .main-desc
+        = render 'teacher' 

@@ -11,9 +11,9 @@
     tr
       td 改错提交
       td = f.select :status, [ ['否', '已完成'], ['是', '待改错']]
-    tr
-      td 打分
-      td.num = f.number_field :score, min: 0, max: 100
+    / tr
+    /   td 打分
+    /   td.num = f.number_field :score, min: 0, max: 100
 
   = f.hidden_field :homework_id, value: @homework.id
   .block

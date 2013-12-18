@@ -17,6 +17,10 @@ class Homework < ActiveRecord::Base
     # self.lesson.students - self.students
     self.grades_course.students - self.students
   end
+  
+  def short_name
+    grades_course.course_name + '第' + section.num.to_s + '课作业' + num.to_s
+  end
 
   def full_name
     grades_course.full_name + '第' + section.num.to_s + '课作业' + num.to_s

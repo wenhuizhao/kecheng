@@ -1,13 +1,12 @@
-- if current_user.grade and !params[:edit]
-  = render partial: 'shared/header', locals: {title: '请等候'}
-  - title = '请耐心等候老师接受您的选班请求。方可进行选课.'
-  = link_to '修改我的班级申请', select_grades_path(edit: true)
-- else
-  - title = '班级设置'
-  
-  .lists
-    = link_to_home
-    .title = title
+.lists
+  = link_to_home
+  - if !current_user.grade and !params[:edit]
+    .title 请先等候班级批准
+    .main-descs
+      .main-desc
+        = link_to '修改我的班级申请', select_grades_path(edit: true)
+  - else
+    .title 班级设置
     .main-descs
       .main-desc
         = form_tag select_grades_path

@@ -1,21 +1,24 @@
-= render partial: 'shared/header', locals: {title: '已开课程'}
+.lists
+  = link_to_home
+  .title 已开课程
+  .main-descs
+    .main-desc
+      - if @all_courses.empty?
+        .alert #{current_user.grade.full_name}当前班级没有可选的课程
+      - else
+        .alert = flash[:notice]
+        = form_tag select_grades_courses_path
+          table.list-big
+            tr
+              th 
+              th 课程
+              th 课程数
+              th 教师
+            - @all_courses.each do |c|
+              tr
+                td = check_box_tag 'student[course_ids][]', c.id, current_user.selected_courses.include?(c)
+                td = link_to c.course_name, grades_course_path(c)
+                td = c.sections.size
+                td = c.teacher_name
 
-- if @all_courses.empty?
-  .alert #{current_user.grade.full_name}当前班级没有可选的课程
-- else
-
-  = form_tag select_grades_courses_path
-    table.list-big
-      tr
-        th 
-        th 课程
-        th 课程数
-        th 教师
-      - @all_courses.each do |c|
-        tr
-          td = check_box_tag 'student[course_ids][]', c.id, current_user.selected_courses.include?(c)
-          td = c.course_name
-          td = c.lesson_num
-          td = c.teacher_name
-
-    .block = submit_tag "保存"
+          .block = submit_tag "提交申请"

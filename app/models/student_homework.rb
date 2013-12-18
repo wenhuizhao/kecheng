@@ -11,6 +11,10 @@ class StudentHomework < ActiveRecord::Base
     self.status = Settings.homework_status.first
   end
 
+  def status_name
+    status.nil? ? '未做' : status
+  end
+
   def has_score?
   	self.score && !self.score.empty?
   end

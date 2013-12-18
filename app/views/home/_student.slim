@@ -1,17 +1,23 @@
 
 .areas
   .area.fenhong
-    = link_to '您要做的作业有10份',''
+    = link_to "您要做的作业有#{current_user.undo_homeworks.size}份",''
   .area.caolv
-    = link_to '需要改错的作业有10份',''
+    = link_to "需要改错的作业有#{current_user.need_modify_homeworks.size}份",''
   .area.tianlan
-    = link_to '您收到条信息', messages_path
+    = link_to "您收到#{current_user.unread_messages.size}条信息", messages_path
   .area.huanglv
-    = link_to '语文',''
-  .area.zilan
-    = link_to '数学',''
-  .area.hong
-    = link_to '英语',''
+    = link_to '+ 选课', select_grades_courses_path
+  - if current_user.selected_courses
+    - current_user.selected_courses.each do |c|
+      .area.zilan
+        = link_to c.course_name, grades_course_path(c)
+  / .area.huanglv
+  /   = link_to '语文',''
+  / .area.zilan
+  /   = link_to '数学',''
+  / .area.hong
+  /   = link_to '英语',''
   .area.fenlan
     = link_to '我的班级', grades_path
   .area.fen

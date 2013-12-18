@@ -29,6 +29,18 @@ module Student
   def clear_selected_courses
     # StudentCourse.where(student_id: self.id).each {|s| s.delete}
   end
+
+  def undo_homeworks
+    homeworks.select{|h| StudentHomework.where(student_id: self.id, homework_id: h.id, status: nil).size > 0}
+  end
+
+  def need_modify_homeworks
+    homeworks.select{|h| StudentHomework.where(student_id: self.id, homework_id: h.id, status: '待改错').size > 0}
+  end
+
+  def unread_messages
+    messages
+  end
   
   include Mgrade
 end
