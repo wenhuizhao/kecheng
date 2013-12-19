@@ -1,0 +1,11 @@
+.lists
+  = link_to_home
+  .title = @title
+  .main-descs
+    .main-desc
+      - @homeworks.each do |c|
+        .area
+          = link_to c.full_name, section_homework_path(c.section, c, grades_course_id: c.grades_course_id)
+          .date.block 
+            | 截止时间:  
+            = into_datetime c.end_time

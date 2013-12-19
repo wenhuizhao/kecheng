@@ -2,9 +2,9 @@
 class HomeworksController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :get_homework, except: [:index, :create, :new]
-  before_filter :require_teacher, except: [:show]
-  before_filter :get_section, except: [:check]
+  before_filter :get_homework, except: [:index, :create, :new, :wait_todo]
+  before_filter :require_teacher, except: [:show, :wait_todo]
+  before_filter :get_section, except: [:check, :wait_todo]
   
   def index
     @homeworks = @section.homeworks 
@@ -52,6 +52,18 @@ class HomeworksController < ApplicationController
     redirect_to grades_course_path(@grades_course)
   end
   
+  def wait_todo
+    if params[:type] == 'undo'
+      @homeworks = current_user.undo_homeworks
+      size = @homeworks.size.to_s
+      @title = '您要做的作业' + size + '份'
+    else
+      @homeworks = current_user.need_modify_homeworks
+      size = @homeworks.size.to_s
+      @title = '您要修改的作业' + size + '份'
+    end
+  end
+
   private
 
   def get_homework

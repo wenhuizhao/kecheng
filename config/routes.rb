@@ -61,6 +61,9 @@ Kecheng::Application.routes.draw do
     member do
       match :check
     end
+    collection do
+      get :wait_todo
+    end
   end
   resources :users do
     collection do
