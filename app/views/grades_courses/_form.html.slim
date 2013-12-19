@@ -17,13 +17,13 @@
           .words data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
             = c.name
 
-      = f.label :选择教材
-      = f.select :book_id, Book.for_course.map{|b| [b.name, b.id]}
       = f.hidden_field :course_id, id: 'course_id'
     - else
       .field
         = f.label :是否开放
         = f.select :is_open, [["是",'true'], ["否", 'false']]
+    = f.label :选择教材
+    = f.select :book_id, Book.for_course.map{|b| [b.name, b.id]}
     = hidden_field_tag :grade_num, @grades_course.grade_num
     = hidden_field_tag :class_num, @grades_course.class_num
     .block
