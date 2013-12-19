@@ -53,7 +53,7 @@ class MessagesController < ApplicationController
       redirect_with_message '已经拒绝', action: :index
     else
       @message.sync_role(:approved)
-      redirect_with_message '已经同意', action: :index
+      redirect_with_message '已经批准', action: :index
     end
   end
 
