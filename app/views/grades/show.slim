@@ -1,0 +1,8 @@
+= render partial: 'shared/header', locals: {title: '用户: ' + @user.name}
+table.list-big
+  tr
+    td = @user.name
+    td.actions
+      = link_to '编辑', edit_user_path(@user)
+.links
+  = link_to '返回', users_path

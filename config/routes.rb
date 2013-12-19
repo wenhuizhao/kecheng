@@ -31,6 +31,8 @@ Kecheng::Application.routes.draw do
   resources :qtypes
   resources :book_categories
   resources :grades
+  resources :schools
+  resources :jyjs
   resources :categories
   resources :courses
   resources :student_homeworks

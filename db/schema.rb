@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131217141048) do
+ActiveRecord::Schema.define(:version => 20131219070212) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -150,6 +150,14 @@ ActiveRecord::Schema.define(:version => 20131217141048) do
   add_index "homeworks", ["grades_course_id"], :name => "index_homeworks_on_grades_course_id"
   add_index "homeworks", ["section_id"], :name => "index_homeworks_on_section_id"
 
+  create_table "jyjs", :force => true do |t|
+    t.string   "name"
+    t.string   "post_code"
+    t.string   "address"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "lessons", :force => true do |t|
     t.integer  "teacher_id"
     t.integer  "grades_course_id"
@@ -206,7 +214,12 @@ ActiveRecord::Schema.define(:version => 20131217141048) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "post_code"
+    t.string   "address"
+    t.integer  "jyj_id"
   end
+
+  add_index "schools", ["jyj_id"], :name => "index_schools_on_jyj_id"
 
   create_table "sections", :force => true do |t|
     t.string   "name"

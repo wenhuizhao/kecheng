@@ -5,6 +5,7 @@ class Grade < ActiveRecord::Base
 
   has_many :grades_courses
   has_many :teachers, through: :grades_courses
+  validates :grade_num, :class_num, presence: true
 
   # scope :history_of, -> (user) {all}
   

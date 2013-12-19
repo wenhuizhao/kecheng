@@ -1,0 +1,14 @@
+table.list-big
+  = form_for @grade do |f|
+    = render partial: 'shared/error_msgs', locals: {target: @grade}
+    tr
+      td = f.label :年级
+      td = f.number_field :grade_num
+    tr
+      td = f.label :班
+      td = f.number_field :class_num
+   
+    tr
+      td.actions colspan=10
+        = f.submit '保存', class: 'btn'
+        = link_to '返回', grades_path, class: 'btn'

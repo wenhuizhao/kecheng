@@ -1,0 +1,17 @@
+table.list-big
+  = form_for @jyj do |f|
+    = render partial: 'shared/error_msgs', locals: {target: @jyj}
+    tr
+      td = f.label :教育局名
+      td = f.text_field :name
+    tr
+      td = f.label :邮政编码
+      td = f.text_field :post_code
+    tr
+      td = f.label :地址
+      td = f.text_field :address
+   
+    tr
+      td.actions colspan=10
+        = f.submit '保存', class: 'btn'
+        = link_to '返回', jyjs_path, class: 'btn'

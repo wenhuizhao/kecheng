@@ -1,0 +1,7 @@
+table.list-big
+  tr
+    td = @school.name
+    td.actions
+      = link_to '编辑', edit_school_path(@school)
+.links
+  = link_to '返回', schools_path

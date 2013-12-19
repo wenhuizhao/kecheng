@@ -6,7 +6,11 @@ class GradesController < ApplicationController
   before_filter :get_grade, except: [:index, :create, :new]
   
   def index
-    @grades = params[:history] ? current_user.history_grades : [current_user.grade]
+    @grades = if current_user.is_student?
+                params[:history] ? current_user.history_grades : [current_user.grade]
+              else
+                Grade.all
+              end
   end
 
   def show
@@ -37,17 +41,13 @@ class GradesController < ApplicationController
   end
 
   def destroy
-    if @grade.grades_grades.empty?
-      @grade.destroy
-      redirect_to grades_path
-    else
-      redirect_with_message '不能删除', action: :index
-    end
+    redirect_with_message '不能删除', action: :index
   end
   
   private
 
   def require_grade
+    return true unless current_user.is_student?
     return redirect_to select_grades_path unless current_user.grade
   end
 
