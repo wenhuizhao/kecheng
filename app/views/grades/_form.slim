@@ -2,6 +2,9 @@ table.list-big
   = form_for @grade do |f|
     = render partial: 'shared/error_msgs', locals: {target: @grade}
     tr
+      td = f.label :学校 
+      td = f.select :school_id, School.all.map{|s| [s.name, s.id]}
+    tr
       td = f.label :年级
       td = f.number_field :grade_num
     tr

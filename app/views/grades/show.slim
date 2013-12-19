@@ -1,8 +1,7 @@
-= render partial: 'shared/header', locals: {title: '用户: ' + @user.name}
 table.list-big
   tr
-    td = @user.name
+    td = @grade.full_name
     td.actions
-      = link_to '编辑', edit_user_path(@user)
+      = link_to '编辑', edit_grade_path(@grade)
 .links
-  = link_to '返回', users_path
+  = link_to '返回', grades_path

@@ -21,10 +21,12 @@
         .btns = link_to '添加班级', new_grade_path
         table.list-big
           tr
+            th 学校 
             th 班级 
             th 操作 
           - @grades.each do |c|
             tr
+              td = c.school_name
               td = link_to c.full_name, grade_path(c)
               td.tactions
                 = link_to '编辑', edit_grade_path(c)
