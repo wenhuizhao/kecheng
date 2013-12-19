@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if current_user.is_admin? || current_user.is_admin_jyj?
       @users = User.all
     elsif current_user.is_admin_xld?
-      @users = current_user.school.users 
+      @users = current_user.school.users.reject{|u| u.is_admin_jyj?}
     else
       @users = []
     end
@@ -27,6 +27,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(params[:user])
+      GradeStudent.update_from_admin(params[:grade_id], @user.id) if @user.is_student?
       @user.update_attribute(:role_id, nil) if current_user.is_admin? && current_user.id == @user.id
       redirect_to users_path
     else
@@ -37,7 +38,8 @@ class UsersController < ApplicationController
   def create_user_from_admin
     @user = User.new(params[:user])
     if @user.save
-      @user.update_attribute(:school_id, current_user.school_id) if current_user.is_admin_xld?
+      GradeStudent.build_from_admin(params[:grade_id], @user.id) if @user.is_student?
+      @user.update_attribute(:school_id, current_user.school_id) if current_user.is_admin_xld? && !@user.is_admin_jyj?
       redirect_to users_path
     else
       render action: 'new'

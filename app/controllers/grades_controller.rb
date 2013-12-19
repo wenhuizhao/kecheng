@@ -8,7 +8,9 @@ class GradesController < ApplicationController
   def index
     @grades = if current_user.is_student?
                 params[:history] ? current_user.history_grades : [current_user.grade]
-              else
+              elsif current_user.is_admin_xld?
+                Grade.select{|g| g.school_id == current_user.school_id}
+              elsif current_user.is_admin? || current_user.is_admin_jyj?
                 Grade.all
               end
   end
