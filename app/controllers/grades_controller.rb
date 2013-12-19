@@ -27,6 +27,7 @@ class GradesController < ApplicationController
 
   def update
     if @grade.update_attributes(params[:grade])
+      @grade.set_full_name
       redirect_to grades_path
     else
       render action: 'edit'
