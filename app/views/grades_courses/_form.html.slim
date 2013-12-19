@@ -3,12 +3,12 @@
   .main-desc
     - if !@grades_course.is_accept
       .select-div.grades
-        - Settings.grades.each do |grade|
+        - 1.upto(Grade.max_grade_num).each do |grade|
           .words data-id='#{grade}' class='#{grade == @grades_course.grade_num.to_i ? 'hover' : ''}' 
             = grade.to_cnum + '年级'
 
       .select-div.classes
-        - Settings.classes.each do |c|
+        - 1.upto(Grade.max_class_num).each do |c|
           .words data-id='#{c}' class='#{c == @grades_course.class_num.to_i ? 'hover' : ''}'
             = c.to_cnum + '班'
 

@@ -1,6 +1,6 @@
 .lists
   = link_to_home
-  - if !current_user.grade and !params[:edit]
+  - if current_user.grade and !params[:edit]
     .title 请先等候班级批准
     .main-descs
       .main-desc
@@ -11,12 +11,12 @@
       .main-desc
         = form_tag select_grades_path
           .select-div.grades
-            - Settings.grades.each do |grade|
+            - 1.upto(Grade.max_grade_num).each do |grade|
               .words data-id='#{grade}' class='#{grade == current_user.grade_num.to_i ? 'hover' : ''}' 
                 = grade.to_cnum + '年级'
 
           .select-div.classes
-            - Settings.classes.each do |c|
+            - 1.upto(Grade.max_class_num).each do |c|
               .words data-id='#{c}' class='#{c == current_user.class_num.to_i ? 'hover' : ''}'
                 = c.to_cnum + '班'
 

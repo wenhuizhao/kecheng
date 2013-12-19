@@ -1,4 +1,5 @@
 - if @homework.exercises.size > 0
+  .alert.red = flash[:notice]
   = form_for @student_homework do |f|
     - if @student_homework.status && @student_homework.status != '未批阅'
       .notice 老师批阅结果

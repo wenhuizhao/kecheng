@@ -23,7 +23,7 @@ class Homework < ActiveRecord::Base
   end
 
   def full_name
-    grades_course.full_name + '第' + section.num.to_s + '课作业' + num.to_s
+    grades_course.try(:full_name).to_s + '第' + section.num.to_s + '课作业' + num.to_s
   end
 
 end

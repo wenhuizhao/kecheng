@@ -12,14 +12,14 @@
     .bar.grades
       .words.white 年级:
       .words 全部
-      - Settings.grades.each do |grade|
+      - 1.upto(Grade.max_grade_num).each do |grade|
         .words data-id='#{grade}'
           = grade.to_cnum + '年级'
     br
     .bar.classes
       .words.white 班级:
       .words 全部
-      - Settings.classes.each do |c|
+      - 1.upto(Grade.max_class_num).each do |c|
         .words data-id='#{c}'
           = c.to_cnum + '班'
     br

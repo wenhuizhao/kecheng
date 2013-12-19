@@ -21,7 +21,17 @@ class Grade < ActiveRecord::Base
   def school_name
     school.try :name
   end
+  
+  class << self
+    def max_grade_num
+      Grade.select('grade_num').collect(&:grade_num).uniq.max
+    end
 
+    def max_class_num
+      Grade.select('class_num').collect(&:class_num).uniq.max
+    end
+  end
+  
   module Name
     def self.cname(gn, cn)
       gn.to_cnum + '年级' + cn.to_cnum + "班"

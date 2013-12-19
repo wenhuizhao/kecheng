@@ -1,6 +1,6 @@
 .lists
   = link_back grades_course_path(@grades_course)
-  .title = @grades_course.full_name + ' > 第' + params[:num] + '课'
+  .title = @homework.full_name
   .main-descs
     .main-desc
       = form_for [@section, @homework] do |f| 
