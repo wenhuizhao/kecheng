@@ -3,16 +3,7 @@
   .main-desc
     .alert.red = flash[:notice]
     - if !@grades_course.is_accept
-      .select-div.grades
-        - 1.upto(Grade.max_grade_num).each do |grade|
-          .words data-id='#{grade}' class='#{grade == @grades_course.grade_num.to_i ? 'hover' : ''}' 
-            = grade.to_cnum + '年级'
-
-      .select-div.classes
-        - 1.upto(Grade.max_class_num).each do |c|
-          .words data-id='#{c}' class='#{c == @grades_course.class_num.to_i ? 'hover' : ''}'
-            = c.to_cnum + '班'
-
+      = render "shared/select_grades"
       .select-div.courses
         - Course.all.each do |c|
           .words data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 

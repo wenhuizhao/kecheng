@@ -11,16 +11,7 @@
       .main-desc
         .alert.red = flash[:notice]
         = form_tag select_grades_path
-          .select-div.grades
-            - 1.upto(Grade.max_grade_num).each do |grade|
-              .words data-id='#{grade}' class='#{grade == current_user.grade_num.to_i ? 'hover' : ''}' 
-                = grade.to_cnum + '年级'
-
-          .select-div.classes
-            - 1.upto(Grade.max_class_num).each do |c|
-              .words data-id='#{c}' class='#{c == current_user.class_num.to_i ? 'hover' : ''}'
-                = c.to_cnum + '班'
-
+          = render "shared/select_grades"
           = hidden_field_tag :grade_num, current_user.grade_num
           = hidden_field_tag :class_num, current_user.class_num
           .block.ml600 = submit_tag '保存', class: 'block'

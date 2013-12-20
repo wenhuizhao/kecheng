@@ -23,12 +23,20 @@ class Grade < ActiveRecord::Base
   end
   
   class << self
+    def grades_range
+      Grade.select('grade_num').collect(&:grade_num).uniq
+    end
+
+    def classes_range
+      Grade.select('class_num').collect(&:class_num).uniq
+    end
+
     def max_grade_num
-      Grade.select('grade_num').collect(&:grade_num).uniq.max
+      grades_range.max
     end
 
     def max_class_num
-      Grade.select('class_num').collect(&:class_num).uniq.max
+      classes_range.max
     end
   end
   

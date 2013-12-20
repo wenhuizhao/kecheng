@@ -1,0 +1,20 @@
+.select-div.grades
+  - 1.upto(Grade.max_grade_num).each do |grade|
+     .words data-id='#{grade}' class='#{grade == current_user.grade_num.to_i ? 'hover' : ''}'
+       = grade.to_cnum + '年级'
+
+.select-div.classes
+  - 1.upto(Grade.max_class_num).each do |c|
+    .words data-id='#{c}' class='#{c == current_user.class_num.to_i ? 'hover' : ''}'
+      = c.to_cnum + '班'
+
+/ .select-div.grades
+/   - Grade.grades_range.each do |grade|
+/      .words data-id='#{grade}' class='#{grade == current_user.grade_num.to_i ? 'hover' : ''}'
+/        = grade.to_cnum + '年级'
+/ 
+/ .select-div.classes
+/   - Grade.classes_range.each do |c|
+/     .words data-id='#{c}' class='#{c == current_user.class_num.to_i ? 'hover' : ''}'
+/       = c.to_cnum + '班'
+/ 
