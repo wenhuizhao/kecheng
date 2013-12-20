@@ -1,9 +1,13 @@
-= render partial: 'shared/header', locals: {title: '课程管理'}
-.links 
-  = link_to '添加课程', new_course_path
-table.list
-  - @courses.each do |c|
-    tr
-      td.long = link_to c.name, course_path(c)
-      td = link_to '编辑', edit_course_path(c)
-      td = link_to '删除', c, confirm: '确定删除么？', method: :delete
+.lists
+  = link_to_home
+  .title 课程管理
+  .main-descs
+    .main-desc
+      .btns.actions
+        = link_to '添加课程', new_course_path
+      table.list-big
+        - @courses.each do |c|
+          tr
+            td.long = link_to c.name, course_path(c)
+            td = link_to '编辑', edit_course_path(c)
+            td = link_to '删除', c, confirm: '确定删除么？', method: :delete

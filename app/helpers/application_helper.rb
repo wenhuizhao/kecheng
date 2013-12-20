@@ -36,4 +36,8 @@ module ApplicationHelper
   def need_canvas
     %w(exercises homeworks) 
   end
+
+  def paginate_objs(objs)
+    paginate objs
+  end
 end

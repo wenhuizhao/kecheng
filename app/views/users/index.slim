@@ -3,8 +3,9 @@
   .title 用户管理
   .main-descs
     .main-desc
-      .btns
+      .btns.actions
         = link_to '添加用户', new_user_path
+      = paginate_objs @users
       table.list-big
         tr
           th 用户名

@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     else
       @users = []
     end
+    @users = page_objs @users
   end
 
   def show
