@@ -21,7 +21,7 @@ module Mgrade
       # return redirect_with_message '请选择班级', action: :new if grade_num.present? || class_num.present?
       return render text: '请选择班级' if !grade_num.present? || !class_num.present?
       @grade ||= Grade.where(grade_num: grade_num.to_i, class_num: class_num.to_i).last
-      return redirect_with_message '暂时不支持开设此班级课程', action: :new if @grade.nil?
+      return redirect_with_message '暂无此班级', action: :new if @grade.nil?
     end
 
     def send_apply_request(*args)
