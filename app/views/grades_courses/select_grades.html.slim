@@ -9,6 +9,7 @@
     .title 班级设置
     .main-descs
       .main-desc
+        .alert.red = flash[:notice]
         = form_tag select_grades_path
           .select-div.grades
             - 1.upto(Grade.max_grade_num).each do |grade|
