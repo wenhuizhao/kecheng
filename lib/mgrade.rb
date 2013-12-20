@@ -20,7 +20,7 @@ module Mgrade
     def get_grade(grade_num = params[:grade_num], class_num = params[:class_num])
       # return redirect_with_message '请选择班级', action: :new if grade_num.present? || class_num.present?
       return render text: '请选择班级' if !grade_num.present? || !class_num.present?
-      @grade ||= Grade.where(grade_num: grade_num.to_i, class_num: class_num.to_i).last
+      @grade ||= Grade.where(grade_num: grade_num.to_i, class_num: class_num.to_i, school_id: current_user.school_id).last
       ac_name = current_user.is_teacher? ? "new" : "select"
       return redirect_with_message '暂无此班级', action: ac_name if @grade.nil?
     end
