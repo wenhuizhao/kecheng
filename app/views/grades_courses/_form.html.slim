@@ -1,6 +1,7 @@
 = form_for @grades_course do |f| 
   / = render partial: 'shared/error_msgs', locals: {target: @grades_course}
   .main-desc
+    .alert.red = flash[:notice]
     - if !@grades_course.is_accept
       .select-div.grades
         - 1.upto(Grade.max_grade_num).each do |grade|
