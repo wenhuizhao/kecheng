@@ -29,13 +29,13 @@ $(document).ready ->
       grade_num = $(obj).attr('data-id')
       $('#grade_num').attr('value', grade_num)
       $(@).addClass('hover')
-
-  $('.classes').find('.words').each (i, obj) ->
-    $(obj).click ->
-      $('.classes').find('.hover').removeClass('hover')
-      class_num = $(obj).attr('data-id')
-      $('#class_num').attr('value', class_num)
-      $(@).addClass('hover')
+      $.ajax
+        url: '/get_classes'
+        type: 'post'
+        data:
+          grade_num: grade_num
+        success: (r) ->
+          $('.classes').html r
 
   $('.courses').find('.words').each (i, obj) ->
     $(obj).click ->

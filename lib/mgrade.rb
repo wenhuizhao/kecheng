@@ -30,6 +30,7 @@ module Mgrade
       grade_id, course_id = opts.values 
       desc = '申请加入' + Grade.find(grade_id).full_name if type == 'apply_grades'
       desc = '申请' + Grade.find(grade_id).full_name + Course.find(course_id).name + '课' if type == 'apply_courses'
+      # desc = '申请选课: ' + Grade.find(grade_id).full_name + Course.find(course_id).name if type == 'apply_select_courses'
       Message.where(sender_id: current_user.id, 
                      type_name: type,
                      grade_id: grade_id,

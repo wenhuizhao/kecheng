@@ -2,8 +2,8 @@
 class GradesController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :require_grade
-  before_filter :get_grade, except: [:index, :create, :new]
+  before_filter :require_grade, except: [:get_classes]
+  before_filter :get_grade, except: [:index, :create, :new, :get_classes]
   
   def index
     @grades = if current_user.is_student?
@@ -45,6 +45,10 @@ class GradesController < ApplicationController
 
   def destroy
     redirect_with_message '不能删除', action: :index
+  end
+
+  def get_classes
+    render partial: "shared/select_classes", locals: { classes: current_user.school.grades.where(grade_num: params[:grade_num]).collect(&:class_num)}
   end
   
   private

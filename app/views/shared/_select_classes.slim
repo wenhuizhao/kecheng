@@ -1,0 +1,11 @@
+- classes.each do |c|
+  .words data-id='#{c}' class='#{c == current_user.class_num.to_i ? 'hover' : ''}'
+    = c.to_cnum + '班'
+
+coffee:
+  $('.classes').find('.words').each (i, obj) ->
+    $(obj).click ->
+      $('.classes').find('.hover').removeClass('hover')
+      class_num = $(obj).attr('data-id')
+      $('#class_num').attr('value', class_num)
+      $(@).addClass('hover')
