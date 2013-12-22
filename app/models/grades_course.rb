@@ -12,6 +12,7 @@ class GradesCourse < ActiveRecord::Base
 
   has_many :lessons
   has_many :student_courses
+  has_many :homeworks
   has_many :students, through: :student_courses
 
   validates :grade_id, :course_id, :book_id, presence: true

@@ -23,7 +23,7 @@ module Student
   end
 
   def history_grades
-    grades.select{|g| GradeStudent.where(is_accept: true, student_id: self.id, grade_id: g.id).size > 0}
+    grades.select{|g| GradeStudent.where(is_accept: true, student_id: self.id, grade_id: g.id).size > 0} - [grade]
   end
   
   def clear_selected_courses
@@ -31,7 +31,8 @@ module Student
   end
 
   def undo_homeworks
-    homeworks.select{|h| StudentHomework.where(student_id: self.id, homework_id: h.id, status: nil).size > 0}
+    selected_courses.inject([]) {|hs, c| hs << c.homeworks - homeworks;hs}.flatten
+    # homeworks.select{|h| StudentHomework.where(student_id: self.id, homework_id: h.id, status: nil).size > 0}
   end
 
   def need_modify_homeworks

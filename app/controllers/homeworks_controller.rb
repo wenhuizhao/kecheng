@@ -14,7 +14,7 @@ class HomeworksController < ApplicationController
     unless current_user.is_student?
       @unsubmit_students = @homework.unsubmit_students
     else
-      @student_homework = @homework.student_homeworks.last || StudentHomework.new
+      @student_homework = StudentHomework.where(homework_id: @homework, student_id: current_user.id).last || StudentHomework.new
     end
   end
 
