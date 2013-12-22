@@ -4,13 +4,27 @@
     - if @grades.empty?
       .title 暂无历史班级
     - else
-      .title 历史班级
-      .descs
-        - @grades.each do |m|
-          .desc
-            = m.period
-            |      
-            = m.full_name
+      - if params[:history]
+        .title 历史班级
+        .descs
+          - @grades.each do |m|
+            .desc
+              = m.period
+              |      
+              = m.full_name
+      - else
+        .title = current_user.grade.full_name
+        .main-descs
+          .main-desc-left
+            .title 老师
+            .students
+              = render partial: 'shared/heads', locals: {users: current_user.grade.uteachers}
+
+          .main-desc-right
+            .title = '学生' + "(#{current_user.grade.students.size.to_s})"
+            .students
+              = render partial: 'shared/heads', locals: {users: current_user.grade.students}
+
     .block 
       - unless current_user.is_student?
         = link_to '发送系统消息', new_message_path

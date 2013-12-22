@@ -1,9 +1,9 @@
 .lists
   = link_to_home
   .title = @title
-  .main-descs
-    .main-desc
-      - @homeworks.each do |c|
+  .descs
+    - @homeworks.each do |c|
+      .desc
         .area
           = link_to c.full_name, section_homework_path(c.section, c, grades_course_id: c.grades_course_id)
           .date.block 

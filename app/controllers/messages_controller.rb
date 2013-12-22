@@ -5,7 +5,8 @@ class MessagesController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @messages = Message.all_for(current_user)
+    # @messages = Message.all_for(current_user)
+    @messages = current_user.unread_messages
   end
   
   def show

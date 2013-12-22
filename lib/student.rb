@@ -32,7 +32,6 @@ module Student
 
   def undo_homeworks
     selected_courses.inject([]) {|hs, c| hs << c.homeworks - homeworks;hs}.flatten
-    # homeworks.select{|h| StudentHomework.where(student_id: self.id, homework_id: h.id, status: nil).size > 0}
   end
 
   def need_modify_homeworks
@@ -40,7 +39,8 @@ module Student
   end
 
   def unread_messages
-    messages
+    # messages
+    Message.all_for(self)
   end
   
   include Mgrade

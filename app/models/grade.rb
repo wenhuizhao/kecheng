@@ -4,6 +4,9 @@ class Grade < ActiveRecord::Base
   after_create :set_full_name
 
   has_many :grades_courses
+  has_many :grade_students
+  # has_and_belongs_to_many :students, foreign_key: :grade_id, join_table: 'grade_students'
+
   has_many :teachers, through: :grades_courses
   validates :grade_num, :class_num,:school_id, presence: true
   belongs_to :school
@@ -11,6 +14,10 @@ class Grade < ActiveRecord::Base
   
   def uteachers
     teachers.uniq
+  end
+
+  def students
+    grade_students.inject([]) {|ss, gs| ss << gs.student}
   end
   
   def set_full_name

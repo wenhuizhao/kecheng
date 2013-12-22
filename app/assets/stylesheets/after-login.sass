@@ -179,14 +179,30 @@ header
   margin: 54px 0 0 0px
   float: left
   width: $main-width
-  .main-desc
-    padding: 30px 52px
+  .main-desc, .main-desc-left, .main-desc-right
+    padding-top: 30px
+    padding-bottom: 30px
     font-size: 24px
     color: #848484
     font-weight: bold
     background: white
     border-bottom: 1px #999 solid
     margin-bottom: 44px
+  .main-desc
+    padding-left: 52px
+  .main-desc-left, .main-desc-right
+    float: left
+    min-height: 500px
+    .title
+      border: none
+      padding: 30px 0
+  .main-desc-left
+    padding-left: 15px
+    width: 305px
+  .main-desc-right
+    margin-left: 10px
+    padding-left: 30px
+    width: 590px
 
 .lists
   .back, .title
@@ -289,34 +305,43 @@ header
         background: white
         padding: 20px
         margin: 20px 0 0 20px
-  .students
-    width: $main-width - 96px
-    border: 2px #ddd solid
-    background: white
-    min-height: 500px
-    padding: 21px 48px
-    .student
-      width: 178px
+
+.lessons-content .students
+  width: $main-width - 96px
+  border: 2px #ddd solid
+  min-height: 500px
+  padding: 21px 48px
+  .student
+    margin: 0 0 36px 33px
+
+.main-desc-right .students, .main-desc-left .students
+  clear: both
+  .student
+    margin: 0 0 36px 13px
+
+.students
+  background: white
+  .student
+    width: 178px
+    height: 76px
+    display: inline-block
+    span
+      display: block
+      width: 72px
+      float: left
+      margin: 10px 0 0 10px
+      &.mess
+        a
+          color: $input-font-color
+    .savatar
+      float: left
+      width: 76px
       height: 76px
-      display: inline-block
-      margin: 0 0 36px 33px
-      span
-        display: block
-        width: 72px
-        float: left
-        margin: 10px 0 0 10px
-        &.mess
-          a
-            color: $input-font-color
-      .savatar
-        float: left
-        width: 76px
-        height: 76px
-    .send-message
-      margin: 0 0 50px 600px
-      a
-        font-size: 22px
-        padding: 5px 0
+  .send-message
+    margin: 0 0 50px 600px
+    a
+      font-size: 22px
+      padding: 5px 0
 
 .btn a
   color: white
