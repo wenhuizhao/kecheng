@@ -9,7 +9,7 @@ class Message < ActiveRecord::Base
   has_and_belongs_to_many :users, join_table: 'users_messages'
   belongs_to :parent, class_name: "Message", foreign_key: "parent_id"
   
-  validates :desc, :type_name, :sender_id, presence: true
+  validates :desc, :sender_id, presence: true
 
   scope :system_msgs, -> { where(type_name: 'system') }
   # scope :system_msgs, -> (user) { where(type_name: 'system', school_id: user.school_id) }
@@ -20,6 +20,10 @@ class Message < ActiveRecord::Base
   def content
     # return '申请加入' + grades if is_apply_grades?
     desc
+  end
+
+  def set_show!
+    update_attribute(:is_open, true)
   end
 
   def is_apply_grades?
@@ -58,7 +62,7 @@ class Message < ActiveRecord::Base
 
   class << self
     def all_for(user)
-      msgs = messages_of(user) + system_msgs
+      msgs = messages_of(user) #+ system_msgs
       msgs += apply_grades_msgs.select{|m| user.tgrades.include?(m.grade)} if user.is_teacher?
       msgs += apply_courses_msgs if user.is_admin_xld?
       # msgs.sort_by(&:created_at).reverse

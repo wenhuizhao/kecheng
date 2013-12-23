@@ -56,6 +56,11 @@ class User < ActiveRecord::Base
     false
   end
 
+  def unread_messages
+    # messages
+    Message.all_for(self).select{|m| m.is_open == false}
+  end
+
   def set_bg_num
     if self.bg_num.to_i < 2
       self.bg_num = self.bg_num.to_i + 1

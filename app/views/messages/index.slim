@@ -1,11 +1,11 @@
 .lists
   = link_to_home
-  - if @messages.empty?
+  - if @all_messages.empty?
     .title 暂无消息
   - else
     .title = "消息(#{@messages.size})"
     .descs
-      - @messages.each_with_index do |m, i|
+      - @all_messages.each_with_index do |m, i|
         .desc
           = m.sender.name + m.sender.role_name + ': ' 
           = m.content

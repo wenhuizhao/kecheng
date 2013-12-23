@@ -38,10 +38,5 @@ module Student
     homeworks.select{|h| StudentHomework.where(student_id: self.id, homework_id: h.id, status: '待改错').size > 0}
   end
 
-  def unread_messages
-    # messages
-    Message.all_for(self)
-  end
-  
   include Mgrade
 end

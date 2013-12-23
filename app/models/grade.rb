@@ -28,6 +28,21 @@ class Grade < ActiveRecord::Base
   def school_name
     school.try :name
   end
+
+  def build_messages(opts)
+    b = false
+    Message.transaction do
+      students.each {|s| m = Message.new(grade_id: self.id, 
+        sender_id: opts[:sender_id], 
+        receiver_id: s.id, 
+        desc: opts[:desc],
+        type_name: opts[:type_name],
+        school_id: s.school_id)
+      m.save}
+      b = true
+    end
+    b
+  end
   
   class << self
     def grades_range

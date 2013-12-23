@@ -15,6 +15,7 @@
             
           tr
             td.actions colspan=10
-              = f.hidden_field :type_name, value: 'system'
+              = hidden_field_tag :receiver_id, params[:receiver_id]
+              = hidden_field_tag :grade_id, params[:grade_id]
               = f.hidden_field :parent_id, value: params[:parent_id]
               = f.submit '发送', class: 'btn'

@@ -5,8 +5,9 @@ class MessagesController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    # @messages = Message.all_for(current_user)
+    @all_messages = Message.all_for(current_user)
     @messages = current_user.unread_messages
+    @messages.each(&:set_show!)
   end
   
   def show
@@ -32,12 +33,17 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(params[:message])
-    @message.sender_id = current_user.id
-    @message.school_id = current_user.school_id
-    @message.grade_id = current_user.grade.try :id
-    if @message.save
-      redirect_to messages_path
+    ok = if params[:receiver_id].presence
+           @message = Message.new(params[:message])
+           @message.receiver_id = params[:receiver_id]
+           @message.sender_id = current_user.id
+           @message.school_id = current_user.school_id
+           @message.save
+         else
+           Grade.find(params[:grade_id]).build_messages(sender_id: current_user.id, desc: params[:message][:desc])
+         end
+    if ok
+      redirect_to root_path
     else
       render action: 'new'
     end
