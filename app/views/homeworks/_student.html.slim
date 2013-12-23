@@ -18,9 +18,7 @@
     table.list-big
       - @homework.exercises.each do |hwq|
         tr
-          td = hwq.title
-          td 
-            = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
+          td = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
 
     .enjoin
       | 老师的叮嘱: 
