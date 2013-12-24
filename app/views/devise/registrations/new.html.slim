@@ -13,6 +13,7 @@
           span.male 男
           = f.radio_button :gender, '女'
           span 女
+      tr: td = f.select :role_id, Role.limit(2).collect {|s| [s.name, s.id]}
       tr: td = f.select :school_id, School.all.collect {|s| [s.name, s.id]}
       tr: td = f.text_field :phone, :autofocus => true, placeholder: '手机号码'
       tr: td 

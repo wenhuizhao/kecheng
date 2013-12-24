@@ -2,6 +2,7 @@
 /   = yield :header
 
 .body-bg
+  /= image_tag("/assets/student-bg#{current_user.bg_num}.png")
   #content
     .exit = link_to '退出', destroy_user_session_path, method: :delete
     .avatar
