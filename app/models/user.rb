@@ -70,6 +70,11 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def undo_homeworks
+    return selected_courses.inject([]) {|hs, c| hs << c.homeworks - homeworks;hs}.flatten if self.is_student?
+    accepted_courses.inject([]){|hs, pgc| hs << pgc.homeworks}.flatten.select{|h| h.status.nil?}
+  end
+
   include Student
   include Teacher
 end

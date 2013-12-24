@@ -7,5 +7,13 @@
         .area
           = link_to c.full_name, section_homework_path(c.section, c, grades_course_id: c.grades_course_id)
           .date.block 
-            | 截止时间:  
-            = into_datetime c.end_time
+            - if current_user.is_teacher?
+              .name =  "未提交#{c.unsubmit_students.size}人"
+              - Settings.homework_status.each do |status|
+                - shs = StudentHomework.where(status: status, homework_id: c.id)
+                .name = status + "#{shs.size}人"
+            - else
+              | 截止时间:  
+              = into_datetime c.end_time
+css:
+  .name {display: inline}

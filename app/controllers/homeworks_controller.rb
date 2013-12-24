@@ -56,7 +56,7 @@ class HomeworksController < ApplicationController
     if params[:type] == 'undo'
       @homeworks = current_user.undo_homeworks
       size = @homeworks.size.to_s
-      @title = '您要做的作业' + size + '份'
+      @title = current_user.is_student? ? '您要做的作业' + size + '份' : '未完成作业(' + size + ')'
     else
       @homeworks = current_user.need_modify_homeworks
       size = @homeworks.size.to_s

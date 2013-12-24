@@ -30,10 +30,6 @@ module Student
     # StudentCourse.where(student_id: self.id).each {|s| s.delete}
   end
 
-  def undo_homeworks
-    selected_courses.inject([]) {|hs, c| hs << c.homeworks - homeworks;hs}.flatten
-  end
-
   def need_modify_homeworks
     homeworks.select{|h| StudentHomework.where(student_id: self.id, homework_id: h.id, status: '待改错').size > 0}
   end
