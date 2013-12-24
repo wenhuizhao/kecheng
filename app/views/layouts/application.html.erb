@@ -13,7 +13,7 @@
 <% if current_user %>
   <style type="text/css">
     .exit{background: url('/assets/scircle<%= current_user.bg_num %>.png');}
-    .body-bg{background: url('/assets/student-bg<%= current_user.bg_num %>.png') no-repeat;}
+    .body-bg{background: url('/assets/student-bg<%= current_user.bg_num %>.png') no-repeat;background-attachment:fixed;}
   </style>
 <% end %>
 <body>
