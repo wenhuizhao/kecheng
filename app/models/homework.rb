@@ -25,5 +25,8 @@ class Homework < ActiveRecord::Base
   def full_name
     grades_course.try(:full_name).to_s + '第' + section.num.to_s + '课作业' + num.to_s
   end
-
+  
+  def to_chart
+    student_homeworks.collect(&:level).compact.map{|h| {  y: student_homeworks.where(level: h).size, name: h}}
+  end
 end

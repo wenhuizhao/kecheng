@@ -22,4 +22,8 @@ class StudentHomework < ActiveRecord::Base
   def score_num
     has_score? ? score : '暂无打分'
   end
+
+  def self.to_chart()
+    
+  end
 end

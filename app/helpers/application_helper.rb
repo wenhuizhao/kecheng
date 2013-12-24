@@ -40,4 +40,29 @@ module ApplicationHelper
   def paginate_objs(objs)
     paginate objs
   end
+
+  def chart(datas)
+    id = datas[:h].id.to_s
+    javascript_tag '$(document).ready(function ($) {
+      var pieChart' + id + ' = new CanvasJS.Chart("pie' + id + '", {
+        theme: "theme2",
+        legend:{
+          verticalAlign: "bottom",
+          horizontalAlign: "center"
+        },
+        data: [
+                {
+                 type: "doughnut",
+                 startAngle: 10,
+                 toolTipContent: "{name} <strong>{y} %<strong>",
+                 showInLegend: true,
+                 indexLabel: "{name} {y}%",
+                 dataPoints: ' + datas[:h].to_chart.to_json + '
+               }
+             ]
+         });
+
+        pieChart' + id + '.render();
+      });'
+  end
 end

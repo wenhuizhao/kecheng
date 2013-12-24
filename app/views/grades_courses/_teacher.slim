@@ -1,3 +1,5 @@
+= javascript_include_tag 'canvasjs'
+
 .lists
   = link_to_home
   = link_to '编辑', edit_grades_course_path(@grades_course)
@@ -22,3 +24,6 @@
                 .homeworks
                   - lesson.homeworks.each_with_index do |h, i|
                     = link_to "作业#{i + 1}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
+                    div id='pie#{h.id}' style='width: 300px;height: 240px'
+                    = chart(h: h)
+
