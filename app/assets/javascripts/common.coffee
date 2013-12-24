@@ -14,6 +14,9 @@ $(document).ready ->
     $(this).parent().find('.leave-homework').toggle()
     $(this).parent().find('.lesson-content').toggle()
 
+  $('.areas').on 'click', '.area',  ->
+    redirect_to $(this).find('a').attr('href')
+
   $('.back').on 'click', ->
     history.go(-1)
 
