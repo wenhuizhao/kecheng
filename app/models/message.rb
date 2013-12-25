@@ -66,7 +66,7 @@ class Message < ActiveRecord::Base
       msgs += apply_grades_msgs.select{|m| user.tgrades.include?(m.grade)} if user.is_teacher?
       msgs += apply_courses_msgs if user.is_admin_xld?
       # msgs.sort_by(&:created_at).reverse
-      msgs.sort_by(&:created_at).reverse.reject{|m| !m.parent_id.nil?}
+      msgs.sort_by(&:created_at).reverse #.reject{|m| !m.parent_id.nil?}
     end
   end
 end

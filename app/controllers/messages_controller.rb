@@ -33,20 +33,17 @@ class MessagesController < ApplicationController
   end
 
   def create
-    ok = if params[:receiver_id].presence
+    ok = if params[:grade_id].presence
+           Grade.find(params[:grade_id]).build_messages(sender_id: current_user.id, desc: params[:message][:desc])
+         else
            @message = Message.new(params[:message])
-           @message.receiver_id = params[:receiver_id]
+           @message.receiver_id = params[:receiver_id].presence
            @message.sender_id = current_user.id
            @message.school_id = current_user.school_id
            @message.save
-         else
-           Grade.find(params[:grade_id]).build_messages(sender_id: current_user.id, desc: params[:message][:desc])
          end
-    if ok
-      redirect_to root_path
-    else
-      render action: 'new'
-    end
+    return redirect_to root_path if ok
+    render action: 'new'
   end
 
   def destroy

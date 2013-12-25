@@ -7,22 +7,24 @@
     .descs
       - @all_messages.each_with_index do |m, i|
         .desc
-          = m.sender.name + m.sender.role_name + ': ' 
-          = m.content
-
-          .date = into_datetime m.updated_at
-          .actions 
-            - if m.is_apply? 
-              - if m.is_accept.nil?
-                = link_to('批准', accept_select_grades_path(id: m.id))
-                = link_to('拒绝', accept_select_grades_path(id: m.id, status: 'refuse'))
-              - else
-                = m.is_accept ? '已批准' : '已拒绝'
-            - else
-              - if m.sender_id == current_user.id
-                = link_to '编辑', edit_message_path(m) 
-              - else
-                - if m.children.empty?
-                  = link_to '回复', new_message_path(parent_id: m.id)
+          - m.with_children.each_with_index do |m, i|
+            .parent.block 
+              = m.sender.name + m.sender.role_name + ': ' 
+              = m.content
+              /= "    (#{into_datetime m.updated_at})"
+              .date = into_datetime m.updated_at
+              .actions 
+                - if m.is_apply? 
+                  - if m.is_accept.nil?
+                    = link_to('批准', accept_select_grades_path(id: m.id))
+                    = link_to('拒绝', accept_select_grades_path(id: m.id, status: 'refuse'))
+                  - else
+                    = m.is_accept ? '已批准' : '已拒绝'
                 - else
-                  = link_to '对话', dialog_message_path(m)
+                  - if m.sender_id == current_user.id
+                    = link_to '编辑', edit_message_path(m) 
+                  - else
+                    - if m.children.empty?
+                      = link_to '回复', new_message_path(parent_id: m.id)
+                    / - else
+                    /   = link_to '对话', dialog_message_path(m)
