@@ -17,7 +17,7 @@ class Grade < ActiveRecord::Base
   end
 
   def students
-    grade_students.inject([]) {|ss, gs| ss << gs.student}
+    grade_students.inject([]) {|ss, gs| gs.is_accept ? ss << gs.student : ss}
   end
   
   def set_full_name

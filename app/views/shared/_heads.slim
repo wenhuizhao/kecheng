@@ -1,5 +1,6 @@
 - users.each_with_index do |s, i|
-  .student
-    = image_tag 'avatar.png', class: 'savatar'
-    span.stitle.fs24 = s.real_name
-    span.stitle.fs22.mess = link_to '发消息', new_message_path(receiver_id: s.id)
+  - if current_user.id != s.id
+    .student
+      = image_tag 'avatar.png', class: 'savatar'
+      span.stitle.fs24 = s.real_name
+      span.stitle.fs22.mess = link_to '发消息', new_message_path(receiver_id: s.id)
