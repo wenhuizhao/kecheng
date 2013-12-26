@@ -18,12 +18,16 @@ module Student
     grade_stu.try :is_accept
   end
 
+  def approved_grades
+    grade_students.select(&:is_accept).inject([]){|gs, g| gs << g.grade} 
+  end
+
   def grade
-    grades.last
+   approved_grades.last
   end
 
   def history_grades
-    grades.select{|g| GradeStudent.where(is_accept: true, student_id: self.id, grade_id: g.id).size > 0} - [grade]
+    approved_grades - [grade]
   end
   
   def clear_selected_courses

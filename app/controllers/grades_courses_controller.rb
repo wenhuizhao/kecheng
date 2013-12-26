@@ -33,8 +33,9 @@ class GradesCoursesController < ApplicationController
     return unless request.post?
     return if params[:grade_num].empty?
     get_grade
-    if !@grade.nil?
-      GradeStudent.where(student_id: current_user.id, grade_id: @grade.id).first_or_create
+    gs = GradeStudent.where(student_id: current_user.id, grade_id: @grade.id).first
+    if @grade and !gs
+      GradeStudent.create(student_id: current_user.id, grade_id: @grade.id)
       send_apply_request('apply_grades', grade_id: @grade.id)
     end
   end

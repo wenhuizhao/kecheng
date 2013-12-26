@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :grades, foreign_key: :student_id, join_table: 'grade_students'
   has_and_belongs_to_many :messages, join_table: 'users_messages'
   has_many :student_courses, foreign_key: 'student_id'
+  has_many :grade_students, foreign_key: 'student_id'
 
   Role.all.each {|r| define_method("is_#{r.en_name}?") {role and role.name == r.name}}
 
