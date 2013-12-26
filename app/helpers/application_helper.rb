@@ -40,4 +40,12 @@ module ApplicationHelper
   def paginate_objs(objs)
     paginate objs
   end
+
+  def avatar_path(user)
+    'avatar.png'
+  end
+
+  def link_green_btn(title, opts = {})
+    link_to title, opts, class: 'btn'
+  end
 end

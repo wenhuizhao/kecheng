@@ -97,7 +97,7 @@ header
     padding: 30px
   .status
     font-size: $font-size-big
-    border-bottom: 2px black solid
+    // border-bottom: 2px black solid
     clear: both
 
 .messages
@@ -351,7 +351,24 @@ header
       padding: 5px 0
 
 .status_students
-  .status
+  .check, .students
+    display: inline-block
+  .check
+    width: 216px
+    float: left
+    padding-top: 60px
+    // min-height: 100px
+    a
+      height: 40px
+      padding: 10px 0 0 0
+      width: 120px
+      display: block
+  .students
+    .name
+      font-size: 26px
+      color: $blue
+    .student
+      margin: 20px 0 0 
 
 .hs
   font-size: 22px
