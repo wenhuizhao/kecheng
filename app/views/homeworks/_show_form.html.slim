@@ -1,5 +1,5 @@
 = form_for @student_homework do |f|
-  table.list-big
+  table.homework
     - @homework.exercises.each do |hwq|
       tr
         td = hwq.note
@@ -10,14 +10,24 @@
           = '批阅'
     tr
       td 作业评级
-      td = f.select :level, Settings.homework_levels.map {|sl| [sl, sl]}
+      td
+        .levels
+          - Settings.homework_levels.each do |l|
+            .level 
+              = f.radio_button :level, l
+              span = l
+
     tr
       td 改错提交
-      td = f.select :status, [ ['否', '已完成'], ['是', '待改错']]
-    / tr
-    /   td 打分
-    /   td.num = f.number_field :score, min: 0, max: 100
+      td
+        .levels
+          - [ ['否', '已完成'], ['是', '待改错']].each do |s|
+            .level 
+              = f.radio_button :status, s[1]
+              span = s[0]
 
   = f.hidden_field :homework_id, value: @homework.id
   .block
-    = submit_tag '批阅作业'
+    = submit_tag '提交&下一份'
+    = submit_tag '完成', class: 'ml10'
+    = link_to '取消', section_homework_path(@homework.section, @homework, grades_course_id: @homework.grades_course_id) ,class: 'cancle btn'

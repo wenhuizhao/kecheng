@@ -1,9 +1,17 @@
 .lists
   = link_back grades_course_path(@student_homework.homework.grades_course)
-  .title 批阅作业
+  .title = "作业批阅"
   .main-descs
     .main-desc
-      .block 
-        | 作业提交时间： 
-        = into_datetime(@student_homework.updated_at)
-      = render 'show_form'
+      .check-left
+        .ctitle = @student_homework.homework.short_name
+        - shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
+        .students
+          - shs.each do |s| 
+            .student class='#{'active' if @student_homework.student_id == s.id}' data-id='#{s.id}' data-hid='#{@student_homework.homework_id}' data-status='#{params[:status]}'
+              = image_tag avatar_path(s), class: 'savatar'
+              span.stitle.fs24 = s.real_name
+      .check-right
+        .block 
+          = "作业题目(#{@student_homework.homework.exercises.size})"
+        = render 'show_form'

@@ -370,6 +370,38 @@ header
     .student
       margin: 20px 0 0 
 
+.levels
+  .level
+    display: inline-block
+    margin-left: 30px
+    span
+      color: rgb(90, 56, 29)
+
+.check-left
+  width: 258px
+  height: 100%
+  vertical-align: top
+  color: $blue
+  font-size: 26px
+  padding-top: 25px
+  .students
+    margin: 43px 0 0 15px
+    .student
+      margin: 0 0 0 -60px
+      width: 200px
+      padding: 5px 0 0 50px
+      height: 55px
+      color: $black
+      cursor: pointer
+      &.active
+        background: $blue
+        color: white
+      img
+        width: 47px
+        height: 47px
+.check-left, .check-right
+  display: inline-block
+
 .hs
   font-size: 22px
   text-align: center

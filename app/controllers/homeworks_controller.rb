@@ -19,9 +19,9 @@ class HomeworksController < ApplicationController
   end
 
   def check
-    @student_homeworks = StudentHomework.where(homework_id: params[:id])
-    @student_homework = if params[:student_Id]
-                          StudentHomework.where(student_id: params[:student_Id], homework_id: params[:id]).last
+    @student_homeworks = StudentHomework.where(homework_id: params[:id], status: params[:status])
+    @student_homework = if params[:student_id]
+                          StudentHomework.where(student_id: params[:student_id], homework_id: params[:id]).last
                         else
                           @student_homeworks.first
                         end

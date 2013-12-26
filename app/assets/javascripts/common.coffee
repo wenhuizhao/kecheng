@@ -16,6 +16,9 @@ $(document).ready ->
 
   $('.areas').on 'click', '.area',  ->
     redirect_to $(this).find('a').attr('href')
+  
+  $('.check-left').on 'click', '.student',  ->
+    redirect_to '/homeworks/' + $(this).attr('data-hid') + '/check?status=' + $(this).attr('data-status') + '&student_id=' + $(this).attr('data-id')
 
   $('.back').on 'click', ->
     history.go(-1)
