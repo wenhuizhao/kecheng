@@ -12,7 +12,6 @@
           .ltitle = "第#{i + 1}课"
           .lesson-content
             .area
-              .htitle 进行中的作业
               .homeworks
-                - lesson.homeworks.each_with_index do |h, i|
-                  = link_to "作业#{i + 1}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
+                - lesson.homeworks.each_with_index do |h, j|
+                  .hs = link_to "[#{h.of_user(current_user).try(:status) || '未　做'}]#{h.short_name}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)

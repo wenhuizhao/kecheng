@@ -18,6 +18,10 @@ class Homework < ActiveRecord::Base
     self.grades_course.students - self.students
   end
   
+  def of_user(user)
+    student_homeworks.select{|sh| sh.student_id == user.id}.last
+  end
+  
   def short_name
     grades_course.course_name + '第' + section.num.to_s + '课作业' + num.to_s
   end
