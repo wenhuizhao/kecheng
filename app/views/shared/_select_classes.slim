@@ -2,10 +2,13 @@
   .words data-id='#{c}' class='#{c == current_user.class_num.to_i ? 'hover' : ''}'
     = c.to_cnum + '班'
 
-coffee:
-  $('.classes').find('.words').each (i, obj) ->
-    $(obj).click ->
-      $('.classes').find('.hover').removeClass('hover')
-      class_num = $(obj).attr('data-id')
-      $('#class_num').attr('value', class_num)
-      $(@).addClass('hover')
+javascript:
+  $('.classes').find('.words').each(function(i, obj) {
+    $(obj).click(function(){
+      $('.classes').find('.hover').removeClass('hover');
+      var class_num = $(obj).attr('data-id');
+      $('#class_num').attr('value', class_num);
+      $(this).addClass('hover')
+    });
+  });
+
