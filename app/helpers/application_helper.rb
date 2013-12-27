@@ -20,7 +20,7 @@ module ApplicationHelper
     # link_to_function '返回', 'history.go(-1)'
   end
 
-  def link_back(link = root_path)
+  def link_back(link = session[:back])
     content_tag :div, (link_to '返回', link), class: 'back'
   end
 

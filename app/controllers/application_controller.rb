@@ -2,11 +2,15 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :get_common_courses
+  before_filter :get_common_courses, :get_back
   include Exts, Tool, CtrlMeths
   include Mgrade::CtrlMeths
 
   private
+    def get_back
+      session[:back] = @url = request.url
+    end
+
     def get_common_courses
       return nil unless current_user
       if current_user.is_student?

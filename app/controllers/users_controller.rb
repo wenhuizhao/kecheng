@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :require_admin, except: [:reset_password]
+  before_filter :require_admin, except: [:reset_password, :show]
   before_filter :get_user, except: [:index, :create_user_from_admin, :new]
   
   def index
@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    return render text: '无此权限' if @user != current_user
   end
 
   def edit

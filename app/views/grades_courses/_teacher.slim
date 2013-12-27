@@ -1,7 +1,7 @@
 = include_chart_js
 .lists
   = link_to_home
-  = link_to '编辑', edit_grades_course_path(@grades_course)
+  / = link_to '编辑', edit_grades_course_path(@grades_course)
   .title = @grades_course.full_name
   .lessons-content
     - if @grades_course.sections.empty?
