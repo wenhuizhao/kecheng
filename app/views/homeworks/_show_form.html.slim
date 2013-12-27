@@ -27,6 +27,7 @@
               span = s[0]
 
   = f.hidden_field :homework_id, value: @homework.id
+  = hidden_field_tag :status, params[:status]
   .block
     = submit_tag '提交&下一份'
     = submit_tag '完成', class: 'ml10'

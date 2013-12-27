@@ -20,6 +20,7 @@ class StudentHomeworksController < ApplicationController
 
   def update
     if @student_homework.update_attributes(params[:student_homework])
+      return re_to_check if params[:commit] == '提交&下一份'
       reto_homework_path
     else
       render action: 'edit'
@@ -31,6 +32,7 @@ class StudentHomeworksController < ApplicationController
     @student_homework.student_id = current_user.id
     @student_homework
     if @student_homework.save
+      return re_to_check if params[:commit] == '提交&下一份'
       reto_homework_path
     else
       render action: 'new'
@@ -47,6 +49,10 @@ class StudentHomeworksController < ApplicationController
     grades_course, lesson = homework.grades_course, homework.lesson
     flash[:notice] = current_user.is_student? ? '作业提交成功' : '作业批阅成功'
     redirect_to section_homework_path(homework.section, homework, grades_course_id: grades_course.id)
+  end
+
+  def re_to_check
+    redirect_to check_homework_path(@student_homework.homework, status: params[:status]) 
   end
 
   def get_student_homework
