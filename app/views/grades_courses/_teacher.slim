@@ -1,3 +1,4 @@
+= include_chart_js
 .lists
   = link_to_home
   = link_to '编辑', edit_grades_course_path(@grades_course)
@@ -22,3 +23,5 @@
                 .homeworks
                   - lesson.homeworks.each_with_index do |h, i|
                     = link_to "作业#{i + 1}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
+                    .chart-small id='#{h.id}'
+                    = chart h, title: h.full_name, data: h.to_chart 

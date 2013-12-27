@@ -29,5 +29,13 @@ class Homework < ActiveRecord::Base
   def full_name
     grades_course.try(:full_name).to_s + '第' + section.num.to_s + '课作业' + num.to_s
   end
-
+  
+  ChartColors = {'优' => 'red', 
+                 '良' => 'green', 
+                 '中' => 'yellow', 
+                 '差' => 'blue'}
+  def to_chart
+    (Settings.homework_levels.map{|h| { y: student_homeworks.where(level: h).size, name: h, color: ChartColors[h]}} +
+    [{y: unsubmit_students.size, name: '未做', color: 'black'}]).to_json
+  end
 end

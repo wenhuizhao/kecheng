@@ -48,4 +48,22 @@ module ApplicationHelper
   def link_green_btn(title, opts = {})
     link_to title, opts, class: 'btn'
   end
+ 
+  def include_chart_js
+    javascript_include_tag 'highcharts','exporting'
+  end
+ 
+  def chart(*args)
+    obj, datas = args[0], args.extract_options!
+    javascript_tag "$(function () {
+                       $('#" + obj.id.to_s + "').highcharts({
+                         series: [{
+                           type: 'pie',
+                           name: '" + datas[:title] + "',
+                           innerSize: '60%',
+                           data: #{datas[:data]}
+                         }]
+                       });
+                     });" 
+  end
 end
