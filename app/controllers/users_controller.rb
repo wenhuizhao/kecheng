@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :require_admin
+  before_filter :require_admin, except: [:reset_password]
   before_filter :get_user, except: [:index, :create_user_from_admin, :new]
   
   def index
@@ -44,6 +44,16 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       render action: 'new'
+    end
+  end
+  
+  def reset_password
+    return render text: '无此权限' if @user != current_user
+    if request.post?
+      return render text: '两次密码输入不一致' if params[:password_confirmation] != params[:password]
+      current_user.password = params[:password]
+      current_user.save
+      flash[:notice] = '修改成功'
     end
   end
 

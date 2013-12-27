@@ -6,7 +6,7 @@ $(document).ready ->
     grade: 'g1'
     cls: 'c1'
   
-  if $('.actions').find('a').length is 1
+  if $('.messages').find('.actions').find('a').length is 1
     $('.actions').css
       "margin-left": "620px"
     
@@ -19,6 +19,9 @@ $(document).ready ->
   
   $('.check-left').on 'click', '.student',  ->
     redirect_to '/homeworks/' + $(this).attr('data-hid') + '/check?status=' + $(this).attr('data-status') + '&student_id=' + $(this).attr('data-id')
+  
+  $('.user-left').on 'click', '.student',  ->
+    redirect_to $(this).attr('data-url')
 
   $('.back').on 'click', ->
     history.go(-1)

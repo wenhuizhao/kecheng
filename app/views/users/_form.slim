@@ -17,9 +17,9 @@
         / = select_tag :class_num, options_for_select(App::Grades.map{|g| [g.values[0], g.keys[0]]})
         / |班
         - if @user.is_student?
-          = select_tag :grade_id, options_for_select(Grade.all.map{|g| [g.full_name, g.id]}, @user.grade.try(:id))
+          = select_tag :grade_id, options_for_select(current_user.school.grades.map{|g| [g.full_name, g.id]}, @user.grade.try(:id))
         - else
-          = select_tag :grade_id, options_for_select(Grade.all.map{|g| [g.full_name, g.id]})
+          = select_tag :grade_id, options_for_select(current_user.school.grades.map{|g| [g.full_name, g.id]})
 
     - if current_user.is_admin?
       tr

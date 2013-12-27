@@ -1,11 +1,13 @@
 .areas
-  .area.fenhong
-    = link_to '用户管理', users_path
-  .area.fenhongt
-    = link_to "您收到#{current_user.unread_messages.size}条信息", messages_path
-  .area.huanglv
-    = link_to '班级管理', grades_path
   .area.green
     = link_to '统计', statistics_index_path
+  .area.fenhongt
+    = link_to "您收到#{current_user.unread_messages.size}条信息", messages_path
+  .area.green
+    = link_to '设置', user_path(current_user)
+  / .area.fenhong
+  /   = link_to '用户管理', users_path
+  / .area.huanglv
+  /   = link_to '班级管理', grades_path
 
   

@@ -378,7 +378,7 @@ header
     span
       color: rgb(90, 56, 29)
 
-.check-left
+.check-left, .user-left
   width: 258px
   height: 100%
   vertical-align: top
@@ -392,7 +392,7 @@ header
       width: 200px
       padding: 5px 0 0 50px
       height: 55px
-      color: $black
+      color: $input-font-color
       cursor: pointer
       &.active
         background: $blue
@@ -400,8 +400,22 @@ header
       img
         width: 47px
         height: 47px
-.check-left, .check-right
+.check-left, .check-right, .user-left, .user-right
   display: inline-block
+
+.user-left
+  .students
+    margin: 0 0 0 15px
+    .student
+      margin: 0 0 0 -67px
+      span
+        width: 120px
+        font-size: 28px
+.user-right
+  .block
+    width: 600px
+    .actions
+      margin: 50px 0 0 240px
 
 .hs
   font-size: 22px

@@ -70,6 +70,9 @@ Kecheng::Application.routes.draw do
     collection do
       post :create_user_from_admin
     end
+    member do
+      match :reset_password
+    end
   end
 
   post 'users/:id' => 'users#update'

@@ -1,8 +1,24 @@
-= render partial: 'shared/header', locals: {title: '用户: ' + @user.name}
-table.list-big
-  tr
-    td = @user.name
-    td.actions
-      = link_to '编辑', edit_user_path(@user)
-.links
-  = link_to '返回', users_path
+.lists
+  = link_to_home
+  .title 设置
+  .main-descs
+    .main-desc
+      .user-left
+        .students
+          .student class='#{'active' if action_name == 'show'}' data-url='/users/#{current_user.id}'
+            span.stitle.fs24  个人信息
+          .student class='#{'active' if action_name == 'reset_password'}' data-url='/users/#{current_user.id}/reset_password'
+            span.stitle.fs24  修改密码
+      .user-right
+        .block 
+          table.common
+            tr
+              td.w100 姓名 
+              td = current_user.real_name
+            tr
+              td 学校
+              td = current_user.school_name
+            tr
+              td 角色
+              td = current_user.role_name
+          

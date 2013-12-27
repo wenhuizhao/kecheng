@@ -4,7 +4,7 @@
     .title 暂无消息
   - else
     .title = "消息(#{@messages.size})"
-    .descs
+    .descs.messages
       - @all_messages.each_with_index do |m, i|
         .desc
           - m.with_children.each_with_index do |m, i|
