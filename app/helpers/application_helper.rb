@@ -61,7 +61,7 @@ module ApplicationHelper
                            pie: {
                                dataLabels: {
                                    enabled: true,
-                                   distance: -20,
+                                   distance: -15,
                                    style: {
                                        fontWeight: 'bold',
                                        color: 'white',
@@ -73,7 +73,7 @@ module ApplicationHelper
                          series: [{
                            type: 'pie',
                            name: '" + datas[:title] + "',
-                           innerSize: '70%',
+                           innerSize: '80%',
                            data: #{datas[:data]}
                          }]
                        });
