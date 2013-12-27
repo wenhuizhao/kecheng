@@ -57,10 +57,23 @@ module ApplicationHelper
     obj, datas = args[0], args.extract_options!
     javascript_tag "$(function () {
                        $('#" + obj.id.to_s + "').highcharts({
+                         plotOptions: {
+                           pie: {
+                               dataLabels: {
+                                   enabled: true,
+                                   distance: -20,
+                                   style: {
+                                       fontWeight: 'bold',
+                                       color: 'white',
+                                       textShadow: '0px 1px 2px black'
+                                   }
+                                 }
+                               }
+                             },
                          series: [{
                            type: 'pie',
                            name: '" + datas[:title] + "',
-                           innerSize: '60%',
+                           innerSize: '70%',
                            data: #{datas[:data]}
                          }]
                        });
