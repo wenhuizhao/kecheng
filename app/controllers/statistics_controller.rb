@@ -4,4 +4,6 @@ class StatisticsController < ApplicationController
     
   end
 
+  def to_line_chart
+  end
 end

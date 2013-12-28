@@ -2,6 +2,7 @@
 Kecheng::Application.routes.draw do
 
   get "statistics/index"
+  post "statistics/to_line_chart"
 
   get "home/index"
   match "settings" => 'home#settings'
