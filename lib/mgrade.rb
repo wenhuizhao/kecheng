@@ -40,4 +40,12 @@ module Mgrade
                      desc: desc).first_or_create
     end
   end
+
+  module Homeworks
+    def homeworks_of(month)
+      sdate = Time.parse "#{Time.now.year}-#{month}-01 00:00:00"
+      edate = Time.parse "#{Time.now.year}-#{month}-31 23:59:59"
+      homeworks.select{|h| h.created_at < edate and h.created_at > sdate}
+    end
+  end
 end

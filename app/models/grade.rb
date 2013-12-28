@@ -13,12 +13,18 @@ class Grade < ActiveRecord::Base
   belongs_to :school
   # scope :history_of, -> (user) {all}
   
+  include Mgrade::Homeworks
+
   def uteachers
     teachers.uniq
   end
 
   def students
     grade_students.inject([]) {|ss, gs| gs.is_accept ? ss << gs.student : ss}
+  end
+
+  def homeworks
+    grades_courses.inject([]){|hs, g| hs << g.homeworks}.flatten
   end
   
   def set_full_name

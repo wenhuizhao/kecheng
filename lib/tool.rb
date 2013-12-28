@@ -25,4 +25,10 @@ module Tool
     User.where(role_id: nil).first
   end
 
+  module Percent
+    def to_percent(n, total)
+      (n/total.to_f * 100).round(2).to_s + "%"
+    end
+  end
+
 end

@@ -12,7 +12,7 @@
           td = check_box_tag '[grade][ids]', g.id
           td = g.full_name
           - months.each do |m|
-            td = '10%'
+            td = percents_for(g, m)
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'
   .clear
 .main-desc

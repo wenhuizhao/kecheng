@@ -6,6 +6,8 @@ class School < ActiveRecord::Base
   validates :name, presence: true
   scope :for_user, -> (user) { user.is_admin? ? all : where(id: user.school_id) }
   
+  include Mgrade::Homeworks
+  
   def grades_range
     grades.select('grade_num').collect(&:grade_num).uniq
   end
@@ -13,4 +15,9 @@ class School < ActiveRecord::Base
   def classes_range
     grades.select('class_num').collect(&:class_num).uniq
   end
+
+  def homeworks
+    grades.inject([]){|hs, g| hs << g.homeworks}.flatten
+  end
+
 end

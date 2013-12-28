@@ -42,8 +42,5 @@ class Homework < ActiveRecord::Base
       {y: l, name: to_percent(l, total), color: ChartColors[h]}} +
     [{y: us, name: to_percent(us, total), color: 'rgb(231, 151, 220)'}]).to_json
   end
-  
-  def to_percent(n, total)
-    (n/total.to_f * 100).round(2).to_s + "%"
-  end
+  include Tool::Percent
 end

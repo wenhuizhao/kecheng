@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
   
+  include Tool::Percent
   include Exts
   
   def into_date(date, format = '%F')
@@ -49,7 +50,14 @@ module ApplicationHelper
   def link_green_btn(title, opts = {})
     link_to title, opts, class: 'btn'
   end
- 
+  
+  def percents_for(obj, month)
+    # total = obj.homeworks_of(month)
+    total = obj.homeworks
+    day_un_homeworks = total.select{|h| h.status.nil?}
+    to_percent(day_un_homeworks.size, total.size)
+  end
+
   def include_chart_js
     javascript_include_tag 'highcharts','exporting'
   end
