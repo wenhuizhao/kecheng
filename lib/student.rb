@@ -1,10 +1,15 @@
 module Student
 
   def selected_courses
-    StudentCourse.where(student_id: self.id).inject([]) do |courses, sc|
-      courses << sc.grades_course
-    end.compact
+    #  StudentCourse.where(student_id: self.id).inject([]) do |courses, sc|
+    #    courses << sc.grades_course
+    #  end.compact
+    courses
   end
+
+  def courses
+    grade.try :grades_courses
+  end 
   
   def grade_stus
     GradeStudent.where(student_id: self.id)

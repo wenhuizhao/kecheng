@@ -8,6 +8,7 @@ class Grade < ActiveRecord::Base
   # has_and_belongs_to_many :students, foreign_key: :grade_id, join_table: 'grade_students'
 
   has_many :teachers, through: :grades_courses
+  has_many :courses, through: :grades_courses
   validates :grade_num, :class_num,:school_id, presence: true
   belongs_to :school
   # scope :history_of, -> (user) {all}

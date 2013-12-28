@@ -13,7 +13,7 @@ class GradesCourse < ActiveRecord::Base
   has_many :lessons
   has_many :student_courses
   has_many :homeworks
-  has_many :students, through: :student_courses
+  # has_many :students, through: :student_courses
 
   validates :grade_id, :course_id, :book_id, presence: true
   
@@ -24,6 +24,11 @@ class GradesCourse < ActiveRecord::Base
   scope :opened, -> {where(is_open: true)}
   scope :for_select, -> (grade) {opened.where(grade_id: grade.id, is_accept: true)}
   scope :accepted_courses_of, -> (user) {all_courses_of(user).where(is_accept: true)}
+  before_create :set_open
+
+  def set_open
+    self.is_open = true
+  end
 
   def course_name
     course.try :name
@@ -40,6 +45,10 @@ class GradesCourse < ActiveRecord::Base
   
   def full_name
     grades ? grades + self.course_name : ''
+  end
+  
+  def students
+    grade.try :students
   end
 
   def sections
