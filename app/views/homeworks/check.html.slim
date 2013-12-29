@@ -5,9 +5,9 @@
     .main-desc
       .check-left
         .ctitle = @student_homework.homework.short_name
-        - shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
+        - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
         .students
-          - shs.each do |s| 
+          - @shs.each do |s| 
             .student class='#{'active' if @student_homework.student_id == s.id}' data-id='#{s.id}' data-hid='#{@student_homework.homework_id}' data-status='#{params[:status]}'
               = image_tag avatar_path(s), class: 'savatar'
               span.stitle.fs24 = s.real_name

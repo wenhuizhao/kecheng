@@ -29,6 +29,6 @@
   = f.hidden_field :homework_id, value: @homework.id
   = hidden_field_tag :status, params[:status]
   .block
-    = submit_tag '提交&下一份'
+    = submit_tag '提交&下一份' if @shs.size > 1
     = submit_tag '完成', class: 'ml10'
     = link_to '取消', section_homework_path(@homework.section, @homework, grades_course_id: @homework.grades_course_id) ,class: 'cancle btn'

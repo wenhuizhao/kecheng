@@ -26,8 +26,11 @@ module Tool
   end
 
   module Percent
-    def to_percent(n, total)
-      (n/total.to_f * 100).round(2).to_s + "%"
+    def to_percent(n, total, int = false)
+      num = (n/total.to_f * 100).round(2)
+      return 0 if total == 0
+      return num if int
+      num.to_s + "%"
     end
   end
 

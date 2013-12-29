@@ -16,3 +16,6 @@
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'
   .clear
 .main-desc
+  #bar
+  = bar_chart  'bar', categories: current_user.jyj.schools.collect(&:name), \
+                      percents: range_percents_homework(current_user.jyj.schools, 10.days.ago, Time.now)

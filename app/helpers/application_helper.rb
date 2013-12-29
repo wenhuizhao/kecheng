@@ -58,34 +58,69 @@ module ApplicationHelper
     to_percent(day_un_homeworks.size, total.size)
   end
 
+  def range_percents_homework(objs, sdate, edate)
+    objs.map do |obj|
+      total = obj.homework_rang(sdate, edate)
+      day_un_homeworks = total.select{|h| h.status.nil?}
+      to_percent(day_un_homeworks.size, total.size, true)
+    end
+  end
+
   def include_chart_js
     javascript_include_tag 'highcharts','exporting'
   end
- 
-  def chart(*args)
-    obj, datas = args[0], args.extract_options!
-    javascript_tag "$(function () {
-                       $('#" + obj.id.to_s + "').highcharts({
-                         plotOptions: {
-                           pie: {
-                               dataLabels: {
-                                   enabled: true,
-                                   distance: -15,
-                                   style: {
-                                       fontWeight: 'bold',
-                                       color: 'white',
-                                       textShadow: '0px 1px 2px black'
-                                   }
-                                 }
-                               }
-                             },
-                         series: [{
-                           type: 'pie',
-                           name: '" + datas[:title] + "',
-                           innerSize: '80%',
-                           data: #{datas[:data]}
-                         }]
-                       });
-                     });" 
+
+  def bar_chart(hid, options = {})
+    js = "$('#" + hid + "').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: '#{options[:title]}'
+            },
+            xAxis: {
+                categories: #{options[:categories]}
+            },
+            yAxis: {
+                min: 0,
+                max: 100
+            },
+            series: [{
+                data: #{options[:percents]}
+            }]
+        });"
+    chart(js)
+  end
+  
+  def pie_chart(obj, options = {})
+    js = "$('#" + obj.id.to_s + "').highcharts({
+           plotOptions: {
+             pie: {
+                 dataLabels: {
+                     enabled: true,
+                     distance: -15,
+                     style: {
+                         fontWeight: 'bold',
+                         color: 'white',
+                         textShadow: '0px 1px 2px black'
+                     }
+                   }
+                 }
+               },
+           title: {
+              text: '#{obj.full_name}'
+           },
+           series: [{
+             type: 'pie',
+             name: '" + options[:title] + "',
+             innerSize: '80%',
+             data: #{options[:data]}
+           }]
+         });"
+    chart(js)
+  end
+
+  def chart(js)
+    javascript_tag "$(function () {#{js}});"
   end
 end

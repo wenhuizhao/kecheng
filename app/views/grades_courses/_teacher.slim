@@ -24,4 +24,4 @@
                   - lesson.homeworks.each_with_index do |h, i|
                     = link_to "作业#{i + 1}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
                     .chart-small id='#{h.id}'
-                    = chart h, title: h.full_name, data: h.to_chart 
+                    = pie_chart h, title: h.full_name, data: h.to_chart 
