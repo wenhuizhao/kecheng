@@ -52,11 +52,14 @@ class MessagesController < ApplicationController
   end
   
   def accept_select_grades
+    base_p = {sender_id: current_user.id, receiver_id: @message.sender_id, school_id: current_user.school_id}
     if params[:status]
       @message.sync_role(:refused)
+      Message.create(base_p.merge(desc: '管理员拒绝了您' + @message.desc + '的请求'))
       redirect_with_message '已经拒绝', action: :index
     else
       @message.sync_role(:approved)
+      Message.create(base_p.merge(desc: '管理员通过了您' + @message.desc + '的请求'))
       redirect_with_message '已经批准', action: :index
     end
   end

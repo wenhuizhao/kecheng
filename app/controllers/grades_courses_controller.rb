@@ -56,12 +56,12 @@ class GradesCoursesController < ApplicationController
 
   def create
     @grades_course = GradesCourse.new(params[:grades_course])
-    @grades_course.teacher_id = current_user.id 
+    return render action: 'new' if GradesCourse.where(course_id: @grades_course.course_id, teacher_id: current_user.id, is_accept: true).size > 0
+    @grades_course.teacher_id = current_user.id
     @grades_course.grade_id = @grade.id
     if @grades_course.save
       do_lessons
       send_apply_request('apply_courses', grade_id: @grade.id, course_id: @grades_course.course_id)
-      redirect_to grades_courses_path
     else
       render action: 'new'
     end

@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
         @courses ||= current_user.selected_courses
       elsif current_user.is_teacher?
         # @courses ||= current_user.accepted_courses
-        @courses ||= GradesCourse.all_courses_of current_user
+        @courses ||= GradesCourse.all_courses_of(current_user).select(&:is_accept)
       else
         @courses ||= User.find(params[:teacher_id]).accepted_courses if params[:teacher_id]
       end
