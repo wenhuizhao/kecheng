@@ -1,4 +1,3 @@
-= render partial: 'shared/header', locals: {title: '课程管理'}
 - action = action_name == 'edit' || action_name == 'update' ? 'update' : 'create_user_from_admin'
 = form_tag action: action
   = render partial: 'shared/error_msgs', locals: {target: @user}
@@ -9,6 +8,10 @@
     tr
       td = label_tag :姓名
       td = text_field :user, :real_name
+    - if current_user.is_admin?
+      tr
+        td = label_tag :学校
+        td = select :user, :school_id, School.all.map {|r| [r.name, r.id]}
     tr
       td = label_tag :班级
       td 
@@ -17,14 +20,10 @@
         / = select_tag :class_num, options_for_select(App::Grades.map{|g| [g.values[0], g.keys[0]]})
         / |班
         - if @user.is_student?
-          = select_tag :grade_id, options_for_select(current_user.school.grades.map{|g| [g.full_name, g.id]}, @user.grade.try(:id))
+          = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]}, @user.grade.try(:id))
         - else
-          = select_tag :grade_id, options_for_select(current_user.school.grades.map{|g| [g.full_name, g.id]})
+          = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]})
 
-    - if current_user.is_admin?
-      tr
-        td = label_tag :学校
-        td = select :user, :school_id, School.all.map {|r| [r.name, r.id]}
     - if current_user.admins?
       tr
         td = label_tag :角色
@@ -39,5 +38,3 @@
     tr
       td.actions colspan=10
         = submit_tag '保存', class: 'btn'
-        = link_to users_path, class: 'btn ok'
-         span 取消

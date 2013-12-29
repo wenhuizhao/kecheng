@@ -73,20 +73,21 @@ module ApplicationHelper
   def bar_chart(hid, options = {})
     js = "$('#" + hid + "').highcharts({
             chart: {
-                type: 'bar'
+              type: 'bar'
             },
             title: {
-                text: '#{options[:title]}'
+              text: '#{options[:title]}'
             },
             xAxis: {
-                categories: #{options[:categories]}
+              categories: #{options[:categories]}
             },
             yAxis: {
-                min: 0,
-                max: 100
+              min: 0,
+              max: 100
             },
             series: [{
-                data: #{options[:percents]}
+              name: '#{options[:time_str]}',
+              data: #{options[:percents]}
             }]
         });"
     chart(js)

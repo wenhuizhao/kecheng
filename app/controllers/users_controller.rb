@@ -21,10 +21,21 @@ class UsersController < ApplicationController
   end
 
   def edit
+    get_grades
   end
 
   def new
     @user = User.new
+    get_grades
+  end
+
+  def get_grades
+    @grades = if current_user.is_admin?
+            Grade.all
+          else
+            current_user.school.grades
+          end
+
   end
 
   def update
