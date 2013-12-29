@@ -93,6 +93,21 @@ module ApplicationHelper
     chart(js)
   end
   
+  def line_chart(hid, options = {})
+    js = "$('#" + hid + "').highcharts('StockChart', {
+         series: [{
+              name: 'demo',
+              data: [22,23,2,1]
+            },
+                     {
+                     name: 'demo1',
+                         data: [3,4,7,9]
+                     }
+                    ]
+    });"
+    chart(js)
+  end
+
   def pie_chart(obj, options = {})
     js = "$('#" + obj.id.to_s + "').highcharts({
            plotOptions: {
