@@ -3,4 +3,4 @@
   = link_to_home
   .title 日批日改未完成比例
   .main-descs
-    = render partial: current_user.role.en_name, locals: {months: (2..7)}
+    = render partial: current_user.role.en_name, locals: {months: @month_range}

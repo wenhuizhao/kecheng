@@ -14,7 +14,11 @@ class Grade < ActiveRecord::Base
   # scope :history_of, -> (user) {all}
   
   include Mgrade::Homeworks
-
+  
+  def name
+    full_name
+  end
+  
   def uteachers
     teachers.uniq
   end

@@ -9,7 +9,7 @@
           th = "#{m}月"
       - current_user.school.grades.each do |g|
         tr
-          td = check_box_tag '[grade][ids]', g.id
+          td = check_box_tag 'ids[]', g.id
           td = g.full_name
           - months.each do |m|
             td = percents_for(g, m)
