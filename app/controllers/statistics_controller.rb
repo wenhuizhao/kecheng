@@ -9,6 +9,7 @@ class StatisticsController < ApplicationController
   end
 
   def to_line_chart
+    return redirect_with_message '请选择', action: :index if params[:ids].nil?
     @objs = current_user.is_admin_jyj? ? School.find(params[:ids]) : Grade.find(params[:ids])
     @data = @objs.map do |s|
       {
@@ -20,6 +21,6 @@ class StatisticsController < ApplicationController
 
   private
     def month_range
-      @month_range = (2..7).to_a
+      @month_range = (8..12).to_a
     end
 end
