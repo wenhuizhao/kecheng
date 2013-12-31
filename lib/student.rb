@@ -8,7 +8,7 @@ module Student
   end
 
   def courses
-    grade.try :grades_courses
+    grade.try(:grades_courses).select(&:is_accept)
   end 
   
   def grade_stus

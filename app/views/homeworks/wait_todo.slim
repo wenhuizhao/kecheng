@@ -5,9 +5,9 @@
     - @homeworks.each do |c|
       .desc
         .area
-          .text = c.full_name
-          .date.block 
-            - if current_user.is_teacher?
+          - if current_user.is_teacher?
+            .text = c.full_name
+            .date.block 
               .name =  "未提交#{c.unsubmit_students.size}人"
               - Settings.homework_status.each do |status|
                 - shs = StudentHomework.where(status: status, homework_id: c.id)
@@ -15,7 +15,9 @@
               .actions
                 = link_to '明细', section_homework_path(c.section, c, grades_course_id: c.grades_course_id)
                 = link_green_btn '批阅', check_homework_path(c)
-            - else
+          - else
+            = link_to c.full_name, section_homework_path(c.section, c, grades_course_id: c.grades_course_id), class: 'text'
+            .date.block
               | 截止时间:  
               = into_datetime c.end_time
 css:
