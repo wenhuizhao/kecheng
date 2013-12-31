@@ -51,13 +51,6 @@ module ApplicationHelper
     link_to title, opts, class: 'btn'
   end
   
-  def percents_for(obj, month)
-    # total = obj.homeworks_of(month)
-    total = obj.homeworks
-    day_un_homeworks = total.select{|h| h.status.nil?}
-    to_percent(day_un_homeworks.size, total.size)
-  end
-
   def range_percents_homework(objs, sdate, edate)
     objs.map do |obj|
       total = obj.homework_rang(sdate, edate)
@@ -94,17 +87,17 @@ module ApplicationHelper
   end
   
   def line_chart(hid, options = {})
-    js = "$('#" + hid + "').highcharts('StockChart', {
-         series: [{
-              name: 'demo',
-              data: [22,23,2,1]
+    js = "$('#" + hid + "').highcharts({
+            title: '',
+            xAxis: {
+              categories: #{options[:categories]}
             },
-                     {
-                     name: 'demo1',
-                         data: [3,4,7,9]
-                     }
-                    ]
-    });"
+            yAxis: {
+              min: 0,
+              max: 100
+            },
+            series: #{options[:data]}
+          });"
     chart(js)
   end
 

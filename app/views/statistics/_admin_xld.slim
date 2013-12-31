@@ -17,7 +17,7 @@
   .clear
 .main-desc
   #bar
-  - sdate, edate = 10.days.ago, Time.now
+  - sdate, edate = 1.month.ago, Time.now
   = bar_chart  'bar', categories: current_user.school.grades.collect(&:full_name), \
-                      percents: range_percents_homework(current_user.school.grades, 10.days.ago, Time.now), \
+                      percents: range_percents_homework(current_user.school.grades, sdate, edate), \
                       time_str: "#{into_date sdate} - #{into_date edate}"

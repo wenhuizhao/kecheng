@@ -6,5 +6,5 @@
     / # = render partial: current_user.role.en_name, locals: {months: (2..7)}
     .main-desc
       #demo style="width: 800px"
-      = line_chart 'demo'
+      = line_chart 'demo', categories: @month_range, data: @data
       
