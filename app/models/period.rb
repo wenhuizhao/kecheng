@@ -7,6 +7,10 @@ class Period < ActiveRecord::Base
     self.save
   end
 
+  def current?
+    self == Period.current_period
+  end
+
   class << self
     def current_period
       desc = (2..7).to_a.include?(Time.now.month) ? "上" : "下"

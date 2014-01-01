@@ -9,6 +9,7 @@ class GradesCourse < ActiveRecord::Base
   belongs_to :teacher, class_name: 'User'
   belongs_to :grade
   belongs_to :book
+  belongs_to :period
 
   has_many :lessons
   has_many :student_courses

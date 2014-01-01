@@ -1,22 +1,25 @@
 .lists
   = link_to_home
-  .title 教师开课列表
+  .title 历史课程
   .main-descs
     .main-desc
-      table.list-big
-        tr
-          th 班级
-          th 课程
-          th 课程数
-          th 状态
-          th 操作
-        - @all_courses.each do |c|
+      - if @all_courses.empty?
+        | 暂无历史课程
+      - else
+        table.list-big
           tr
-            td = c.grades 
-            td = c.course_name
-            td = c.lesson_num
-            td = c.status
-            td.center
-              / = link_to '编辑', edit_grades_course_path(c)
-              / = link_to '删除', c, confirm: '确定删除么？', method: :delete
-              = link_to '查看', grades_course_path(c)
+            th 班级
+            th 课程
+            th 课程数
+            th 状态
+            th 操作
+          - @all_courses.each do |c|
+            tr
+              td = c.grades 
+              td = c.course_name
+              td = c.lesson_num
+              td = c.status
+              td.center
+                / = link_to '编辑', edit_grades_course_path(c)
+                / = link_to '删除', c, confirm: '确定删除么？', method: :delete
+                = link_to '查看', grades_course_path(c)
