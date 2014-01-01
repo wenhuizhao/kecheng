@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class GradesCourse < ActiveRecord::Base
-  attr_accessible :course_id, :grade_id, :book_id, :is_open, :teacher_id, :lesson_num, :outline, :is_accept
+  attr_accessible :course_id, :grade_id, :book_id, :is_open, :teacher_id, :lesson_num, :outline, :is_accept, :period_id
 
-  include Mgrade
+  include Mgrade, Common
   include Grade::Name
 
   belongs_to :course
@@ -24,9 +24,10 @@ class GradesCourse < ActiveRecord::Base
   scope :opened, -> {where(is_open: true)}
   scope :for_select, -> (grade) {opened.where(grade_id: grade.id, is_accept: true)}
   scope :accepted_courses_of, -> (user) {all_courses_of(user).where(is_accept: true)}
-  before_create :set_open
+  before_create :set_default
 
-  def set_open
+  def set_default
+    self.period_id = current_period.id
     self.is_open = true
   end
 

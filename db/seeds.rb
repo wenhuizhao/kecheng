@@ -82,3 +82,8 @@ if Section.all.all?{|b| b.num.nil?}
   Section.all.collect(&:book_id).uniq.each{|id| Book.find(id).sections.each_with_index {|s, i| s.update_attribute(:num, i + 1)}}
 end
 
+include Common
+if GradesCourse.all.all?{|b| b.period_id.nil?}
+  GradesCourse.update_all(period_id: current_period.id)
+end
+
