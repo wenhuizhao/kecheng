@@ -42,9 +42,9 @@ module Mgrade
   end
 
   module Homeworks
-    def homeworks_of(month)
-      sdate = Time.parse "#{Time.now.year}-#{month}-01 00:00:00"
-      edate = Time.parse "#{Time.now.year}-#{month}-31 23:59:59"
+    def homeworks_of(month, year = Time.now.year)
+      sdate = Time.parse "#{year}-#{month}-01 00:00:00"
+      edate = Time.parse "#{year}-#{month}-31 23:59:59"
       homework_rang(sdate, edate)
     end
     

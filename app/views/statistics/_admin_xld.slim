@@ -4,7 +4,7 @@
     table.list-big
       tr
         th = check_all
-        th 学校
+        th 班级
         - months.each do |m|
           th = "#{m}月"
       - current_user.school.grades.each do |g|

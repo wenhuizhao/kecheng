@@ -33,8 +33,8 @@ module Tool
       num.to_s + "%"
     end
 
-    def percents_for(obj, month, int = false)
-      total = obj.homeworks_of(month)
+    def percents_for(obj, month, int = false, year = Time.now.year)
+      total = obj.homeworks_of(month, year)
       # total = obj.homeworks
       day_un_homeworks = total.select{|h| h.status.nil?}
       to_percent(day_un_homeworks.size, total.size, int)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131219070212) do
+ActiveRecord::Schema.define(:version => 20140101031324) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -128,11 +128,13 @@ ActiveRecord::Schema.define(:version => 20131219070212) do
     t.integer  "grade_id"
     t.boolean  "is_accept"
     t.integer  "book_id"
+    t.integer  "period_id"
   end
 
   add_index "grades_courses", ["book_id"], :name => "index_grades_courses_on_book_id"
   add_index "grades_courses", ["course_id"], :name => "index_grades_courses_on_course_id"
   add_index "grades_courses", ["grade_id"], :name => "index_grades_courses_on_grade_id"
+  add_index "grades_courses", ["period_id"], :name => "index_grades_courses_on_period_id"
 
   create_table "homeworks", :force => true do |t|
     t.datetime "end_time"
@@ -189,6 +191,16 @@ ActiveRecord::Schema.define(:version => 20131219070212) do
   add_index "messages", ["grade_id"], :name => "index_messages_on_grade_id"
   add_index "messages", ["parent_id"], :name => "index_messages_on_parent_id"
   add_index "messages", ["school_id"], :name => "index_messages_on_school_id"
+
+  create_table "periods", :force => true do |t|
+    t.string   "full_name"
+    t.string   "start_year"
+    t.string   "end_year"
+    t.string   "desc"
+    t.boolean  "is_current"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "qtypes", :force => true do |t|
     t.string   "name"
