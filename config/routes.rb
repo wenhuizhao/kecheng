@@ -49,7 +49,8 @@ Kecheng::Application.routes.draw do
 
   resources :grades_courses do
     collection do
-      match 'select'
+      match :select
+      get :wait_to_accept_courses
     end
     member do
       get :students

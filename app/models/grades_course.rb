@@ -37,8 +37,8 @@ class GradesCourse < ActiveRecord::Base
   end
   
   def status
-    return '待上级批准' unless is_accept
-    is_open ? '已开放' : '未开放'
+    return '待审批' unless is_accept
+    is_open ? '已开放' : '拒绝开课'
   end
 
   def teacher_name

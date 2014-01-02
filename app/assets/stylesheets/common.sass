@@ -109,6 +109,9 @@ ul
 .alert
   margin: 20px
   
+.inline 
+  display: inline-block
+  
 @for $i from 18 to 30
   .fs#{$i}
     font-size: #{$i}px
@@ -118,6 +121,8 @@ ul
     margin-top: #{$i}px
   .w#{$i * 10}
     width: #{$i * 10}px
+  .p#{$i * 10}
+    padding: #{$i * 10}px
   .ml#{$i}
     margin-left: #{$i}px
   .mr#{$i}

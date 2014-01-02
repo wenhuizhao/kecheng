@@ -1,7 +1,8 @@
 = form_for @grades_course do |f| 
   / = render partial: 'shared/error_msgs', locals: {target: @grades_course}
-  .main-desc
-    .alert.red = flash[:notice]
+  - if @wacs && @wacs.size > 0
+    .notice = link_to @notice, wait_to_accept_courses_grades_courses_path
+  .main-desc style='height: 180px'
     - if !@grades_course.is_accept
       = render "shared/select_grades"
       .select-div.courses
@@ -14,6 +15,7 @@
       .field
         = f.label :是否开放
         = f.select :is_open, [["是",'true'], ["否", 'false']]
+  .main-desc.clear
     = f.label :选择教材
     = f.select :book_id, Book.for_course.map{|b| [b.name, b.id]}
     = hidden_field_tag :grade_num, @grades_course.grade_num

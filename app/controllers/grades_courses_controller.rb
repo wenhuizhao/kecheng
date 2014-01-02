@@ -3,7 +3,7 @@ class GradesCoursesController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :require_grade, only: [:create, :update]
-  before_filter :get_grades_course, except: [:index, :create, :new, :select, :select_grades]
+  before_filter :get_grades_course, except: [:index, :create, :new, :select, :select_grades, :wait_to_accept_courses]
   before_filter :require_teacher, except: [:select, :select_grades, :show]
 
   def index
@@ -40,7 +40,13 @@ class GradesCoursesController < ApplicationController
     end
   end
 
+  def wait_to_accept_courses
+    @wacs ||= current_user.wait_to_accept_courses
+  end
+
   def new
+    wait_to_accept_courses
+    @notice = "您有#{@wacs.size}门课程有待管理员审批"
     @grades_course = GradesCourse.new
   end
 

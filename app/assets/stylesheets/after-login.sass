@@ -99,6 +99,9 @@ header
     font-size: $font-size-big
     // border-bottom: 2px black solid
     clear: both
+    &.inline
+      margin: 0 0 0 400px
+      color: $input-font-color-light
 
 .messages
   margin: 50px
@@ -182,6 +185,18 @@ header
   // float: left
   padding: 54px 0
   width: $main-width
+  .notice
+    float: left
+    width: 370px
+    margin: -60px 0 0 290px
+    text-align: center
+    border: 1px solid $blue
+    font-size: 20px
+    padding: 10px
+    background: white
+    color: $blue
+    a
+      color: $blue
   .main-desc, .main-desc-left, .main-desc-right
     padding-top: 30px
     padding-bottom: 30px
