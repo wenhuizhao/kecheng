@@ -5,9 +5,25 @@
   .title = "学生明细 > #{@grades_course.full_name}"
   .main-descs
     .main-desc
+      .sdetail-avatar
+        = image_tag('avatar.png')
+      .sname = @student.real_name
+      .sname = @student.gender
 
+      .block 无法展示统计图, 文字性的东西无法进行统计
 
 .lists
   .title 成绩单
   .main-descs
-    .main-desc
+    - @sections.each_with_index do |s, i|
+      - if s.homeworks.size > 0
+        .main-desc
+          .line-title = "#{i + 1}、#{s.name}"
+          table
+            - s.homeworks.each do |h|
+              tr 
+                td = h.full_name
+                td = h.student_homeworks.where(student_id: @student.id).last.try :level
+css:
+  table {width: 800px}
+  table td {padding: 10px}

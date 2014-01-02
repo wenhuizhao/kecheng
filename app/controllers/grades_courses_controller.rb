@@ -83,6 +83,7 @@ class GradesCoursesController < ApplicationController
 
   def student
     @student = User.find(params[:student_id])
+    @sections = @grades_course.sections
   end
   
   private
