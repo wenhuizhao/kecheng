@@ -40,8 +40,8 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(params[:user])
-      GradeStudent.update_from_admin(params[:grade_id], @user.id) if @user.is_student?
       @user.update_attribute(:role_id, nil) if current_user.is_admin? && current_user.id == @user.id
+      GradeStudent.update_from_admin(params[:grade_id], @user.id) if @user.is_student?
       redirect_to users_path
     else
       render action: 'edit'

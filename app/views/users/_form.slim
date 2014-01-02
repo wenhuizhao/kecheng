@@ -24,7 +24,7 @@
         - else
           = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]})
 
-    - if current_user.admins?
+    - if current_user.admins? && !@user.is_admin?
       tr
         td = label_tag :角色
         td = select :user, :role_id, Role.for_user(current_user).map {|r| [r.name, r.id]}
