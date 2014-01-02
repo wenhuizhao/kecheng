@@ -80,6 +80,10 @@ class GradesCoursesController < ApplicationController
   
   def students
   end
+
+  def student
+    @student = User.find(params[:student_id])
+  end
   
   private
 
@@ -95,5 +99,6 @@ class GradesCoursesController < ApplicationController
   
   def get_grades_course
     @grades_course = GradesCourse.find(params[:id])
+    return render text: '无权限' if current_user.is_teacher? && @grades_course.teacher_id != current_user.id
   end
 end

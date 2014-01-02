@@ -53,6 +53,7 @@ Kecheng::Application.routes.draw do
       get :wait_to_accept_courses
     end
     member do
+      get :student
       get :students
     end
     resources :lessons do
