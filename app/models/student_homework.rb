@@ -16,7 +16,11 @@ class StudentHomework < ActiveRecord::Base
   end
 
   def has_score?
-  	self.score && !self.score.empty?
+    self.score && !self.score.empty?
+  end
+  
+  def is_finished?
+    status == '已完成'
   end
 
   def score_num

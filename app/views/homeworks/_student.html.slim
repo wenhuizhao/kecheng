@@ -7,9 +7,9 @@
         tr
           td 级别
           td = @student_homework.level
-        tr
-          td 分数
-          td = @student_homework.score_num
+        /tr
+         / td 分数
+          /td = @student_homework.score_num
         tr
           td 状态
           td = @student_homework.status
@@ -24,7 +24,10 @@
       | 老师的叮嘱: 
       = @homework.enjoin
     = f.hidden_field :homework_id, value: @homework.id
-    =  submit_tag '提交作业'
+    - if @student_homework.is_finished?
+      .btn 已完成
+    - else
+      = submit_tag '提交作业'
 
 - else
   | 暂无练习题
