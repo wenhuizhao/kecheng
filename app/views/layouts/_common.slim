@@ -6,7 +6,7 @@
   #content
     .exit = link_to '退出', destroy_user_session_path, method: :delete
     .avatar
-      = link_to image_tag('avatar.png'), root_path
+      = link_to image_tag(avatar_path(current_user)), root_path
       .welcome 
         span.name = current_user.name
         = '欢迎您！'
