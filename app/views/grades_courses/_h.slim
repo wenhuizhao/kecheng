@@ -1,0 +1,7 @@
+- homeworks.each do |h|
+  .homeworks
+    = link_to h.short_name, section_homework_path(lesson, h, grades_course_id: @grades_course.id)
+    = link_to '关闭作业', close_section_homework_path(lesson, h, grades_course_id: @grades_course.id), \
+        class: 'btn btn-small fright', style: 'color: white' if h.status.nil?
+    .chart-small id='#{h.id}'
+    = pie_chart h, title: '', data: h.to_chart 

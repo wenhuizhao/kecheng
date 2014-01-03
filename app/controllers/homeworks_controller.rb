@@ -53,6 +53,11 @@ class HomeworksController < ApplicationController
     end
   end
 
+  def close
+    @homework.close!
+    redirect_to grades_course_path(@grades_course)
+  end
+
   def destroy
     @homework.destroy
     redirect_to grades_course_path(@grades_course)

@@ -17,11 +17,9 @@
             .line-node
             .ltitle = "第#{i + 1}课"
             .leave-homework = link_to '布置作业', new_section_homework_path(lesson, grades_course_id: @grades_course.id) 
-            .lesson-content
-              .area
-                .htitle 进行中的作业
-                .homeworks
-                  - lesson.homeworks.each_with_index do |h, i|
-                    = link_to "作业#{i + 1}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
-                    .chart-small id='#{h.id}'
-                    = pie_chart h, title: h.full_name, data: h.to_chart 
+            .lesson-content: .area
+              .htitle 进行中的作业
+              = render partial: 'h', locals: {homeworks: lesson.homeworks.where(status: nil), lesson: lesson}
+            .lesson-content: .area
+              .htitle 已完成的作业
+              = render partial: 'h', locals: {homeworks: lesson.homeworks.where(status: '1'), lesson: lesson}

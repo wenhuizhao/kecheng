@@ -24,10 +24,13 @@
       | 老师的叮嘱: 
       = @homework.enjoin
     = f.hidden_field :homework_id, value: @homework.id
-    - if @student_homework.is_finished?
-      .btn 已完成
+    - if @homework.closed?
+      .btn 课程已经关闭
     - else
-      = submit_tag '提交作业'
+      - if @student_homework.is_finished?
+        .btn 已完成
+      - else
+        = submit_tag '提交作业'
 
 - else
   | 暂无练习题

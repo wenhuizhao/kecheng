@@ -27,7 +27,11 @@ Kecheng::Application.routes.draw do
   end
 
   resources :sections do
-    resources :homeworks
+    resources :homeworks do
+      member do
+        get :close
+      end
+    end
   end
   
   resources :qtypes
