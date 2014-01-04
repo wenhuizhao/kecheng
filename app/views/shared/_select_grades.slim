@@ -1,8 +1,10 @@
 
 .select-div.grades
-  - current_user.school.grades_range.each do |grade|
-     .words data-id='#{grade}' class='#{grade == current_user.grade_num.to_i ? 'hover' : ''}'
-       = grade.to_cnum + '年级'
+  .words.select 请选择年级
+  .opts
+    - current_user.school.grades_range.each do |grade|
+      .words.opt data-id='#{grade}' class='#{grade == current_user.grade_num.to_i ? 'hover' : ''}'
+        = grade.to_cnum + '年级'
 
 .select-div.classes
   = render partial: "shared/select_classes", locals: { classes: current_user.school.classes_range}

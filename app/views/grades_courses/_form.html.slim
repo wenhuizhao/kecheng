@@ -6,9 +6,11 @@
     - if !@grades_course.is_accept
       = render "shared/select_grades"
       .select-div.courses
-        - Course.all.each do |c|
-          .words data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
-            = c.name
+        .words.select 请选择课程
+        .opts
+          - Course.all.each do |c|
+            .words.opt data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
+              = c.name
 
       = f.hidden_field :course_id, id: 'course_id'
     - else

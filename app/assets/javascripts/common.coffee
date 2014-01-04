@@ -31,12 +31,21 @@ $(document).ready ->
   
   $('.jyj-left').click ->
     redirect_to '/'
+ 
+  # 由于有异步加载，必须分开绑定事件 
+  $('.grades').find('.select').click ->
+    $(this).parent().find('.opts').toggle()
 
-  $('.grades').find('.words').each (i, obj) ->
+  $('.courses').find('.select').click ->
+    $(this).parent().find('.opts').toggle()
+
+  $('.grades').find('.opt').each (i, obj) ->
     $(obj).click ->
       $('.grades').find('.hover').removeClass('hover')
       grade_num = $(obj).attr('data-id')
       $('#grade_num').attr('value', grade_num)
+      $('.grades').find('.select').html $(obj).html()
+      $('.grades').find('.opts').hide()
       $(@).addClass('hover')
       $.ajax
         url: '/get_classes'
@@ -46,11 +55,13 @@ $(document).ready ->
         success: (r) ->
           $('.classes').html r
 
-  $('.courses').find('.words').each (i, obj) ->
+  $('.courses').find('.opt').each (i, obj) ->
     $(obj).click ->
       $('.courses').find('.hover').removeClass('hover')
       course_id = $(obj).attr('data-id')
       $('#course_id').attr('value', course_id)
+      $('.courses').find('.select').html $(obj).html()
+      $('.courses').find('.opts').hide()
       $(@).addClass('hover')
 
   # bind_click = (o, e, e2) ->
