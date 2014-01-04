@@ -29,6 +29,14 @@ class Homework < ActiveRecord::Base
   def full_name
     grades_course.try(:full_name).to_s + '第' + section.num.to_s + '课作业' + num.to_s
   end
+
+  def close!
+    update_attribute :status, '1'
+  end
+
+  def closed?
+    status == '1'
+  end
   
   ChartColors = {'优' => 'rgb(140, 225, 254)', 
                  '良' => 'rgb(113, 202, 94)', 

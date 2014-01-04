@@ -38,6 +38,10 @@ class Message < ActiveRecord::Base
     is_apply_grades? || is_apply_course? 
   end
 
+  def is_apply_res?
+    desc =~ /通过了/ || desc =~ /拒绝了/
+  end
+
   def applied_student
     GradeStudent.where(grade_id: grade_id, student_id: sender_id, is_accept: nil).last
   end

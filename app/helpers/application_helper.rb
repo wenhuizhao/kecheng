@@ -117,7 +117,7 @@ module ApplicationHelper
                  }
                },
            title: {
-              text: '#{obj.full_name}'
+              text: '#{options[:title] || obj.full_name}'
            },
            series: [{
              type: 'pie',
