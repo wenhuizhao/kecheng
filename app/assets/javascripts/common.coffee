@@ -32,12 +32,9 @@ $(document).ready ->
   $('.jyj-left').click ->
     redirect_to '/'
  
-  # 由于有异步加载，必须分开绑定事件 
-  $('.grades').find('.select').click ->
-    $(this).parent().find('.opts').toggle()
-
-  $('.courses').find('.select').click ->
-    $(this).parent().find('.opts').toggle()
+  ['.grades', '.roles', '.courses', '.schools'].forEach (el) ->
+    $(el).find('.select').click ->
+      $(this).parent().find('.opts').toggle()
 
   $('.grades').find('.opt').each (i, obj) ->
     $(obj).click ->
@@ -53,6 +50,14 @@ $(document).ready ->
   $('.courses').find('.opt').each (i, obj) ->
     $(obj).click ->
       click_menu '.courses', '#course_id', obj
+
+  $('.roles').find('.opt').each (i, obj) ->
+    $(obj).click ->
+      click_menu '.roles', '#role_id', obj
+
+  $('.schools').find('.opt').each (i, obj) ->
+    $(obj).click ->
+      click_menu '.schools', '#school_id', obj
 
   # bind_click = (o, e, e2) ->
   #     $(e).find('.hover').removeClass('hover')
