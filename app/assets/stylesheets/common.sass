@@ -52,20 +52,34 @@ a
 
 .select-div
   border: 1px #999 solid
-  width: 160px
+  width: 238px
   float: left
   margin: 20px
   .opts
     display: none
     position: absolute
     border: 1px solid rgb(153, 153, 153)
-    width: 158px
+    width: 238px
+    margin: 0 0 0 -1px
     background-color: white
   .words
-    padding: 10px 20px
-    &:hover, &.hover
-      background: black
-      color: white
+    padding: 18px 0px 2px 0px
+    height: 43px
+    background: rgb(238,238,238)
+    width: 238px
+    .word, .icon
+      float: left
+      margin: 0 0 0 15px
+      display: inline-block
+    .icon 
+      height: 63px
+      width: 60px
+      background: url('/assets/select-bg.png')
+      float: right
+      margin: -18px 0
+    // &:hover, &.hover
+    //   background: black
+    //   color: white
 .small
   width: 100px
 

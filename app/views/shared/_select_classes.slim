@@ -1,8 +1,10 @@
-.words.select 请选择班级
+.words.select 
+  .word 请选择班级
+  i.icon
 .opts
   - classes.each do |c|
     .words.opt data-id='#{c}' class='#{c == current_user.class_num.to_i ? 'hover' : ''}'
-      = c.to_cnum + '班'
+      .word = c.to_cnum + '班'
 
 javascript:
   $('.classes').find('.select').click(function() {
@@ -10,12 +12,7 @@ javascript:
   });
   $('.classes').find('.opt').each(function(i, obj) {
     $(obj).click(function(){
-      $('.classes').find('.hover').removeClass('hover');
-      var class_num = $(obj).attr('data-id');
-      $('#class_num').attr('value', class_num);
-      $('.classes').find('.select').html($(obj).html());
-      $('.classes').find('.opts').hide();
-      $(this).addClass('hover')
+      click_menu('.classes', '#class_num', obj)
     });
   });
 

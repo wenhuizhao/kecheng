@@ -2,15 +2,17 @@
   / = render partial: 'shared/error_msgs', locals: {target: @grades_course}
   - if @wacs && @wacs.size > 0
     .notice = link_to @notice, wait_to_accept_courses_grades_courses_path
-  .main-desc style='height: 180px'
+  .main-desc style='height: 120px'
     - if !@grades_course.is_accept
       = render "shared/select_grades"
       .select-div.courses
-        .words.select 请选择课程
+        .words.select 
+          .word 请选择课程
+          i.icon
         .opts
           - Course.all.each do |c|
             .words.opt data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
-              = c.name
+              .word = c.name
 
       = f.hidden_field :course_id, id: 'course_id'
     - else

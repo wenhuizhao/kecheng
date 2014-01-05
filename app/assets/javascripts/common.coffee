@@ -41,34 +41,33 @@ $(document).ready ->
 
   $('.grades').find('.opt').each (i, obj) ->
     $(obj).click ->
-      $('.grades').find('.hover').removeClass('hover')
-      grade_num = $(obj).attr('data-id')
-      $('#grade_num').attr('value', grade_num)
-      $('.grades').find('.select').html $(obj).html()
-      $('.grades').find('.opts').hide()
-      $(@).addClass('hover')
+      click_menu '.grades', '#grade_num', obj
       $.ajax
         url: '/get_classes'
         type: 'post'
         data:
-          grade_num: grade_num
+          grade_num: $(obj).attr('data-id')
         success: (r) ->
           $('.classes').html r
 
   $('.courses').find('.opt').each (i, obj) ->
     $(obj).click ->
-      $('.courses').find('.hover').removeClass('hover')
-      course_id = $(obj).attr('data-id')
-      $('#course_id').attr('value', course_id)
-      $('.courses').find('.select').html $(obj).html()
-      $('.courses').find('.opts').hide()
-      $(@).addClass('hover')
+      click_menu '.courses', '#course_id', obj
 
   # bind_click = (o, e, e2) ->
   #     $(e).find('.hover').removeClass('hover')
   #     num = $(o).attr('data-id')
   #     $(e2).attr('value', num)
   #     $(e).addClass('hover')
+
+  window.click_menu = (cls, id, obj) ->
+    $(cls).find('.hover').removeClass('hover')
+    course_id = $(obj).attr('data-id')
+    $(id).attr('value', course_id)
+    $(cls).find('.select').find('.word').html $(obj).find('.word').html()
+    $(cls).find('.opts').hide()
+    $(obj).addClass('hover')
+
   window.redirect_to = (url) ->
     window.location.href = url
   
