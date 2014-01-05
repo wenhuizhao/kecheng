@@ -1,11 +1,20 @@
 
 .areas
   .area.fenhong
-    = link_to "您要做的作业有#{current_user.undo_homeworks.size}份", wait_todo_homeworks_path(type: 'undo')
+    - udhs = current_user.undo_homeworks.size
+    - if udhs == 0
+      = link_to '暂无作业', '/'
+    - else
+      = link_to "您要做的作业有#{udhs}份", wait_todo_homeworks_path(type: 'undo')
   .area.caolv
-    = link_to "需要改错的作业有#{current_user.need_modify_homeworks.size}份", wait_todo_homeworks_path
+    - uhs = current_user.need_modify_homeworks.size
+    - if uhs == 0
+      = link_to '暂无需改错作业', '/'
+    - else
+      = link_to "需要改错的作业有#{uhs}份", wait_todo_homeworks_path
   .area.tianlan
-    = link_to "您收到#{current_user.unread_messages.size}条信息", messages_path
+    - ms = current_user.unread_messages.size
+    = link_to (ms == 0 ? '消息' : "您收到#{ms.size}条信息"), messages_path
   - if current_user.selected_courses
     - current_user.selected_courses.each do |c|
       .area.zilan

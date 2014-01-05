@@ -3,6 +3,7 @@
   .title = @title
   .descs
     - @homeworks.each do |c|
+      - show_path = section_homework_path(c.section, c, grades_course_id: c.grades_course_id)
       .desc
         .area
           - if current_user.is_teacher?
@@ -13,12 +14,15 @@
                 - shs = StudentHomework.where(status: status, homework_id: c.id)
                 .name = status + "#{shs.size}人"
               .actions
-                = link_to '明细', section_homework_path(c.section, c, grades_course_id: c.grades_course_id)
+                = link_to '明细', show_path
                 = link_green_btn '批阅', check_homework_path(c)
           - else
-            = link_to c.full_name, section_homework_path(c.section, c, grades_course_id: c.grades_course_id), class: 'text'
+            = link_to c.full_name, show_path, class: 'text'
             .date.block
-              | 截止时间:  
+              | 截止时间:
               = into_datetime c.end_time
+            .actions
+              = link_to '答题', show_path
+
 css:
   .name {display: inline}
