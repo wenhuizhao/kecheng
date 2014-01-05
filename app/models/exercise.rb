@@ -3,8 +3,8 @@
 class Exercise < ActiveRecord::Base
   attr_accessible :answer, :note, :title, :photo, :book_id, :category_id, :qtype_id, :exercise_text_id,
                   :options_attributes, :section_id, :answerphoto
-  has_attached_file :photo
-  has_attached_file :answerphoto
+  has_attached_file :photo, :styles => {:thumb => "50x50>"}
+  has_attached_file :answerphoto, :styles => {:thumb => "50x50>"}
   belongs_to :book
   belongs_to :category
   has_and_belongs_to_many :homeworks
@@ -13,6 +13,7 @@ class Exercise < ActiveRecord::Base
   belongs_to :qtype
   belongs_to :exercise_text
   belongs_to :section
+  has_many :upload_files
 
   def is_fill_blank?
     qtype and qtype.name == "填空题"

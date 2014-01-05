@@ -39,6 +39,7 @@ class ExercisesController < ApplicationController
   def new
     @exercise = Exercise.new
     @section = Section.find(params[:section_id])
+    @upload_file = UploadFile.new
     @book = @section.book
     respond_to do |format|
       format.html # new.html.erb
@@ -49,6 +50,7 @@ class ExercisesController < ApplicationController
   # GET /exercises/1/edit
   def edit
     @exercise = Exercise.find(params[:id])
+    @upload_file = UploadFile.new
   end
 
   # POST /exercises

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140101031324) do
+ActiveRecord::Schema.define(:version => 20140105162851) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20140101031324) do
   end
 
   create_table "exercise_options", :force => true do |t|
-    t.string   "name"
+    t.text     "name"
     t.integer  "exercise_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20140101031324) do
     t.integer  "answerphoto_file_size"
     t.datetime "answerphoto_updated_at"
     t.text     "extra"
+    t.text     "raw_content"
   end
 
   create_table "exercises_homeworks", :id => false, :force => true do |t|
@@ -282,6 +283,17 @@ ActiveRecord::Schema.define(:version => 20140101031324) do
     t.string   "score"
     t.string   "level"
     t.string   "ask_note"
+  end
+
+  create_table "upload_files", :force => true do |t|
+    t.string   "name"
+    t.integer  "exercise_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "users", :force => true do |t|

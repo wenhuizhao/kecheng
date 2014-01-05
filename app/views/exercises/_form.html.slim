@@ -1,9 +1,22 @@
+= form_for [@exercise, @upload_file], :remote => true do |fu|
+  table id="upload_table"
+    - @exercise.upload_files.each do |upload|
+      tr
+        td = upload.photo.url
+        td = link_to image_tag(upload.photo.url(:thumb)), upload.photo.url(:original), :popup=>['original image', 'height=700, width=800']
+
+
+  .field
+     = fu.file_field :photo
+     = fu.submit "上传图片"
+
 = form_for [@section, setup_exercise(@exercise)] do |f|
   = render partial: 'shared/error_msgs', locals: {target: @exercise}
-  table
+
+  table style="table-layout: fixed;"
     tr
-      td = f.label '书'
-      td = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected => @book ? @book.id : (@exercise && @exercise.book ? @exercise.book.id : nil)), {}, {:id=>'book_select'})
+      td width="10%" = f.label '书'
+      td width="90%" = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected => @book ? @book.id : (@exercise && @exercise.book ? @exercise.book.id : nil)), {}, {:id=>'book_select'})
 
     tr
       td = f.label '章节'
@@ -23,17 +36,24 @@
 
     tr
       td = f.label '题目'
-      td = f.text_area :title, {:rows=>5, :cols=>80}
+      td = f.text_area :title, {:rows=>5, :cols=>80, :id=>'title'}
 
     tr
       td = f.label '图片'
       td = f.file_field :photo
 
+    tr
+      td = link_to image_tag(@exercise.photo.url(:thumb)), @exercise.photo.url(:original), :popup=>['original image', 'height=700, width=800']
+      td = @exercise.photo.url
+
     div id="option" style="display:block"
     tr
-      = f.fields_for :options do |ff|
-        td  = ff.label :option
-        td = ff.text_field :name
+      td colspan=2
+        table
+          = f.fields_for :options do |ff|
+            tr
+              td  = ff.label :option
+              td = ff.text_field :name, {:size=>80, :class=>"option"}
 
     tr
       td = f.label '备注'
@@ -41,7 +61,10 @@
 
     tr
       td = f.label '答案'
-      td = f.text_area :answer, {:rows=>5, :cols=>80}
+      td = f.text_area :answer, {:rows=>5, :cols=>80, :id=>'answer'}
+    tr
+      td = link_to image_tag(@exercise.answerphoto.url(:thumb)), @exercise.answerphoto.url(:original), :popup=>['original image', 'height=700, width=800']
+      td = @exercise.answerphoto.url
 
     tr
       td = f.label '答案图片'
@@ -50,8 +73,16 @@
     tr
       td = f.submit '保存'
 
+    tr
+
 
 javascript:
+  Aloha.ready(function() {
+      Aloha.jQuery('#title').aloha();
+      Aloha.jQuery('#answer').aloha();
+      Aloha.jQuery('.option').aloha();
+    });
+
   function update_field() {
          $.ajax({
            url: "#{update_text_path}",

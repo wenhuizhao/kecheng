@@ -1,0 +1,1 @@
+$('#upload_table tbody').append('<tr><td>'+'<%=@upload_file.photo.url%>'+ '</td><td>' + '<%=link_to image_tag(@upload_file.photo.url(:thumb)), @upload_file.photo.url(:original), :popup=>['original image', 'height=700, width=800']%>' + '</td></tr>')

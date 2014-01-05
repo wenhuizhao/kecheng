@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 Kecheng::Application.routes.draw do
 
+  resources :upload_files
+
+
   get "statistics/index"
   post "statistics/to_line_chart"
 
@@ -21,7 +24,9 @@ Kecheng::Application.routes.draw do
 
   resources :books, shallow: true do
     resources :sections, shallow: true do
-      resources :exercises
+      resources :exercises, shallow: true do
+        resources :upload_files
+      end
       resources :exercise_texts
     end
   end
