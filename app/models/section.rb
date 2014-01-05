@@ -10,6 +10,14 @@ class Section < ActiveRecord::Base
   def course_homeworks(course)
     homeworks.where(grades_course_id: course.id)
   end
+  
+  def finished_homeworks(course)
+    course_homeworks(course).where(status: '1')
+  end
+
+  def unfinished_homeworks(course)
+    course_homeworks(course).where(status: nil)
+  end
 
   def num_name
     "#{number} #{name}"
