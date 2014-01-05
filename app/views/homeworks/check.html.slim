@@ -7,10 +7,11 @@
         .ctitle = @student_homework.homework.short_name
         - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
         .students
-          - @shs.each do |s| 
-            .student class='#{'active' if @student_homework.student_id == s.id}' data-id='#{s.id}' data-hid='#{@student_homework.homework_id}' data-status='#{params[:status]}'
-              = image_tag avatar_path(s), class: 'savatar'
-              span.stitle.fs24 = s.real_name
+          - @shs.each do |s|
+            = link_to check_homework_path(@homework, student_id: s.id, status: params[:status])
+              .student class='#{'active' if @student_homework.student_id == s.id}'
+                = image_tag avatar_path(s), class: 'savatar'
+                span.stitle.fs24 = s.real_name
       .check-right
         .block 
           = "作业题目(#{@student_homework.homework.exercises.size})"
