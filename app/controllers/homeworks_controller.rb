@@ -45,7 +45,7 @@ class HomeworksController < ApplicationController
 
   def create
     @homework = @section.homeworks.new(params[:homework])
-    @homework.num = @section.homeworks.size
+    @homework.num = @section.course_homeworks(@grades_course).size + 1
     if @homework.save
       redirect_to grades_course_path(@grades_course)
     else

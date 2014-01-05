@@ -17,7 +17,7 @@
             .line-node
             .ltitle = "第#{i + 1}课"
             .leave-homework = link_to '布置作业', new_section_homework_path(lesson, grades_course_id: @grades_course.id)
-            - going_hs, closed_hs = lesson.homeworks.where(status: nil), lesson.homeworks.where(status: '1')
+            - going_hs, closed_hs = @grades_course.homeworks.where(status: nil), @grades_course.homeworks.where(status: '1')
             - if going_hs.size > 0
               .lesson-content: .area
                 .htitle 进行中的作业

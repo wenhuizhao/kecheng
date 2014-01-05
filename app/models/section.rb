@@ -7,6 +7,10 @@ class Section < ActiveRecord::Base
   has_many :exercise_texts
   has_many :homeworks
 
+  def course_homeworks(course)
+    homeworks.where(grades_course_id: course.id)
+  end
+
   def num_name
     "#{number} #{name}"
   end
