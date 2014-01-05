@@ -10,8 +10,12 @@
         .lesson
           .line-node
           .ltitle = "第#{i + 1}课"
-          .lesson-content
+          .lesson-content style="width: 800px;padding: 20px 0"
             .area
+              - hs = lesson.course_homeworks(@grades_course)
               .homeworks
-                - lesson.homeworks.each_with_index do |h, j|
-                  .hs = link_to "[#{h.of_user(current_user).try(:status) || '未　做'}]#{h.short_name}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
+                - if hs.size == 0
+                   | 暂无作业
+                - else
+                  - hs.each_with_index do |h, j|
+                    .hs = link_to "[#{h.of_user(current_user).try(:status) || '未　做'}]#{h.short_name}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
