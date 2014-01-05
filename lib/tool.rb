@@ -26,6 +26,7 @@ module Tool
   end
 
   module Percent
+    include Common
     def to_percent(n, total, int = false)
       num = (n/total.to_f * 100).round(2)
       return 0 if total == 0
@@ -33,9 +34,9 @@ module Tool
       num.to_s + "%"
     end
 
-    def percents_for(obj, month, int = false, year = Time.now.year)
+    def percents_for(obj, month, int = false, year = current_period.start_year)
+      year = year.to_i + 1 if month == 1
       total = obj.homeworks_of(month, year)
-      # total = obj.homeworks
       day_un_homeworks = total.select{|h| h.status.nil?}
       to_percent(day_un_homeworks.size, total.size, int)
     end

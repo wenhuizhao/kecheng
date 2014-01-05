@@ -3,6 +3,7 @@ class School < ActiveRecord::Base
   attr_accessible :name, :post_code, :address, :jyj_id
   has_many :users
   has_many :grades
+  has_many :homeworks, through: :grades
   validates :name, presence: true
   scope :for_user, -> (user) { user.is_admin? ? all : where(id: user.school_id) }
   
@@ -14,10 +15,6 @@ class School < ActiveRecord::Base
 
   def classes_range
     grades.select('class_num').collect(&:class_num).uniq
-  end
-
-  def homeworks
-    grades.inject([]){|hs, g| hs << g.homeworks}.flatten
   end
 
 end

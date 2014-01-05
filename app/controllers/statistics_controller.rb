@@ -21,7 +21,6 @@ class StatisticsController < ApplicationController
 
   private
     def month_range
-      @year = params[:year] || Time.now.year
-      @month_range = (8..12).to_a
+      @month_range = Period.current_period.months
     end
 end

@@ -11,9 +11,13 @@ class Period < ActiveRecord::Base
     self == Period.current_period
   end
 
+  def months
+    desc == "上" ? (8..12).to_a << 1 : (2..7).to_a
+  end
+
   class << self
     def current_period
-      desc = (2..7).to_a.include?(Time.now.month) ? "上" : "下"
+      desc = (2..7).to_a.include?(Time.now.month) ? "下" : "上"
       year = Time.now.month == 1 ? Time.now.year - 1 : Time.now
       cp = where(start_year: year, is_current: true, desc: desc).last
       return cp if cp

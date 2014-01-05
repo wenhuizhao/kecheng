@@ -9,6 +9,7 @@ class Grade < ActiveRecord::Base
 
   has_many :teachers, through: :grades_courses
   has_many :courses, through: :grades_courses
+  has_many :homeworks, through: :grades_courses
   validates :grade_num, :class_num,:school_id, presence: true
   belongs_to :school
   # scope :history_of, -> (user) {all}
@@ -25,10 +26,6 @@ class Grade < ActiveRecord::Base
 
   def students
     grade_students.inject([]) {|ss, gs| gs.is_accept ? ss << gs.student : ss}
-  end
-
-  def homeworks
-    grades_courses.inject([]){|hs, g| hs << g.homeworks}.flatten
   end
   
   def set_full_name

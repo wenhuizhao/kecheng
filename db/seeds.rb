@@ -87,3 +87,4 @@ if GradesCourse.all.all?{|b| b.period_id.nil?}
   GradesCourse.update_all(period_id: current_period.id)
 end
 
+Period.first.update_attributes(desc: '上', full_name: '2013-2014学年上学期')
