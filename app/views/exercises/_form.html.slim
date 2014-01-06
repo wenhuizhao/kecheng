@@ -1,15 +1,3 @@
-= form_for [@exercise, @upload_file], :remote => true do |fu|
-  table id="upload_table"
-    - @exercise.upload_files.each do |upload|
-      tr
-        td = upload.photo.url
-        td = link_to image_tag(upload.photo.url(:thumb)), upload.photo.url(:original), :popup=>['original image', 'height=700, width=800']
-
-
-  .field
-     = fu.file_field :photo
-     = fu.submit "上传图片"
-
 = form_for [@section, setup_exercise(@exercise)] do |f|
   = render partial: 'shared/error_msgs', locals: {target: @exercise}
 
