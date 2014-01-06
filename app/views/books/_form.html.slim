@@ -6,4 +6,8 @@
   .field
     = f.label '书名'
     = f.text_field :name
+  .field
+    = f.label '封面图片'
+    = f.file_field :cover
+
   .actions = f.submit '保存'

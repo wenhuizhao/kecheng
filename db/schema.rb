@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140105162851) do
+ActiveRecord::Schema.define(:version => 20140106045544) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -23,9 +23,13 @@ ActiveRecord::Schema.define(:version => 20140105162851) do
 
   create_table "books", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.integer  "category_id"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
   end
 
   create_table "categories", :force => true do |t|
@@ -283,6 +287,22 @@ ActiveRecord::Schema.define(:version => 20140105162851) do
     t.string   "score"
     t.string   "level"
     t.string   "ask_note"
+  end
+
+  create_table "tiny_prints", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_file_size"
+    t.string   "image_content_type"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  create_table "tiny_videos", :force => true do |t|
+    t.string   "original_file_name"
+    t.string   "original_file_size"
+    t.string   "original_content_type"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "upload_files", :force => true do |t|
