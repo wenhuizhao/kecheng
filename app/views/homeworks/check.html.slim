@@ -1,18 +1,22 @@
 .lists
-  = link_back grades_course_path(@student_homework.homework.grades_course)
+  / = link_back grades_course_path(@student_homework.homework.grades_course)
+  = link_to_back
   .title = "作业批阅"
   .main-descs
     .main-desc
-      .check-left
-        .ctitle = @student_homework.homework.short_name
-        - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
-        .students
-          - @shs.each do |s|
-            = link_to check_homework_path(@homework, student_id: s.id, status: params[:status])
-              .student class='#{'active' if @student_homework.student_id == s.id}'
-                = image_tag avatar_path(s), class: 'savatar'
-                span.stitle.fs24 = s.real_name
-      .check-right
-        .block 
-          = "作业题目(#{@student_homework.homework.exercises.size})"
-        = render 'show_form'
+      - unless @student_homework
+        | 暂无学生提交作业
+      - else
+        .check-left
+          .ctitle = @student_homework.homework.short_name
+          - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
+          .students
+            - @shs.each do |s|
+              = link_to check_homework_path(@homework, student_id: s.id, status: params[:status])
+                .student class='#{'active' if @student_homework.student_id == s.id}'
+                  = image_tag avatar_path(s), class: 'savatar'
+                  span.stitle.fs24 = s.real_name
+        .check-right
+          .block 
+            = "作业题目(#{@student_homework.homework.exercises.size})"
+          = render 'show_form'

@@ -13,12 +13,13 @@ module ApplicationHelper
   end
 
   def main_btn
-  	'btn btn-main'
+    'btn btn-main'
   end
 
-  def link_to_back
-    link_to_function '<span>返回</span>'.html_safe, 'history.go(-1)', class: 'btn ok'
-    # link_to_function '返回', 'history.go(-1)'
+  def link_to_back(right = true)
+    return link_to_function '<span>返回</span>'.html_safe, 'history.go(-1)', class: 'btn ok' unless right
+    a = link_to_function '返回', 'history.go(-1)'
+    content_tag :div, a, class: 'back'
   end
 
   # def link_back(link = session[:back])
