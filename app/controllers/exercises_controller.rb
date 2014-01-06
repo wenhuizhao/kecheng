@@ -127,6 +127,7 @@ class ExercisesController < ApplicationController
     @exercise.extra = params[:data]
     @exercise.save
   end
+  
   def load_canvas
     @exercise = Exercise.find(params[:id])
     render :text => @exercise.extra

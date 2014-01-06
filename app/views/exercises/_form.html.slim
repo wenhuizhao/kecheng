@@ -61,26 +61,18 @@
     tr
       td = f.submit '保存'
 
-    tr
-
 
 javascript:
-  Aloha.ready(function() {
-      Aloha.jQuery('#title').aloha();
-      Aloha.jQuery('#answer').aloha();
-      Aloha.jQuery('.option').aloha();
-    });
-
   function update_field() {
-         $.ajax({
-           url: "#{update_text_path}",
-           data: {
-             book_id: $('#book_select').val(),
-             exercise_id: "#{@exercise.id}",
-             section_id: "#{@section ? @section.id : nil}"
-           },
-           dataType: "script"
-         });
+     $.ajax({
+       url: "#{update_text_path}",
+       data: {
+         book_id: $('#book_select').val(),
+         exercise_id: "#{@exercise.id}",
+         section_id: "#{@section ? @section.id : nil}"
+       },
+       dataType: "script"
+     });
   }
   $(document).ready(function() {
      update_field();

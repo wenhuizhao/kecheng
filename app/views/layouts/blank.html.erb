@@ -5,11 +5,7 @@
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= stylesheet_link_tag "normalize" %>
   <%= javascript_include_tag "application" %>
-  <link rel="stylesheet" href="/javascripts/aloha/css/aloha.css" type="text/css">
-  <script src="/javascripts/aloha/lib/require.js"></script>
-  <script src="/javascripts/aloha/lib/aloha.js"
-   data-aloha-plugins=
-   "common/ui,common/format,common/highlighteditables,common/link,common/abbr,common/align,common/block,common/image,common/table"></script>
+  <%= javascript_include_tag "fabric" if need_canvas.include?(controller_name) %>
 </head>
   <%= csrf_meta_tags %>
 </head>
