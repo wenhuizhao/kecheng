@@ -5,7 +5,7 @@ $(document).ready ->
   window.App =
     grade: 'g1'
     cls: 'c1'
-  
+
   if $('.messages').find('.actions').find('a').length is 1
     $('.actions').css
       "margin-left": "620px"
@@ -59,11 +59,8 @@ $(document).ready ->
     $(obj).click ->
       click_menu '.schools', '#school_id', obj
 
-  # bind_click = (o, e, e2) ->
-  #     $(e).find('.hover').removeClass('hover')
-  #     num = $(o).attr('data-id')
-  #     $(e2).attr('value', num)
-  #     $(e).addClass('hover')
+  # $('.chart-small').each (i) ->
+  #   $(this).find('text').last().hide()
 
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')
@@ -86,3 +83,5 @@ $(document).ready ->
     else
       $('input[type="checkbox"]').attr('checked', false)
     return null
+
+
