@@ -7,6 +7,13 @@ class Section < ActiveRecord::Base
   has_many :exercise_texts
   has_many :homeworks
 
+  after_create :set_num
+
+  def set_num
+    self.num = Book.find(self.book_id).sections.size
+    self.save
+  end
+
   def course_homeworks(course)
     homeworks.where(grades_course_id: course.id)
   end
