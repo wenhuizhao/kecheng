@@ -55,3 +55,4 @@ gem "rails-settings-cached", "0.2.4"
 gem "magic_encoding"
 gem "kaminari", "~> 0.14.1"
 gem 'remotipart', '~> 1.0'
+gem 'sanitize'

@@ -8,7 +8,7 @@ p
   = @book.name
 p
   strong 封面
-  = image_tag @book.cover.url
+  = image_tag @book.cover.url, :size => "800"
 = link_to '修改', edit_book_path(@book)
 '|
 = link_to '返回列表', books_path

@@ -24,7 +24,7 @@
 
     tr
       td = f.label '题目'
-      td = f.text_area :title, {:rows=>5, :cols=>80, :id=>'title'}
+      td = f.text_area :title, {:rows=>5, :cols=>80, :id=>'title', :class=>"ewebeditor"}
 
     tr
       td = f.label '图片'
@@ -49,7 +49,7 @@
 
     tr
       td = f.label '答案'
-      td = f.text_area :answer, {:rows=>5, :cols=>80, :id=>'answer'}
+      td = f.text_area :answer, {:rows=>5, :cols=>80, :id=>'answer', :class => "ewebeditor"}
     tr
       td = link_to image_tag(@exercise.answerphoto.url(:thumb)), @exercise.answerphoto.url(:original), :popup=>['original image', 'height=700, width=800']
       td = @exercise.answerphoto.url

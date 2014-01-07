@@ -14,6 +14,7 @@ class Exercise < ActiveRecord::Base
   belongs_to :exercise_text
   belongs_to :section
   has_many :upload_files
+  before_save :clean_content
 
   def is_fill_blank?
     qtype and qtype.name == "填空题"
@@ -25,5 +26,33 @@ class Exercise < ActiveRecord::Base
   
   def is_q_and_a?
     qtype and qtype.name == "问答题"
+  end
+
+
+  def clean_content
+    transformer = lambda do |env|
+      node = env[:node]
+      node_name = env[:node_name]
+      return if %w[o:p font pre style script meta].include? node_name
+
+      return if (node_name == "p" || node_name == "span" ) and node.content.empty? && node.children.empty?
+
+      style = node.attribute("style")
+      if !style.nil?
+        styles = style.value.split(";")
+        styles.reject! do |s|
+          name,value = s.split(":")
+          !%w[color background font-style font-weight text-decoration text-align].include?(name)
+        end
+        style.value=styles.join(";")
+        node.remove_attribute(style.name)
+      end
+
+      {:node_whitelist => [node]}
+    end
+
+    self.title = Sanitize.clean(self.title, :remove_contents => true, :transformers => transformer)
+    self.answer = Sanitize.clean(self.answer, :remove_contents => true, :transformers => transformer)
+
   end
 end
