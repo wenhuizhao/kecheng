@@ -30,5 +30,4 @@ class ExerciseText < ActiveRecord::Base
 
     self.content = Sanitize.clean(self.content, :remove_contents => true, :transformer => transformer)
   end
-  e
 end
