@@ -8,6 +8,10 @@
     tr
       td = label_tag :姓名
       td = text_field :user, :real_name
+    tr
+      td = label_tag :性别
+      td = select :user, :gender, ['男', '女']
+
     - if current_user.is_admin?
       tr
         td = label_tag :学校

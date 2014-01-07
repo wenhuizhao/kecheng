@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
     # messages
     Message.all_for(self).select{|m| m.is_open == false}
   end
+  
+  def gender_name
+    gender == '男' ? 'male' : 'female'
+  end
 
   def jyj
     Jyj.first
