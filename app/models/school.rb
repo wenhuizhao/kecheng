@@ -2,6 +2,7 @@
 class School < ActiveRecord::Base
   attr_accessible :name, :post_code, :address, :jyj_id
   has_many :users
+  has_many :grades_courses, through: :grades
   has_many :grades
   has_many :homeworks, through: :grades
   validates :name, presence: true

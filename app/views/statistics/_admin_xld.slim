@@ -1,4 +1,5 @@
 .main-desc
+  - courses = current_user.school.grades_courses
   .m20: .title style='border: none' 每月数据
   = form_tag action: :to_line_chart do
     table.list-big
@@ -7,7 +8,7 @@
         th 班级
         - months.each do |m|
           th = "#{m}月"
-      - current_user.school.grades.each do |g|
+      - courses.each do |g|
         tr
           td = check_box_tag 'ids[]', g.id
           td = g.full_name
@@ -18,6 +19,6 @@
 .main-desc
   #bar
   - sdate, edate = 1.month.ago, Time.now
-  = bar_chart  'bar', categories: current_user.school.grades.collect(&:full_name), \
-                      percents: range_percents_homework(current_user.school.grades, sdate, edate), \
+  = bar_chart  'bar', categories: courses.collect(&:full_name), \
+                      percents: range_percents_homework(courses, sdate, edate), \
                       time_str: "#{into_date sdate} - #{into_date edate}"
