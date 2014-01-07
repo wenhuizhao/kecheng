@@ -8,7 +8,7 @@ module Student
   end
 
   def courses
-    grade.try(:grades_courses).select(&:is_accept)
+    grade.try(:grades_courses).where(is_accept: true).uniq
   end 
   
   def grade_stus
