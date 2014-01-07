@@ -10,11 +10,12 @@ class School < ActiveRecord::Base
   include Mgrade::Homeworks
   
   def grades_range
-    grades.select('grade_num').collect(&:grade_num).uniq
+    #Grade.select('grade_num').collect(&:grade_num).uniq
+    (1..6).to_a
   end
 
   def classes_range
-    grades.select('class_num').collect(&:class_num).uniq
+    # Grade.select('class_num').collect(&:class_num).uniq
+    (1..10).to_a
   end
-
 end

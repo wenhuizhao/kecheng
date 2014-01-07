@@ -48,7 +48,8 @@ class GradesController < ApplicationController
   end
 
   def get_classes
-    render partial: "shared/select_classes", locals: { classes: current_user.school.grades.where(grade_num: params[:grade_num]).collect(&:class_num)}
+    classes = current_user.school.classes_range # current_user.school.grades.where(grade_num: params[:grade_num]).collect(&:class_num)
+    render partial: "shared/select_classes", locals: { classes: classes}
   end
   
   private
