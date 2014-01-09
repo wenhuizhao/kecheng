@@ -78,8 +78,8 @@ if GradesCourse.all.all?{|b| b.book_id.nil?}
   Homework.destroy_all 
 end
 
-if Section.all.all?{|b| b.num.nil?}
-  Section.all.collect(&:book_id).uniq.each{|id| Book.find(id).sections.each_with_index {|s, i| s.update_attribute(:num, i + 1)}}
+if Section.where(num: nil)
+  Section.where(num: nil).collect(&:book_id).uniq.each{|id| Book.find(id).sections.each_with_index {|s, i| s.update_attribute(:num, i + 1)}} rescue nil
 end
 
 include Common
