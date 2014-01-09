@@ -24,6 +24,9 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :messages, join_table: 'users_messages'
   has_many :student_courses, foreign_key: 'student_id'
   has_many :grade_students, foreign_key: 'student_id'
+  
+  scope :teachers, -> {where(role_id: 3)}
+  scope :teachers_of, -> (school) {teachers.where(school_id: school.id)}
 
   Role.all.each {|r| define_method("is_#{r.en_name}?") {role and role.name == r.name}}
 
@@ -49,9 +52,9 @@ class User < ActiveRecord::Base
     school.try(:name) || '暂无学校信息'
   end
   
-  def self.teachers
-    select{|u| u.role_name == '教师'}
-  end
+  # def self.teachers
+  #   select{|u| u.role_name == '教师'}
+  # end
 
   def email_required?
     false
@@ -60,6 +63,10 @@ class User < ActiveRecord::Base
   def unread_messages
     # messages
     Message.all_for(self).select{|m| m.is_open == false}
+  end
+  
+  def gender_name
+    gender == '男' ? 'male' : 'female'
   end
 
   def jyj
@@ -76,7 +83,7 @@ class User < ActiveRecord::Base
   end
 
   def undo_homeworks
-    return selected_courses.inject([]) {|hs, c| hs << c.homeworks - homeworks;hs}.flatten if self.is_student?
+    return selected_courses.inject([]) {|hs, c| hs << c.homeworks - homeworks;hs}.flatten.sort_by{|h| h.created_at}.reverse if self.is_student?
     accepted_courses.inject([]){|hs, pgc| hs << pgc.homeworks}.flatten.select{|h| h.status.nil?}
   end
 

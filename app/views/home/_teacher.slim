@@ -2,8 +2,8 @@
   .area.fenhongt
     = link_to "未完成的作业有#{current_user.undo_homeworks.size}份", wait_todo_homeworks_path(type: 'undo')
   .area.fenhongt
-    - ms = current_user.unread_messages.size
-    = link_to (ms == 0 ? '消息' : "您收到#{ms.size}条信息"), messages_path
+    - ms = @messages.size
+    = link_to (ms == 0 ? '消息' : "您收到#{ms}条信息"), messages_path
   .area.tianlan.vh
   - @courses.each do |c|
     .area.fenlan

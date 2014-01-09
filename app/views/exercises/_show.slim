@@ -1,6 +1,6 @@
 
-= raw simple_format h(exercise.exercise_text.content) if exercise.exercise_text
-= raw simple_format h(exercise.title)
+= raw simple_format h(exercise.exercise_text.content.html_safe) if exercise.exercise_text
+= raw simple_format h(exercise.title.html_safe)
 
 - if exercise.is_multi_choice?
   - exercise.options.each_with_index do |o, i|
@@ -15,6 +15,6 @@ p = exercise.note
 - if answer
   .answer 答案:
   - if exercise.answerphoto_file_name.nil?
-    = exercise.answer
+    = exercise.answer.html_safe
   - else
     = image_tag exercise.answerphoto.url 

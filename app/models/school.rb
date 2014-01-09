@@ -2,6 +2,7 @@
 class School < ActiveRecord::Base
   attr_accessible :name, :post_code, :address, :jyj_id
   has_many :users
+  has_many :grades_courses, through: :grades
   has_many :grades
   has_many :homeworks, through: :grades
   validates :name, presence: true
@@ -17,5 +18,9 @@ class School < ActiveRecord::Base
   def classes_range
     # Grade.select('class_num').collect(&:class_num).uniq
     (1..10).to_a
+  end
+
+  def teachers
+    User.teachers_of(self)
   end
 end

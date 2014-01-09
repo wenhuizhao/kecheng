@@ -3,7 +3,6 @@ Kecheng::Application.routes.draw do
 
   resources :upload_files
 
-
   get "statistics/index"
   post "statistics/to_line_chart"
 

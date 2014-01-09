@@ -12,16 +12,18 @@
           table.questions
             - @section.exercises.each_with_index do |q, i|
               tr
-                td = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids.include?(q.id)
+                td.top = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids.include?(q.id)
                 td = render partial: 'exercises/show', locals: {exercise: q, answer: false}
-        table.list
-          tr
-            td 我的叮嘱
-            td = f.text_area :enjoin, rows: 10, cols: 100
-          tr
-            td 截止时间
-            td = f.datetime_select :end_time, use_month_numbers: true, order: [:year, :month, :day]
+        table style='margin: 0 0 0 30px'
+          tr: td: .mb5 作业附加信息
+          tr: td = f.text_area :enjoin, rows: 10, cols: 70, placeholder: '内容请写在这里……', id: 'enjoin'
+          tr: td 
+            .submit-time.inline.mt15 提交时间
+            = f.datetime_select :end_time, use_month_numbers: true, order: [:year, :month, :day]
         = hidden_field_tag :grades_course_id, @grades_course.id
         = f.hidden_field :grades_course_id, value: @grades_course.id
         = f.hidden_field :num, value: @section.course_homeworks(@grades_course).size + 1 if action_name == 'new'
-        .block = submit_tag '确定添加', class: 'block'
+        .block style='margin-left: 450px'
+          = submit_tag '发送作业', class: 'block'
+          = link_to root_path, class: 'btn cancle'
+            span 取消

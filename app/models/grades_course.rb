@@ -4,6 +4,7 @@ class GradesCourse < ActiveRecord::Base
 
   include Mgrade, Common
   include Grade::Name
+  include Mgrade::Homeworks
 
   belongs_to :course
   belongs_to :teacher, class_name: 'User'

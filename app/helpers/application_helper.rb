@@ -45,7 +45,8 @@ module ApplicationHelper
   end
 
   def avatar_path(user)
-    'avatar.png'
+    return '/assets/avatar.png' if user.admins?
+    "/assets/#{user.role.en_name}-#{user.gender_name}.png"
   end
 
   def link_green_btn(title, opts = {})

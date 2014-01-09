@@ -1,4 +1,6 @@
-- if @section.exercises.size > 0
+css:
+  #content table.list-big tr td {border: none;}
+- if @homework.exercises.size > 0
   .alert.red = flash[:notice]
   = form_for @student_homework do |f|
     - if @student_homework.status && @student_homework.status != '未批阅'
@@ -14,9 +16,11 @@
           td 状态
           td = @student_homework.status
       = f.hidden_field :status, value: '已改错'
-      
+    
+    .content-title
+      = "作业题目#{}"
     table.list-big
-      - @section.exercises.each do |hwq|
+      - @homework.exercises.each do |hwq|
         tr
           td = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
 

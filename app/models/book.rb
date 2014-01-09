@@ -6,11 +6,11 @@ class Book < ActiveRecord::Base
   has_many :exercises
   has_many :exercise_texts
   has_many :sections
-  has_attached_file :cover, :styles => {:thumb => "100x100>"}
+  has_attached_file :cover, :styles => {:thumb => "167x241>"}
 
 
   def self.for_course
     all
-    # select{|b| b.category.grade_num.nil?}
+    # select{|b| b.name =~ /(\[.*?\])/}
   end
 end

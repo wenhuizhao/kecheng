@@ -13,8 +13,7 @@
     - else
       = link_to "需要改错的作业有#{uhs}份", wait_todo_homeworks_path
   .area.tianlan
-    - ms = current_user.unread_messages.size
-    = link_to (ms == 0 ? '消息' : "您收到#{ms.size}条信息"), messages_path
+    = link_to (@messages.size == 0 ? '消息' : "您收到#{@messages.size}条信息"), messages_path
   - if current_user.selected_courses
     - current_user.selected_courses.each do |c|
       .area.zilan
