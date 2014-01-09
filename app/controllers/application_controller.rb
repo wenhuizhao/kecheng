@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     def redirect_with_message(*args)
       msg, opts = args[0], args.extract_options!
       raise '必须指定一个action' unless opts.has_key?(:action)
-      flash[opts[:msg_type] || :notice] = msg if msg.is_a?String
+      @notice = flash[opts[:msg_type] || :notice] = msg if msg.is_a?String
       redirect_to opts
     end
 end

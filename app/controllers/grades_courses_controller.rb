@@ -33,6 +33,7 @@ class GradesCoursesController < ApplicationController
     return unless request.post?
     return if params[:grade_num].empty?
     get_grade
+    return if @grade.nil?
     gs = GradeStudent.where(student_id: current_user.id, grade_id: @grade.id).first
     if @grade and !gs
       GradeStudent.create(student_id: current_user.id, grade_id: @grade.id)
@@ -46,7 +47,7 @@ class GradesCoursesController < ApplicationController
 
   def new
     wait_to_accept_courses
-    @notice = "您有#{@wacs.size}门课程有待管理员审批"
+    @wnotice = "您有#{@wacs.size}门课程有待管理员审批"
     @grades_course = GradesCourse.new
   end
 

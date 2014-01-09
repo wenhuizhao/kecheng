@@ -1,7 +1,9 @@
 = form_for @grades_course do |f| 
   / = render partial: 'shared/error_msgs', locals: {target: @grades_course}
   - if @wacs && @wacs.size > 0
-    .notice = link_to @notice, wait_to_accept_courses_grades_courses_path
+    .notice = link_to @wnotice, wait_to_accept_courses_grades_courses_path
+  - if @notice
+    .notice = @notice
   .main-desc style='height: 120px'
     - if !@grades_course.is_accept
       = render "shared/select_grades"
