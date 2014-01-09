@@ -1,6 +1,7 @@
 css:
   #content table.list-big tr td {border: none;}
-- if @homework.exercises.size > 0
+- es = @homework.exercises
+- if es.size > 0
   .alert.red = flash[:notice]
   = form_for @student_homework do |f|
     - if @student_homework.status && @student_homework.status != '未批阅'
@@ -18,15 +19,20 @@ css:
       = f.hidden_field :status, value: '已改错'
     
     .content-title
-      = "作业题目#{}"
+      - if @homework.students.empty?
+        .cheader 本次作业还没有人提交，赶紧争当第一！
+      .ctitle = "作业题目(#{es.size})"
     table.list-big
-      - @homework.exercises.each do |hwq|
+      - es.each do |hwq|
         tr
           td = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
 
-    .enjoin
-      | 老师的叮嘱: 
-      = @homework.enjoin
+    table style='margin: 0 0 30px 30px'
+      tr: td: .mb5 作业附加信息
+      tr: td = text_area_tag :enjoin, @homework.enjoin, rows: 10, cols: 70, disabled: 'disabled'
+      tr: td
+        .submit-time.inline.mt15 截止时间：
+        = into_datetime @homework.end_time
     = f.hidden_field :homework_id, value: @homework.id
     - if @homework.closed?
       .btn 课程已经关闭
@@ -34,7 +40,9 @@ css:
       - if @student_homework.is_finished?
         .btn 已完成
       - else
-        = submit_tag '提交作业'
-
+          .block style='margin-left: 450px'
+            = submit_tag '提交作业', class: 'block'
+            = link_to root_path, class: 'btn cancle'
+              span 取消
 - else
   | 暂无练习题
