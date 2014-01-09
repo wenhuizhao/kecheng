@@ -15,6 +15,6 @@ p = exercise.note
 - if answer
   .answer 答案:
   - if exercise.answerphoto_file_name.nil?
-    = exercise.answer
+    = exercise.answer.html_safe
   - else
     = image_tag exercise.answerphoto.url 

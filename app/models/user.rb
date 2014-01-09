@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   end
 
   def undo_homeworks
-    return selected_courses.inject([]) {|hs, c| hs << c.homeworks - homeworks;hs}.flatten if self.is_student?
+    return selected_courses.inject([]) {|hs, c| hs << c.homeworks - homeworks;hs}.flatten.sort_by{|h| h.created_at}.reverse if self.is_student?
     accepted_courses.inject([]){|hs, pgc| hs << pgc.homeworks}.flatten.select{|h| h.status.nil?}
   end
 
