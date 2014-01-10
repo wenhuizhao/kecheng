@@ -1,6 +1,16 @@
 = include_chart_js
 .lists
-  = link_to_home
+  = link_to_back 
   .title 日批日改未完成比例
   .main-descs
-    = render partial: current_user.role.en_name, locals: {months: @month_range}
+    - if current_user.is_admin_jyj?
+      - if params[:school_id]
+        = render partial: 'admin_xld', locals: {courses: School.find(params[:school_id]).grade_courses, months: @month_range}
+      - else
+        = render partial: 'admin_jyj', locals: {months: @month_range}
+    - elsif current_user.is_admin_xld?
+      = render partial: 'admin_xld', locals: {courses: current_user.school.grade_courses, months: @month_range}
+javascript:
+  $(document).ready(function() {
+    $('#bar').each(function(i){$(this).find('text').last().hide()});
+  });

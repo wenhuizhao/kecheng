@@ -26,4 +26,8 @@ class StudentHomework < ActiveRecord::Base
   def score_num
     has_score? ? score : '暂无打分'
   end
+  
+  def all_right?
+    false
+  end
 end

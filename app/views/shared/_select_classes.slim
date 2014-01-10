@@ -1,10 +1,10 @@
 .words.select 
   .word 请选择班级
   i.icon
-.opts
+.opts style="height: 300px;overflow-y: scroll;"
   - classes.each do |c|
     .words.opt data-id='#{c}' class='#{c == current_user.class_num.to_i ? 'hover' : ''}'
-      .word = c.to_cnum + '班'
+      .word = c.to_s + '班'
 
 javascript:
   $('.classes').find('.select').click(function() {

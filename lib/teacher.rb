@@ -9,14 +9,13 @@ module Teacher
   end
 
   def history_courses
-    GradesCourse.all_courses_of(self).select{|g| !g.period.current?}
+    # GradesCourse.all_courses_of(self).select{|g| !g.period.current?}
+    GradesCourse.all_courses_of(self).where(is_open: false)
   end
   
   def tgrades
     accepted_courses.inject([]){|tgs, pgc| tgs << pgc.grade}.uniq
   end
 
-  def teachers
-    # self.class.teachers.select
-  end
+  include Mgrade::Homeworks
 end

@@ -17,15 +17,6 @@
               = f.radio_button :level, l
               span = l
 
-    tr
-      td 改错提交
-      td
-        .levels
-          - [ ['否', '已完成'], ['是', '待改错']].each do |s|
-            .level 
-              = f.radio_button :status, s[1]
-              span = s[0]
-
   = f.hidden_field :homework_id, value: @homework.id
   = hidden_field_tag :status, params[:status]
   .block

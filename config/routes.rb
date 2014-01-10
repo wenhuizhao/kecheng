@@ -4,6 +4,9 @@ Kecheng::Application.routes.draw do
   resources :upload_files
 
   get "statistics/index"
+  get "statistics/teachers"
+  get "statistics/:grade_course_id/teachers" => "statistics#teachers", as: "gteachers_sta"
+  get "statistics/school/:school_id" => "statistics#index", as: "school_sta"
   post "statistics/to_line_chart"
 
   get "home/index"

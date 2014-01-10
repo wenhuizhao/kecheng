@@ -11,14 +11,25 @@ class School < ActiveRecord::Base
   include Mgrade::Homeworks
   
   def grades_range
-    grades.select('grade_num').collect(&:grade_num).uniq
+    #Grade.select('grade_num').collect(&:grade_num).uniq
+    (1..6).to_a
   end
 
   def classes_range
-    grades.select('class_num').collect(&:class_num).uniq
+    # Grade.select('class_num').collect(&:class_num).uniq
+    (1..50).to_a
   end
-  
+
   def teachers
     User.teachers_of(self)
   end
+
+  def grade_course_ids
+    grades_courses.group('course_id').select('course_id, grade_id').map{|g| [g.grade_id, g.course_id]}.sort_by(&:first)
+  end
+  
+  def grade_courses(ids = grade_course_ids)
+    GradeCourse.builds(ids)
+  end
+
 end

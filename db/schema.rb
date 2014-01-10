@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20140107023505) do
+=======
+ActiveRecord::Schema.define(:version => 20140110101501) do
+>>>>>>> 09a040ceabefab9c542ee582ee6c9a0be992beba
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -91,7 +95,6 @@ ActiveRecord::Schema.define(:version => 20140107023505) do
     t.integer  "answerphoto_file_size"
     t.datetime "answerphoto_updated_at"
     t.text     "extra"
-    t.text     "raw_content"
   end
 
   create_table "exercises_homeworks", :id => false, :force => true do |t|
@@ -114,12 +117,13 @@ ActiveRecord::Schema.define(:version => 20140107023505) do
     t.integer  "grade_num"
     t.integer  "class_num"
     t.string   "full_name"
-    t.string   "period"
+    t.integer  "period_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "school_id"
   end
 
+  add_index "grades", ["period_id"], :name => "index_grades_on_period_id"
   add_index "grades", ["school_id"], :name => "index_grades_on_school_id"
 
   create_table "grades_courses", :force => true do |t|
@@ -287,22 +291,6 @@ ActiveRecord::Schema.define(:version => 20140107023505) do
     t.string   "score"
     t.string   "level"
     t.string   "ask_note"
-  end
-
-  create_table "tiny_prints", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_file_size"
-    t.string   "image_content_type"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  create_table "tiny_videos", :force => true do |t|
-    t.string   "original_file_name"
-    t.string   "original_file_size"
-    t.string   "original_content_type"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
   end
 
   create_table "upload_files", :force => true do |t|

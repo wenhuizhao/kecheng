@@ -63,7 +63,7 @@ class GradesCoursesController < ApplicationController
 
   def create
     @grades_course = GradesCourse.new(params[:grades_course])
-    return render action: 'new' if GradesCourse.where(grade_id: @grade.id, course_id: @grades_course.course_id, is_accept: true).size > 0
+    return render action: 'new' if GradesCourse.where(period_id: current_period.id, grade_id: @grade.id, course_id: @grades_course.course_id, is_accept: true).size > 0
     @grades_course.teacher_id = current_user.id
     @grades_course.grade_id = @grade.id
     if @grades_course.save

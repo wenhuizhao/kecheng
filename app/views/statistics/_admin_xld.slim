@@ -1,5 +1,4 @@
 .main-desc
-  - courses = current_user.school.grades_courses
   .m20: .title style='border: none' 每月数据
   = form_tag action: :to_line_chart do
     table.list-big
@@ -10,8 +9,8 @@
           th = "#{m}月"
       - courses.each do |g|
         tr
-          td = check_box_tag 'ids[]', g.id
-          td = g.full_name
+          td = check_box_tag 'grade_course_ids[]', g.id
+          td = link_to g.full_name, gteachers_sta_path(g.id.join('|'))
           - months.each do |m|
             td = percents_for(g, m)
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'

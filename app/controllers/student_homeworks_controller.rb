@@ -19,6 +19,7 @@ class StudentHomeworksController < ApplicationController
   end
 
   def update
+    @student_homework.status = '待改错' unless @student_homework.all_right?
     if @student_homework.update_attributes(params[:student_homework])
       return re_to_check if params[:commit] == '提交&下一份'
       reto_homework_path
