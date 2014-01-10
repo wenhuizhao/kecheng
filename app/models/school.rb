@@ -17,7 +17,7 @@ class School < ActiveRecord::Base
 
   def classes_range
     # Grade.select('class_num').collect(&:class_num).uniq
-    (1..10).to_a
+    (1..50).to_a
   end
 
   def teachers
