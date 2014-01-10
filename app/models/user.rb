@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   belongs_to :role
   belongs_to :school
   has_many :student_homeworks, foreign_key: 'student_id'
-  has_many :homeworks, through: :student_homeworks
   
   has_and_belongs_to_many :grades, foreign_key: :student_id, join_table: 'grade_students'
   has_and_belongs_to_many :messages, join_table: 'users_messages'
@@ -27,6 +26,14 @@ class User < ActiveRecord::Base
   
   scope :teachers, -> {where(role_id: 3)}
   scope :teachers_of, -> (school) {teachers.where(school_id: school.id)}
+  
+  def homeworks
+    if is_student?
+      Homework.joins(:student_homeworks).where("student_homeworks.student_id = #{self.id}")
+    else
+      Homework.joins(:grades_course).where("grades_courses.teacher_id = #{self.id}")
+    end 
+  end 
 
   Role.all.each {|r| define_method("is_#{r.en_name}?") {role and role.name == r.name}}
 

@@ -16,7 +16,5 @@ module Teacher
     accepted_courses.inject([]){|tgs, pgc| tgs << pgc.grade}.uniq
   end
 
-  def teachers
-    # self.class.teachers.select
-  end
+  include Mgrade::Homeworks
 end
