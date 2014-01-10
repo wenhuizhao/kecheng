@@ -1,16 +1,16 @@
 .lists
   = link_to_home
   - if current_user.grade and !params[:edit]
-    - if current_user.grade_accept?
-      .title 班级设置
-      .main-descs: .main-desc
-        = current_user.grade.full_name
+    / - if current_user.grade_accept?
+    .title 班级设置
+    .main-descs: .main-desc
+      = current_user.grade.full_name
         / br
         / = link_to '修改我的班级申请', select_grades_path(edit: true)
-    - else
-      .title 请先等候班级批准
-      .main-descs: .main-desc
-        = link_to '修改我的班级申请', select_grades_path(edit: true)
+    / - else
+      / .title 请先等候班级批准
+      / .main-descs: .main-desc
+        / = link_to '修改我的班级申请', select_grades_path(edit: true)
   - else
     .title 班级设置
     .main-descs
