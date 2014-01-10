@@ -5,11 +5,11 @@
   .main-descs
     - if current_user.is_admin_jyj?
       - if params[:school_id]
-        = render partial: 'admin_xld', locals: {courses: School.find(params[:school_id]).grades_courses, months: @month_range}
+        = render partial: 'admin_xld', locals: {courses: School.find(params[:school_id]).grade_courses, months: @month_range}
       - else
         = render partial: 'admin_jyj', locals: {months: @month_range}
     - elsif current_user.is_admin_xld?
-      = render partial: 'admin_xld', locals: {courses: current_user.school.grades_courses, months: @month_range}
+      = render partial: 'admin_xld', locals: {courses: current_user.school.grade_courses, months: @month_range}
 javascript:
   $(document).ready(function() {
     $('#bar').each(function(i){$(this).find('text').last().hide()});

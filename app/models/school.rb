@@ -23,4 +23,13 @@ class School < ActiveRecord::Base
   def teachers
     User.teachers_of(self)
   end
+
+  def grade_course_ids
+    grades_courses.group('course_id').select('course_id, grade_id').map{|g| [g.grade_id, g.course_id]}.sort_by(&:first)
+  end
+  
+  def grade_courses(ids = grade_course_ids)
+    GradeCourse.builds(ids)
+  end
+
 end
