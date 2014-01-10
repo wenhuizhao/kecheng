@@ -35,4 +35,8 @@ class GradeCourse
   def self.builds(ids)
     ids.map{|g| GradeCourse.new(Grade.find(g[0]), Course.find(g[1]))}
   end
+
+  def teachers
+    GradesCourse.where(grade_id: grade_id, course_id: course_id).map{|g| User.find(g.teacher_id)}
+  end
 end

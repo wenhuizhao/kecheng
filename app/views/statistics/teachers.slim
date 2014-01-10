@@ -1,6 +1,6 @@
 = include_chart_js
 .lists
   = link_to_back 
-  .title 日批日改未完成比例
+  .title = @grade_course.name
   .main-descs
     = render partial: 'teachers', locals: {months: @month_range}

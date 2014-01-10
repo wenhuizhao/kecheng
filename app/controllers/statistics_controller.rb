@@ -8,11 +8,9 @@ class StatisticsController < ApplicationController
   end
   
   def teachers
-    @teachers = if current_user.is_admin_jyj?
-                  current_user.jyj.teachers
-                else
-                  current_user.school.teachers
-                end
+    gid, cid = params[:grade_course_id].split('|')
+    @grade_course = GradeCourse.new(Grade.find(gid), Course.find(cid))
+    @teachers = @grade_course.teachers
   end
   
   def to_line_chart
