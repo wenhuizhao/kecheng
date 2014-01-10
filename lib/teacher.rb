@@ -9,7 +9,8 @@ module Teacher
   end
 
   def history_courses
-    GradesCourse.all_courses_of(self).select{|g| !g.period.current?}
+    # GradesCourse.all_courses_of(self).select{|g| !g.period.current?}
+    GradesCourse.all_courses_of(self).where(is_open: false)
   end
   
   def tgrades

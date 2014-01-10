@@ -1,5 +1,5 @@
 module Student
-
+  include Common
   def selected_courses
     #  StudentCourse.where(student_id: self.id).inject([]) do |courses, sc|
     #    courses << sc.grades_course
@@ -25,11 +25,11 @@ module Student
   end
 
   def approved_grades
-    grade_students.select(&:is_accept).inject([]){|gs, g| gs << g.grade} 
+    Grade.joins(:grade_students).where("grades.period_id = #{current_period.id} and grade_students.is_accept = 1 and grade_students.student_id = #{self.id}")
   end
 
   def grade
-   approved_grades.last
+    approved_grades.last
   end
 
   def history_grades
