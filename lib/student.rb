@@ -8,7 +8,8 @@ module Student
   end
 
   def courses
-    grade.try(:grades_courses).where(is_accept: true)
+    gcs = grade.try(:grades_courses)
+    gcs ? gcs.where(is_accept: true) : []
   end 
   
   def grade_stus
