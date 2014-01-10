@@ -10,3 +10,7 @@
         = render partial: 'admin_jyj', locals: {months: @month_range}
     - elsif current_user.is_admin_xld?
       = render partial: 'admin_xld', locals: {courses: current_user.school.grades_courses, months: @month_range}
+javascript:
+  $(document).ready(function() {
+    $('#bar').each(function(i){$(this).find('text').last().hide()});
+  });

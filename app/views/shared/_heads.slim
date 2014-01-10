@@ -1,9 +1,14 @@
 - users.each_with_index do |s, i|
   - if current_user.id != s.id
-    .student
+    - grades_page = action_name == 'index' && s.is_teacher?
+    .student style="#{grades_page ? 'width: 300px;' : ''}"
       - if action_name == 'students' && current_user.is_teacher?
         = link_to image_tag(avatar_path(s), class: 'savatar'), student_grades_course_path(@grades_course, student_id: s.id)
       - else
         = image_tag avatar_path(s), class: 'savatar'
-      span.stitle.fs24 = s.real_name
+      - if grades_page
+        span.stitle.fs24  style="#{grades_page ? 'width: 200px;' : ''}"
+          = s.real_name + "(#{GradesCourse.for_user_grade(s, current_user.grade).last.course_name}老师)"
+      - else
+          span.stitle.fs24 = s.real_name
       span.stitle.fs22.mess = link_to '发消息', new_message_path(receiver_id: s.id)
