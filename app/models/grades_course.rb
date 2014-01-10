@@ -27,6 +27,10 @@ class GradesCourse < ActiveRecord::Base
   scope :for_select, -> (grade) {opened.where(grade_id: grade.id, is_accept: true)}
   scope :accepted_courses_of, -> (user) {all_courses_of(user).where(is_accept: true)}
   before_create :set_default
+  
+  def name
+    full_name
+  end
 
   def set_default
     self.period_id = current_period.id

@@ -1,16 +1,12 @@
 
 .areas
-  .area.fenhong
-    - udhs = current_user.undo_homeworks.size
-    - if udhs == 0
-      = link_to '暂无作业', '/'
-    - else
+  - udhs = current_user.undo_homeworks.size
+  - if udhs > 0
+    .area.fenhong
       = link_to "您要做的作业有#{udhs}份", wait_todo_homeworks_path(type: 'undo')
-  .area.caolv
-    - uhs = current_user.need_modify_homeworks.size
-    - if uhs == 0
-      = link_to '暂无需改错作业', '/'
-    - else
+  - uhs = current_user.need_modify_homeworks.size
+    .area.caolv
+    - if uhs > 0
       = link_to "需要改错的作业有#{uhs}份", wait_todo_homeworks_path
   .area.tianlan
     = link_to (@messages.size == 0 ? '消息' : "您收到#{@messages.size}条信息"), messages_path
@@ -24,10 +20,12 @@
   /   = link_to '数学',''
   / .area.hong
   /   = link_to '英语',''
-  .area.fenlan
-    = link_to '我的班级', grades_path
-  .area.fen
-    = link_to '历史班级', grades_path(history: true)
+  - if current_user.grade
+    .area.fenlan
+      = link_to '我的班级', grades_path
+  - if current_user.history_grades.size > 0
+    .area.fen
+      = link_to '历史班级', grades_path(history: true)
   .area.zi
     = link_to '班级设置', select_grades_path
   .area.green

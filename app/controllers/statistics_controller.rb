@@ -9,8 +9,8 @@ class StatisticsController < ApplicationController
   end
 
   def to_line_chart
-    return redirect_with_message '请选择', action: :index if params[:ids].nil?
-    @objs = current_user.is_admin_jyj? ? School.find(params[:ids]) : Grade.find(params[:ids])
+    return redirect_with_message '请选择', action: :index unless params[:school_ids] || params[:grades_course_ids] 
+    @objs = params[:school_ids] ? School.find(params[:school_ids]) : GradesCourse.find(params[:grades_course_ids])
     @data = @objs.map do |s|
       {
         name: s.name,

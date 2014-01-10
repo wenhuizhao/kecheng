@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :get_common_courses, :get_back
-  include Exts, Tool, CtrlMeths
+  include Exts, Tool, CtrlMeths, Common
   include Mgrade::CtrlMeths
 
   private

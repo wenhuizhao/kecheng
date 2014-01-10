@@ -9,8 +9,8 @@
           th = "#{m}月"
       - current_user.jyj.schools.each do |c|
         tr
-          td = check_box_tag 'ids[]', c.id
-          td = c.name
+          td = check_box_tag 'school_ids[]', c.id
+          td = link_to c.name, school_sta_path(c.id) 
           - months.each do |m|
             td = percents_for(c, m)
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'
