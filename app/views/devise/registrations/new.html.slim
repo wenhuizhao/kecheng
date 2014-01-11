@@ -48,3 +48,20 @@ css:
       = f.submit "确        认", class: 'btn-login'
 
   / = render "devise/shared/links"
+javascript:
+  $('.send-code').click(function(){
+    $.ajax({
+      url: "/send_code",
+      type: "post",
+      data: {
+        mobile: $("#user_phone").val()
+      },
+      success: function(r) {
+        alert(r);
+      }
+    })
+  });
+
+
+
+

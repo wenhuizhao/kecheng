@@ -1,6 +1,6 @@
 require 'net/http'
 module Tool
-  def send_sms(opts)
+  def send_sms(opts = {})
     default_opts = {
       action: 'send',
       userID: Settings.sms_userid,
@@ -23,6 +23,28 @@ module Tool
   
   def super_admin
     User.where(role_id: nil).first
+  end
+
+  def random_num(len = 6)
+    chars = ("0".."9").to_a
+    1.upto(len).inject("") { |ma, i| ma << chars[rand(chars.size - 1)] }
+  end
+
+  def render_alert(para)
+    title, options = "", {}
+    title = para if para.is_a?String
+    options = para if para.is_a?Hash
+    if options[:page_to]
+      render_js "window.top.location ='#{options[:page_to]}';"
+    elsif options[:turn]
+      render_js "alert('#{title}');"
+    else
+      render_js "window.history.go(-1);alert(\"#{title}\");"
+    end
+  end
+  
+  def render_js(js)
+    render text: "<script>" + js + "</script>"
   end
 
   module Percent

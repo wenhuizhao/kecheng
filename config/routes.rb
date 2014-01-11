@@ -8,6 +8,7 @@ Kecheng::Application.routes.draw do
   get "statistics/:grade_course_id/teachers" => "statistics#teachers", as: "gteachers_sta"
   get "statistics/school/:school_id" => "statistics#index", as: "school_sta"
   post "statistics/to_line_chart"
+  post "send_code" => "users#set_auth_code"
 
   get "home/index"
   match "settings" => 'home#settings'

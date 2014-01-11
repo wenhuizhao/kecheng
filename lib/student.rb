@@ -1,9 +1,6 @@
 module Student
   include Common
   def selected_courses
-    #  StudentCourse.where(student_id: self.id).inject([]) do |courses, sc|
-    #    courses << sc.grades_course
-    #  end.compact
     courses
   end
 
@@ -34,10 +31,6 @@ module Student
 
   def history_grades
     approved_grades - [grade]
-  end
-  
-  def clear_selected_courses
-    # StudentCourse.where(student_id: self.id).each {|s| s.delete}
   end
 
   def need_modify_homeworks

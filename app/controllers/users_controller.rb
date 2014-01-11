@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
   
-  before_filter :authenticate_user!
-  before_filter :require_admin, except: [:reset_password, :show]
-  before_filter :get_user, except: [:index, :create_user_from_admin, :new]
+  before_filter :authenticate_user!, except: [:set_auth_code]
+  before_filter :require_admin, except: [:reset_password, :show, :set_auth_code]
+  before_filter :get_user, except: [:index, :create_user_from_admin, :new, :set_auth_code]
   
   def index
     if current_user.is_admin? || current_user.is_admin_jyj?
@@ -74,6 +74,16 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
   
+  def set_auth_code
+    session[:auth_code] = random_num
+    if params[:mobile] =~ /1[358]+\d[\d]{8}/
+      send_sms mobile: params[:mobile], content: "验证码：#{session[:auth_code]}"
+      render text: "验证码已发送至#{params[:mobile]}"
+    else
+      render text: "请输入正确手机号码"
+    end
+  end
+
   private
 
   def get_user

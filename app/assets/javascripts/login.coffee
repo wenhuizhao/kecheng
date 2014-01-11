@@ -11,3 +11,10 @@ $(document).ready ->
       .css('background-size', '110% 100%')
   setInterval changeBg, 3000
   
+  $.ajax
+    url: "/send_code"
+    type: "post"
+    data:
+      mobile: ''
+    success: (r) ->
+      alert r
