@@ -8,3 +8,8 @@
       #demo style="width: 800px"
       = line_chart 'demo', categories: @month_range, data: @data
       
+javascript:
+  $(document).ready(function() {
+    $('text').last().hide();
+    $('.highcharts-axis').last().hide()
+  });
