@@ -15,7 +15,7 @@
         - @grades_course.sections.each_with_index do |lesson, i|
           .lesson
             .line-node
-            .ltitle = "第#{i + 1}课 #{lesson.name}"
+            .ltitle = "第#{i + 1}课 #{substr lesson.name}"
             .leave-homework = link_to '布置作业', new_section_homework_path(lesson, grades_course_id: @grades_course.id)
             - going_hs, closed_hs = lesson.unfinished_homeworks(@grades_course), lesson.finished_homeworks(@grades_course)
             - if going_hs.size > 0

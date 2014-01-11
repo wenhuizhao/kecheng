@@ -1,4 +1,4 @@
-= render current_user.role.en_name
+= render current_user.is_student? ? "student" : "teacher"
 javascript:
   $(document).ready(function() {
     $('.chart-small').each(function(i){$(this).find('text').last().hide()});

@@ -62,4 +62,17 @@ class GradesCourse < ActiveRecord::Base
   def sections
     book.sections
   end
+
+  def course_homeworks
+    homeworks.where(grades_course_id: self.id)
+  end
+  
+  def finished_homeworks
+    course_homeworks.where(status: '1')
+  end
+
+  def unfinished_homeworks
+    course_homeworks.where(status: nil)
+  end
+
 end

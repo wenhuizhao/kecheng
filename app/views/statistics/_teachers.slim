@@ -10,7 +10,7 @@
       - @teachers.each do |g|
         tr
           td = check_box_tag 'teacher_ids[]', g.id
-          td = g.real_name
+          td = link_to g.real_name, teacher_sta_path(g)
           - months.each do |m|
             td = percents_for(g, m)
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'

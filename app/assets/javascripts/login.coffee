@@ -10,11 +10,3 @@ $(document).ready ->
       .css('background','url(\'/assets/login-bg' + bgNum + '.jpg\')')
       .css('background-size', '110% 100%')
   setInterval changeBg, 3000
-  
-  $.ajax
-    url: "/send_code"
-    type: "post"
-    data:
-      mobile: ''
-    success: (r) ->
-      alert r

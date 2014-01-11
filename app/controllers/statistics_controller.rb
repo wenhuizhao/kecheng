@@ -2,6 +2,7 @@ class StatisticsController < ApplicationController
   
   include Tool::Percent
   
+  before_filter :require_admin
   before_filter :month_range
 
   def index
@@ -11,6 +12,12 @@ class StatisticsController < ApplicationController
     gid, cid = params[:grade_course_id].split('|')
     @grade_course = GradeCourse.new(Grade.find(gid), Course.find(cid))
     @teachers = @grade_course.teachers
+  end
+
+  def teacher
+    @teacher = User.find(params[:teacher_id])
+    @grades_courses = @teacher.accepted_courses
+    @grades_course = @grades_courses[0]
   end
   
   def to_line_chart

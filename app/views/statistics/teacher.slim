@@ -1,0 +1,32 @@
+= include_chart_js
+
+.lists
+  = link_to_back
+  .main-descs
+    .main-desc
+      .tdetail-avatar
+        = image_tag avatar_path(@teacher)
+      .tname = @teacher.real_name
+      .tname style="font-size: 24px;padding: 45px 0 0 10px" 老师
+      .clear
+      .check-left.tea
+        .students
+          - if @grades_courses.size > 0
+            - @grades_courses.each do |c|
+              .student class='#{'active' if @grades_course.id == c.id}'
+                span.stitle.fs24 style="width: 200px;margin: 12px 0 0 -8px" = c.full_name
+      .check-right.tea
+        - going_hs, closed_hs = @grades_course.unfinished_homeworks, @grades_course.finished_homeworks
+        - if going_hs.size > 0
+          .lesson-content: .area
+            .htitle 进行中的作业
+            = render partial: 'h', locals: {homeworks: going_hs}
+        - if closed_hs.size > 0
+          .lesson-content: .area
+            .htitle 已完成的作业
+            = render partial: 'h', locals: {homeworks: closed_hs}
+
+javascript:
+  $(document).ready(function() {
+    $('.chart-small').each(function(i){$(this).find('text').last().hide()});
+  });

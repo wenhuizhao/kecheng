@@ -1,0 +1,18 @@
+- homeworks.each do |h|
+  .harea
+    .homeworks
+      = h.short_name
+      .clear
+      .chart-small.fleft id='#{h.id}'
+      = pie_chart h, title: '', data: h.to_chart
+      .cdesc.fleft
+        - Homework::ChartColors.each do |title, color|
+          .c
+            span.color style='background: #{color}'
+            span = title
+        .c
+          span.color style='background: rgb(231, 151, 220)'
+          span 未做
+      .clear
+css:
+   .lesson-content .harea {border: none;}
