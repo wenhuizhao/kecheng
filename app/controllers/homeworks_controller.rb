@@ -11,6 +11,7 @@ class HomeworksController < ApplicationController
   end
 
   def show
+    @teacher = User.find(params[:teacher_id]) if params[:teacher_id]
     unless current_user.is_student?
       @unsubmit_students = @homework.unsubmit_students
     else

@@ -18,7 +18,7 @@ class StatisticsController < ApplicationController
     @teacher = User.find(params[:teacher_id])
     @messages = Message.all_for(@teacher) if params[:messages]
     @grades_courses = @teacher.accepted_courses
-    @grades_course = @grades_courses[0]
+    @grades_course = params[:grades_course_id] ? GradesCourse.find(params[:grades_course_id]) : @grades_courses[0]
   end
   
   def to_line_chart
