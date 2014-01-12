@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    return render text: '无此权限' if @user != current_user
+    return render_alert '无此权限' if @user != current_user && !current_user.admins?
   end
 
   def edit
@@ -39,6 +39,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    return render_alert('手机号码不正确') if params['user']['phone'].presence && !right_phone(params['user']['phone'])
     if @user.update_attributes(params[:user])
       @user.update_attribute(:role_id, nil) if current_user.is_admin? && current_user.id == @user.id
       GradeStudent.update_from_admin(params[:grade_id], @user.id) if @user.is_student?
@@ -60,12 +61,12 @@ class UsersController < ApplicationController
   end
   
   def reset_password
-    return render text: '无此权限' if @user != current_user
+    return render_alert '无此权限' if @user != current_user
     if request.post?
-      return render text: '两次密码输入不一致' if params[:password_confirmation] != params[:password]
+      return render_alert '两次密码输入不一致' if params[:password_confirmation] != params[:password]
       current_user.password = params[:password]
       current_user.save
-      flash[:notice] = '修改成功'
+      render_alert '修改成功,请重新登录！'
     end
   end
 
@@ -76,7 +77,7 @@ class UsersController < ApplicationController
   
   def set_auth_code
     session[:auth_code] = random_num
-    if params[:mobile] =~ /1[358]+\d[\d]{8}/
+    if right_phone(params[:mobile])
       send_sms mobile: params[:mobile], content: "验证码：#{session[:auth_code]}"
       render text: "验证码已发送至#{params[:mobile]}"
     else
@@ -91,8 +92,12 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def right_phone(phone)
+    phone =~  /1[358]+\d[\d]{8}/
+  end
+
   def get_user
-    @user = User.find(params[:id])
+    @user = current_user.admins? ? User.find(params[:id]) : current_user
   end
   
 end

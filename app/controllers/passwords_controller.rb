@@ -2,7 +2,7 @@
 class PasswordsController < Devise::PasswordsController
   
   def create
-    render text: 'send sms'
+    render_alert 'send sms'
   end
 
 end
