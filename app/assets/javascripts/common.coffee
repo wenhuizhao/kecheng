@@ -5,6 +5,12 @@ $(document).ready ->
   window.App =
     grade: 'g1'
     cls: 'c1'
+  
+  $('#homework_sta').click ->
+    redirect_to '/statistics/teacher/' + $('#homework_sta').attr('data-id')
+
+  $('#message_sta').click ->
+    redirect_to '/statistics/teacher/' + $('#homework_sta').attr('data-id') + '/messages'
 
   if $('.messages').find('.actions').find('a').length is 1
     $('.actions').css

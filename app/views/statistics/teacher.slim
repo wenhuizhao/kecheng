@@ -16,15 +16,21 @@
               .student class='#{'active' if @grades_course.id == c.id}'
                 span.stitle.fs24 style="width: 200px;margin: 12px 0 0 -8px" = c.full_name
       .check-right.tea
-        - going_hs, closed_hs = @grades_course.unfinished_homeworks, @grades_course.finished_homeworks
-        - if going_hs.size > 0
-          .lesson-content: .area
-            .htitle 进行中的作业
-            = render partial: 'h', locals: {homeworks: going_hs}
-        - if closed_hs.size > 0
-          .lesson-content: .area
-            .htitle 已完成的作业
-            = render partial: 'h', locals: {homeworks: closed_hs}
+        .ltitle-block
+          #homework_sta.ltitle.btn class="#{params[:messages] ? '' : 'active'}" data-id='#{@teacher.id}' 作 业
+          #message_sta.ltitle.btn class="#{params[:messages] ? 'active' : ''}" 消 息
+        - if params[:messages]
+          = render 'messages'
+        - else
+          - going_hs, closed_hs = @grades_course.unfinished_homeworks, @grades_course.finished_homeworks
+          - if going_hs.size > 0
+            .lesson-content: .area style="margin-top: 20px"
+              .htitle 进行中的作业
+              = render partial: 'h', locals: {homeworks: going_hs}
+          - if closed_hs.size > 0
+            .lesson-content: .area
+              .htitle 已完成的作业
+              = render partial: 'h', locals: {homeworks: closed_hs}
 
 javascript:
   $(document).ready(function() {

@@ -36,8 +36,6 @@ header
     font-size: $font-size-large
   a
     margin: 0 0 0 10px
-.course-toggle-title
-  cursor: pointer 
  
 #content
   padding-top: 2px
@@ -119,7 +117,6 @@ header
   position: absolute
   .area
     @include area
-    cursor: pointer
     margin: 0 0 28px 25px
     a
       margin: 60px 0 10px
@@ -246,9 +243,12 @@ header
     float: left
   .descs
     clear: both
-    margin-left: 45px
     // float: left
     padding: 54px 0
+    &.sta
+      width: 600px
+      margin: 0
+    margin-left: 45px
     width: 834px
     .desc 
       padding: 30px 52px
@@ -256,6 +256,10 @@ header
       color: #848484
       font-weight: bold
       background: white
+      &.sta
+        border: 1px solid #ccc
+        border-bottom: 2px #999 solid
+
       border-bottom: 1px #999 solid
       margin-bottom: 44px
       .area 
@@ -414,6 +418,7 @@ header
   &.tea
     padding: 0
     margin: -32px 0 0 20px
+    width: 230px
   .students
     margin: 43px 0 0 15px
     .student
@@ -422,7 +427,6 @@ header
       padding: 5px 0 0 50px
       height: 55px
       color: $input-font-color
-      cursor: pointer
       &.active
         background: $blue
         color: white
@@ -431,6 +435,21 @@ header
         height: 47px
 .check-left, .check-right, .user-left, .user-right
   display: inline-block
+.check-right
+  &.tea
+    width: 652px
+    .ltitle-block
+      border-bottom: 2px solid #ddd
+      .ltitle
+        &.active
+          background: $blue
+          color: white
+        background: white
+        color: #999
+        border: none
+        height: 35px
+        padding-top: 10px
+        margin: 10px 0 0 0
 
 .user-left
   .students

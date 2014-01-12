@@ -1,0 +1,9 @@
+.descs.sta
+  - @messages.each_with_index do |m, i|
+    .desc.sta
+      - m.with_children.each_with_index do |m, i|
+        .parent.block 
+          = m.sender.name + m.sender.role_name + ': ' 
+          = m.content
+          .date = into_datetime m.updated_at
+         

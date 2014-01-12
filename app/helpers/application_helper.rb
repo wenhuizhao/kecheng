@@ -124,7 +124,7 @@ module ApplicationHelper
            series: [{
              type: 'pie',
              name: '" + options[:title] + "',
-             innerSize: '80%',
+             innerSize: '90%',
              data: #{options[:data]}
            }]
          });"
