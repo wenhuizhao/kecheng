@@ -60,6 +60,10 @@ module ApplicationHelper
       to_percent(day_un_homeworks.size, total.size, true)
     end
   end
+  
+  def red_content(words, opts = {})
+    content_tag :span, words, {class: 'red', style: "font-weight: bold;"}.merge(opts)
+  end
 
   def include_chart_js
     javascript_include_tag 'highcharts','exporting'

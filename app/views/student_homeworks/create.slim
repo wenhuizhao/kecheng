@@ -1,0 +1,14 @@
+.lists
+  .main-descs.star
+    .main-desc.star.create
+      .inline style='font-size: 18px;'
+        - if current_user.is_teacher?
+          |作业批阅成功!
+        - else
+          - if @student_homework.first_submit?
+            |你是
+            = red_content('第一个', style: 'font-size: 22px;')
+            |提交作业的学生，请等待老师的批阅结果!
+          - else 
+            |作业提交成功！请等待老师的批阅结果!
+      .sure = link_to '确定', root_path, class: 'btn-big'

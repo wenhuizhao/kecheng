@@ -1,13 +1,13 @@
 <div>
-  书名: <%=@exercise.book.name if @exercise.book%>,
-  章节: <%=@exercise.section.name if @exercise.section%><br/>
+  书名: <%= @exercise.book.name if @exercise.book %>,
+  章节: <%= @exercise.section.name if @exercise.section %><br/>
 </div>
 <div>
 
   <div id="title_wrapper">
     <div id="title_html">
-    <%=simple_format @exercise.exercise_text.content if @exercise.exercise_text%>
-    <%=simple_format (@exercise.title) %>
+    <%= simple_format @exercise.exercise_text.content if @exercise.exercise_text %>
+    <%= simple_format (@exercise.title) %>
     </div>
     <div id="title_canvas" >
       <div id="canvasContainer" style="display:inline-block">
@@ -30,15 +30,15 @@
   <div>
     <% if @exercise.is_multi_choice? %>
         <% @exercise.options.each_with_index do |o, i| %>
-            (<%=ExerciseOption::OPTION_NUM[i]%>)<%=o.name%>
+            (<%= ExerciseOption::OPTION_NUM[i]%>)<%= o.name %>
         <% end %>
     <% end %>
   </div>
-  <%=@exercise.note%>
+  <%= @exercise.note %>
 </div>
 <div>
   答案:
-  <%=simple_format (@exercise.answer) %>
+  <%= simple_format (@exercise.answer) %>
 </div>
 <p>
   <%= link_to '修改', edit_exercise_path(@exercise) %>
@@ -61,7 +61,7 @@
 
   var canvasEl;
   var imgInstance;
-  function updatePage(canvasTile){
+  function updatePage(){
       var img = Canvas2Image.saveAsPNG(canvasTitle, true);
       //$('#title_wrapper')[0].replaceChild(img, canvas);
       imgInstance = new fabric.Image(img, {
@@ -95,7 +95,7 @@
 
     saveEl.onclick = function() {
         $.ajax({
-            url: "<%=save_canvas_path(@exercise)%>",
+            url: "<%= save_canvas_path(@exercise) %>",
             type: "post",
             data: {
                 data: JSON.stringify(canvas)
@@ -104,7 +104,7 @@
     }
     loadEl.onclick = function() {
         var str;
-        $.get("<%=load_canvas_path(@exercise)%>", function(data, textStatus) {
+        $.get("<%= load_canvas_path(@exercise) %>", function(data, textStatus) {
             canvas.loadFromJSON(data, canvas.renderAll.bind(canvas));
         });
     }
