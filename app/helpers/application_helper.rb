@@ -80,10 +80,7 @@ module ApplicationHelper
             xAxis: {
               categories: #{options[:categories]}
             },
-            yAxis: {
-              min: 0,
-              max: 100
-            },
+            #{y_label},
             series: [{
               name: '#{options[:time_str]}',
               data: #{options[:percents]}
@@ -98,13 +95,26 @@ module ApplicationHelper
             xAxis: {
               categories: #{options[:categories]}
             },
-            yAxis: {
-              min: 0,
-              max: 100
-            },
+            #{y_label}
+            ,
             series: #{options[:data]}
           });"
     chart(js)
+  end
+
+  def y_label
+    "yAxis: {
+        min: 0,
+        max: 100,
+        title: {
+            text: 'Temperature'
+        },
+        labels: {
+            formatter: function() {
+                return this.value +'%'
+            }
+        }
+      }"
   end
 
   def pie_chart(obj, options = {})

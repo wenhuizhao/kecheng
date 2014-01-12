@@ -1,3 +1,4 @@
+- homework = @student_homework.homework
 .lists
   .main-descs.star
     .main-desc.star.create
@@ -11,4 +12,7 @@
             |提交作业的学生，请等待老师的批阅结果!
           - else 
             |作业提交成功！请等待老师的批阅结果!
-      .sure = link_to '确定', root_path, class: 'btn-big'
+      - if current_user.is_teacher?
+        .sure = link_to '确定', section_homework_path(homework.section, homework, grades_course_id: homework.grades_course.id), class: 'btn-big'
+      - else
+        .sure = link_to '确定', root_path, class: 'btn-big'
