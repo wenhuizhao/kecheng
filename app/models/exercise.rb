@@ -55,4 +55,14 @@ class Exercise < ActiveRecord::Base
     self.answer = Sanitize.clean(self.answer, :remove_contents => true, :transformers => transformer)
 
   end
+
+  def save_png(data)
+    png = Base64.decode64(data)
+    save_to_file(png)
+  end
+
+  def save_to_file(data, path = "#{Rails.root}/public/canvas")
+    Dir.mkdir(path, 0777) unless Dir.exist?(path)
+    File.open(path + "/#{id}.png", 'wb+'){ |f| f.write(data) }
+  end
 end

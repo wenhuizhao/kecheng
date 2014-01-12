@@ -124,6 +124,7 @@ class ExercisesController < ApplicationController
 
   def save_canvas
     @exercise = Exercise.find(params[:id])
+    # @exercise.save_png(JSON.parse(params[:data])["objects"][0]["src"].gsub('data:image/png;base64,',''))
     @exercise.extra = params[:data]
     @exercise.save
   end

@@ -94,12 +94,11 @@
     };
 
     saveEl.onclick = function() {
-        var str = JSON.stringify(canvas);
         $.ajax({
             url: "<%=save_canvas_path(@exercise)%>",
             type: "post",
             data: {
-                data: str
+                data: JSON.stringify(canvas)
             }
         });
     }
