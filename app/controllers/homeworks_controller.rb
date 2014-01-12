@@ -46,6 +46,11 @@ class HomeworksController < ApplicationController
 
   def create
     @homework = @section.homeworks.new(params[:homework])
+    begin
+      @homework.end_time = Time.parse(params[:homework][:end_time].scan(/[\d]+/).join)
+    rescue
+     return render_alert '时间格式不正确!'
+    end
     @homework.num = @section.course_homeworks(@grades_course).size + 1
     if @homework.save
       redirect_to grades_course_path(@grades_course)
