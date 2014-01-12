@@ -2,13 +2,12 @@
   = link_to_home
   .title 班级设置
   .main-descs.star: .main-desc.star
-    - unless current_user.need_select_grade?
-      css:
-        .main-descs .main-desc {padding: 100px 50px 30px 50px}
-      - if current_user.grade and !params[:edit]
-        = "班级设置成功,#{current_user.grade_stu.grade.full_name}!"
-      - elsif current_user.grade_stu && !current_user.grade_accept?
-        = "您已经将班级设置为#{current_user.grade_stu.grade.full_name},请等待该班老师的审批!"
+    - if current_user.need_select_grade?
+    - if current_user.grade and !params[:edit]
+      = "班级设置成功,#{current_user.grade_stu.grade.full_name}!"
+      .sure = link_to '确定', root_path, class: 'btn-big'
+    - elsif current_user.grade_stu && !current_user.grade_accept?
+      = "您已经将班级设置为#{current_user.grade_stu.grade.full_name},请等待该班老师的审批!"
       .sure = link_to '确定', root_path, class: 'btn-big'
     - else
       .alert.red = flash[:notice]

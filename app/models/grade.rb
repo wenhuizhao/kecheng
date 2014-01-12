@@ -12,6 +12,7 @@ class Grade < ActiveRecord::Base
   has_many :homeworks, through: :grades_courses
   validates :grade_num, :class_num,:school_id, presence: true
   belongs_to :school
+  belongs_to :period
   # scope :history_of, -> (user) {all}
   
   include Mgrade::Homeworks

@@ -9,9 +9,8 @@
         .descs
           - @grades.each do |m|
             .desc
-              = m.period
-              |      
-              = m.full_name
+              .inline = m.period.full_name
+              .grade-status.inline = m.full_name      
       - else
         .title = current_user.grade.full_name
         .main-descs

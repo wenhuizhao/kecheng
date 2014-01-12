@@ -1,14 +1,15 @@
 @import variables
 @import compass/css3
 
-.btn, input[type=submit]
+.btn, input[type=submit], .btn-big
   @include btn(24px, rgb(179, 221, 108), 1px)
   padding: 3px
   width: 170px
   display: inline-block
-input[type=submit]
+input[type=submit], .btn-big
   height: 40px
-
+.btn-big
+  padding: 10px 0 0 0
 body
   background: rgb(253,243,240)
 
@@ -102,6 +103,9 @@ header
     &.inline
       margin: 0 0 0 400px
       color: $input-font-color-light
+.grade-status
+  margin: 0 0 0 300px
+  color: $blue
 
 .messages
   margin: 50px
