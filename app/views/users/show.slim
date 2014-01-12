@@ -11,14 +11,29 @@
             span.stitle.fs24  修改密码
       .user-right
         .block 
-          table.common
-            tr
-              td.w100 姓名 
-              td = current_user.real_name
-            tr
-              td 学校
-              td = current_user.school_name
-            tr
-              td 角色
-              td = current_user.role_name
-          
+          = form_tag action: :update
+            table.common
+              tr
+                td.text-right 用户名
+                td = current_user.login
+              tr
+                td.text-right 真实姓名
+                td = text_field :user, :real_name, value: current_user.real_name
+              tr
+                td.text-right 性别
+                td 
+                  .genders
+                    = radio_button :user, :gender, value: '男', class: 'radio'
+                    span.male 男
+                    = radio_button :user, :gender, value: '女', class: 'radio'
+                    span 女
+              tr
+                td.text-right 手机号码
+                td = text_field :user, :phone, value: current_user.phone
+            .block style="margin: 30px 0 0 200px"
+              = hidden_field_tag :profile, true
+              = submit_tag "保存修改"
+              = link_to root_path, class: 'btn cancle', style: 'background: #b3dd6c'
+                span 取消
+
+            
