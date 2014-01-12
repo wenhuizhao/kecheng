@@ -124,8 +124,7 @@ class ExercisesController < ApplicationController
 
   def save_canvas
     @exercise = Exercise.find(params[:id])
-    @exercise.extra = params[:data]
-    @exercise.save
+    @exercise.update_column(:extra, params[:data])
   end
   
   def load_canvas
