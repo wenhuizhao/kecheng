@@ -12,8 +12,8 @@ table
   - @exercises.each do |exercise|
     tr
       td = exercise.id
-      td = truncate(exercise.title, :length=>40).html_safe
-      td = truncate(exercise.answer, :length=>40).html_safe
+      td = truncate(Sanitize.clean(exercise.title), :length=>40).html_safe
+      td = truncate(Sanitize.clean(exercise.answer), :length=>40).html_safe
       td = link_to '|查看', exercise
       td = link_to '|修改', edit_exercise_path(exercise)
       td = link_to '|删除', exercise, :confirm => 'Are you sure?', :method => :delete
