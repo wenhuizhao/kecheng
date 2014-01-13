@@ -2,44 +2,7 @@
   书名: <%=@exercise.book.name if @exercise.book%>,
   章节: <%=@exercise.section.name if @exercise.section%><br/>
 </div>
-<div>
-
-  <div id="title_wrapper">
-    <div id="title_html">
-    <%= simple_format @exercise.exercise_text.content if @exercise.exercise_text %>
-    <%= simple_format (@exercise.title) %>
-    </div>
-    <div id="title_canvas" >
-      <div id="canvasContainer" style="display:inline-block">
-        <canvas id="canvas" width="600" height="400"></canvas>
-      </div>
-      <div id="toolBox"style="display: inline-block; margin-left: 10px; vertical-align: top;">
-        <button id="clearCanvas" >清除</button>
-        <button id="saveCanvas" >保存</button>
-        <button id="loadCanvas" >打开</button><br/>
-        <label for="drawing-line-width">线宽:</label>
-        <span class="info">1</span><input type="range" value="1" min="0" max="20" id="drawing-line-width"><br>
-
-        <label for="drawing-color">线颜色:</label>
-        <input type="color" value="#005E7A" id="drawing-color"><br>
-
-      </div>
-    </div>
-    <canvas id="canvasTitle" width="600" height="400"></canvas>
-  </div>
-  <div>
-    <% if @exercise.is_multi_choice? %>
-        <% @exercise.options.each_with_index do |o, i| %>
-            (<%= ExerciseOption::OPTION_NUM[i]%>)<%= o.name %>
-        <% end %>
-    <% end %>
-  </div>
-  <%= @exercise.note %>
-</div>
-<div>
-  答案:
-  <%= simple_format (@exercise.answer) %>
-</div>
+<%= render partial: 'answer', locals: {exercise: @exercise, answer: false} %>
 <p>
   <%= link_to '修改', edit_exercise_path(@exercise) %>
   |
@@ -47,59 +10,5 @@
   |
   <%= link_to '返回列表', section_exercises_path(@exercise.section) %>
 </p>
-
-
-  var canvasEl;
-  var imgInstance;
-  function updatePage(){
-      var img = Canvas2Image.saveAsPNG(canvasTitle, true);
-      //$('#title_wrapper')[0].replaceChild(img, canvas);
-      imgInstance = new fabric.Image(img, {
-          left:0,
-          top:0
-      });
-      $('#title_wrapper')[0].removeChild(canvasTitle);
-      $('#title_wrapper')[0].removeChild($('#title_html')[0]);
-      canvas.add(imgInstance);
-
-
-  };
-  var canvas;
-  function updateCanvas() {
-    canvas = new fabric.Canvas('canvas', {isDrawingMode: true});
-    var clearEl = $('#clearCanvas')[0];
-    var saveEl = $('#saveCanvas')[0];
-    var loadEl = $('#loadCanvas')[0];
-    var drawingColorEl = $('#drawing-color')[0];
-    var drawingLineWidthEl = $('#drawing-line-width')[0];
-
-
-    clearEl.onclick = function() { canvas.clear();canvas.add(imgInstance); };
-    drawingColorEl.onchange = function() {
-        canvas.freeDrawingBrush.color = this.value;
-    };
-    drawingLineWidthEl.onchange = function() {
-        canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
-        this.previousSibling.innerHTML = this.value;
-    };
-
-    saveEl.onclick = function() {
-        $.ajax({
-            url: "<%= save_canvas_path(@exercise) %>",
-            type: "post",
-            data: {
-                data: JSON.stringify(canvas)
-            }
-        });
-    }
-    loadEl.onclick = function() {
-        var str;
-        $.get("<%= load_canvas_path(@exercise) %>", function(data, textStatus) {
-            canvas.loadFromJSON(data, canvas.renderAll.bind(canvas));
-        });
-    }
-  }
-
-</script>
 
 

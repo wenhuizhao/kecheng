@@ -66,7 +66,8 @@ module Kecheng
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.assets.precompile += ['highcharts.js', 'login.js', 'login.css', 'after-login.css', 'normalize.css', 'fabric.js', 'exporting.js']
+    config.assets.precompile += ['highcharts.js', 'login.js', 'login.css', 'after-login.css', 'normalize.css', 'fabric.js', 'exporting.js',
+                                 'html2canvas.js', 'canvas2image.js', 'base64.js']
 
   # don't generate RSpec tests for views and helpers
   config.generators do |g|
