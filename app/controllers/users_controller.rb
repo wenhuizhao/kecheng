@@ -66,9 +66,10 @@ class UsersController < ApplicationController
   end
 
   def forget_password
-    return unless params[:mobile]
-    user = User.where(phone: params[:mobile])[0]
-    return render text: "无此用户" if !user
+    return render_alert '清填写联系方式' unless params[:phone].presence
+    user = User.where(phone: params[:phone])[0]
+    return render_alert '验证码不正确' if session[:auth_code] != params[:auth_code]
+    return render_alert "无此用户" if !user
     update_pass(user)
   end
 
