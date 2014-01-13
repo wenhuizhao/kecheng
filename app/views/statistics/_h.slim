@@ -5,7 +5,7 @@
       = link_to h.short_name, show_path
       .clear
       .chart-small.fleft id='#{h.id}'
-      = pie_chart h, title: '', data: h.to_chart
+      = pie_chart h, title: '', data: h.to_chart(false)
       .cdesc.fleft
         - Homework::ChartColors.each do |title, color|
           .c

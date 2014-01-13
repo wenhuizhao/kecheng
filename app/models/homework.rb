@@ -46,13 +46,13 @@ class Homework < ActiveRecord::Base
                  '良' => 'rgb(113, 202, 94)', 
                  '中' => 'rgb(226, 36, 62)', 
                  '差' => 'rgb(119, 137, 235)'}
-  def to_chart
+  def to_chart(percents = true)
     total = grades_course.students.size
     us = unsubmit_students.size
     (Settings.homework_levels.map{|h| 
       l = student_homeworks.where(level: h).size
-      {y: l, name: to_percent(l, total), color: ChartColors[h]}} +
-    [{y: us, name: to_percent(us, total), color: 'rgb(231, 151, 220)'}]).to_json
+      {y: l, name: (percents ? to_percent(l, total) : l), color: ChartColors[h]}} +
+    [{y: us, name: (percents ? to_percent(us, total) : us), color: 'rgb(231, 151, 220)'}]).to_json
   end
   include Tool::Percent
 end
