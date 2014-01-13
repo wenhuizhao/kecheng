@@ -4,6 +4,8 @@
     .student style="#{grades_page ? 'width: 300px;' : ''}"
       - if action_name == 'students' && current_user.is_teacher?
         = link_to image_tag(avatar_path(s), class: 'savatar'), student_grades_course_path(@grades_course, student_id: s.id)
+        .delete 
+          = link_to "删除", delete_student_grades_course_path(@grades_course, student_id: s.id)
       - else
         = image_tag avatar_path(s), class: 'savatar'
       - if grades_page

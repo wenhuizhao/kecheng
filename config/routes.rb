@@ -69,6 +69,7 @@ Kecheng::Application.routes.draw do
     member do
       get :student
       get :students
+      get :delete_student
     end
     resources :lessons do
       resources :homeworks

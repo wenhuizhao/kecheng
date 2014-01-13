@@ -63,7 +63,7 @@ class GradesCoursesController < ApplicationController
 
   def create
     @grades_course = GradesCourse.new(params[:grades_course])
-    return render action: 'new' if GradesCourse.where(period_id: current_period.id, grade_id: @grade.id, course_id: @grades_course.course_id, is_accept: true).size > 0
+    # return render action: 'new' if GradesCourse.where(period_id: current_period.id, grade_id: @grade.id, course_id: @grades_course.course_id, is_accept: true).size > 0
     @grades_course.teacher_id = current_user.id
     @grades_course.grade_id = @grade.id
     if @grades_course.save
@@ -85,6 +85,11 @@ class GradesCoursesController < ApplicationController
   def student
     @student = User.find(params[:student_id])
     @sections = @grades_course.sections
+  end
+
+  def delete_student
+    GradeStudent.where(grade_id: @grades_course.grade_id, student_id: params[:student_id]).delete_all
+    redirect_to students_grades_course_path
   end
   
   private

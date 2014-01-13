@@ -123,7 +123,7 @@ module ApplicationHelper
              pie: {
                  dataLabels: {
                      enabled: true,
-                     distance: -15,
+                     distance: -10,
                      style: {
                          fontWeight: 'bold',
                          color: 'white',

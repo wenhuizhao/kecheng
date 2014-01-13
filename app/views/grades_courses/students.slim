@@ -8,3 +8,11 @@
     .students style="border: none"
       .send-message = link_to '群发消息', new_message_path(grade_id: @grades_course.grade.id), class: 'btn'
       = render partial: 'shared/heads', locals: {users: @grades_course.students}
+
+- if current_user.is_teacher?
+  javascript:
+    $('.student').hover(function() {
+      $(this).find('.delete').toggle();
+    });
+        
+      
