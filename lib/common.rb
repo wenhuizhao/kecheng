@@ -4,6 +4,6 @@ module Common
   end
 
   def substr(s, len = 15)
-  	s.size > len ? s[0,len] + '...' : s
+    s.size > len ? s[0,len] + '...' : s
   end
 end

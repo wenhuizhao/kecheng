@@ -28,7 +28,6 @@ class Exercise < ActiveRecord::Base
     qtype and qtype.name == "问答题"
   end
 
-
   def clean_content
     transformer = lambda do |env|
       node = env[:node]

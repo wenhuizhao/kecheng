@@ -9,7 +9,7 @@
       - @grades_course.sections.each_with_index do |lesson, i|
         .lesson
           .line-node
-          .ltitle = "第#{i + 1}课 #{substr lesson.name}"
+          .ltitle = lesson.name
           .lesson-content style="width: 800px;padding: 20px 0"
             .area
               - hs = lesson.course_homeworks(@grades_course)
