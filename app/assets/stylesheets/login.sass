@@ -11,7 +11,7 @@ body
   // background: $main-color
   background: rgb(0,230,202)
 
-.sessions, .registrations
+.sessions, .registrations, .users
   height: $login-height
   z-index: 0
   margin: 0 0 0 -400px
@@ -19,7 +19,7 @@ body
   //   margin: 0 0 0 -500px
   //   height: 526px
 
-.sessions
+.sessions, .users
   background: url('login-bg0.jpg')
   background-size: 110% 100%
 
@@ -73,6 +73,55 @@ h2
   a
     span
       display: block
+
+#forget-form
+  text-align: center
+  width: 475px
+  height: 738px - 128px
+  padding-top: 128px
+  margin: -595px auto
+  background: url($forget-password-box)
+  table
+    margin: 30px 0 0 35px
+    td
+      .inline
+        margin: 15px 0 0 0
+        #auth_code
+          margin: 0
+        // .send-code, #auth_code
+        //   display: inline-block
+        .send-code
+          display: block
+          float: right
+          // margin: -70px 0
+          color: $input-font-color
+          width: 188px
+          padding-top: 22px
+          height: 48px
+          font-size: 26px
+          @include border-radius(2px)
+          border: 1px solid #ddd
+          background: white
+          cursor: pointer
+    input[type=text], input[type=password]
+      @include input(26px)
+      width: 386px
+      height: 74px
+      margin: 15px 0 0 0
+      &#auth_code
+        width: 186px
+        height: 69px
+        float: left
+  .btns
+    margin: 52px 0 0 35px
+  .btn-login
+    @include btn(36px)
+    height: 78px
+    width: 405px
+    span
+      margin: 10px 0 0 0 
+  .btn-login:hover
+    background: $main-color-hover
 
 #login-form
   text-align: center

@@ -87,6 +87,7 @@ Kecheng::Application.routes.draw do
   resources :users do
     collection do
       post :create_user_from_admin
+      match :forget_password
     end
     member do
       match :reset_password
