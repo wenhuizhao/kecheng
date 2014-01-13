@@ -21,13 +21,17 @@ class Homework < ActiveRecord::Base
   def of_user(user)
     student_homeworks.select{|sh| sh.student_id == user.id}.last
   end
-  
+   
+  def section_num_str
+    '第' + section.num.to_s + '课'
+  end
+ 
   def short_name
-    grades_course.course_name + '第' + section.num.to_s + '课作业' + num.to_s
+    grades_course.course_name + '作业' + num.to_s
   end
 
   def full_name
-    grades_course.try(:full_name).to_s + '第' + section.num.to_s + '课作业' + num.to_s
+    grades_course.try(:full_name).to_s + '作业' + num.to_s
   end
 
   def close!
