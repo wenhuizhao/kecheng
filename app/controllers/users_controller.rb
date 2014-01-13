@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     return render_alert('手机号码不正确') if params['user']['phone'].presence && !right_phone(params['user']['phone'])
     if @user.update_attributes(params[:user])
       @user.update_attribute(:role_id, nil) if current_user.is_admin? && current_user.id == @user.id
-      GradeStudent.update_from_admin(params[:grade_id], @user.id) if @user.is_student?
+      GradeStudent.update_from_admin(params[:grade_id], @user.id) if params[:grade_id] && @user.is_student?
       re_to_path
     else
       render action: 'edit'
