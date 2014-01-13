@@ -15,7 +15,10 @@ body
 table.common
   td
     padding: 15px
-    input[type=password]
+    input[type=radio]
+      width: 30px
+      height: 20px
+    input
       width: 237px
       height: 47px
       font-size: 24px
@@ -75,15 +78,15 @@ a
       float: left
       margin: 0 0 0 15px
       display: inline-block
-    .icon 
+    .icon
       height: 63px
       width: 60px
       background: url('/assets/select-bg.png')
       float: right
       margin: -18px 0
-    // &:hover, &.hover
-    //   background: black
-    //   color: white
+    &.opt:hover, &.hover
+      background: $blue
+      color: white
 .small
   width: 100px
 
@@ -139,6 +142,16 @@ ul
 
 .cursor, .ltitle, .student, .course-toggle-title, .areas .area
   cursor: pointer
+
+.text-right
+  text-align: right
+  
+.center, .text-center
+  text-align: center
+
+.homeworks, .list-big
+  a
+    color: $input-font-color
 
 table.questions
   margin: 30px 0

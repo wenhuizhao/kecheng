@@ -60,6 +60,10 @@ module ApplicationHelper
       to_percent(day_un_homeworks.size, total.size, true)
     end
   end
+  
+  def red_content(words, opts = {})
+    content_tag :span, words, {class: 'red', style: "font-weight: bold;"}.merge(opts)
+  end
 
   def include_chart_js
     javascript_include_tag 'highcharts','exporting'
@@ -76,10 +80,7 @@ module ApplicationHelper
             xAxis: {
               categories: #{options[:categories]}
             },
-            yAxis: {
-              min: 0,
-              max: 100
-            },
+            #{y_label},
             series: [{
               name: '#{options[:time_str]}',
               data: #{options[:percents]}
@@ -94,13 +95,26 @@ module ApplicationHelper
             xAxis: {
               categories: #{options[:categories]}
             },
-            yAxis: {
-              min: 0,
-              max: 100
-            },
+            #{y_label}
+            ,
             series: #{options[:data]}
           });"
     chart(js)
+  end
+
+  def y_label
+    "yAxis: {
+        min: 0,
+        max: 100,
+        title: {
+            text: 'Temperature'
+        },
+        labels: {
+            formatter: function() {
+                return this.value +'%'
+            }
+        }
+      }"
   end
 
   def pie_chart(obj, options = {})

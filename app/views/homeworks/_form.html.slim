@@ -18,8 +18,10 @@
           tr: td: .mb5 作业附加信息
           tr: td = f.text_area :enjoin, rows: 10, cols: 70, placeholder: '内容请写在这里……', id: 'enjoin'
           tr: td 
-            .submit-time.inline.mt15 提交时间
-            = f.datetime_select :end_time, use_month_numbers: true, order: [:year, :month, :day]
+            .submit-time.inline.mt15 
+              |提交时间：
+              = f.text_field :end_time, value: Time.now.strftime("%Y年%m月%d日 %H:%M")
+            / = f.datetime_select :end_time, use_month_numbers: true, order: [:year, :month, :day]
         = hidden_field_tag :grades_course_id, @grades_course.id
         = f.hidden_field :grades_course_id, value: @grades_course.id
         = f.hidden_field :num, value: @section.course_homeworks(@grades_course).size + 1 if action_name == 'new'

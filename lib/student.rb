@@ -21,6 +21,10 @@ module Student
     grade_stu.try :is_accept
   end
 
+  def need_select_grade?
+    !grade && (!grade_stu || grade_accept?)
+  end
+
   def approved_grades
     Grade.joins(:grade_students).where("grades.period_id = #{current_period.id} and grade_students.is_accept = 1 and grade_students.student_id = #{self.id}")
   end

@@ -1,7 +1,8 @@
 - homeworks.each do |h|
+  - show_path = section_homework_path(h.section, h, grades_course_id: h.grades_course_id, teacher_id: @teacher.id)
   .harea
     .homeworks
-      = h.short_name
+      = link_to h.short_name, show_path
       .clear
       .chart-small.fleft id='#{h.id}'
       = pie_chart h, title: '', data: h.to_chart

@@ -33,7 +33,7 @@ class GradesCoursesController < ApplicationController
     return unless request.post?
     return if params[:grade_num].empty?
     get_grade
-    return  flash[:notice] = '班级不存在' if @grade.nil?
+    return  if @grade.nil?
     gs = GradeStudent.where(student_id: current_user.id, grade_id: @grade.id).first
     if @grade and !gs
       GradeStudent.create(student_id: current_user.id, grade_id: @grade.id)
@@ -101,6 +101,6 @@ class GradesCoursesController < ApplicationController
   
   def get_grades_course
     @grades_course = GradesCourse.find(params[:id])
-    return render text: '无权限' if current_user.is_teacher? && @grades_course.teacher_id != current_user.id
+    return render_alert '无权限' if current_user.is_teacher? && @grades_course.teacher_id != current_user.id
   end
 end

@@ -6,11 +6,14 @@ $(document).ready ->
     grade: 'g1'
     cls: 'c1'
   
+  id_params = $('#homework_sta').attr('data-id')
+  gids = '?grades_course_id=' + $('#homework_sta').attr('g-id')
+  id_params_with_gid = id_params + gids
   $('#homework_sta').click ->
-    redirect_to '/statistics/teacher/' + $('#homework_sta').attr('data-id')
+    redirect_to '/statistics/teacher/' + id_params_with_gid
 
   $('#message_sta').click ->
-    redirect_to '/statistics/teacher/' + $('#homework_sta').attr('data-id') + '/messages'
+    redirect_to '/statistics/teacher/' + id_params + '/messages' + gids
 
   if $('.messages').find('.actions').find('a').length is 1
     $('.actions').css

@@ -1,21 +1,17 @@
 = form_for @student_homework do |f|
-  table.homework
+  css:
+    #content table.list-big tr td {border: none;}
+  table.homework.list-big
     - @homework.exercises.each do |hwq|
       tr
-        td = hwq.note
-        td
-          - if !hwq.photo_file_name.nil?
-            = image_tag hwq.photo.url, {id: "photo"}
-        td 
-          = '批阅'
-    tr
-      td 作业评级
-      td
-        .levels
-          - Settings.homework_levels.each do |l|
-            .level 
-              = f.radio_button :level, l
-              span = l
+        td = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
+    tr: td 作业评级
+    tr: td
+      .levels
+        - Settings.homework_levels.each do |l|
+          .level 
+            = f.radio_button :level, l
+            span = l
 
   = f.hidden_field :homework_id, value: @homework.id
   = hidden_field_tag :status, params[:status]

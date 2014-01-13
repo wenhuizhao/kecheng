@@ -30,4 +30,8 @@ class StudentHomework < ActiveRecord::Base
   def all_right?
     false
   end
+
+  def first_submit?
+    homework.student_homeworks[0] == self
+  end
 end

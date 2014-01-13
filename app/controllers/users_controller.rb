@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   
   before_filter :authenticate_user!, except: [:set_auth_code]
-  before_filter :require_admin, except: [:reset_password, :show, :set_auth_code]
+  before_filter :require_admin, except: [:reset_password, :show, :set_auth_code, :update]
   before_filter :get_user, except: [:index, :create_user_from_admin, :new, :set_auth_code]
   
   def index
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    return render text: '无此权限' if @user != current_user
+    return render_alert '无此权限' if @user != current_user && !current_user.admins?
   end
 
   def edit
@@ -39,10 +39,11 @@ class UsersController < ApplicationController
   end
 
   def update
+    return render_alert('手机号码不正确') if params['user']['phone'].presence && !right_phone(params['user']['phone'])
     if @user.update_attributes(params[:user])
       @user.update_attribute(:role_id, nil) if current_user.is_admin? && current_user.id == @user.id
       GradeStudent.update_from_admin(params[:grade_id], @user.id) if @user.is_student?
-      redirect_to users_path
+      re_to_path
     else
       render action: 'edit'
     end
@@ -53,30 +54,30 @@ class UsersController < ApplicationController
     if @user.save
       GradeStudent.build_from_admin(params[:grade_id], @user.id) if @user.is_student?
       @user.update_attribute(:school_id, current_user.school_id) if current_user.is_admin_xld? && !@user.is_admin_jyj?
-      redirect_to users_path
+      re_to_path
     else
       render action: 'new'
     end
   end
   
   def reset_password
-    return render text: '无此权限' if @user != current_user
+    return render_alert '无此权限' if @user != current_user
     if request.post?
-      return render text: '两次密码输入不一致' if params[:password_confirmation] != params[:password]
+      return render_alert '两次密码输入不一致' if params[:password_confirmation] != params[:password]
       current_user.password = params[:password]
       current_user.save
-      flash[:notice] = '修改成功'
+      render_alert '修改成功,请重新登录！'
     end
   end
 
   def destroy
     @user.destroy
-    redirect_to users_path
+    re_to_path
   end
   
   def set_auth_code
     session[:auth_code] = random_num
-    if params[:mobile] =~ /1[358]+\d[\d]{8}/
+    if right_phone(params[:mobile])
       send_sms mobile: params[:mobile], content: "验证码：#{session[:auth_code]}"
       render text: "验证码已发送至#{params[:mobile]}"
     else
@@ -85,9 +86,18 @@ class UsersController < ApplicationController
   end
 
   private
+  
+  def re_to_path
+    return redirect_to current_user if params[:profile]
+    redirect_to users_path
+  end
+
+  def right_phone(phone)
+    phone =~  /1[358]+\d[\d]{8}/
+  end
 
   def get_user
-    @user = User.find(params[:id])
+    @user = current_user.admins? ? User.find(params[:id]) : current_user
   end
   
 end

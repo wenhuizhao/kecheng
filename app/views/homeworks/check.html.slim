@@ -16,7 +16,7 @@
                 .student class='#{'active' if @student_homework.student_id == s.id}'
                   = image_tag avatar_path(s), class: 'savatar'
                   span.stitle.fs24 = s.real_name
-        .check-right
+        .check-right style="width: 600px;"
           .block 
             = "作业题目(#{@student_homework.homework.exercises.size})"
           = render 'show_form'
