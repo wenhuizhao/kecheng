@@ -1,13 +1,17 @@
 
 .areas
   - udhs = current_user.undo_homeworks.size
-  - if udhs > 0
-    .area.fenhong
+  .area.fenhong
+    - if udhs > 0
       = link_to "您要做的作业有#{udhs}份", wait_todo_homeworks_path(type: 'undo')
+    - else
+      = link_to "您没有需要做的作业", '' 
   - uhs = current_user.need_modify_homeworks.size
-    .area.caolv
+  .area.caolv
     - if uhs > 0
       = link_to "需要改错的作业有#{uhs}份", wait_todo_homeworks_path
+    - else
+      = link_to "您没有需要改错的作业", ""
   .area.tianlan
     = link_to (@messages.size == 0 ? '消息' : "您收到#{@messages.size}条信息"), messages_path
   - if current_user.selected_courses
