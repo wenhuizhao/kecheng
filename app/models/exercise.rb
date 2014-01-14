@@ -15,6 +15,7 @@ class Exercise < ActiveRecord::Base
   belongs_to :section
   has_many :upload_files
   before_save :clean_content
+  has_and_belongs_to_many :student_homeworks #, join_table: 'users_messages'
 
   def is_fill_blank?
     qtype and qtype.name == "填空题"

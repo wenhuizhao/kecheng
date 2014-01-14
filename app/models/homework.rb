@@ -41,6 +41,14 @@ class Homework < ActiveRecord::Base
   def closed?
     status == '1'
   end
+
+  def opt_ids
+    exercises.map{|e| e.options.map &:id}.flatten
+  end
+
+  def exercises_opted_ids
+    exercises.where(qtype_id: 2).map &:id
+  end
   
   ChartColors = {'优' => 'rgb(140, 225, 254)', 
                  '良' => 'rgb(113, 202, 94)', 

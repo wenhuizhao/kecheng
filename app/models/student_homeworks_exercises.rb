@@ -1,3 +1,3 @@
 class StudentHomeworksExercises < ActiveRecord::Base
-  attr_accessible :canvas, :exercise_id, :student_homework_id
+  attr_accessible :canvas, :exercise_id, :student_homework_id, :answer
 end

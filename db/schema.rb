@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140114102738) do
+ActiveRecord::Schema.define(:version => 20140114113502) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -295,7 +295,11 @@ ActiveRecord::Schema.define(:version => 20140114102738) do
     t.text     "canvas"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.text     "answer"
   end
+
+  add_index "student_homeworks_exercises", ["exercise_id"], :name => "index_student_homeworks_exercises_on_exercise_id"
+  add_index "student_homeworks_exercises", ["student_homework_id"], :name => "index_student_homeworks_exercises_on_student_homework_id"
 
   create_table "upload_files", :force => true do |t|
     t.string   "name"
