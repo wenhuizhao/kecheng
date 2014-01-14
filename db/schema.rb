@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20140107023505) do
-=======
-ActiveRecord::Schema.define(:version => 20140110101501) do
->>>>>>> 09a040ceabefab9c542ee582ee6c9a0be992beba
+ActiveRecord::Schema.define(:version => 20140114102738) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -79,8 +75,8 @@ ActiveRecord::Schema.define(:version => 20140110101501) do
     t.text     "title"
     t.text     "note"
     t.text     "answer"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -94,7 +90,7 @@ ActiveRecord::Schema.define(:version => 20140110101501) do
     t.string   "answerphoto_content_type"
     t.integer  "answerphoto_file_size"
     t.datetime "answerphoto_updated_at"
-    t.text     "extra"
+    t.text     "extra",                    :limit => 2147483647
   end
 
   create_table "exercises_homeworks", :id => false, :force => true do |t|
@@ -291,6 +287,14 @@ ActiveRecord::Schema.define(:version => 20140110101501) do
     t.string   "score"
     t.string   "level"
     t.string   "ask_note"
+  end
+
+  create_table "student_homeworks_exercises", :force => true do |t|
+    t.integer  "student_homework_id"
+    t.integer  "exercise_id"
+    t.text     "canvas"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "upload_files", :force => true do |t|

@@ -66,6 +66,7 @@ class UsersController < ApplicationController
   end
 
   def forget_password
+    return if request.get?
     return render_alert '清填写联系方式' unless params[:phone].presence
     user = User.where(phone: params[:phone])[0]
     return render_alert '验证码不正确' if session[:auth_code] != params[:auth_code]
