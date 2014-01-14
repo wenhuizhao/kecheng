@@ -13,7 +13,7 @@ p
   = @exercise_text.title
 p
   strong 内容:
-  = @exercise_text.content
+  = raw simple_format (@exercise_text.content)
 
 = link_to '修改', edit_exercise_text_path(@exercise_text)
 '|

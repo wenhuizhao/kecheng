@@ -9,10 +9,11 @@ class ExerciseText < ActiveRecord::Base
   def clean_content
     transformer = lambda do |env|
       node = env[:node]
+      return unless node.elem?
       node_name = env[:node_name]
       return if %w[o:p font pre style script meta].include? node_name
 
-      return if (node_name == "p" || node_name == "span" ) and node.content.empty? && node.children.empty?
+#      return if (node_name == "p" || node_name == "span" ) and node.content.empty? && node.children.empty?
 
       style = node.attribute("style")
       if !style.nil?
@@ -28,6 +29,6 @@ class ExerciseText < ActiveRecord::Base
       {:node_whitelist => [node]}
     end
 
-    self.content = Sanitize.clean(self.content, :remove_contents => true, :transformer => transformer)
+   # self.content = Sanitize.clean(self.content, :remove_contents => true, :transformer => transformer)
   end
 end
