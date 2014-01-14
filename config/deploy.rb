@@ -1,11 +1,15 @@
 # -*- encoding : utf-8 -*-
+require 'capistrano/ext/multistage'
+
+set :stages, ["staging", "production"]
+set :default_stage, "staging"
 set :application, 'kecheng'
 set :repository, 'git@github.com:wenhuizhao/kecheng.git'
 set :branch, "develop"
 set :ssh_options, {:forward_agent => true}
 default_run_options[:pty] = true
 
-set :deploy_to, '/var/www/kecheng'
+#set :deploy_to, '/var/www/kecheng'
 set :scm, :git
 set :use_sudo, false
 
@@ -16,10 +20,10 @@ set :deploy_via, :remote_cache
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "dev.bigsai.com"                          # Your HTTP server, Apache/etc
-role :app, "dev.bigsai.com"                          # This may be the same as your `Web` server
-role :db,  "dev.bigsai.com", :primary => true # This is where Rails migrations will run
-role :db,  "dev.bigsai.com"
+#role :web, "dev.bigsai.com"                          # Your HTTP server, Apache/etc
+#role :app, "dev.bigsai.com"                          # This may be the same as your `Web` server
+#role :db,  "dev.bigsai.com", :primary => true # This is where Rails migrations will run
+#role :db,  "dev.bigsai.com"
 
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:symlink_db","deploy:db_migrate", "deploy:db_seed", "deploy:asset", "deploy:restart", "deploy:cleanup"

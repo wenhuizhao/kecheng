@@ -34,7 +34,7 @@ class Exercise < ActiveRecord::Base
       node_name = env[:node_name]
       return if %w[o:p font pre style script meta].include? node_name
 
-      return if (node_name == "p" || node_name == "span" ) and node.content.empty? && node.children.empty?
+#      return if (node_name == "p" || node_name == "span" ) and node.content.empty? && node.children.empty?
 
       style = node.attribute("style")
       if !style.nil?
@@ -50,8 +50,8 @@ class Exercise < ActiveRecord::Base
       {:node_whitelist => [node]}
     end
 
-    self.title = Sanitize.clean(self.title, :remove_contents => true, :transformers => transformer)
-    self.answer = Sanitize.clean(self.answer, :remove_contents => true, :transformers => transformer)
+#    self.title = Sanitize.clean(self.title, :remove_contents => true, :transformers => transformer)
+#    self.answer = Sanitize.clean(self.answer, :remove_contents => true, :transformers => transformer)
 
   end
 
