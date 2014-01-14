@@ -31,10 +31,10 @@ class UsersController < ApplicationController
 
   def get_grades
     @grades = if current_user.is_admin?
-            Grade.all
-          else
-            current_user.school.grades
-          end
+                Grade.all
+              else
+                current_user.school.grades
+              end
 
   end
 
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
       GradeStudent.update_from_admin(params[:grade_id], @user.id) if params[:grade_id] && @user.is_student?
       re_to_path
     else
-      render action: 'edit'
+      render action: (current_user.is_admin? ? "edit" : "show")
     end
   end
 
