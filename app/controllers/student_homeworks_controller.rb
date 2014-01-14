@@ -21,7 +21,7 @@ class StudentHomeworksController < ApplicationController
   def update
     @student_homework.status = '待改错' unless @student_homework.all_right?
     if @student_homework.update_attributes(params[:student_homework])
-      update_options
+      update_exercises
       return re_to_check if params[:commit] == '提交&下一份'
       reto_homework_path
     else
@@ -34,7 +34,7 @@ class StudentHomeworksController < ApplicationController
     @student_homework.student_id = current_user.id
     @student_homework
     if @student_homework.save
-      update_options
+      update_exercises
       return re_to_check if params[:commit] == '提交&下一份'
       reto_homework_path
     else
@@ -47,11 +47,15 @@ class StudentHomeworksController < ApplicationController
   
   private
 
-  def update_options
+  def update_exercises
     homework = @student_homework.homework
-    homework.exercises_opted_ids.each do |eid|
-      she = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: eid).first_or_create
-      she.update_attribute :answer, params["#{eid}option"]
+    homework.exercises.each do |e|
+      she = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: e.id).first_or_create
+      if current_user.is_student? && e.qtype_id == 2
+        she.update_attribute :answer, params["#{e.id}option"]
+      elsif current_user.is_teacher?
+        she.update_attributes(teacher_id: current_user.id, check_desc: nil)
+      end
     end
   end
    
