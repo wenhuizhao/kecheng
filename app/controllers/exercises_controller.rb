@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ExercisesController < ApplicationController
-  layout  "blank"
+  layout 'blank'
   # GET /exercises
   # GET /exercises.json
   def index

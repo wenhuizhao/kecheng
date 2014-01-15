@@ -3,10 +3,9 @@ css:
 = form_for @student_homework do |f|
   css:
     #content table.list-big tr td {border: none;}
-  table.homework.list-big
-    - @homework.exercises.each do |hwq|
-      tr
-        td = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
+  = render partial: 'exercises', locals: {exercises: @homework.exercises}
+    
+  table.list-big
     tr: td 作业评级
     tr: td
       .levels

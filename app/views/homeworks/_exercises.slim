@@ -1,0 +1,13 @@
+#exercises
+  - exercises.each_with_index do |hwq, i|
+    .exercise id='#{hwq.id}_e'
+      - unless hwq.is_multi_choice?
+        canvas.canvas id='#{hwq.id}_c'
+      .etitle.fleft = App::ChineseNum[i + 1] 
+      .econtent = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
+
+- exercises.each_with_index do |hwq, i|
+  javascript:
+    var canvas_#{hwq.id} = new fabric.Canvas('#{hwq.id}_c', {isDrawingMode: true});
+= javascript_include_tag 'exercise'
+  
