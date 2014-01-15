@@ -39,31 +39,7 @@
 </div>
 <script type="text/javascript">
     updateCanvas();
-    var canvasEl = $('#canvasTitle')[0];
 
-    html2canvas($('#title_html'), {
-        onrendered: updatePage,
-        canvas: canvasEl,
-        background: "#000",
-        width: 600,
-        height: 500
-    });
-
-    var canvasEl;
-    var imgInstance;
-    function updatePage(canvasTile){
-        var img = Canvas2Image.saveAsPNG(canvasTitle, true);
-        //$('#title_wrapper')[0].replaceChild(img, canvas);
-        imgInstance = new fabric.Image(img, {
-            left:0,
-            top:0
-        });
-        $('#title_wrapper')[0].removeChild(canvasTitle);
-        $('#title_wrapper')[0].removeChild($('#title_html')[0]);
-        canvas.add(imgInstance);
-
-
-    };
     var canvas;
     function updateCanvas() {
         canvas = new fabric.Canvas('canvas', {isDrawingMode: true});
