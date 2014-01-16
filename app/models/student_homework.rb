@@ -4,7 +4,7 @@ class StudentHomework < ActiveRecord::Base
 
   belongs_to :homework
   belongs_to :student, class_name: 'User'
-  has_and_belongs_to_many :exercises #, join_table: 'users_messages'
+  has_and_belongs_to_many :exercises 
 
   before_create :set_status
 

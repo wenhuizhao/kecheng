@@ -66,7 +66,7 @@ class StudentHomeworksController < ApplicationController
           she.update_attribute :answer, params["#{e.id}area"]
         end
       elsif current_user.is_teacher?
-        she.update_attributes(teacher_id: current_user.id, check_desc: nil)
+        she.update_attributes(teacher_id: current_user.id)
       end
     end
   end

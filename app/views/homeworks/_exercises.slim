@@ -19,6 +19,12 @@
           - if current_user.is_student?
             = text_area_tag "#{hwq.id}area", ans.try(:answer), \
               placeholder: '请将答案填在这里...', id: "enjoin", rows: 3, cols: 50
+            - if ans.try(:check_desc).present?
+              .answer-title 
+                |答案
+                .inline id="#{hwq.id}title"
+                  = image_tag "#{ans.check_desc}.png", class: 'check-icon-answer'
+          
           - else
             = text_area_tag "#{hwq.id}area", ans.try(:answer), \
               placeholder: '没有作答', id: "enjoin", rows: 3, cols: 50, disabled: 'disabled'
