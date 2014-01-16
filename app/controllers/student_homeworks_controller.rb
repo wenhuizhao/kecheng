@@ -46,7 +46,8 @@ class StudentHomeworksController < ApplicationController
     desc = params[:check_desc]
     return render text: desc if !Exercise.checked_icons.include?(desc)
     she = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: params[:exercise_id]).first_or_create 
-    she.update_attributes(check_desc: params[:check_desc], teacher_id: current_user.id)
+    check_desc = desc == 'niubi' ? "#{she.try(:check_desc)},#{desc}" : desc
+    she.update_attributes(check_desc: check_desc, teacher_id: current_user.id)
     render text: "批阅成功" 
   end
 

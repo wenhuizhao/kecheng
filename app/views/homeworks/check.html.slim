@@ -3,14 +3,14 @@ css:
 .lists
   / = link_back grades_course_path(@student_homework.homework.grades_course)
   = link_to_back
-  .title = "作业批阅"
+  .title = @student_homework.homework.short_name
   .main-descs
     .main-desc
       - unless @student_homework
         | 暂无学生提交作业
       - else
         .check-left
-          .ctitle = @student_homework.homework.short_name
+          .ctitle = "作业批阅"
           - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
           .students
             - @shs.each do |s|

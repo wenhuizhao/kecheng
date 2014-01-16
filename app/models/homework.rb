@@ -27,7 +27,7 @@ class Homework < ActiveRecord::Base
   end
  
   def short_name
-    grades_course.course_name + tiny_name 
+    tiny_name 
   end
   
   def tiny_name
