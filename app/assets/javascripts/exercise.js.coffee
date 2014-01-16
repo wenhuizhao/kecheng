@@ -27,4 +27,6 @@ $('#exercises').find('.check-icon').each (i, obj) ->
         check_desc: desc
       success: (r) ->
         console.log(r)
+        if desc is 'wrong' || desc is 'right' || desc is 'niubi'
+          $("#" + id + "title").html('<img class="check-icon-answer" src="/assets/' + desc + '.png">')
 
