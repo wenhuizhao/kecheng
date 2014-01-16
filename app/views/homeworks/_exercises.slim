@@ -1,12 +1,27 @@
+- unless current_user.is_student?
+  css:
+    #exercises, #exercises .exercise {margin: 15px 0}
 #exercises
   - exercises.each_with_index do |hwq, i|
     .exercise id='#{hwq.id}_e'
-      - unless hwq.is_multi_choice?
+      - if hwq.is_multi_choice?
+      - elsif hwq.is_fill_blank?
+      - else
         canvas.canvas id='#{hwq.id}_c'  
         javascript:
           canvas_#{hwq.id} = new fabric.Canvas('#{hwq.id}_c', {isDrawingMode: true});
       .etitle.fleft = App::ChineseNum[i + 1] 
-      .econtent = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
+      .econtent 
+        = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
+        - if hwq.is_fill_blank?
+          - if @student_homework
+            - ans = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: hwq.id).last
+          - if current_user.is_student?
+            = text_area_tag "#{hwq.id}area", ans.try(:answer), \
+              placeholder: '请将答案填在这里...', id: "enjoin", rows: 3, cols: 50
+          - else
+            = text_area_tag "#{hwq.id}area", ans.try(:answer), \
+              placeholder: '没有作答', id: "enjoin", rows: 3, cols: 50, disabled: 'disabled'
 
 = javascript_include_tag 'exercise'
   

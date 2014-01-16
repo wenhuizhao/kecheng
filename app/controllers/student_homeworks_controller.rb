@@ -51,8 +51,12 @@ class StudentHomeworksController < ApplicationController
     homework = @student_homework.homework
     homework.exercises.each do |e|
       she = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: e.id).first_or_create
-      if current_user.is_student? && e.qtype_id == 2
-        she.update_attribute :answer, params["#{e.id}option"]
+      if current_user.is_student?
+        if e.qtype_id == 2
+          she.update_attribute :answer, params["#{e.id}option"]
+        else
+          she.update_attribute :answer, params["#{e.id}area"]
+        end
       elsif current_user.is_teacher?
         she.update_attributes(teacher_id: current_user.id, check_desc: nil)
       end

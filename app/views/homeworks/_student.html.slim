@@ -29,7 +29,7 @@ css:
 
     table style='margin: 0 0 30px 30px'
       tr: td: .mb5 作业附加信息
-      tr: td = text_area_tag :enjoin, @homework.enjoin, rows: 10, cols: 70, disabled: 'disabled'
+      tr: td = text_area_tag :enjoin, @homework.enjoin, rows: 10, cols: 50, disabled: 'disabled'
       tr: td
         .submit-time.inline.mt15 截止时间：
         = into_datetime @homework.end_time
