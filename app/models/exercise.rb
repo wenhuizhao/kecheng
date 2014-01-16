@@ -35,7 +35,7 @@ class Exercise < ActiveRecord::Base
   end
 
   def is_need_area?
-    is_fill_blank? || is_q_and_a?
+    is_fill_blank? || is_q_and_a? || is_multi_choice?
   end
 
   def clean_content

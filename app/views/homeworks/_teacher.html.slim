@@ -17,7 +17,7 @@
     .status.main-desc
       - if current_user.is_teacher?
         .check
-          = link_green_btn '批阅', check_homework_path(status: status) if (status == '未批阅' || status == '已经改错') && shs.size > 0
+          = link_green_btn '批阅', check_homework_path(status: status) if (status == '未批阅' || status == '已改错') && shs.size > 0
       .students
         .name = status + "#{shs.size}人"
         - shs.each do |sh|
