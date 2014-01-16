@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140114140244) do
+ActiveRecord::Schema.define(:version => 20140116134101) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -214,11 +214,17 @@ ActiveRecord::Schema.define(:version => 20140114140244) do
   end
 
   create_table "questions", :force => true do |t|
-    t.string   "title"
-    t.integer  "homework_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "content"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "student_homeworks_exercise_id"
+    t.integer  "teacher_id"
+    t.integer  "parent_id"
   end
+
+  add_index "questions", ["parent_id"], :name => "index_questions_on_parent_id"
+  add_index "questions", ["student_homeworks_exercise_id"], :name => "index_questions_on_student_homeworks_exercise_id"
+  add_index "questions", ["teacher_id"], :name => "index_questions_on_teacher_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
