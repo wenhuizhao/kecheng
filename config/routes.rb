@@ -21,7 +21,7 @@ Kecheng::Application.routes.draw do
   get "exercises/load_canvas/:id" => "exercises#load_canvas", :as =>"load_canvas"
   match "exercises/save_canvas/:id" => "exercises#save_canvas", :as => "save_canvas"
   post "get_classes" => "grades#get_classes"
-
+  post "check_exercise" => "student_homeworks#check_exercise"
   devise_for :users, controllers: {
     passwords: 'passwords',
     sessions: 'sessions',

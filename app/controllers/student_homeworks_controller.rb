@@ -42,6 +42,12 @@ class StudentHomeworksController < ApplicationController
     end
   end
 
+  def check_exercise
+    she = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: params[:exercise_id]).first_or_create 
+    she.update_attributes(check_desc: params[:check_desc], teacher_id: current_user.id)
+    render text: "批阅成功" 
+  end
+
   def destroy
   end
   

@@ -65,4 +65,9 @@ class Exercise < ActiveRecord::Base
     Dir.mkdir(path, 0777) unless Dir.exist?(path)
     File.open(path + "/#{id}.png", 'wb+'){ |f| f.write(data) }
   end
+  
+  def self.check_icons
+    %w(right wrong edit message niubi)
+  end
+
 end

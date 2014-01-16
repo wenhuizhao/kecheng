@@ -22,6 +22,12 @@
           - else
             = text_area_tag "#{hwq.id}area", ans.try(:answer), \
               placeholder: '没有作答', id: "enjoin", rows: 3, cols: 50, disabled: 'disabled'
+            .answer-title 答案
+            .answer-content
+              - Exercise.check_icons.each do |icon|
+                .inline 
+                  = image_tag "#{icon}.png", class: 'check-icon', \
+                      "data-desc" => icon, "data-id" => hwq.id, "data-hid" => @student_homework.try(:id)
 
 = javascript_include_tag 'exercise'
   
