@@ -6,7 +6,7 @@ css:
   .main-descs
     .main-desc
       = form_for [@section, @homework] do |f| 
-        = render partial: 'shared/error_msgs', locals: {target: @homework}
+        / = render partial: 'shared/error_msgs', locals: {target: @homework}
         - if @section.exercises.empty?
           .area.m19.red 本课尚未添加练习题!!
         - else

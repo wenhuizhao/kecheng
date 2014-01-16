@@ -11,7 +11,7 @@ class Homework < ActiveRecord::Base
   has_many :student_homeworks
   has_many :students, through: :student_homeworks
 
-  validates :enjoin, presence: true
+  # validates :enjoin, presence: true
 
   def unsubmit_students
     # self.lesson.students - self.students

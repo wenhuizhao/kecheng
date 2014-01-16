@@ -22,7 +22,7 @@
                     = m.is_accept ? '已批准' : '已拒绝'
                 - else
                   - if m.sender_id == current_user.id
-                    = link_to '编辑', edit_message_path(m) 
+                    / = link_to '编辑', edit_message_path(m) 
                   - else
                     - if m.children.empty? && !m.is_apply_res?
                       = link_to '回复', new_message_path(parent_id: m.id)
