@@ -29,6 +29,15 @@ class Exercise < ActiveRecord::Base
     qtype and qtype.name == "问答题"
   end
 
+  def is_need_canvas?
+    #!is_fill_blank? && !is_multi_choice? && !is_q_and_a?
+    qtype.try(:name) == '画线'
+  end
+
+  def is_need_area?
+    is_fill_blank? || is_q_and_a?
+  end
+
   def clean_content
     transformer = lambda do |env|
       node = env[:node]

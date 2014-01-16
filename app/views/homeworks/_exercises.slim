@@ -4,16 +4,14 @@
 #exercises
   - exercises.each_with_index do |hwq, i|
     .exercise id='#{hwq.id}_e'
-      - if hwq.is_multi_choice?
-      - elsif hwq.is_fill_blank?
-      - else
+      - if hwq.is_need_canvas? 
         canvas.canvas id='#{hwq.id}_c'  
         javascript:
           canvas_#{hwq.id} = new fabric.Canvas('#{hwq.id}_c', {isDrawingMode: true});
       .etitle.fleft = App::ChineseNum[i + 1] 
       .econtent 
         = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
-        - if hwq.is_fill_blank?
+        - if hwq.is_need_area?
           - if @student_homework
             - ans = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: hwq.id).last
           - if current_user.is_student?
