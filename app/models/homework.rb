@@ -23,15 +23,20 @@ class Homework < ActiveRecord::Base
   end
    
   def section_num_str
-    '第' + section.num.to_s + '课'
+    "第#{section.num.to_s}课"
   end
  
   def short_name
-    grades_course.course_name + '作业' + num.to_s
+    grades_course.course_name + tiny_name 
+  end
+  
+  def tiny_name
+    "#{section.try(:name)}-作业#{num}"
   end
 
   def full_name
-    grades_course.try(:full_name).to_s + '作业' + num.to_s
+    # grades_course.try(:full_name).to_s + tiny_name 
+    tiny_name 
   end
 
   def close!

@@ -74,5 +74,14 @@ class GradesCourse < ActiveRecord::Base
   def unfinished_homeworks
     course_homeworks.where(status: nil)
   end
-
+  
+  class << self
+    def teacher_for(grade_id, course_id, period_id = Period.current_period.id)
+      where(grade_id: grade_id, course_id: course_id, period_id: period_id, is_accept: true)
+    end
+    
+    def has_teacher_for?(grade_id, course_id)
+      teacher_for(grade_id, course_id).size > 0
+    end
+  end
 end
