@@ -40,6 +40,11 @@ module ApplicationHelper
     %w(exercises homeworks) 
   end
 
+  def partial_role(part)
+    return "student_#{part}" if current_user.is_student?
+    "teacher_#{part}"
+  end
+
   def paginate_objs(objs)
     paginate objs
   end
@@ -65,6 +70,16 @@ module ApplicationHelper
     content_tag :span, words, {class: 'red', style: "font-weight: bold;"}.merge(opts)
   end
 
+  def replaced_exercise(exer)
+    return simple_format exer.title.html_safe if !exer.is_fill_blank?
+    cs = ""
+    contents = simple_format(exer.title).split(/(&nbsp;)+/).join.split(/&nbsp;/)
+    contents.each_with_index do |c, i|
+      cs += c + "<input name='#{exer.id}_#{i + 1}_in' class='exer_input' />" unless c == contents.last
+    end
+    cs.html_safe
+  end
+  
   def include_chart_js
     javascript_include_tag 'highcharts','exporting'
   end

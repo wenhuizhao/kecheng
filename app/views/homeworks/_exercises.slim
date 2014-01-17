@@ -14,10 +14,7 @@
         - if hwq.is_need_area?
           - if @student_homework
             - ans = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: hwq.id).last
-          - if current_user.is_student?
-            = render partial: 'student_exer', locals: {hwq: hwq, ans: ans}
-          - else
-            = render partial: 'teacher_exer', locals: {hwq: hwq, ans: ans}
+          = render partial: partial_role('exer'), locals: {hwq: hwq, ans: ans}
 
 = javascript_include_tag 'exercise'
   

@@ -16,6 +16,8 @@ class Exercise < ActiveRecord::Base
   has_many :upload_files
   before_save :clean_content
   has_and_belongs_to_many :student_homeworks #, join_table: 'users_messages'
+  
+  delegate :content, to: :exercise_text
 
   def is_fill_blank?
     qtype and qtype.name == "填空题"
@@ -35,7 +37,7 @@ class Exercise < ActiveRecord::Base
   end
 
   def is_need_area?
-    is_fill_blank? || is_q_and_a? || is_multi_choice?
+    is_q_and_a? || is_multi_choice?
   end
 
   def clean_content
