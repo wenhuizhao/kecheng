@@ -16,4 +16,18 @@
         = render partial: partial_role('exer'), locals: {hwq: hwq, ans: ans}
 
 = javascript_include_tag 'exercise'
-  
+javascript:
+  function save_canvas(){
+    var canvass = [#{exercises.select{|e| e.is_need_canvas?}.collect(&:id).map{|i|"canvas_#{i}"}.join(',')}];
+        datas = [];
+    canvass.forEach(function(i){
+      datas << JSON.stringify(i)
+    })
+    $.ajax({
+        url: "",
+        type: "post",
+        data: {
+            data: datas
+        }
+    });
+  }
