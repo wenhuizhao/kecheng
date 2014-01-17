@@ -1,5 +1,4 @@
-- if hwq.is_multi_choice?
-- else 
+- if hwq.is_need_area?
   = text_area_tag "#{hwq.id}area", ans.try(:answer), \
     placeholder: '请将答案填在这里...', id: "enjoin", rows: 3, cols: 50
 - if ans.try(:check_desc).present?
