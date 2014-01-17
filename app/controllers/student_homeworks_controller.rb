@@ -62,13 +62,11 @@ class StudentHomeworksController < ApplicationController
       she = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: e.id).first_or_create
       if current_user.is_student?
         case e.qtype_id
-        when 1
+        when 1, 3
           ans = 1.upto(e.blank_size).inject([]) {|s, i| s << params["#{e.id}_#{i}_in"]}.join("@@@ ")
           she.update_attribute :answer, ans
         when 2
           she.update_attribute :answer, params["#{e.id}option"]
-        else
-          she.update_attribute :answer, params["#{e.id}area"]
         end
       elsif current_user.is_teacher?
         she.update_attributes(teacher_id: current_user.id)

@@ -7,7 +7,12 @@ module Common
     s.size > len ? s[0,len] + '...' : s
   end
   
-  def blanks_arr(content)
-    content.split(/(&nbsp;)+/).join.split(/&nbsp;/) 
+  def blanks_arr(content, qtype_id = 1)
+    case qtype_id
+    when 1
+      content.split(/(&nbsp;)+/).join.split(/&nbsp;/)
+    when 3
+      content.split(/[&nbsp;]{12,}/).join('@@@').split("<span>@@@</span>")
+    end
   end
 end

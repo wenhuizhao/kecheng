@@ -72,13 +72,20 @@ module ApplicationHelper
 
   def replaced_exercise(exer, ans = nil)
     content = simple_format(exer.title, {}, wrapper_tag: "div")
-    return content.html_safe if !exer.is_fill_blank?
+    return content.html_safe if exer.is_multi_choice? || exer.is_need_canvas?
     cs = ""
-    contents = blanks_arr(content)
+    contents = blanks_arr(content, exer.qtype_id)
     # contents = simple_format(exer.title).split(/\<u\>.*?\<\/u\>/)
     contents.each_with_index do |c, i|
-      cs += c + "<input name='#{exer.id}_#{i + 1}_in' value='#{ans.to_s.split("@@@")[i]}'  class='exer_input' />" unless c == contents.last
-    end
+      next if c.empty? || c == "</span><span>"
+      unless c == contents.last
+        if exer.is_fill_blank?
+          cs +=  c + "<input name='#{exer.id}_#{i + 1}_in' value='#{ans.to_s.split("@@@")[i]}' id='enjoin' class='exer_input' />"
+        else
+          cs +=  c + "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 id='enjoin' class='exer_textarea'>#{ans.to_s.split("@@@")[i]}</textarea>" 
+        end
+      end
+    end 
     cs.html_safe
   end
   

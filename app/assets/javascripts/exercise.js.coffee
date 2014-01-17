@@ -1,4 +1,4 @@
-# $('#exercises').find('br').remove()
+$('#exercises').find('br').remove()
 $('#exercises').find('.canvas-container').each (i, obj) ->
   width = 830
   height = $(obj).parent().height() - 150

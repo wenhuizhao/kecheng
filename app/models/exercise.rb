@@ -36,7 +36,7 @@ class Exercise < ActiveRecord::Base
   end
 
   def is_need_area?
-    is_q_and_a?
+    # is_q_and_a?
   end
 
   def clean_content
@@ -79,7 +79,11 @@ class Exercise < ActiveRecord::Base
   include Common
  
   def blank_size
-    blanks_arr(title).size
+    blanks_arr(title, qtype_id).size
+  end
+
+  def input_type
+    is_fill_blank? ? 'input' : "textarea"
   end
   
   class << self  
