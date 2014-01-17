@@ -32,12 +32,11 @@ class Exercise < ActiveRecord::Base
   end
 
   def is_need_canvas?
-    #!is_fill_blank? && !is_multi_choice? && !is_q_and_a?
     qtype.try(:name) == '连线题'
   end
 
   def is_need_area?
-    is_q_and_a? || is_multi_choice?
+    is_q_and_a?
   end
 
   def clean_content
