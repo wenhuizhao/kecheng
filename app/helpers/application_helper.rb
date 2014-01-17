@@ -80,9 +80,9 @@ module ApplicationHelper
       next if c.empty? || c == "</span><span>"
       unless c == contents.last
         if exer.is_fill_blank?
-          cs +=  c + "<input name='#{exer.id}_#{i + 1}_in' value='#{ans.to_s.split("@@@")[i]}' id='enjoin' class='exer_input' />"
+          cs +=  c + "<input name='#{exer.id}_#{i + 1}_in' value='#{ans.to_s.split("@@@")[i]}' class='exer_input' />"
         else
-          cs +=  c + "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 id='enjoin' class='exer_textarea'>#{ans.to_s.split("@@@")[i]}</textarea>" 
+          cs +=  c + "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 class='exer_textarea'>#{ans.to_s.split("@@@")[i]}</textarea>" 
         end
       end
     end 
