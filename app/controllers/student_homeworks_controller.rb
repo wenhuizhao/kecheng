@@ -61,7 +61,11 @@ class StudentHomeworksController < ApplicationController
     homework.exercises.each do |e|
       she = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: e.id).first_or_create
       if current_user.is_student?
-        if e.qtype_id == 2
+        case e.qtype_id
+        when 1
+          ans = 1.upto(e.blank_size).inject([]) {|s, i| s << params["#{e.id}_#{i}_in"]}.join("@@@ ")
+          she.update_attribute :answer, ans
+        when 2
           she.update_attribute :answer, params["#{e.id}option"]
         else
           she.update_attribute :answer, params["#{e.id}area"]

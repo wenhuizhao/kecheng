@@ -76,7 +76,13 @@ class Exercise < ActiveRecord::Base
     Dir.mkdir(path, 0777) unless Dir.exist?(path)
     File.open(path + "/#{id}.png", 'wb+'){ |f| f.write(data) }
   end
-
+ 
+  include Common
+ 
+  def blank_size
+    blanks_arr(title).size
+  end
+  
   class << self  
     def check_icons
       %w(right wrong edit message niubi)

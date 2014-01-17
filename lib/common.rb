@@ -6,4 +6,8 @@ module Common
   def substr(s, len = 15)
     s.size > len ? s[0,len] + '...' : s
   end
+  
+  def blanks_arr(content)
+    content.split(/(&nbsp;)+/).join.split(/&nbsp;/) 
+  end
 end

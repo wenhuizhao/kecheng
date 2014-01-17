@@ -70,12 +70,14 @@ module ApplicationHelper
     content_tag :span, words, {class: 'red', style: "font-weight: bold;"}.merge(opts)
   end
 
-  def replaced_exercise(exer)
-    return simple_format exer.title.html_safe if !exer.is_fill_blank?
+  def replaced_exercise(exer, ans = nil)
+    content = simple_format(exer.title, {}, wrapper_tag: "div")
+    return content.html_safe if !exer.is_fill_blank?
     cs = ""
-    contents = simple_format(exer.title).split(/(&nbsp;)+/).join.split(/&nbsp;/)
+    contents = blanks_arr(content)
+    # contents = simple_format(exer.title).split(/\<u\>.*?\<\/u\>/)
     contents.each_with_index do |c, i|
-      cs += c + "<input name='#{exer.id}_#{i + 1}_in' class='exer_input' />" unless c == contents.last
+      cs += c + "<input name='#{exer.id}_#{i + 1}_in' value='#{ans.to_s.split("@@@")[i]}'  class='exer_input' />" unless c == contents.last
     end
     cs.html_safe
   end
