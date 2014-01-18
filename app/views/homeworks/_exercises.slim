@@ -1,25 +1,30 @@
 - unless current_user.is_student?
   css:
     #exercises, #exercises .exercise {margin: 15px 0}
+css:
+  .canvas-container {position: absolute!important;}
 #exercises
   - exercises.each_with_index do |hwq, i|
     - if @student_homework
-      - ans = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: hwq.id).last
+      - ans = get_hexer(hwq.id)
     .exercise id='#{hwq.id}_e'
-      - if hwq.is_need_canvas? 
-        canvas.canvas id='#{hwq.id}_c'  
-        javascript:
-          canvas_#{hwq.id} = new fabric.Canvas('#{hwq.id}_c', {isDrawingMode: true});
-          canvas_#{hwq.id}.loadFromJSON('#{ans.try(:canvas).html_safe}', canvas_#{hwq.id}.renderAll.bind(canvas_#{hwq.id}));
+      - if hwq.is_need_canvas?
+        canvas.canvas id='#{hwq.id}_c'  width=830 style='position: absolute;'         
       .etitle.fleft = App::ChineseNum[i + 1] 
       .econtent 
         = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
         = render partial: partial_role('exer'), locals: {hwq: hwq, ans: ans}
 
 = javascript_include_tag 'exercise'
+- ids = exercises.select{|e| e.is_need_canvas?}.collect(&:id)
+- ids.each do |id|
+  javascript:
+    canvas_#{id} = new fabric.Canvas('#{id}_c', {isDrawingMode: true});
+    canvas_#{id}.loadFromJSON('#{get_canvas_text(id)}', canvas_#{id}.renderAll.bind(canvas_#{id}));
+
 javascript:
   function save_canvas(){
-    var canvass = [#{exercises.select{|e| e.is_need_canvas?}.collect(&:id).map{|i|"canvas_#{i}"}.join(',')}];
+    var canvass = [#{ids.map{|i|"canvas_#{i}"}.join(',')}];
         datas = [];
     canvass.forEach(function(i){
       datas.push(JSON.stringify(i))

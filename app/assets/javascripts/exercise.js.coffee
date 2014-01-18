@@ -13,7 +13,6 @@ $('#exercises').find('.canvas-container').each (i, obj) ->
     width: width
     height: height
 
-
 $('#exercises').find('.check-icon').each (i, obj) ->
   $(obj).on 'click', ->
     desc = $(this).attr('data-desc')

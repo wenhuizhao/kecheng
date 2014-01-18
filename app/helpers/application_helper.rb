@@ -36,6 +36,14 @@ module ApplicationHelper
     c + content_tag(:span, '全选')
   end
   
+  def get_hexer(e_id, s_id = @student_homework.id)
+    StudentHomeworksExercises.where(student_homework_id: s_id, exercise_id: e_id).last
+  end
+
+  def get_canvas_text(e_id)
+    get_hexer(e_id).try(:canvas).to_s.html_safe
+  end
+
   def need_canvas
     %w(exercises homeworks) 
   end
