@@ -21,13 +21,14 @@ javascript:
     var canvass = [#{exercises.select{|e| e.is_need_canvas?}.collect(&:id).map{|i|"canvas_#{i}"}.join(',')}];
         datas = [];
     canvass.forEach(function(i){
-      datas << JSON.stringify(i)
+      datas.push(JSON.stringify(i))
     })
     $.ajax({
-        url: "",
+        url: "/save_exer_canvas",
         type: "post",
         data: {
-            data: datas
+          id: '#{@student_homework.try(:id)}',
+          canvass: datas
         }
     });
   }

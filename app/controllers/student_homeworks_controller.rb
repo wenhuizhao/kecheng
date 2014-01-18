@@ -45,11 +45,19 @@ class StudentHomeworksController < ApplicationController
   def check_exercise
     desc = params[:check_desc]
     return render text: desc if !Exercise.checked_icons.include?(desc)
-    she = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: params[:exercise_id]).first_or_create 
+    she = find_she(params[:exercise_id])
     check_desc = desc == 'niubi' ? "#{she.try(:check_desc)},#{desc}" : desc
     she.update_attributes(check_desc: check_desc, teacher_id: current_user.id)
     render text: "批阅成功" 
   end
+
+  def save_canvas
+    @student_homework.canvas_exercises.each_with_index do |e, i| 
+      she = find_she(e.id)
+      she.update_attribute :canvas, params[:canvass][i]
+    end
+    render text: '' 
+  end  
 
   def destroy
   end
@@ -59,7 +67,7 @@ class StudentHomeworksController < ApplicationController
   def update_exercises
     homework = @student_homework.homework
     homework.exercises.each do |e|
-      she = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: e.id).first_or_create
+      she = find_she(e.id)
       if current_user.is_student?
         case e.qtype_id
         when 1, 3
@@ -73,7 +81,11 @@ class StudentHomeworksController < ApplicationController
       end
     end
   end
-   
+  
+  def find_she(e_id, s_id = @student_homework.id)
+    she = StudentHomeworksExercises.where(student_homework_id: s_id, exercise_id: e_id).first_or_create
+  end
+ 
   def reto_homework_path
     homework = @student_homework.homework
     grades_course, lesson = homework.grades_course, homework.lesson
