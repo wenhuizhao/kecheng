@@ -10,16 +10,20 @@ css:
     .exercise id='#{hwq.id}_e'
       - if hwq.is_need_canvas?
         canvas.canvas id='#{hwq.id}_c'  width=830 style='position: absolute;'         
-      .etitle.fleft = App::ChineseNum[i + 1] 
-      .econtent 
+      .etitle.fleft = App::ChineseNum[i + 1]
+      .econtent
         = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
         = render partial: partial_role('exer'), locals: {hwq: hwq, ans: ans}
 
-= javascript_include_tag 'exercise'
 - ids = exercises.select{|e| e.is_need_canvas?}.collect(&:id)
+= javascript_include_tag 'exercise'
 - ids.each do |id|
   javascript:
     canvas_#{id} = new fabric.Canvas('#{id}_c', {isDrawingMode: true});
+    var height = $('##{id}_c').parent().parent().height() - 30;
+    $('##{id}_c').parent().css({height: height}).find('canvas').css({
+      height: height
+    }).attr('height', height);
     canvas_#{id}.loadFromJSON('#{get_canvas_text(id)}', canvas_#{id}.renderAll.bind(canvas_#{id}));
 
 javascript:

@@ -3,6 +3,8 @@
   - ans = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: exercise.id).last
 = exercise.exercise_text.content.html_safe if exercise.exercise_text
 = replaced_exercise(exercise, ans.try(:answer))
+- if exercise.is_need_canvas?
+  = link_to_function '清除划线', "canvas_#{exercise.id}.clear()", class: 'clear'
 
 - if exercise.is_multi_choice?
   - exercise.options.each_with_index do |o, i|
