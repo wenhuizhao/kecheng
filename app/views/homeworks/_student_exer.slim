@@ -8,3 +8,5 @@
       - ans.check_desc.split(",").each do |pic|
         = image_tag "#{pic}.png", class: 'check-icon-answer'
           
+- if hwq.is_need_canvas?
+  = link_to_function '清除划线', "canvas_#{hwq.id}.clear()", class: 'clear'
