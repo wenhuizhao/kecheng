@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140116134101) do
+ActiveRecord::Schema.define(:version => 20140119021426) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -37,6 +37,24 @@ ActiveRecord::Schema.define(:version => 20140116134101) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "change_teacher_logs", :force => true do |t|
+    t.integer  "prev_teacher_id"
+    t.integer  "curr_teacher_id"
+    t.integer  "admin_id"
+    t.integer  "grades_course_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "new_grades_course_id"
+    t.integer  "message_id"
+  end
+
+  add_index "change_teacher_logs", ["admin_id"], :name => "index_change_teacher_logs_on_admin_id"
+  add_index "change_teacher_logs", ["curr_teacher_id"], :name => "index_change_teacher_logs_on_curr_teacher_id"
+  add_index "change_teacher_logs", ["grades_course_id"], :name => "index_change_teacher_logs_on_grades_course_id"
+  add_index "change_teacher_logs", ["message_id"], :name => "index_change_teacher_logs_on_message_id"
+  add_index "change_teacher_logs", ["new_grades_course_id"], :name => "index_change_teacher_logs_on_new_grades_course_id"
+  add_index "change_teacher_logs", ["prev_teacher_id"], :name => "index_change_teacher_logs_on_prev_teacher_id"
 
   create_table "courses", :force => true do |t|
     t.string   "name"
@@ -190,11 +208,13 @@ ActiveRecord::Schema.define(:version => 20140116134101) do
     t.integer  "grade_id"
     t.integer  "school_id"
     t.integer  "course_id"
+    t.integer  "period_id"
   end
 
   add_index "messages", ["course_id"], :name => "index_messages_on_course_id"
   add_index "messages", ["grade_id"], :name => "index_messages_on_grade_id"
   add_index "messages", ["parent_id"], :name => "index_messages_on_parent_id"
+  add_index "messages", ["period_id"], :name => "index_messages_on_period_id"
   add_index "messages", ["school_id"], :name => "index_messages_on_school_id"
 
   create_table "periods", :force => true do |t|

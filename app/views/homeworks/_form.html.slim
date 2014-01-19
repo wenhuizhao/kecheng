@@ -22,7 +22,7 @@ css:
           tr: td 
             .submit-time.inline.mt15 
               |提交时间：
-              = f.text_field :end_time, value: Time.now.strftime("%Y年%m月%d日 %H:%M")
+              = f.text_field :end_time, value: 1.days.from_now.strftime("%Y年%m月%d日 %H:%M")
             / = f.datetime_select :end_time, use_month_numbers: true, order: [:year, :month, :day]
         = hidden_field_tag :grades_course_id, @grades_course.id
         = f.hidden_field :grades_course_id, value: @grades_course.id

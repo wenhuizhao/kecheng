@@ -10,6 +10,11 @@ module Mgrade
   
   def approved
     update_attribute :is_accept, true
+    if self.is_a?(Message)
+      ctl = ChangeTeacherLog.where(message_id: self.id).last
+      GradesCourse.find(ctl.grades_course_id).update_attribute(:teacher_id, ctl.curr_teacher_id)
+      GradesCourse.find(ctl.new_grades_course_id).delete
+    end
   end
 
   def refused
@@ -32,23 +37,27 @@ module Mgrade
     def send_apply_request(*args)
       type, opts = args[0], args.extract_options! #, opts
       grade_id, course_id = opts.values 
-      desc = '申请加入' + Grade.find(grade_id).full_name if type == 'apply_grades'
+      grade, course = Grade.find(grade_id), Course.find(course_id)
+      desc = '申请加入' + grade.full_name if type == 'apply_grades'
       if type == 'apply_courses'
         if GradesCourse.has_teacher_for?(grade_id, course_id)
-          teacher = GradesCourse.teacher_for(grade_id, course_id).last.teacher
-          desc = "#{current_user.real_name}老师申请开通三年级1班的英语课程，该课程目前由#{teacher.real_name}老师主持！"
+          grades_course = GradesCourse.teacher_for(grade_id, course_id).last
+          teacher = grades_course.teacher
+          ctl = ChangeTeacherLog.create(prev_teacher_id: teacher.id, curr_teacher_id: current_user.id, grades_course_id: grades_course.id, new_grades_course_id: @grades_course.id)
+          desc = "#{current_user.real_name}老师申请开通#{grade.full_name}的#{course.name}课程，该课程目前由#{teacher.real_name}老师主持！"
         else
-          desc = '申请' + Grade.find(grade_id).full_name + Course.find(course_id).name + '课'
+          desc = '申请' + grade.full_name + course.name + '课'
         end
       end 
-      # desc = '申请选课: ' + Grade.find(grade_id).full_name + Course.find(course_id).name if type == 'apply_select_courses'
-      Message.where(sender_id: current_user.id, 
+      # desc = '申请选课: ' + grade.full_name + Course.find(course_id).name if type == 'apply_select_courses'
+      m = Message.where(sender_id: current_user.id, 
                      type_name: type,
                      grade_id: grade_id,
                      course_id: course_id,
                      school_id: current_user.school_id,
                      is_accept: nil,
                      desc: desc).first_or_create
+      ctl.update_attribute :message_id, m.id if ctl
     end
   end
 
