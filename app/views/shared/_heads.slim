@@ -10,7 +10,7 @@
         = image_tag avatar_path(s), class: 'savatar'
       - if grades_page
         span.stitle.fs24  style="#{grades_page ? 'width: 200px;' : ''}"
-          = s.real_name + "(#{GradesCourse.for_user_grade(s, current_user.grade).last.course_name}老师)"
+          = s.real_name + "(#{GradesCourse.for_user_grade(s, current_user.grade).last.try(:course_name)}老师)"
       - else
           span.stitle.fs24 = s.real_name
       span.stitle.fs22.mess = link_to '发消息', new_message_path(receiver_id: s.id)

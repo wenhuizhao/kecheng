@@ -3,22 +3,25 @@ css:
 .lists
   / = link_back grades_course_path(@student_homework.homework.grades_course)
   = link_to_back
-  .title = @student_homework.homework.short_name
-  .main-descs
-    .main-desc
-      - unless @student_homework
-        | 暂无学生提交作业
-      - else
-        .check-left
-          .ctitle = "作业批阅"
-          - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
-          .students
-            - @shs.each do |s|
-              = link_to check_homework_path(@homework, student_id: s.id, status: params[:status])
-                .student class='#{'active' if @student_homework.student_id == s.id}'
-                  = image_tag avatar_path(s), class: 'savatar'
-                  span.stitle.fs24 = s.real_name
-        .check-right style="width: 600px;"
-          .block 
-            = "作业题目(#{@student_homework.homework.exercises.size})"
-          = render 'show_form'
+  - if @student_homework
+    .title = @student_homework.homework.short_name
+    .main-descs
+      .main-desc
+        - unless @student_homework
+          | 暂无学生提交作业
+        - else
+          .check-left
+            .ctitle = "作业批阅"
+            - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
+            .students
+              - @shs.each do |s|
+                = link_to check_homework_path(@homework, student_id: s.id, status: params[:status])
+                  .student class='#{'active' if @student_homework.student_id == s.id}'
+                    = image_tag avatar_path(s), class: 'savatar'
+                    span.stitle.fs24 = s.real_name
+          .check-right style="width: 600px;"
+            .block 
+              = "作业题目(#{@student_homework.homework.exercises.size})"
+            = render 'show_form'
+  - else
+    .title 无人提交
