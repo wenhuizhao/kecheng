@@ -4,15 +4,16 @@ css:
   css:
     #content table.list-big tr td {border: none;}
   = render partial: 'exercises', locals: {exercises: @homework.exercises}
-    
-  table.list-big
-    tr: td 作业评级
-    tr: td
-      .levels
-        - Settings.homework_levels.each do |l|
-          .level 
-            = f.radio_button :level, l
-            span = l
+  
+  - if !@student_homework.level
+    table.list-big
+      tr: td 作业评级
+      tr: td
+        .levels
+          - Settings.homework_levels.each do |l|
+            .level 
+              = f.radio_button :level, l
+              span = l
 
   = f.hidden_field :homework_id, value: @homework.id
   = hidden_field_tag :status, params[:status]

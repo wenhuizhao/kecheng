@@ -19,7 +19,11 @@ class StudentHomeworksController < ApplicationController
   end
 
   def update
-    @student_homework.status = '待改错' unless @student_homework.all_right?
+    if current_user.is_student? || @student_homework.times == 0
+      @student_homework.need_modify
+    elsif current_user.is_teacher? && @student_homework.times == 1
+      @student_homework.complete
+    end
     if @student_homework.update_attributes(params[:student_homework])
       update_exercises
       return re_to_check if params[:commit] == '提交&下一份'

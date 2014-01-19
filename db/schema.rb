@@ -313,7 +313,7 @@ ActiveRecord::Schema.define(:version => 20140119051541) do
     t.string   "score"
     t.string   "level"
     t.string   "ask_note"
-    t.integer  "times",       :default => 1
+    t.integer  "times",       :default => 0
   end
 
   create_table "student_homeworks_exercises", :force => true do |t|

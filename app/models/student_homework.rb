@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class StudentHomework < ActiveRecord::Base
-  attr_accessible :homework_id, :status, :student_id, :score, :level
+  attr_accessible :homework_id, :status, :student_id, :score, :level, :times
 
   belongs_to :homework
   belongs_to :student, class_name: 'User'
@@ -33,7 +33,15 @@ class StudentHomework < ActiveRecord::Base
   end
   
   def all_right?
-    false
+    times == 2
+  end
+  
+  def need_modify
+    update_attributes(status: '待改错', times: 1)
+  end
+
+  def complete
+    update_attributes(status: '已完成', times: 2)
   end
 
   def first_submit?
