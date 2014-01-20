@@ -41,7 +41,7 @@
           = f.fields_for :options do |ff|
             tr
               td  = ff.label :option
-              td = ff.text_field :name, {:size=>80, :class=>"option"}
+              td = ff.text_area :name, {:rows=>2, :cols=>80, :class=>"ewebeditor"}
 
     tr
       td = f.label '备注'
