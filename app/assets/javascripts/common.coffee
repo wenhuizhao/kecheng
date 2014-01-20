@@ -48,17 +48,29 @@ $(document).ready ->
   $('.grades').find('.opt').each (i, obj) ->
     $(obj).click ->
       click_menu '.grades', '#grade_num', obj
-      $.ajax
-        url: '/get_classes'
-        type: 'post'
-        data:
-          grade_num: $(obj).attr('data-id')
-        success: (r) ->
-          $('.classes').html r
+      update_books()
+      # $.ajax
+      #   url: '/get_classes'
+      #   type: 'post'
+      #   data:
+      #     grade_num: $(obj).attr('data-id')
+      #   success: (r) ->
+      #     $('.classes').html r
 
   $('.courses').find('.opt').each (i, obj) ->
     $(obj).click ->
       click_menu '.courses', '#course_id', obj
+      update_books()
+
+  window.update_books = ->    
+    $.ajax
+      url: '/update_books'
+      type: 'post'
+      data:
+        grade_num: $('#grade_num').val()
+        course_id: $('#course_id').val()
+      success: (r) ->
+        $('#books').html(r)
 
   $('.roles').find('.opt').each (i, obj) ->
     $(obj).click ->

@@ -1,0 +1,5 @@
+- books.each do |book|
+  - unless book.cover.url =~ /missing/
+    .inline data-id="#{book.id}"
+      = image_tag book.cover.url
+      .center = book.name

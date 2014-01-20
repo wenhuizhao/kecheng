@@ -7,5 +7,10 @@ class HomeController < ApplicationController
   end
 
   def settings
-  end  
+  end
+
+  def update_books
+  	books = Book.for_course.select{|b| b.name =~ /#{App::ChineseNum[params[:grade_num].to_i]}/ && b.name =~ /#{Course.find(params[:course_id]).name}/}
+    render partial: 'shared/update_books', locals: {books: books}
+  end
 end

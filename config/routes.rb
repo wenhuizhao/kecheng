@@ -23,6 +23,7 @@ Kecheng::Application.routes.draw do
   post "get_classes" => "grades#get_classes"
   post "check_exercise" => "student_homeworks#check_exercise"
   post "save_exer_canvas" => "student_homeworks#save_canvas"
+  post "update_books" => "home#update_books"
   devise_for :users, controllers: {
     passwords: 'passwords',
     sessions: 'sessions',
