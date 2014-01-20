@@ -69,7 +69,7 @@ module Mgrade
     end
     
     def homework_rang(sdate, edate)
-      homeworks.where("homeworks.created_at < '#{edate}' and homeworks.created_at > '#{sdate}'")
+      homeworks.where("homeworks.created_at between '#{sdate}' and '#{edate}'")
     end
   end
 end
