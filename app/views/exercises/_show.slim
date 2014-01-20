@@ -2,7 +2,10 @@
 - if @student_homework
   - ans = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: exercise.id).last
 = exercise.exercise_text.content.html_safe if exercise.exercise_text
-= replaced_exercise(exercise, ans.try(:answer))
+- if controller_name == 'homeworks' and action_name == 'new'
+  = simple_format exercise.title.html_safe
+- else
+  = replaced_exercise(exercise, ans.try(:answer))
 
 - if exercise.is_multi_choice?
   - exercise.options.each_with_index do |o, i|
