@@ -22,8 +22,13 @@
         = f.label :是否开放
         = f.select :is_open, [["是",'true'], ["否", 'false']]
   .main-desc.clear
-    = f.label :选择教材
-    = f.select :book_id, Book.for_course.map{|b| [b.name, b.id]}
+    #books
+      - Book.for_course.each do |book|
+        - unless book.cover.url =~ /missing/
+          .inline data-id="#{book.id}"
+            = image_tag book.cover.url
+            .center = book.name
+    = f.hidden_field :book_id, id: "book_id"
     = hidden_field_tag :grade_num, @grades_course.grade_num
     = hidden_field_tag :class_num, @grades_course.class_num
     .block
