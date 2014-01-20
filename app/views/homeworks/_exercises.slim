@@ -17,6 +17,7 @@ css:
 
 - ids = exercises.select{|e| e.is_need_canvas?}.collect(&:id)
 - hnum = current_user.is_student? ? 30 : 100
+- color = current_user.is_student? ? 'blue' : 'red'
 = javascript_include_tag 'exercise'
 - ids.each do |id|
   javascript:
@@ -26,6 +27,7 @@ css:
       height: height
     }).attr('height', height);
     canvas_#{id}.loadFromJSON('#{get_canvas_text(id)}', canvas_#{id}.renderAll.bind(canvas_#{id}));
+    canvas_#{id}.freeDrawingBrush.color = "#{color}";
 
 javascript:
   function save_canvas(){
