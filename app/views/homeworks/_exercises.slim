@@ -3,16 +3,15 @@
     #exercises, #exercises .exercise {margin: 15px 0}
 css:
   .canvas-container {position: absolute!important;}
-table#exercises
+#exercises
   - exercises.each_with_index do |hwq, i|
     - if @student_homework
       - ans = get_hexer(hwq.id)
     .exercise id='#{hwq.id}_e'
       - if hwq.is_need_canvas?
         canvas.canvas id='#{hwq.id}_c'  width=830 style='position: absolute;'         
-      tr
-        td.top: .etitle.fleft = App::ChineseNum[i + 1]
-        td: .econtent
+        .etitle.fleft = App::ChineseNum[i + 1]
+        .econtent
           = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
           = render partial: partial_role('exer'), locals: {hwq: hwq, ans: ans}
 
