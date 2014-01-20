@@ -14,7 +14,7 @@
       = radio_button_tag "#{exercise.id}option", opt, opt == ans.try(:answer)
     - else
       = radio_button_tag "#{exercise.id}option", opt
-    = o.name
+    = o.full_name
 
 p = exercise.note
 
