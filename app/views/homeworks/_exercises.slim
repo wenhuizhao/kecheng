@@ -13,7 +13,7 @@ css:
       .etitle.fleft = App::ChineseNum[i + 1]
       .econtent
         = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
-        = render partial: partial_role('exer'), locals: {hwq: hwq, ans: ans}
+      = render partial: partial_role('exer'), locals: {hwq: hwq, ans: ans}
 
 - ids = exercises.select{|e| e.is_need_canvas?}.collect(&:id)
 - hnum = current_user.is_student? ? 30 : 100

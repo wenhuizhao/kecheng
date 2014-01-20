@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'net/http'
 module Tool
   def send_sms(opts = {})
@@ -59,8 +60,15 @@ module Tool
     def percents_for(obj, month, int = false, year = current_period.start_year)
       year = year.to_i + 1 if month == 1
       total = obj.homeworks_of(month, year)
-      day_un_homeworks = total.select{|h| h.status.nil?}
-      to_percent(day_un_homeworks.size, total.size, int)
+      done_shs_num, shs_num = 0, 0
+      total.each do |homework|
+        shs = homework.student_homeworks
+        # next if shs.select("unix_timestamp(updated_at)-unix_timestamp(created_at) as s")
+        done_shs = shs.where("status = '已完成' and times = 2")
+        shs_num += shs.size
+        done_shs_num += done_shs.size
+      end
+      to_percent(done_shs_num, shs_num)
     end
   end
 

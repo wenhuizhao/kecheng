@@ -8,6 +8,8 @@ class StudentHomework < ActiveRecord::Base
 
   before_create :set_status
 
+  # scope :one_day, -> {where("student_homeworks.updated_at < #{1.days.from(created_at})")}
+  
   def set_status
     self.status = Settings.homework_status.first
   end
