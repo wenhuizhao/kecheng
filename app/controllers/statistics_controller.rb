@@ -39,14 +39,16 @@ class StatisticsController < ApplicationController
   end
 
   def set_month_range
-    start_date, end_date = Date.parse(params[:start_date]), Date.parse(params[:end_date])
-    session[:year] = start_date.year
-    session[:month_range] = (start_date..end_date).map(&:month).uniq
-    redirect_to :index
+    @start_date, @end_date = Date.parse(params[:start_date]), Date.parse(params[:end_date])
+    session[:start_year], session[:end_year] = @start_date.year, @end_date.year
+    session[:month_range] = (@start_date..@end_date).map(&:month).uniq
+    redirect_to action: :index
   end
 
   private
     def month_range
+      @start_year, @end_year = session[:start_year] || current_period.start_year, 
+                               session[:end_year] || current_period.end_year
       @month_range = session[:month_range] || Period.current_period.months
     end
 end

@@ -89,9 +89,9 @@ $(document).ready ->
       id = $(this).attr('data-id')
       $('#book_id').attr('value', id)
       $(this).addClass('hover')
-
-  # $('.chart-small').each (i) ->
-  #   $(this).find('text').last().hide()
+  
+  $('#date-select').find('input').click ->
+    WdatePicker()
 
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')

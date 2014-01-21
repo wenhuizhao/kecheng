@@ -102,7 +102,7 @@ module ApplicationHelper
     content_tag :div, notice, class: 'unotice' if notice
   end
 
-  def into_date(month, year = Time.now.year, day = '1')
+  def month_into_date(month, year = current_period.start_year, day = '1')
     "#{year}-#{month}-#{day}"
   end
  
@@ -112,6 +112,10 @@ module ApplicationHelper
  
   def include_chart_js
     javascript_include_tag 'highcharts','exporting'
+  end
+
+  def include_date_picker_js
+    javascript_include_tag "/javascripts/My97DatePicker/WdatePicker.js"
   end
 
   def bar_chart(hid, options = {})
