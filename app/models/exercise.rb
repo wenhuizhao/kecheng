@@ -20,19 +20,23 @@ class Exercise < ActiveRecord::Base
   delegate :content, to: :exercise_text
 
   def is_fill_blank?
-    qtype and qtype.name == "填空题"
+    qtype_name == "填空题"
   end
 
   def is_multi_choice?
-    qtype and qtype.name == "选择题"
+    qtype_name == "选择题"
   end
   
   def is_q_and_a?
-    qtype and qtype.name == "问答题"
+    qtype_name == "问答题"
   end
 
   def is_need_canvas?
-    qtype.try(:name) == '连线题'
+    qtype_name == '连线题'
+  end
+
+  def qtype_name
+    qtype.try(:name)
   end
 
   def is_need_area?

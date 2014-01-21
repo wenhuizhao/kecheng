@@ -10,7 +10,7 @@ css:
     .exercise id='#{hwq.id}_e'
       - if hwq.is_need_canvas?
         canvas.canvas id='#{hwq.id}_c'  width=830 style='position: absolute;'         
-      .etitle.fleft = App::ChineseNum[i + 1]
+      .etitle = "#{App::ChineseNum[i + 1]}、#{hwq.qtype_name}"
       .econtent
         = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
       = render partial: partial_role('exer'), locals: {hwq: hwq, ans: ans}

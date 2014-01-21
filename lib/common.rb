@@ -8,6 +8,7 @@ module Common
   end
   
   def blanks_arr(content, qtype_id = 1)
+    return content.split("#00#") if content =~ /#00#/
     case qtype_id
     when 1
       content.split(/(&nbsp;)+/).join.split(/&nbsp;/)

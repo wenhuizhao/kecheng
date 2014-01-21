@@ -16,7 +16,8 @@ css:
               tr
                 td.top 
                   = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids.include?(q.id)
-                  = App::ChineseNum[i + 1]
+                  = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
+              tr
                 td = render partial: 'exercises/show', locals: {exercise: q, answer: false}
         table style='margin: 0 0 0 30px'
           tr: td: .mb5 作业附加信息

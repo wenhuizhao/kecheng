@@ -83,7 +83,7 @@ class UsersController < ApplicationController
     session[:auth_code] = random_num
     return render text: "请输入正确手机号码" unless right_phone(params[:mobile])
     return render text: "无此联系方式" if params[:forget] && !User.where(phone: params[:mobile])[0]
-    send_sms mobile: params[:mobile], content: "验证码：#{session[:auth_code]}"
+    send_sms mobile: params[:mobile], content: "您的验证码是：#{session[:auth_code]}，欢迎登录【麦穗儿】！"
     render text: "验证码已发送至#{params[:mobile]}"
   end
 
