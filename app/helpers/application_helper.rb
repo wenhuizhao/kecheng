@@ -79,7 +79,7 @@ module ApplicationHelper
   end
 
   def replaced_exercise(exer, ans = nil)
-    content = simple_format(exer.title, {}, wrapper_tag: "div")
+    content = clean_content(exer.title, {}, wrapper_tag: "div")
     return content.html_safe if exer.is_multi_choice? || exer.is_need_canvas?
     cs = ""
     contents = blanks_arr(content, exer.qtype_id)
@@ -96,7 +96,11 @@ module ApplicationHelper
     end 
     cs.html_safe
   end
-  
+ 
+  def clean_content(c, opts = {}, opts2 = {})
+    simple_format(c, opts, opts2).gsub(/[\<&lt;]+!--\[if.*?endif\]-->/,'').html_safe 
+  end
+ 
   def include_chart_js
     javascript_include_tag 'highcharts','exporting'
   end

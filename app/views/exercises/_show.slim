@@ -3,7 +3,7 @@
   - ans = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: exercise.id).last
 = exercise.exercise_text.content.html_safe if exercise.exercise_text
 - if controller_name == 'homeworks' and action_name == 'new'
-  = simple_format exercise.title.html_safe
+  = clean_content exercise.title
 - else
   = replaced_exercise(exercise, ans.try(:answer))
 
