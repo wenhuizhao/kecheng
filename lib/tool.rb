@@ -68,7 +68,7 @@ module Tool
         shs_num += shs.size
         done_shs_num += done_shs.size
       end
-      to_percent(done_shs_num, shs_num)
+      to_percent(shs_num - done_shs_num, shs_num)
     end
   end
 
