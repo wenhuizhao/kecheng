@@ -1,5 +1,8 @@
-- books.each do |book|
-  - unless book.cover.url =~ /missing/
-    .inline data-id="#{book.id}"
-      = image_tag book.cover.url
-      .center = book.name
+- if books.empty?
+  |没有封面, 请选择其他班级或课程！
+- else
+  - books.each do |book|
+    - unless book.cover.url =~ /missing/
+      .inline data-id="#{book.id}"
+        = image_tag book.cover.url
+        .center = book.name
