@@ -41,7 +41,7 @@ $(document).ready ->
   $('.jyj-left').click ->
     redirect_to '/'
  
-  ['.grades', '.roles', '.courses', '.schools'].forEach (el) ->
+  ['.grades', '.roles', '.courses', '.schools', '.periods'].forEach (el) ->
     $(el).find('.select').click ->
       $(this).parent().find('.opts').toggle()
 

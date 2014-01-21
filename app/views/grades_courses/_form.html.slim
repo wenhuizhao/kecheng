@@ -4,8 +4,8 @@
     .notice = link_to @wnotice, wait_to_accept_courses_grades_courses_path
   - if @notice
     .notice = @notice
-  .main-desc style='height: 120px'
-    - if !@grades_course.is_accept
+  - if !@grades_course.is_accept
+    .main-desc style='height: 120px'
       = render "shared/select_grades"
       .select-div.courses
         .words.select 
@@ -16,17 +16,13 @@
             .words.opt data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
               .word = c.name
 
+      = hidden_field_tag :grade_num, @grades_course.grade_num
+      = hidden_field_tag :class_num, @grades_course.class_num
       = f.hidden_field :course_id, id: 'course_id'
-    - else
-      .field
-        = f.label :是否开放
-        = f.select :is_open, [["是",'true'], ["否", 'false']]
   .main-desc.clear
     #books
       = render partial: 'shared/update_books', locals: {books: Book.for_course}
     = f.hidden_field :book_id, id: "book_id"
-    = hidden_field_tag :grade_num, @grades_course.grade_num
-    = hidden_field_tag :class_num, @grades_course.class_num
     .block style='margin: 0 0 0 500px'
       = submit_tag '确定', class: 'block'
       = link_to root_path, class: 'btn cancle'

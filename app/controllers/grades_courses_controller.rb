@@ -12,6 +12,8 @@ class GradesCoursesController < ApplicationController
   end
 
   def show
+    @pname = params[:pname] || @grades_course.period_name
+    @grades_course = @grades_course.pcourse(@pname[0, 1]) if params[:pname]
   end
 
   def edit

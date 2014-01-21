@@ -48,9 +48,9 @@ module ApplicationHelper
     %w(exercises homeworks) 
   end
 
-  def partial_role(part)
-    return "student_#{part}" if current_user.is_student?
-    "teacher_#{part}"
+  def partial_role(part = '')
+    return "student#{part}" if current_user.is_student?
+    "teacher#{part}"
   end
 
   def paginate_objs(objs)

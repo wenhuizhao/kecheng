@@ -38,6 +38,10 @@ class GradesCourse < ActiveRecord::Base
     self.is_open = true
   end
 
+  def period_name
+    "#{period.desc}学期"
+  end
+  
   def course_name
     course.try :name
   end
@@ -75,6 +79,11 @@ class GradesCourse < ActiveRecord::Base
     course_homeworks.where(status: nil)
   end
   
+  def pcourse(desc)
+    period_id = Period.where(desc: desc, start_year: period.start_year, end_year: period.end_year).last.try(:id)
+    GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period_id).last
+  end
+ 
   class << self
     def teacher_for(grade_id, course_id, period_id = Period.current_period.id)
       where(grade_id: grade_id, course_id: course_id, period_id: period_id, is_accept: true)
