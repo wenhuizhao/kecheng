@@ -16,6 +16,7 @@
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'
   .clear
 .main-desc
+  #date-select = render 'date_select'
   #bar
   - sdate, edate = 1.month.ago, Time.now
   = bar_chart  'bar', categories: courses.collect(&:full_name), \

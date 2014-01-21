@@ -1,0 +1,6 @@
+= form_tag set_month_range_path
+  .inline = text_field_tag :start_date, into_date(@month_range[0])
+  .inline.icon
+  .inline 至
+  .inline = text_field_tag :end_date, into_date(@month_range[1])
+  .inline.icon

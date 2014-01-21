@@ -11,6 +11,7 @@ Kecheng::Application.routes.draw do
   get "statistics/school/:school_id" => "statistics#index", as: "school_sta"
   post "statistics/to_line_chart"
   post "send_code" => "users#set_auth_code"
+  post "set_month_range" => "statistics#set_month_range"
 
   get "home/index"
   match "settings" => 'home#settings'

@@ -93,9 +93,10 @@ class UsersController < ApplicationController
   def update_pass(user)
     if request.post?
       return render_alert '两次密码输入不一致' if params[:password_confirmation] != params[:password]
+      return render_alert '清输入密码' unless params[:password].presence
       user.password = params[:password]
       user.save
-      i# render_alert '修改成功,请重新登录！'
+      # render_alert '修改成功,请重新登录！'
       flash[:notice] = '您的修改已保存成功！' 
     end
   end

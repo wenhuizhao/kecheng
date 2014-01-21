@@ -38,8 +38,15 @@ class StatisticsController < ApplicationController
     end.to_json
   end
 
+  def set_month_range
+    start_date, end_date = Date.parse(params[:start_date]), Date.parse(params[:end_date])
+    session[:year] = start_date.year
+    session[:month_range] = (start_date..end_date).map(&:month).uniq
+    redirect_to :index
+  end
+
   private
     def month_range
-      @month_range = Period.current_period.months
+      @month_range = session[:month_range] || Period.current_period.months
     end
 end

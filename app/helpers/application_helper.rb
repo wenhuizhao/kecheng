@@ -101,6 +101,10 @@ module ApplicationHelper
     notice = flash[:notice] || @notice || @error
     content_tag :div, notice, class: 'unotice' if notice
   end
+
+  def into_date(month, year = Time.now.year, day = '1')
+    "#{year}-#{month}-#{day}"
+  end
  
   def clean_content(c, opts = {}, opts2 = {})
     simple_format(c, opts, opts2).gsub(/[\<&lt;]+!--\[if.*?endif\]-->/,'').html_safe 
@@ -121,6 +125,7 @@ module ApplicationHelper
             xAxis: {
               categories: #{options[:categories]}
             },
+            tooltip: { enabled: false },
             #{y_label},
             series: [{
               name: '#{options[:time_str]}',
@@ -136,6 +141,7 @@ module ApplicationHelper
             xAxis: {
               categories: #{options[:categories]}
             },
+            tooltip: { enabled: false },
             #{y_label}
             ,
             series: #{options[:data]}
@@ -176,6 +182,7 @@ module ApplicationHelper
            title: {
               text: '#{options[:title] || obj.full_name}'
            },
+           tooltip: { enabled: false },
            series: [{
              type: 'pie',
              name: '" + options[:title] + "',
