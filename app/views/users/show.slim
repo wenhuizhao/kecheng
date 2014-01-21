@@ -10,6 +10,8 @@
           .student class='#{'active' if action_name == 'reset_password'}' data-url='/users/#{current_user.id}/reset_password'
             span.stitle.fs24  修改密码
       .user-right
+        - if flash[:notice]
+          .notice style="margin: 0" = flash[:notice]
         .block 
           = form_tag action: :update
             table.common
