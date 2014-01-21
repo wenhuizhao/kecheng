@@ -1,6 +1,9 @@
 $(document).ready ->
   
-  # setTimeout $('#notice').hide(1000)
+  # setTimeout $('.unotice').hide(2000)
+  
+  $('.unotice').click ->
+    $(this).hide()  
 
   window.App =
     grade: 'g1'

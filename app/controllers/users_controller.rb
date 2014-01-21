@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       @user.update_attribute(:role_id, nil) if current_user.is_admin? && current_user.id == @user.id
       GradeStudent.update_from_admin(params[:grade_id], @user.id) if params[:grade_id] && @user.is_student?
-      flash[:notice] = '修改成功' 
+      flash[:notice] = '您的修改已保存成功！' 
       re_to_path
     else
       render action: (current_user.is_admin? ? "edit" : "show")
@@ -95,7 +95,8 @@ class UsersController < ApplicationController
       return render_alert '两次密码输入不一致' if params[:password_confirmation] != params[:password]
       user.password = params[:password]
       user.save
-      render_alert '修改成功,请重新登录！'
+      i# render_alert '修改成功,请重新登录！'
+      flash[:notice] = '您的修改已保存成功！' 
     end
   end
 

@@ -96,6 +96,11 @@ module ApplicationHelper
     end 
     cs.html_safe
   end
+  
+  def flash_notice
+    notice = flash[:notice] || @notice || @error
+    content_tag :div, notice, class: 'unotice' if notice
+  end
  
   def clean_content(c, opts = {}, opts2 = {})
     simple_format(c, opts, opts2).gsub(/[\<&lt;]+!--\[if.*?endif\]-->/,'').html_safe 
