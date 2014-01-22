@@ -96,6 +96,10 @@ $(document).ready ->
   
   $('#date-select').find('input').click ->
     WdatePicker()
+  
+  $('#homework_end_time').click ->
+    WdatePicker
+      dateFmt: 'yyyy年MM月dd日 HH:mm'
 
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')
