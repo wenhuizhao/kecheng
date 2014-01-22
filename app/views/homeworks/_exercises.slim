@@ -11,6 +11,7 @@ css:
       .econtent
         = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
       = render partial: partial_role('_exer'), locals: {hwq: hwq, ans: ans}
+      = render partial: 'shared/ask_question', locals: {ans: ans}
 
 - ids = exercises.select{|e| e.is_need_canvas?}.collect(&:id)
 - hnum = current_user.is_student? ? 30 : 100

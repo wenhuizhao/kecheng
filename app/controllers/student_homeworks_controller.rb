@@ -20,8 +20,11 @@ class StudentHomeworksController < ApplicationController
 
   def update
     if current_user.is_teacher?
-      @student_homework.need_modify
-      @student_homework.complete if @student_homework.auto_finish?
+      if @student_homework.auto_finish? || @student_homework.times == 1
+        @student_homework.complete
+      else
+        @student_homework.need_modify
+      end
     end
     if @student_homework.update_attributes(params[:student_homework])
       update_exercises
@@ -82,6 +85,7 @@ class StudentHomeworksController < ApplicationController
       elsif current_user.is_teacher?
         she.update_attributes(teacher_id: current_user.id)
       end
+      Question.where(user_id: current_user.id, student_homeworks_exercise_id: she.id).first_or_create.update_attribute(:content, params["question#{she.id}"]) if params["question#{she.id}"].presence
     end
   end
   

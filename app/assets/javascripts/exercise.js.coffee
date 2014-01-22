@@ -7,6 +7,8 @@ $('#exercises').find('.check-icon').each (i, obj) ->
     if desc is 'edit'
       $('.' + id + 'area').removeAttr('disabled')
       alert '进入编辑状态'
+    else if desc is 'message'
+      $(obj).parent().parent().next().toggle()
     else
       $.ajax
         url: '/check_exercise'
