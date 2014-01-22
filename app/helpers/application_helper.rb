@@ -66,14 +66,6 @@ module ApplicationHelper
     link_to title, opts, class: 'btn'
   end
   
-  def range_percents_homework(objs, sdate, edate)
-    objs.map do |obj|
-      total = obj.homework_rang(sdate, edate)
-      day_un_homeworks = total.select{|h| h.status.nil?}
-      to_percent(day_un_homeworks.size, total.size, true)
-    end
-  end
-  
   def red_content(words, opts = {})
     content_tag :span, words, {class: 'red', style: "font-weight: bold;"}.merge(opts)
   end
@@ -85,12 +77,13 @@ module ApplicationHelper
     contents = blanks_arr(content, exer.qtype_id)
     # contents = simple_format(exer.title).split(/\<u\>.*?\<\/u\>/)
     contents.each_with_index do |c, i|
+      cs += c
       next if c.empty? || c == "</span><span>"
-      unless c == contents.last && contents.size > 1
+      unless c == contents.last
         if exer.is_fill_blank?
-          cs +=  c + "<input name='#{exer.id}_#{i + 1}_in' value='#{ans.to_s.split("@@@")[i]}' class='exer_input' />"
+          cs += "<input name='#{exer.id}_#{i + 1}_in' value='#{ans.to_s.split("@@@")[i]}' class='exer_input' />"
         else
-          cs +=  c + "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 class='exer_textarea'>#{ans.to_s.split("@@@")[i]}</textarea>" 
+          cs += "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 class='exer_textarea'>#{ans.to_s.split("@@@")[i]}</textarea>" 
         end
       end
     end 

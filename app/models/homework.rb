@@ -64,8 +64,15 @@ class Homework < ActiveRecord::Base
     us = unsubmit_students.size
     (Settings.homework_levels.map{|h| 
       l = student_homeworks.where(level: h).size
-      {y: l, name: (percents ? to_percent(l, total) : l), color: ChartColors[h]}} +
+      {y: l, name: (percents ? to_percent(l, total) : l), color: ChartColors[h]} if l > 0
+      }.compact +
     [{y: us, name: (percents ? to_percent(us, total) : us), color: 'rgb(231, 151, 220)'}]).to_json
   end
   include Tool::Percent
+  
+  class << self
+    def show_status
+      %w(待改错 已完成)
+    end
+  end
 end

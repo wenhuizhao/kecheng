@@ -18,7 +18,7 @@
 .main-desc
   #date-select = render 'date_select'
   #bar
-  - sdate, edate = 1.month.ago, Time.now
+  - sdate, edate = params[:start_date] || into_date(6.month.ago), params[:end_date] || into_date(Time.now)
   = bar_chart  'bar', categories: current_user.jyj.schools.collect(&:name), \
                       percents: range_percents_homework(current_user.jyj.schools, sdate, edate), \
-                      time_str: "#{into_date sdate} - #{into_date edate}"
+                      time_str: "#{sdate} - #{edate}"

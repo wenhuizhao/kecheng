@@ -59,7 +59,17 @@ module Tool
 
     def percents_for(obj, month, int = false, year = current_period.start_year)
       year = year.to_i + 1 if month == 1
-      total = obj.homeworks_of(month, year)
+      percent_between(obj, "#{year}-#{month}-01", "#{year}-#{month}-31")
+    end
+  
+    def range_percents_homework(objs, sdate, edate)
+      objs.map do |obj|
+        percent_between(obj, sdate, edate, true)
+      end
+    end
+    
+    def percent_between(obj, sdate, edate, int = false)
+      total = obj.homework_rang(sdate, edate)
       done_shs_num, shs_num = 0, 0
       total.each do |homework|
         shs = homework.student_homeworks
@@ -68,7 +78,7 @@ module Tool
         shs_num += shs.size
         done_shs_num += done_shs.size
       end
-      to_percent(shs_num - done_shs_num, shs_num)
+      to_percent(shs_num - done_shs_num, shs_num, int)
     end
   end
 
