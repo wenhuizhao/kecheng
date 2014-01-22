@@ -86,7 +86,7 @@ module ApplicationHelper
     # contents = simple_format(exer.title).split(/\<u\>.*?\<\/u\>/)
     contents.each_with_index do |c, i|
       next if c.empty? || c == "</span><span>"
-      unless c == contents.last
+      unless c == contents.last && contents.size > 1
         if exer.is_fill_blank?
           cs +=  c + "<input name='#{exer.id}_#{i + 1}_in' value='#{ans.to_s.split("@@@")[i]}' class='exer_input' />"
         else

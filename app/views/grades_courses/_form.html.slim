@@ -16,13 +16,13 @@
             .words.opt data-id='#{c.id}' class='#{c.id == @grades_course.course_id ? 'hover' : ''}' 
               .word = c.name
 
-      = hidden_field_tag :grade_num, @grades_course.grade_num
-      = hidden_field_tag :class_num, @grades_course.class_num
       = f.hidden_field :course_id, id: 'course_id'
   .main-desc.clear
     #books
       = render partial: 'shared/update_books', locals: {books: Book.for_course}
     = f.hidden_field :book_id, id: "book_id"
+    = hidden_field_tag :grade_num, @grades_course.grade_num
+    = hidden_field_tag :class_num, @grades_course.class_num
     .block style='margin: 0 0 0 500px'
       = submit_tag '确定', class: 'block'
       = link_to root_path, class: 'btn cancle'
