@@ -72,13 +72,19 @@ module Tool
       total = obj.homework_rang(sdate, edate)
       done_shs_num, shs_num = 0, 0
       total.each do |homework|
-        shs = homework.student_homeworks
-        # next if shs.select("unix_timestamp(updated_at)-unix_timestamp(created_at) as s")
-        done_shs = shs.where("status = '已完成' and times = 2")
+        all_shs = homework.student_homeworks
+        shs = select_under_one_day(all_shs)
+        done_shs = select_under_one_day(all_shs.where("status = '已完成' and times = 2"))
         shs_num += shs.size
         done_shs_num += done_shs.size
       end
       to_percent(shs_num - done_shs_num, shs_num, int)
+    end
+
+    def select_under_one_day(objs)
+      objs.select("id,status,times,unix_timestamp(updated_at)-unix_timestamp(created_at) as s").inject([]) do |ss, h|
+        h.s > 24 * 60 * 60 ? ss : ss << h
+      end
     end
   end
 
