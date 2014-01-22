@@ -1,5 +1,3 @@
-css:
-  p {max-width: 600px}
 .lists
   / = link_back grades_course_path(@student_homework.homework.grades_course)
   = link_to_back
@@ -10,7 +8,7 @@ css:
         - unless @student_homework
           | 暂无学生提交作业
         - else
-          .check-left
+          .check-left.check
             .ctitle = "作业批阅"
             - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
             .students
@@ -19,7 +17,7 @@ css:
                   .student class='#{'active' if @student_homework.student_id == s.id}'
                     = image_tag avatar_path(s), class: 'savatar'
                     span.stitle.fs24 = s.real_name
-          .check-right style="width: 600px;"
+          .check-right
             .block 
               = "作业题目(#{@student_homework.homework.exercises.size})"
             = render 'show_form'
