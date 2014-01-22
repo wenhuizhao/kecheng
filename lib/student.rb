@@ -38,7 +38,7 @@ module Student
   end
 
   def need_modify_homeworks
-    homeworks.joins(:student_homeworks).where("student_homeworks.status = '待改错'").order('end_time DESC')
+    homeworks.joins(:student_homeworks).where("student_homeworks.status = '待改错'").order('end_time')
   end
 
   include Mgrade

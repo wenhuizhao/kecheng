@@ -4,6 +4,7 @@ class StudentHomework < ActiveRecord::Base
 
   belongs_to :homework
   belongs_to :student, class_name: 'User'
+  has_many :student_homeworks_exercises, class_name: "StudentHomeworksExercises"
   has_and_belongs_to_many :exercises, join_table: 'student_homeworks_exercises' 
 
   before_create :set_status
@@ -24,6 +25,10 @@ class StudentHomework < ActiveRecord::Base
   
   def is_finished?
     status == '已完成'
+  end
+  
+  def auto_finish?
+    student_homeworks_exercises.select('check_desc').all?{|s| s.check_desc =~ /right/}
   end
   
   def canvas_exercises

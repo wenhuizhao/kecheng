@@ -16,9 +16,9 @@ css:
               span = l
 
   = f.hidden_field :homework_id, value: @homework.id
-  = hidden_field_tag :status, params[:status]
+  = hidden_field_tag :status, params[:status] || @student_homework.status
   .block
-    - if Homework.show_status.include?(params[:status]) 
+    - if Homework.show_status.include?(params[:status])
     - else
       = submit_tag '提交&下一份' if @shs.size > 1
       = submit_tag '完成', class: 'ml10'

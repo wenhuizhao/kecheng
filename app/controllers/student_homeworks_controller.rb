@@ -19,10 +19,9 @@ class StudentHomeworksController < ApplicationController
   end
 
   def update
-    if current_user.is_student? || @student_homework.times == 0
+    if current_user.is_teacher?
       @student_homework.need_modify
-    elsif current_user.is_teacher? && @student_homework.times == 1
-      @student_homework.complete
+      @student_homework.complete if @student_homework.auto_finish?
     end
     if @student_homework.update_attributes(params[:student_homework])
       update_exercises
