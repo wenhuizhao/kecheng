@@ -16,9 +16,9 @@ module ApplicationHelper
     'btn btn-main'
   end
 
-  def link_to_back(right = true)
-    return link_to_function '<span>返回</span>'.html_safe, 'history.go(-1)', class: 'btn ok' unless right
-    a = link_to_function '返回', 'history.go(-1)'
+  def link_to_back(title = '返回', right = true)
+    return link_to_function "<span>#{title}</span>".html_safe, 'history.go(-1)', class: 'btn ok' unless right
+    a = link_to_function title, 'history.go(-1)'
     content_tag :div, a, class: 'back'
   end
 

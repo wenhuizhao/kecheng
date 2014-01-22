@@ -2,21 +2,14 @@
   .title 消息中心
   = link_to_back
   .main-descs
-    .main-desc
-      table.list-big
-        = form_for @message do |f|
-          = render partial: 'shared/error_msgs', locals: {target: @message}
-          tr
-            td = f.label :消息详情
-            td = f.text_area :desc, row: 10, cols: 50
-          / tr
-          /   td = f.label :类型
-          /   td = f.select :type_name, Settings.message_types.map {|m| [m, m]}
-            
-          tr
-            td.actions colspan=10
-              - r_id = params[:parent_id] ? Message.find(params[:parent_id]).sender_id : params[:receiver_id]
-              = hidden_field_tag :receiver_id, r_id
-              = hidden_field_tag :grade_id, params[:grade_id]
-              = f.hidden_field :parent_id, value: params[:parent_id]
-              = f.submit '发送', class: 'btn'
+    .main-desc.message
+      = form_for @message do |f|
+        = render partial: 'shared/error_msgs', locals: {target: @message}
+        .message_content = f.text_area :desc, row: 10, cols: 50
+        - r_id = params[:parent_id] ? Message.find(params[:parent_id]).sender_id : params[:receiver_id]
+        = hidden_field_tag :receiver_id, r_id
+        = hidden_field_tag :grade_id, params[:grade_id]
+        = f.hidden_field :parent_id, value: params[:parent_id]
+        .block style='margin-left: 420px'
+          = f.submit '确定', class: 'block'
+          = link_to_back('取消', false)

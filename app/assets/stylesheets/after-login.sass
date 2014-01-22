@@ -214,6 +214,9 @@ header
     margin-bottom: 44px
   .main-desc
     padding-left: 52px
+    &.message
+      .block a
+        background: $light_green
   .main-desc-left, .main-desc-right
     float: left
     min-height: 500px
@@ -680,11 +683,20 @@ p
     width: 47px
     height: 39px
     background: url(date-picker.png)
-    margin: -13px 30px -13px 0
+    margin: -13px 30px -13px 0px
   input
-    background: $text_filed_color
     padding: 5px
-    border: 1px solid #999
     width: 150px
     height: 30px
     font-size: 18px
+#date-select input, #message_desc
+  background: $text_filed_color
+  border: 1px solid #999
+#message_desc
+  width: 700px
+  margin: 70px 39px
+  padding: 20px
+  font-size: 22px
+  height: 276px
+  @include border-radius(5px)
+  
