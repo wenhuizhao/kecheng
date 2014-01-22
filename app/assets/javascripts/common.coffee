@@ -1,6 +1,10 @@
 $(document).ready ->
-  
-  # setTimeout $('.unotice').hide(2000)
+ 
+  window.hideNotice = ->
+    $('.unotice').hide(1000)
+    if $('.unotice').html() is '您的修改已保存成功！'
+      redirect_to '/' 
+  setTimeout hideNotice, 2000
   
   $('.unotice').click ->
     $(this).hide()  
