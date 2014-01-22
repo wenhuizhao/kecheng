@@ -37,9 +37,10 @@ module Mgrade
     def send_apply_request(*args)
       type, opts = args[0], args.extract_options! #, opts
       grade_id, course_id = opts.values 
-      grade, course = Grade.find(grade_id), Course.find(course_id)
+      grade = Grade.find(grade_id)
       desc = '申请加入' + grade.full_name if type == 'apply_grades'
       if type == 'apply_courses'
+        course = Course.find(course_id)
         if GradesCourse.has_teacher_for?(grade_id, course_id)
           grades_course = GradesCourse.teacher_for(grade_id, course_id).last
           teacher = grades_course.teacher

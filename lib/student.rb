@@ -30,7 +30,8 @@ module Student
   end
 
   def grade
-    approved_grades.last
+    # approved_grades.last
+    grade_stus.last.is_accept ? grade_stus.last.grade : nil
   end
 
   def history_grades

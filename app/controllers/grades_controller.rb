@@ -2,7 +2,7 @@
 class GradesController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :require_grade, except: [:get_classes]
+  before_filter :require_grade, except: [:get_classes, :index]
   before_filter :get_grade, except: [:index, :create, :new, :get_classes]
   
   def index
