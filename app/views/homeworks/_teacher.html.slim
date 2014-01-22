@@ -15,9 +15,12 @@
   - Settings.homework_status.each do |status|
     - shs = StudentHomework.where(status: status, homework_id: @homework.id)
     .status.main-desc
-      - if current_user.is_teacher?
-        .check
-          = link_green_btn '批阅', check_homework_path(status: status) if (status == '未批阅' || status == '已改错') && shs.size > 0
+      .check
+        - if shs.size > 0
+          - if (status == '未批阅' || status == '已改错')
+            = link_green_btn '批阅', check_homework_path(status: status) 
+          - else 
+            = link_green_btn '查看', check_homework_path(status: status) 
       .students
         .name = status + "#{shs.size}人"
         - shs.each do |sh|
