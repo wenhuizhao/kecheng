@@ -21,7 +21,12 @@ class School < ActiveRecord::Base
   end
 
   def teachers
-    User.teachers_of(self)
+    users.where(role_id: 3)
+    # User.teachers_of(self)
+  end
+
+  def students
+    users.where(role_id: 2)
   end
 
   def grade_course_ids

@@ -1,13 +1,33 @@
 # -*- encoding : utf-8 -*-
 class MessagesController < ApplicationController
 
-  before_filter :get_message, except: [:index, :create, :new]
+  before_filter :get_message, except: [:index, :create, :new, :broadcast]
   before_filter :authenticate_user!
   
   def index
     @all_messages = Message.all_for(current_user)[0, 50]
     @messages = current_user.unread_messages
     @messages.each(&:set_show!)
+  end
+
+  def broadcast
+    return if request.get?
+    return render_alert '请选择至少一个学校' if params[:school_ids].nil?
+    return render_alert '请选择至少一个角色' if params[:roles].nil?
+    roles = {'teacher' => 3, 'student' => 2}
+    if current_user.is_admin_jyj?
+      School.find(params[:school_ids]).each do |s|
+        s.users.where("role_id in (#{params[:roles].map {|r| roles[r]}.join(',')})").each do |u|
+          Message.transaction do
+            Message.create(desc: params[:desc], sender_id: current_user.id, receiver_id: u.id)
+          end
+        end
+      end
+    elsif current_user.is_admin_xld?
+
+    end
+    flash[:notice] = '发送成功！'
+    redirect_to messages_path
   end
   
   def show

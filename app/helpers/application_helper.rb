@@ -31,8 +31,8 @@ module ApplicationHelper
     link_back
   end
 
-  def check_all(selector = 'select_all')
-    c = check_box_tag selector, '', false, onclick: 'select_all_records()'
+  def check_all(selector = 'select_all', tag = 'body')
+    c = check_box_tag selector, '', false, onclick: "select_all_records('#{selector}','#{tag}')"
     c + content_tag(:span, '全选')
   end
   

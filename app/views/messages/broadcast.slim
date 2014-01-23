@@ -1,0 +1,30 @@
+.lists
+  .title 发送广播消息
+  = link_to_back
+  = form_tag ''
+    .main-descs.broadcast
+      .main-desc#ss style='height: 200px'
+        .inline 请选择收信学校
+        .block
+          = check_all('ssc', '#ss')
+          .clear
+          - current_user.jyj.schools.each do |s|
+            .fleft.school 
+              = check_box_tag "school_ids[]", s.id
+              = s.name
+      .main-desc#rs style='height: 120px'
+        .inline 请选择收信人角色
+        .block
+          = check_all('rsc', '#rs')
+          .clear
+          - [['教师','teacher'],['学生','student']].each do |s|
+            .fleft.school 
+              = check_box_tag "roles[]", s[1]
+              = s[0]
+      .main-desc.message
+        .inline 请输入消息内容
+        .message_content 
+          = text_area_tag :desc, '', id: "message_desc", style: 'height: 100px'
+        .block style='margin-left: 420px'
+          = submit_tag '发送'
+          = link_to_back('取消', false)

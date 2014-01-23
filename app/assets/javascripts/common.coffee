@@ -33,6 +33,9 @@ $(document).ready ->
   $('.areas').on 'click', '.area',  ->
     redirect_to $(this).find('a').attr('href')
   
+  $('.small-title').click ->
+     redirect_to '/messages/broadcast'
+
   # $('.check-left').on 'click', '.student',  ->
   #   redirect_to '/homeworks/' + $(this).attr('data-hid') + '/check?status=' + $(this).attr('data-status') + '&student_id=' + $(this).attr('data-id')
   
@@ -69,16 +72,6 @@ $(document).ready ->
       click_menu '.courses', '#course_id', obj
       update_books()
 
-  window.update_books = ->    
-    $.ajax
-      url: '/update_books'
-      type: 'post'
-      data:
-        grade_num: $('#grade_num').val()
-        course_id: $('#course_id').val()
-      success: (r) ->
-        $('#books').html(r)
-
   $('.roles').find('.opt').each (i, obj) ->
     $(obj).click ->
       click_menu '.roles', '#role_id', obj
@@ -86,13 +79,6 @@ $(document).ready ->
   $('.schools').find('.opt').each (i, obj) ->
     $(obj).click ->
       click_menu '.schools', '#school_id', obj
-
-  #  $('#books').find('.inline').each (i, obj) ->
-  #    $(obj).click ->
-  #      $('#books').find('.hover').removeClass('hover')
-  #      id = $(this).attr('data-id')
-  #      $('#book_id').attr('value', id)
-  #      $(this).addClass('hover')
   
   $('#date-select').find('input').click ->
     WdatePicker()
@@ -109,6 +95,16 @@ $(document).ready ->
     $(cls).find('.opts').hide()
     $(obj).addClass('hover')
 
+  window.update_books = ->    
+    $.ajax
+      url: '/update_books'
+      type: 'post'
+      data:
+        grade_num: $('#grade_num').val()
+        course_id: $('#course_id').val()
+      success: (r) ->
+        $('#books').html(r)
+
   window.redirect_to = (url) ->
     window.location.href = url
   
@@ -116,11 +112,11 @@ $(document).ready ->
     $(obj).parent().find('.leave-homework').toggle()
     $(obj).parent().find('.lesson-content').toggle()
 
-  window.select_all_records = ->
-    if ($('#select_all').get(0).checked)
-      $('input[type="checkbox"]').attr('checked', true)
+  window.select_all_records = ( id = 'select_all', sel = 'body' ) ->
+    if ($('#' + id).get(0).checked)
+      $(sel).find('input[type="checkbox"]').attr('checked', true)
     else
-      $('input[type="checkbox"]').attr('checked', false)
+      $(sel).find('input[type="checkbox"]').attr('checked', false)
     return null
 
 

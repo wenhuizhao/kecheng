@@ -62,6 +62,9 @@ Kecheng::Application.routes.draw do
     member do 
       get :dialog
     end
+    collection do
+      match :broadcast
+    end
   end
 
   resources :grades_courses do
