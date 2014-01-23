@@ -146,7 +146,7 @@ module ApplicationHelper
     chart(js)
   end
 
-  def y_label
+  def y_label(s = "this.value +'%'")
     "yAxis: {
         min: 0,
         max: 100,
@@ -155,7 +155,7 @@ module ApplicationHelper
         },
         labels: {
             formatter: function() {
-                return this.value +'%'
+                return #{s}
             }
         }
       }"

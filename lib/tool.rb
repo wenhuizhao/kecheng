@@ -59,7 +59,7 @@ module Tool
 
     def percents_for(obj, month, int = false, year = current_period.start_year)
       year = year.to_i + 1 if month == 1
-      percent_between(obj, "#{year}-#{month}-01", "#{year}-#{month}-31")
+      percent_between(obj, "#{year}-#{month}-01", "#{year}-#{month}-31", int)
     end
   
     def range_percents_homework(objs, sdate, edate)

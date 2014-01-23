@@ -9,7 +9,10 @@
         = image_tag avatar_path(@student)
       .sname = @student.real_name
       .sname = @student.gender
-
+      = javascript_include_tag 'highstock.js'
+      .lists
+        = line_chart 'demo', categories: (1..3).map{|m| "#{m}月"}, data: [] 
+      
       .block 无法展示统计图, 文字性的东西无法进行统计
 
 .lists
