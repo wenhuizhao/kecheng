@@ -22,7 +22,7 @@ class Grade < ActiveRecord::Base
   end
   
   def teachers
-    grades_courses.where("is_accept = true").inject([]) {|ts, gs| ts << gs.teacher}
+    grades_courses.visiable.inject([]) {|ts, gs| ts << gs.teacher}
     # User.joins(:grades_courses).where("grades_courses.is_accept = 1").joins(:grades)
   end 
  

@@ -23,6 +23,7 @@ class GradesCourse < ActiveRecord::Base
   # validates :book_id, uniqueness: {scope: :course_id}
   
   scope :all_courses_of, -> (user) {where(teacher_id: user.id)}
+  scope :visiable, -> {opened.where(is_accept: true)}
   scope :opened, -> {where(is_open: true)}
   scope :for_select, -> (grade) {opened.where(grade_id: grade.id, is_accept: true)}
   scope :accepted_courses_of, -> (user) {all_courses_of(user).where(is_accept: true)}
@@ -85,7 +86,7 @@ class GradesCourse < ActiveRecord::Base
   end
 
   def close!
-    # update_attribute :is_close, true
+    update_attribute :is_open, false
   end
  
   class << self

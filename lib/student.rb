@@ -6,7 +6,7 @@ module Student
 
   def courses
     gcs = grade.try(:grades_courses)
-    gcs ? gcs.where(is_accept: true) : []
+    gcs ? gcs.visiable : []
   end 
   
   def grade_stus
