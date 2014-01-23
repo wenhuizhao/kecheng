@@ -1,0 +1,14 @@
+= javascript_include_tag 'board-base' 
+
+#draw |画线
+#text_input 输入文字
+= text_area_tag :text, 'test text', id: "text"
+
+#save  Save canvas to localstorage
+#load  Load canvas from localstorage
+#clear  Clear canvas
+#remove  Remove shapes
+
+canvas#canvas width="700" height="600"
+
+= javascript_include_tag 'board' 

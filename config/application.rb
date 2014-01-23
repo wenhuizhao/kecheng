@@ -67,7 +67,7 @@ module Kecheng
     config.assets.version = '1.0'
 
     config.assets.precompile += ['highcharts.js', 'login.js', 'login.css', 'after-login.css', 'normalize.css', 'fabric.js', 'exporting.js',
-                                 'html2canvas.js', 'canvas2image.js', 'base64.js', 'exercise.js']
+                                 'board-base.js', 'board.js', 'html2canvas.js', 'canvas2image.js', 'base64.js', 'exercise.js']
 
   # don't generate RSpec tests for views and helpers
   config.generators do |g|
