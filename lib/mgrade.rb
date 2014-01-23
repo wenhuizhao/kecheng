@@ -10,7 +10,7 @@ module Mgrade
   
   def approved
     update_attribute :is_accept, true
-    if self.is_a?(Message)
+    if self.is_a?(Message) and self.type_name == 'apply_courses'
       ctl = ChangeTeacherLog.where(message_id: self.id).last
       GradesCourse.find(ctl.grades_course_id).update_attribute(:teacher_id, ctl.curr_teacher_id)
       GradesCourse.find(ctl.new_grades_course_id).delete
