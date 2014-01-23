@@ -16,9 +16,12 @@
         .main-descs
           .main-desc-left
             .title 老师
+            - ts = current_user.grade.uteachers
             .students
-              = render partial: 'shared/heads', locals: {users: current_user.grade.uteachers}
-
+              - if ts.size > 0
+                = render partial: 'shared/heads', locals: {users: current_user.grade.uteachers}
+              - else
+                |该班暂时没有老师
           .main-desc-right
             .title = '学生' + "(#{current_user.grade.students.size.to_s})"
             .students

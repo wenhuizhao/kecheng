@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :messages, join_table: 'users_messages'
   has_many :student_courses, foreign_key: 'student_id'
   has_many :grade_students, foreign_key: 'student_id'
+  has_many :grades_courses, foreign_key: 'teacher_id'
   
   scope :teachers, -> {where(role_id: 3)}
   scope :teachers_of, -> (school) {teachers.where(school_id: school.id)}

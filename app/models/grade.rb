@@ -7,7 +7,7 @@ class Grade < ActiveRecord::Base
   has_many :grade_students
   # has_and_belongs_to_many :students, foreign_key: :grade_id, join_table: 'grade_students'
 
-  has_many :teachers, through: :grades_courses
+  # has_many :teachers, through: :grades_courses
   has_many :courses, through: :grades_courses
   has_many :homeworks, through: :grades_courses
   validates :grade_num, :class_num,:school_id, presence: true
@@ -21,6 +21,11 @@ class Grade < ActiveRecord::Base
     full_name
   end
   
+  def teachers
+    grades_courses.where("is_accept = true").inject([]) {|ts, gs| ts << gs.teacher}
+    # User.joins(:grades_courses).where("grades_courses.is_accept = 1").joins(:grades)
+  end 
+ 
   def uteachers
     teachers.uniq
   end

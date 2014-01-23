@@ -26,7 +26,7 @@ class GradesCourse < ActiveRecord::Base
   scope :opened, -> {where(is_open: true)}
   scope :for_select, -> (grade) {opened.where(grade_id: grade.id, is_accept: true)}
   scope :accepted_courses_of, -> (user) {all_courses_of(user).where(is_accept: true)}
-  scope :for_user_grade, -> (user, grade) {accepted_courses_of(user).where(period_id: Period.current_period.id, grade_id: grade)}
+  scope :for_user_grade, -> (user, grade) {accepted_courses_of(user).where(period_id: Period.current_period.id, grade_id: grade.id)}
   before_create :set_default
   
   def name
