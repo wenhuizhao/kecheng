@@ -1,8 +1,9 @@
-- q = ans.questions.where(user_id: current_user.id).last rescue nil
-- qcon = (ans.questions - [q]).last.try(:content)
-.question-area style='#{"display: block" if qcon.presence}'
-  .question
-    = current_user.is_teacher? ? '疑问: ' : '老师回复: ' 
-    = qcon
-  = text_area_tag "question#{ans.try(:id)}", q.try(:content), placeholder: '在此回复...'
-  
+- if ans
+  - q = ans.questions.where(user_id: current_user.id).last rescue nil
+  - qcon = (ans.questions - [q]).last.try(:content)
+  .question-area style='#{"display: block" if qcon.presence}'
+    .question
+      = current_user.is_teacher? ? '疑问: ' : '老师回复: ' 
+      = qcon
+    = text_area_tag "question#{ans.try(:id)}", q.try(:content), placeholder: '在此回复...'
+    
