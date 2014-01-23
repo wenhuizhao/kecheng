@@ -2,7 +2,7 @@ $(document).ready ->
  
   window.hideNotice = ->
     $('.unotice').hide(1000)
-    if $('.unotice').html() is '您的修改已保存成功！'
+    if $('.unotice').html() is '您的修改已保存成功！' and location.pathname.match(/password/)
       redirect_to '/' 
   setTimeout hideNotice, 2000
   

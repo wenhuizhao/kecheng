@@ -1,6 +1,12 @@
 class Period < ActiveRecord::Base
   attr_accessible :desc, :end_year, :full_name, :is_current, :start_year
   after_create :set_full_name
+  has_many :grades_courses
+  
+  def courses_for(user)
+    user.accepted_courses.where(period_id: self.id)
+    # grades_courses.where(teacher_id: user.id, is_accept: true)
+  end
 
   def set_full_name
     self.full_name = "#{start_year}-#{end_year}学年#{desc}学期"
@@ -22,6 +28,10 @@ class Period < ActiveRecord::Base
       cp = where(start_year: year, is_current: true, desc: desc).last
       return cp if cp
       cp = create(start_year: year, end_year: year + 1, desc: desc, is_current: true)
+    end
+
+    def histories
+      all - [current_period]
     end
   end
 end

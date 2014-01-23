@@ -13,7 +13,7 @@ css:
           = check_all
           table#exercises
             - @section.exercises.each_with_index do |q, i|
-              tr
+              tr class='#{q.id}'
                 td.top 
                   = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids.include?(q.id)
                   = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"

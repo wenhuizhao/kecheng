@@ -9,6 +9,7 @@ class GradesCoursesController < ApplicationController
   def index
     # params[:history]
     @all_courses = current_user.history_courses
+    @periods = Period.histories
   end
 
   def show
