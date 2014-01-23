@@ -6,3 +6,14 @@
       .inline data-id="#{book.id}"
         = image_tag book.cover.url
         .center = book.name
+
+javascript:
+   $('#books').find('.inline').each(function(i, obj) {
+      return $(obj).click(function() {
+        var id;
+        $('#books').find('.hover').removeClass('hover');
+        id = $(this).attr('data-id');
+        $('#book_id').attr('value', id);
+        return $(this).addClass('hover');
+      });
+    });

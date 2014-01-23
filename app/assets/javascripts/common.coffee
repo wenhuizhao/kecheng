@@ -87,12 +87,12 @@ $(document).ready ->
     $(obj).click ->
       click_menu '.schools', '#school_id', obj
 
-  $('#books').find('.inline').each (i, obj) ->
-    $(obj).click ->
-      $('#books').find('.hover').removeClass('hover')
-      id = $(this).attr('data-id')
-      $('#book_id').attr('value', id)
-      $(this).addClass('hover')
+  #  $('#books').find('.inline').each (i, obj) ->
+  #    $(obj).click ->
+  #      $('#books').find('.hover').removeClass('hover')
+  #      id = $(this).attr('data-id')
+  #      $('#book_id').attr('value', id)
+  #      $(this).addClass('hover')
   
   $('#date-select').find('input').click ->
     WdatePicker()
