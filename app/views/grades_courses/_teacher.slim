@@ -1,8 +1,9 @@
 = include_chart_js
 .lists
   = link_to_home
+  / .back style='margin: 4px 10px 0 0'  = link_to '关闭课程', close_grades_course_path
   / = link_to '编辑', edit_grades_course_path(@grades_course)
-  .title = @grades_course.try(:full_name) || '暂无此学期课程'
+  .title= @grades_course.try(:full_name) || '暂无此学期课程'
   .select-div.periods
     css:
       .select-div {margin: 4px 0 0 10px;height: 49px;}

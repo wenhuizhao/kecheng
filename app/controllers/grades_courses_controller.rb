@@ -94,6 +94,11 @@ class GradesCoursesController < ApplicationController
     GradeStudent.where(grade_id: @grades_course.grade_id, student_id: params[:student_id]).delete_all
     redirect_to students_grades_course_path
   end
+
+  def close
+    @grades_course.close!
+    redirect_to @grades_course
+  end
   
   private
 

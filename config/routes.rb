@@ -12,6 +12,7 @@ Kecheng::Application.routes.draw do
   post "statistics/to_line_chart"
   post "send_code" => "users#set_auth_code"
   post "set_month_range" => "statistics#set_month_range"
+  # get "close" => "grades_courses#close", as: 'close_course'
 
   get "home/index"
   match "settings" => 'home#settings'
@@ -76,6 +77,7 @@ Kecheng::Application.routes.draw do
       get :student
       get :students
       get :delete_student
+      get :close
     end
     resources :lessons do
       resources :homeworks

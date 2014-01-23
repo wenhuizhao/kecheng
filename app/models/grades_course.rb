@@ -83,6 +83,10 @@ class GradesCourse < ActiveRecord::Base
     period_id = Period.where(desc: desc, start_year: period.start_year, end_year: period.end_year).last.try(:id)
     GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period_id).last
   end
+
+  def close!
+    # update_attribute :is_close, true
+  end
  
   class << self
     def teacher_for(grade_id, course_id, period_id = Period.current_period.id)
