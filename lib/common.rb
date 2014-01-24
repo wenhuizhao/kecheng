@@ -19,6 +19,6 @@ module Common
   end
 
   def new_homework_page
-    controller_name == 'homeworks' && action_name == 'new'
+    controller_name == 'homeworks' && action_name == 'new' rescue nil
   end
 end
