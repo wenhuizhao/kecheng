@@ -8,6 +8,7 @@ class StudentHomework < ActiveRecord::Base
   has_and_belongs_to_many :exercises, join_table: 'student_homeworks_exercises' 
 
   before_create :set_status
+  # validates :level, presence: true
 
   # scope :one_day, -> {where("student_homeworks.updated_at < #{1.days.from(created_at})")}
   

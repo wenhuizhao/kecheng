@@ -19,7 +19,9 @@ zh-CN:
         auth_code: '验证码'
         real_name: 真实姓名
       homework:
-        enjoin: 叮嘱
+        enjoin: 作业附加信息
+      student_homework:
+        level: 作业评级
       grades_course:
         grade: 班级
         lesson_num: 课程节数
