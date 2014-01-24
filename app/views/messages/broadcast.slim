@@ -1,15 +1,16 @@
+- colls = current_user.is_admin_jyj? ? current_user.jyj.schools : current_user.school.grades
 .lists
   .title 发送广播消息
   = link_to_back
   = form_tag ''
     .main-descs.broadcast
-      .main-desc#ss style='height: 200px'
+      .main-desc#ss 
         - if current_user.is_admin_jyj?
           .inline 请选择收信学校
           .block
             = check_all('ssc', '#ss')
             .clear
-            - current_user.jyj.schools.each do |s|
+            - colls.each do |s|
               .fleft.school 
                 = check_box_tag "school_ids[]", s.id
                 = s.name
@@ -18,7 +19,7 @@
           .block
             = check_all('ssc', '#ss')
             .clear
-            - current_user.school.grades.order('grade_num, class_num').each do |s|
+            - colls.order('grade_num, class_num').each do |s|
               .fleft.school 
                 = check_box_tag "grade_ids[]", s.id
                 = s.name
@@ -38,3 +39,6 @@
         .block style='margin-left: 420px'
           = submit_tag '发送'
           = link_to_back('取消', false)
+
+javascript:
+  $('#ss').css({height: #{(colls.size/3.0 * 40).to_i + 120}});
