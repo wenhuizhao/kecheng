@@ -3,9 +3,12 @@ class Period < ActiveRecord::Base
   after_create :set_full_name
   has_many :grades_courses
   
+  def history_courses_for(user)
+    courses_for(user).where(is_open: false)
+  end
+
   def courses_for(user)
     user.accepted_courses.where(period_id: self.id)
-    # grades_courses.where(teacher_id: user.id, is_accept: true)
   end
 
   def set_full_name

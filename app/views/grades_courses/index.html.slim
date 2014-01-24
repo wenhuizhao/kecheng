@@ -1,14 +1,12 @@
 .lists
   = link_to_home
   .title 历史课程
-  .main-descs
-    .main-desc
-      - if @all_courses.empty?
-        | 暂无历史课程
-      - else
-        .history_courses
-          - @periods.each do |per|
-            .period.inline = per.full_name
-            .courses.inline
-              - per.courses_for(current_user).each do |c|
-                = c.full_name
+  .main-descs.hcourses
+    - if @all_courses.empty?
+      | 暂无历史课程
+    - else
+      - @periods.each do |per|
+        .period.fleft = per.full_name
+        .courses.fleft
+          - per.history_courses_for(current_user).each do |c|
+            .course: span = link_to c.full_name, grades_course_path(c)

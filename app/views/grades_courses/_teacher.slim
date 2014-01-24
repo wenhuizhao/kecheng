@@ -1,10 +1,10 @@
 = include_chart_js
 .lists
   = link_to_home
-  / - unless @grades_course.is_open?
-  /   .back style='margin: 4px 10px 0 0'  该课程已关闭！
-  / - else
-  /   .back style='margin: 4px 10px 0 0'  = link_to '关闭课程', close_grades_course_path
+  - unless @grades_course.is_open?
+    .back style='margin: 4px 10px 0 0'  该课程已关闭！
+  - else
+    .back style='margin: 4px 10px 0 0'  = link_to '关闭课程', close_grades_course_path
   / = link_to '编辑', edit_grades_course_path(@grades_course)
   .title= @grades_course.try(:full_name) || '暂无此学期课程'
   .select-div.periods

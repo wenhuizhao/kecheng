@@ -8,8 +8,9 @@ class GradesCoursesController < ApplicationController
 
   def index
     # params[:history]
+    # @periods = Period.histories
     @all_courses = current_user.history_courses
-    @periods = Period.histories
+    @periods = @all_courses.map(&:period).uniq 
   end
 
   def show
