@@ -1,7 +1,7 @@
 .lists
   = link_back new_grades_course_path
 .main-descs
-  .main-desc style='padding: 50px'
-    - @wacs.each do |c|
+  - @wacs.each do |c|
+    .main-desc style='padding: 50px'
       .inline = c.full_name
       .status.inline = "审批状态：#{c.status}"
