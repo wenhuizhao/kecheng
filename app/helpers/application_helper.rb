@@ -79,7 +79,11 @@ module ApplicationHelper
     contents.each_with_index do |c, i|
       cs += c
       next if c.empty? || c == "</span><span>"
-      unless c == contents.last
+      if c == contents.last
+        if exer.is_q_and_a?
+          cs += "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 class='qa_area'>#{ans.to_s.split("@@@")[i]}</textarea>" 
+        end
+      else
         if exer.is_fill_blank?
           cs += "<input name='#{exer.id}_#{i + 1}_in' value='#{ans.to_s.split("@@@")[i]}' class='exer_input' />"
         else
