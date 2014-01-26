@@ -9,6 +9,7 @@
         = image_tag "#{pic}.png", class: 'check-icon-answer' if Exercise.checked_icons.include?(pic)
 .answer-content
   - Exercise.check_icons.each do |icon|
+    / # - next if icon == 'edit' && !hwq.is_need_canvas?
     .inline 
       = image_tag "#{icon}.png", class: 'check-icon', \
           "data-desc" => icon, "data-id" => hwq.id, "data-hid" => @student_homework.try(:id)
