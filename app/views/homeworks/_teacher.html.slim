@@ -26,5 +26,5 @@
         - shs.each do |sh|
           .student
             = image_tag avatar_path(sh.student), class: 'savatar'
-            span.stitle.fs24 = sh.student.real_name
-            span.stitle.fs24 = sh.updated_at.strftime("%H:%M")
+            span.stitle.fs20 = sh.student.real_name
+            span.stitle.fs20 = sh.updated_at.strftime("%m-%d %H:%M")
