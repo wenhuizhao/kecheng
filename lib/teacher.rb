@@ -1,7 +1,7 @@
 module Teacher
   
   def accepted_courses
-    GradesCourse.accepted_courses_of(self) 
+    GradesCourse.accepted_courses_of(self).order('grade_id')
   end
   
   def wait_to_accept_courses

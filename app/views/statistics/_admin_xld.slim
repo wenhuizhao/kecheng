@@ -10,7 +10,7 @@
       - courses.each do |g|
         tr
           td = check_box_tag 'grade_course_ids[]', g.id
-          td = link_to g.full_name, gteachers_sta_path(g.id.join('|'))
+          td = link_to g.full_name, gteachers_sta_path(g.id.join('|'), school_id: params[:school_id])
           - months.each do |m|
             td = percents_for(g, m)
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'

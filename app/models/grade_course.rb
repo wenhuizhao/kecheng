@@ -32,13 +32,13 @@ class GradeCourse
     ids.map{|g| GradeCourse.new(g[0], Course.find(g[1]))}.uniq
   end
 
-  def grades
-    Grade.where(grade_num: @grade_num)
+  def grades(school_id = 2)
+    Grade.where(grade_num: @grade_num, school_id: school_id)
   end
 
-  def teachers
-    homeworks.map{|h| h.teacher}.uniq
-    # grades.inject([]) { |ts, g| 
-    # ts << GradesCourse.where(grade_id: g.id, course_id: course_id).map{|g| User.find(g.teacher_id)} }.flatten
+  def teachers(school_id = 2)
+    # homeworks.map{|h| h.teacher}.uniq
+    grades(school_id).inject([]) { |ts, g|
+    ts << GradesCourse.where(grade_id: g.id, course_id: course_id).map{|g| User.find(g.teacher_id)} }.flatten
   end
 end
