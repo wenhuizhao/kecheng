@@ -28,8 +28,10 @@ class StudentHomeworksController < ApplicationController
     end
     if @student_homework.update_attributes(params[:student_homework])
       update_exercises
-      return render_alert "作业评级不能为空！" unless @student_homework.level.presence
-      return render_alert "请确保所有题目均已批阅！" if @student_homework.student_homeworks_exercises.any? {|e| !e.check_desc.presence}
+      if current_user.is_teacher? 
+        return render_alert "作业评级不能为空！" unless @student_homework.level.presence
+        return render_alert "请确保所有题目均已批阅！" if @student_homework.student_homeworks_exercises.any? {|e| !e.check_desc.presence}
+      end
       return re_to_check if params[:commit] == '提交&下一份'
       reto_homework_path
     else

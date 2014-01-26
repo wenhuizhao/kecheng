@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
 
   def undo_homeworks
     if is_student?
-      courses = selected_courses.inject([]) {|hs, c| hs << c.homeworks - homeworks;hs}.flatten
+      courses = selected_courses.inject([]) {|hs, c| hs << c.homeworks - homeworks.joins(:student_homeworks).where("student_homeworks.status != '未批阅'");hs}.flatten
     else
       courses = accepted_courses.inject([]) {|hs, pgc| hs << pgc.homeworks}.flatten.select{|h| h.status.nil?}
     end
