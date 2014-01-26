@@ -1,6 +1,7 @@
 .lists
-  css:
-    .main-descs .main-desc {width: 870px;margin: 0 auto}
+  - if current_user.is_student?
+    css:
+      .main-descs .main-desc {width: 870px;margin: 0 auto}
   = link_to_home
   - if current_user.is_student?
     .title = "#{@homework.short_name}【#{@student_homework.status_name}】"

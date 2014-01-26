@@ -16,6 +16,10 @@ module ApplicationHelper
     'btn btn-main'
   end
 
+  def only_can_see?(status)
+    Homework.show_status.include?(status) || current_user.admins?
+  end
+
   def link_to_back(title = '返回', right = true)
     return link_to_function "<span>#{title}</span>".html_safe, 'history.go(-1)', class: 'btn ok' unless right
     a = link_to_function title, 'history.go(-1)'

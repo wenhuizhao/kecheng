@@ -18,7 +18,11 @@ css:
   = f.hidden_field :homework_id, value: @homework.id
   = hidden_field_tag :status, params[:status] || @student_homework.status
   .block
-    - if Homework.show_status.include?(params[:status])
+    - if only_can_see?(params[:status])
+      javascript:
+        $('input').attr('disabled', 'disabled');
+        $('textarea').attr('disabled', 'disabled');
+
     - else
       = submit_tag '提交&下一份' if @shs.size > 1
       = submit_tag '完成', class: 'ml10'
