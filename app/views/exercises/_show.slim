@@ -11,12 +11,12 @@
       = radio_button_tag "#{exercise.id}option", opt, opt == ans.try(:answer)
     - else
       = radio_button_tag "#{exercise.id}option", opt
-    = o.full_name
+    = o.full_name.html_safe
 
 p = exercise.note
 
 - if !exercise.photo_file_name.nil?
-  = image_tag exercise.photo.url, {:id=>"photo"}
+  = image_tag exercise.photo.url, {id: "photo"}
 
 - if answer
   .answer 答案:
