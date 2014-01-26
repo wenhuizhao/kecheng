@@ -91,7 +91,7 @@ module ApplicationHelper
         end
       end
     end 
-    cs.html_safe
+    cs.gsub('@@@','').html_safe
   end
   
   def flash_notice

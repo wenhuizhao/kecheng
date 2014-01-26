@@ -15,6 +15,8 @@ module Common
       cc
     when 3
       new_homework_page ? [content] : content.split(/[&nbsp;]{12,}/).join('@@@').split("<span>@@@</span>") 
+    else
+      [content]
     end
   end
 
