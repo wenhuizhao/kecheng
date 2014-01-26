@@ -63,22 +63,14 @@ module Tool
     end
   
     def range_percents_homework(objs, sdate, edate)
-      objs.map do |obj|
-        percent_between(obj, sdate, edate, true)
-      end
+      objs.map {|obj| percent_between(obj, sdate, edate, true) }
     end
     
     def percent_between(obj, sdate, edate, int = false)
       total = obj.homework_rang(sdate, edate)
-      done_shs_num, shs_num = 0, 0
-      total.each do |homework|
-        all_shs = homework.student_homeworks
-        shs = select_under_one_day(all_shs)
-        done_shs = select_under_one_day(all_shs.where("status = '已完成' and times = 2"))
-        shs_num += shs.size
-        done_shs_num += done_shs.size
-      end
-      to_percent(shs_num - done_shs_num, shs_num, int)
+      total_student_homeworks = total.map{|h| h.student_homeworks}.flatten
+      total_finished_student_homeworks = total.map{|h| select_under_one_day(h.student_homeworks.where("status = '已完成'"))}.flatten
+      to_percent(total_student_homeworks.size - total_finished_student_homeworks.size, total_student_homeworks.size, int)
     end
 
     def select_under_one_day(objs)

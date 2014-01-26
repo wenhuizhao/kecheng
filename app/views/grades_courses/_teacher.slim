@@ -5,7 +5,8 @@
     - unless @grades_course.is_open?
       .back style='margin: 4px 10px 0 0'  该课程已关闭！
     - else
-      .back style='margin: 4px 10px 0 0'  = link_to '关闭课程', close_grades_course_path
+      .back style='margin: 4px 10px 0 0'  
+        = link_to_function '关闭课程', 'close_course()'
   / = link_to '编辑', edit_grades_course_path(@grades_course)
   .title = @grades_course.try(:full_name) || '暂无此学期课程'
   .select-div.periods
@@ -44,3 +45,9 @@
                 .lesson-content: .area
                   .htitle 已完成的作业
                   = render partial: 'h', locals: {homeworks: closed_hs, lesson: lesson}
+javascript:
+  function close_course() {
+    if(confirm("您确定关闭课程#{@grades_course.full_name}吗？"))
+      window.location.href = '/grades_courses/#{@grades_course.id}/close'
+    else {return false}
+  }
