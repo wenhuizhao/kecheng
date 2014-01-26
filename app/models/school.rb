@@ -30,7 +30,8 @@ class School < ActiveRecord::Base
   end
 
   def grade_course_ids
-    grades_courses.group('course_id').select('course_id, grade_id').map{|g| [g.grade_id, g.course_id]}.sort_by(&:first)
+    grades_courses.map {|gs| [gs.grade.try(:grade_num), gs.course_id]}.sort_by{|a| a[0]}.uniq
+    # grades_courses.group('course_id').select('course_id, grade_id').map{|g| [g.grade_id, g.course_id]}.sort_by(&:first)
   end
   
   def grade_courses(ids = grade_course_ids)

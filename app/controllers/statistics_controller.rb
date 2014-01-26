@@ -10,7 +10,7 @@ class StatisticsController < ApplicationController
   
   def teachers
     gid, cid = params[:grade_course_id].split('|')
-    @grade_course = GradeCourse.new(Grade.find(gid), Course.find(cid))
+    @grade_course = GradeCourse.new(gid.to_i, Course.find(cid))
     @teachers = @grade_course.teachers
   end
 

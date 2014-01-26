@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class GradeCourse
   
-  def initialize(grade, course)
-    @grade = grade
+  def initialize(grade_num, course)
+    @grade_num = grade_num
     @course = course
   end
   
@@ -11,32 +11,34 @@ class GradeCourse
   end
   
   def full_name
-    App::ChineseNum[@grade.grade_num] + '年级' + @course.name
+    "#{App::ChineseNum[@grade_num]}年级#{@course.name}"
   end
   
   def course_id
     @course.id
   end
 
-  def grade_id
-    @grade.id
-  end
-  
   def id
-    [grade_id, course_id]
+    [@grade_num, course_id]
   end
 
   include Mgrade::Homeworks
 
   def homeworks
-    Homework.joins(:grades_course).where("grades_courses.course_id = #{course_id} and grades_courses.grade_id = #{grade_id} ")
+    Homework.joins(grades_course: :grade).where("grades_courses.course_id = #{course_id} and grades.grade_num = #{@grade_num}")
   end
 
   def self.builds(ids)
-    ids.map{|g| GradeCourse.new(Grade.find(g[0]), Course.find(g[1]))}
+    ids.map{|g| GradeCourse.new(g[0], Course.find(g[1]))}.uniq
+  end
+
+  def grades
+    Grade.where(grade_num: @grade_num)
   end
 
   def teachers
-    GradesCourse.where(grade_id: grade_id, course_id: course_id).map{|g| User.find(g.teacher_id)}
+    homeworks.map{|h| h.teacher}.uniq
+    # grades.inject([]) { |ts, g| 
+    # ts << GradesCourse.where(grade_id: g.id, course_id: course_id).map{|g| User.find(g.teacher_id)} }.flatten
   end
 end

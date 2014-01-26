@@ -54,6 +54,10 @@ class Homework < ActiveRecord::Base
   def exercises_opted_ids
     exercises.where(qtype_id: 2).map &:id
   end
+
+  def teacher
+    grades_course.try :teacher
+  end
   
   ChartColors = {'优' => 'rgb(140, 225, 254)', 
                  '良' => 'rgb(113, 202, 94)', 
