@@ -1,5 +1,5 @@
 - if books.empty?
-  |没有封面, 请选择其他班级或课程！
+  = "#{@gname}学科没有可用教材，暂不能开通该课程！"
 - else
   - books.each do |book|
     - unless book.cover.url =~ /missing/
