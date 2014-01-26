@@ -2,7 +2,7 @@
 class GradeCourse
   
   def initialize(grade_num, course)
-    @grade_num = grade_num
+    @grade_num = grade_num.to_i
     @course = course
   end
   

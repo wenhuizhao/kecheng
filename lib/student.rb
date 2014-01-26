@@ -31,7 +31,7 @@ module Student
 
   def grade
     # approved_grades.last
-    return nil if is_teacher?
+    return nil if is_teacher? || !grade_stus.last
     grade_stus.last.is_accept ? grade_stus.last.grade : nil
   end
 
