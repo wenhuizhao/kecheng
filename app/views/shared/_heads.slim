@@ -16,9 +16,10 @@
           span.stitle.fs24 = s.real_name
       span.stitle.fs22.mess = link_to '发消息', new_message_path(receiver_id: s.id)
 
-javascript:
-  function ensure(obj) {
-    if(confirm("您确定删除学生" + $(obj).attr('data-name') + "吗？"))
-      window.location.href = '/grades_courses/#{@grades_course.id}/delete_student?student_id=' + $(obj).attr('data-id')
-    else {return false}
-  }
+- if @grades_course
+  javascript:
+    function ensure(obj) {
+      if(confirm("您确定删除学生" + $(obj).attr('data-name') + "吗？"))
+        window.location.href = '/grades_courses/#{@grades_course.id}/delete_student?student_id=' + $(obj).attr('data-id')
+      else {return false}
+    }
