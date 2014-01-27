@@ -79,13 +79,9 @@ class StudentHomeworksController < ApplicationController
     homework.exercises.each do |e|
       she = find_she(e.id)
       if current_user.is_student?
-        case e.qtype_id
-        when 1, 3
-          ans = 1.upto(e.blank_size).inject([]) {|s, i| s << params["#{e.id}_#{i}_in"]}.join("@@@ ")
-          she.update_attribute :answer, ans
-        when 2
-          she.update_attribute :answer, params["#{e.id}option"]
-        end
+        ans = 1.upto(e.blank_size).inject([]) {|s, i| s << params["#{e.id}_#{i}_in"]}.join("@@@ ")
+        she.update_attribute :answer, ans
+        she.update_attribute :answer, params["#{e.id}option"] if params["#{e.id}option"]
       elsif current_user.is_teacher?
         she.update_attributes(teacher_id: current_user.id)
       end

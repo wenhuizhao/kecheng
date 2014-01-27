@@ -9,9 +9,10 @@ module Common
   
   def blanks_arr(content, qtype_id = 1)
     return content.split("#00#") if content =~ /#00#/
+    return content.split(/[_]{4,}/) if content =~ /[_]{4,}/
     cc = content.split(/(&nbsp;)+/).join.split(/&nbsp;/)
     case qtype_id
-    when 1
+    when 1, 2
       cc
     when 3
       new_homework_page ? [content] : content.split(/[&nbsp;]{12,}/).join('@@@').split("<span>@@@</span>") 
