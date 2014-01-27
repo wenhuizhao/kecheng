@@ -4,14 +4,23 @@ css:
   - exercises.each_with_index do |hwq, i|
     - if @student_homework
       - ans = get_hexer(hwq.id)
-    .exercise id='#{hwq.id}_e'
+      - is_right = ans.try(:right)
+    .exercise id='#{hwq.id}_e' class='#{is_right ? 'right' : (ans.try(:check_desc) ? 'wrong' : '')}'
       - if hwq.is_need_canvas?
         canvas.canvas id='#{hwq.id}_c'  width=830 style='position: absolute;'         
-      .etitle = "#{App::ChineseNum[i + 1]}、#{hwq.qtype_name}"
+      .etitle
+        span.wtitle = App::ChineseNum[i + 1]  
+        = "、#{hwq.qtype_name}"
       .econtent
         = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
       = render partial: partial_role('_exer'), locals: {hwq: hwq, ans: ans}
       = render partial: 'shared/ask_question', locals: {ans: ans}
+      - if is_right
+        javascript:
+          $('##{hwq.id}_e').find('input').attr('disabled', 'disabled');
+          $('##{hwq.id}_e').find('textarea').attr('disabled', 'disabled');
+
+
 
 - ids = exercises.select{|e| e.is_need_canvas?}.collect(&:id)
 - hnum = current_user.is_student? ? 30 : 100
