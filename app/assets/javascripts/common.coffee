@@ -42,8 +42,8 @@ $(document).ready ->
   $('.user-left').on 'click', '.student',  ->
     redirect_to $(this).attr('data-url')
 
-  $('.back').on 'click', ->
-    history.go(-1)
+  # $('.back').on 'click', ->
+  #   history.go(-1)
 
   $('.xld-left').click ->
     redirect_to '/'

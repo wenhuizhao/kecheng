@@ -98,7 +98,7 @@ class GradesCoursesController < ApplicationController
 
   def close
     @grades_course.close!
-    redirect_to @grades_course
+    redirect_to grades_courses_path(history: true)
   end
   
   private
