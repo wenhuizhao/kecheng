@@ -16,8 +16,20 @@ class Period < ActiveRecord::Base
     self.save
   end
 
+  def next_period?
+    desc == '下'
+  end
+
+  def prev_period?
+    desc == '上'
+  end
+
   def current?
     self == Period.current_period
+  end
+
+  def set_history!
+    update_attribute is_current: false
   end
 
   def months
@@ -26,11 +38,14 @@ class Period < ActiveRecord::Base
 
   class << self
     def current_period
-      desc = (2..7).to_a.include?(Time.now.month) ? "下" : "上"
-      year = Time.now.month == 1 ? Time.now.year - 1 : Time.now
+      return Period.first
+      last_p = (2..7).to_a.include?(Time.now.month)
+      desc = last_p ? "下" : "上"
+      year = Time.now.month == 1 || last_p ? Time.now.year - 1 : Time.now.year
       cp = where(start_year: year, is_current: true, desc: desc).last
       return cp if cp
-      cp = create(start_year: year, end_year: year + 1, desc: desc, is_current: true)
+      # cp.set_history!
+      create(start_year: year, end_year: year + 1, desc: desc, is_current: true)
     end
 
     def histories
