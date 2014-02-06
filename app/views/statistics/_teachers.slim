@@ -12,6 +12,6 @@
           td = check_box_tag 'teacher_ids[]', g.id
           td = link_to g.real_name, teacher_sta_path(g)
           - months.each do |m|
-            td = percents_for(g, m)
+            td = percents_for(g, m, false, current_period.start_year, ["grades_courses.course_id = #{@grade_course.course.id}", "grades.grade_num = #{@grade_course.grade_num}"])
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'
   .clear

@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class GradeCourse
   
+  attr_reader :grade_num, :course
+
   def initialize(grade_num, course)
     @grade_num = grade_num.to_i
     @course = course

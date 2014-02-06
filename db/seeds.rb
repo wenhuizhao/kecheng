@@ -91,4 +91,8 @@ if Grade.all.all?{|b| b.period_id.nil?}
   Grade.update_all(period_id: current_period.id)
 end
 
+if StudentHomework.all.all?{|s| s.first_update.nil?}
+  StudentHomework.all.each {|s| s.update_attribute :first_update, s.updated_at}
+end
+
 Period.first.update_attributes(desc: '上', full_name: '2013-2014学年上学期')

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140123140652) do
+ActiveRecord::Schema.define(:version => 20140206095001) do
 
   create_table "book_categories", :force => true do |t|
     t.string   "name"
@@ -310,12 +310,13 @@ ActiveRecord::Schema.define(:version => 20140123140652) do
     t.integer  "student_id"
     t.integer  "homework_id"
     t.string   "status"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.string   "score"
     t.string   "level"
     t.string   "ask_note"
-    t.integer  "times",       :default => 0
+    t.integer  "times",        :default => 0
+    t.datetime "first_update"
   end
 
   create_table "student_homeworks_exercises", :force => true do |t|

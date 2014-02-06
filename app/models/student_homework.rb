@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class StudentHomework < ActiveRecord::Base
-  attr_accessible :homework_id, :status, :student_id, :score, :level, :times
+  attr_accessible :homework_id, :status, :student_id, :score, :level, :times, :first_update
 
   belongs_to :homework
   belongs_to :student, class_name: 'User'
@@ -11,7 +11,8 @@ class StudentHomework < ActiveRecord::Base
   # validates :level, presence: true
 
   # scope :one_day, -> {where("student_homeworks.updated_at < #{1.days.from(created_at})")}
-  
+  scope :joins_opts, -> (opts) {joins(homework: {grades_course: :grade}).where(opts.join(' and '))}
+
   def set_status
     self.status = Settings.homework_status.first
   end
@@ -43,6 +44,10 @@ class StudentHomework < ActiveRecord::Base
   
   def all_right?
     times == 2
+  end
+
+  def set_first_check
+    update_attribute(:first_update, updated_at) if status == '未批阅'
   end
   
   def need_modify
