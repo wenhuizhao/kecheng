@@ -42,11 +42,12 @@
             .lesson
               .line-node
               .ltitle = lesson.name
-              .leave-homework = link_to '布置作业', new_section_homework_path(lesson, grades_course_id: @grades_course.id)
+              - unless @grades_course.closed?
+                .leave-homework = link_to '布置作业', new_section_homework_path(lesson, grades_course_id: @grades_course.id)
               - going_hs, closed_hs = lesson.unfinished_homeworks(@grades_course), lesson.finished_homeworks(@grades_course)
               - if going_hs.size > 0
                 .lesson-content: .area
-                  .htitle 进行中的作业
+                  .htitle = @grades_course.closed? ? '未完成' : '进行中的作业'
                   = render partial: 'h', locals: {homeworks: going_hs, lesson: lesson}
               - if closed_hs.size > 0
                 .lesson-content: .area
