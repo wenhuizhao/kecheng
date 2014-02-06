@@ -57,25 +57,25 @@ module Tool
       num.to_s + "%"
     end
 
-    def percents_for(obj, month, int = false, year = current_period.start_year)
+    def percents_for(obj, month, int = false, year = current_period.start_year, opts = '')
       year = year.to_i + 1 if month == 1
-      percent_between(obj, "#{year}-#{month}-01", "#{year}-#{month}-31", int)
+      percent_between(obj, "#{year}-#{month}-01", "#{year}-#{month}-31", int, opts)
     end
   
     def range_percents_homework(objs, sdate, edate)
       objs.map {|obj| percent_between(obj, sdate, edate, true) }
     end
     
-    def percent_between(obj, sdate, edate, int = false)
+    def percent_between(obj, sdate, edate, int = false, opts = '')
       total = obj.homework_rang(sdate, edate)
       total_student_homeworks = total.map{|h| h.student_homeworks}.flatten
-      total_finished_student_homeworks = total.map{|h| select_under_one_day(h.student_homeworks.where("status = '已完成'"))}.flatten
+      total_finished_student_homeworks = total.map{|h| select_under_one_day(h.student_homeworks.joins(:homework).where("student_homeworks.status = '已完成'").where(opts))}.flatten
       to_percent(total_student_homeworks.size - total_finished_student_homeworks.size, total_student_homeworks.size, int)
     end
 
     def select_under_one_day(objs)
-      objs.select("id,status,times,unix_timestamp(updated_at)-unix_timestamp(created_at) as s").inject([]) do |ss, h|
-        h.s > 24 * 60 * 60 ? ss : ss << h
+      objs.select("student_homeworks.id,student_homeworks.status,student_homeworks.times,unix_timestamp(student_homeworks.updated_at)-unix_timestamp(student_homeworks.created_at) as s").inject([]) do |ss, h|
+        h.s > 48 * 60 * 60 ? ss : ss << h
       end
     end
   end
