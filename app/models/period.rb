@@ -4,7 +4,7 @@ class Period < ActiveRecord::Base
   has_many :grades_courses
   
   def history_courses_for(user)
-    courses_for(user).where(is_open: false)
+    user.history_courses.where(period_id: self.id)
   end
 
   def courses_for(user)

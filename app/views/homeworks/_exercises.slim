@@ -20,8 +20,6 @@ css:
           $('##{hwq.id}_e').find('input').attr('disabled', 'disabled');
           $('##{hwq.id}_e').find('textarea').attr('disabled', 'disabled');
 
-
-
 - ids = exercises.select{|e| e.is_need_canvas?}.collect(&:id)
 - hnum = current_user.is_student? ? 30 : 100
 - color = current_user.is_student? ? 'blue' : 'red'

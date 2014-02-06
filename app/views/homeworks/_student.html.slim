@@ -35,7 +35,7 @@ css:
         = into_datetime @homework.end_time
     = f.hidden_field :homework_id, value: @homework.id
     - if @homework.closed?
-      .btn 课程已经关闭
+      / .btn 课程已经关闭
     - else
       - if @student_homework.is_finished?
         .btn 已完成
