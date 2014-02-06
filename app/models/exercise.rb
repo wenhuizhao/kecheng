@@ -31,8 +31,16 @@ class Exercise < ActiveRecord::Base
     qtype_name == "问答题"
   end
 
-  def is_need_canvas?
+  def is_lianxian?
     qtype_name == '连线题'
+  end
+
+  def is_need_canvas?
+    is_lianxian? || is_math_qa?
+  end
+
+  def is_math_qa?
+    is_q_and_a? && book.try(:is_math?)
   end
 
   def qtype_name

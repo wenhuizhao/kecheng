@@ -1,18 +1,18 @@
-css:
-  .canvas-container {position: absolute!important;}
 #exercises
   - exercises.each_with_index do |hwq, i|
     - if @student_homework
       - ans = get_hexer(hwq.id)
       - is_right = ans.try(:right)
     .exercise id='#{hwq.id}_e' class='#{is_right ? 'right' : (ans.try(:check_desc) ? 'wrong' : '')}'
-      - if hwq.is_need_canvas?
+      - if hwq.is_lianxian?
         canvas.canvas id='#{hwq.id}_c'  width=830 style='position: absolute;'         
       .etitle
         span.wtitle = App::ChineseNum[i + 1]  
         = "、#{hwq.qtype_name}"
       .econtent
         = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
+        - if hwq.is_math_qa?
+          = render partial: 'shared/board'
       = render partial: partial_role('_exer'), locals: {hwq: hwq, ans: ans}
       = render partial: 'shared/ask_question', locals: {ans: ans}
       - if is_right
@@ -33,6 +33,7 @@ css:
     }).attr('height', height);
     canvas_#{id}.loadFromJSON('#{get_canvas_text(id)}', canvas_#{id}.renderAll.bind(canvas_#{id}));
     canvas_#{id}.freeDrawingBrush.color = "#{color}";
+    $('##{id}_e').find('.canvas-container').css({position: "absolute"})
 
 javascript:
   function save_canvas(){
