@@ -44,7 +44,7 @@ class Homework < ActiveRecord::Base
   end
 
   def closed?
-    status == '1'
+    status == '1' || grades_course.try(:closed?)
   end
 
   def opt_ids

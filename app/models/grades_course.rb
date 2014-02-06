@@ -89,6 +89,10 @@ class GradesCourse < ActiveRecord::Base
   def close!
     update_attribute :is_open, false
   end
+
+  def closed?
+    is_open == false
+  end
  
   class << self
     def teacher_for(grade_id, course_id, period_id = Period.current_period.id)

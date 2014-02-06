@@ -5,7 +5,11 @@ css:
 
 - es = @homework.exercises
 - if es.size > 0
-  .alert.red = flash[:notice]
+  .alert.red.center 
+    - if @homework.closed?
+      = '作业过期，您已不能提交作业！'
+    - else
+      = flash[:notice]
   = form_for @student_homework, html: {onsubmit: 'save_canvas()'} do |f|
     - if @student_homework.status && @student_homework.status != '未批阅'
       / .notice 老师批阅结果
