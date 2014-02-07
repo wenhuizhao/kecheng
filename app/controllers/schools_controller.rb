@@ -37,6 +37,7 @@ class SchoolsController < ApplicationController
   end
 
   def destroy
+    @school.destroy
     redirect_with_message '不能删除', action: :index
   end
   
