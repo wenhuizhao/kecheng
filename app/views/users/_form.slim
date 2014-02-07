@@ -19,15 +19,15 @@
     tr
       td = label_tag :班级
       td 
-        / = select_tag :grade_num, options_for_select(App::Grades.map{|g| [g.values[0], g.keys[0]]})
-        / |年级
-        / = select_tag :class_num, options_for_select(App::Grades.map{|g| [g.values[0], g.keys[0]]})
-        / |班
-        - if @grades
-          - if @user.is_student?
-            = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]}, @user.grade.try(:id))
-          - else
-            = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]})
+        = select_tag :grade_num, options_for_select(App::Grades.map{|g| [g.values[0], g.keys[0]]})
+        |年级
+        = select_tag :class_num, options_for_select(1..50)
+        |班
+        / - if @grades
+        /   - if @user.is_student?
+        /     = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]}, @user.grade.try(:id))
+        /   - else
+        /     = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]})
 
     - if current_user.admins?
       tr

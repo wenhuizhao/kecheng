@@ -53,7 +53,8 @@ class UsersController < ApplicationController
   def create_user_from_admin
     @user = User.new(params[:user])
     if @user.save
-      GradeStudent.build_from_admin(params[:grade_id], @user.id) if @user.is_student?
+      grade = Grade.where(school_id: @user.school_id, grade_num: params[:grade_num].to_i, class_num: params[:class_num].to_i).first_or_create
+      GradeStudent.build_from_admin(grade.id, @user.id) if @user.is_student?
       @user.update_attribute(:school_id, current_user.school_id) if current_user.is_admin_xld? && !@user.is_admin_jyj?
       re_to_path
     else
