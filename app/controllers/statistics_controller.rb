@@ -46,8 +46,10 @@ class StatisticsController < ApplicationController
 
   private
     def month_range
-      @start_year, @end_year = current_period.start_year, 
-                               current_period.end_year
-      @month_range = Period.current_period.months
+      sdate, edate = 6.months.ago.to_date, Date.today
+      @start_year, @end_year = sdate.year, 
+                               edate.year
+      @month_range = (sdate..edate).to_a.map{|t| t.month}.uniq 
+      # @month_range = Period.current_period.months
     end
 end
