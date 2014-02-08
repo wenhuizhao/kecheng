@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     if is_student?
       Homework.joins(:student_homeworks).where("student_homeworks.student_id = #{self.id}")
     else
-      Homework.joins(:grades_course).where("grades_courses.teacher_id = #{self.id}")
+      Homework.joins(grades_course: :grade).where("grades_courses.teacher_id = #{self.id}")
     end 
   end 
 

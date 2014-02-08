@@ -68,6 +68,7 @@ module Tool
     
     def percent_between(obj, sdate, edate, int = false, opts = [])
       total = obj.homework_rang(sdate, edate)
+      total = obj.is_a?(GradeCourse) ? total.where("grades.school_id = #{current_user.school_id}") : total
       # total = Homework.where("homeworks.created_at between '#{sdate}' and '#{edate}'")
       total_student_homeworks = total.map{|h| h.student_homeworks.joins_opts(opts)}.flatten
       total_un_student_homeworks = total.map{|h| select_unone_day_check(h.student_homeworks.joins_opts(opts))}.flatten
