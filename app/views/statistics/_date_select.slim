@@ -1,8 +1,8 @@
 = include_date_picker_js
 = form_tag set_month_range_path
-  .inline = text_field_tag :start_date, params[:start_date] || month_into_date(@month_range.first, @start_year)
+  .inline = text_field_tag :start_date, @sdate
   .inline.icon
   .inline 至
-  .inline = text_field_tag :end_date, params[:end_date] || month_into_date(@month_range.last, @end_year)
+  .inline = text_field_tag :end_date, @edate
   .inline.icon
   = submit_tag '确定', class: 'btn'

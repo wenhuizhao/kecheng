@@ -6,6 +6,8 @@ class StatisticsController < ApplicationController
   before_filter :month_range
 
   def index
+    @sdate, @edate =  params[:start_date] || Date.today.at_beginning_of_month, 
+                       params[:end_date] || Date.today.at_end_of_month
   end
   
   def teachers
