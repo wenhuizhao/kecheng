@@ -16,13 +16,14 @@
       tr
         td = label_tag :学校
         td = select :user, :school_id, School.all.map {|r| [r.name, r.id]}
-    tr
-      td = label_tag :班级
-      td 
-        = select_tag :grade_num, options_for_select(App::Grades.map{|g| [g.values[0], g.keys[0]]})
-        |年级
-        = select_tag :class_num, options_for_select(1..50)
-        |班
+    - if @user.is_student?
+      tr
+        td = label_tag :班级
+        td 
+          = select_tag :grade_num, options_for_select(App::Grades.map{|g| [g.values[0], g.keys[0]]}, @user.grade.try(:grade_num))
+          |年级
+          = select_tag :class_num, options_for_select((1..50).to_a, @user.grade.try(:class_num))
+          |班
         / - if @grades
         /   - if @user.is_student?
         /     = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]}, @user.grade.try(:id))

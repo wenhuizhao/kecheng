@@ -18,4 +18,4 @@
                    | 暂无作业
                 - else
                   - hs.each_with_index do |h, j|
-                    .hs = link_to "[#{h.of_user(current_user).try(:status) || '未　做'}]#{h.short_name}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
+                    .hs = link_to "[#{h.of_user(current_user).try(:status_name) || '未　做'}]#{h.short_name}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)

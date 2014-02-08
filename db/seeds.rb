@@ -34,12 +34,6 @@ if School.count == 0
   ])
 end
 
-if User.where(email: 'admin@admin.com').size ==  0
-  User.create([
-    {real_name: 'admin', login: 'admin', email: 'admin@admin.com', password: '11112222', password_confirmation: '11112222'}
-  ])
-end
-
 if Grade.count == 0
   1.upto(5).each do |gn|
     1.upto(5).each do |cn|
@@ -96,3 +90,15 @@ if StudentHomework.all.all?{|s| s.first_update.nil?}
 end
 
 Period.first.update_attributes(desc: '上', full_name: '2013-2014学年上学期')
+
+# if User.where(real_name: '校领导').count == 0
+#   User.create([
+#     {real_name: '校领导', login: 'haibian_test', school_id: 2, role_id: 4, email: 'a1@admin.com', password: 'testtest', password_confirmation: 'testtest'},
+#     {real_name: '校领导', login: 'sanjin_test', school_id: 3, role_id: 4, email: 'a2@admin.com', password: 'testtest', password_confirmation: 'testtest'},
+#     {real_name: '校领导', login: 'shuangyu_test', school_id: 4, role_id: 4, email: 'a3@admin.com', password: 'testtest', password_confirmation: 'testtest'},
+#     {real_name: '校领导', login: 'qifeng_test', school_id: 5, role_id: 4, email: 'a4@admin.com', password: 'testtest', password_confirmation: 'testtest'},
+#     {real_name: '校领导', login: 'liushapo_test', school_id: 6, role_id: 4, email: 'a5@admin.com', password: 'testtest', password_confirmation: 'testtest'},
+#     {real_name: '校领导', login: 'chaoyanglu_test', school_id: 7, role_id: 4, email: 'a6@admin.com', password: 'testtest', password_confirmation: 'testtest'},
+#     {real_name: '校领导', login: 'jianshelu_test', school_id: 8, role_id: 4, email: 'a7@admin.com', password: 'testtest', password_confirmation: 'testtest'}
+#   ])
+# end
