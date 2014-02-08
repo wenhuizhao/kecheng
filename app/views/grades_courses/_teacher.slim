@@ -33,14 +33,15 @@
       - if @grades_course.sections.empty?
         .modal
         .select-book
-          .sel-title 请选择新教材，学生教材将同步变更！
+          - books = @grades_course.avbooks
+          .sel-title = '请选择新教材，学生教材将同步变更！'  if books.size > 0
           = form_tag set_book_path
             = hidden_field_tag :book_id
             = hidden_field_tag :grades_course_id, @grades_course.id
-            #books = render partial: 'shared/update_books', locals: {books: @grades_course.avbooks}
+            #books = render partial: 'shared/update_books', locals: {books: books}
             .block style='margin-left: 250px'
-              = submit_tag '确定', class: 'block'
-              = link_to_back('取消', false)
+              = submit_tag '确定', class: 'block' if books.size > 0
+              = link_to_back((books.empty? ? '关闭' : '取消'), false)
       - else
         .tcontent
           .course-str.btn = link_to '课程', grades_course_path(@grades_course)

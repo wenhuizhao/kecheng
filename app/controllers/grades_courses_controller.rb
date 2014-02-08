@@ -15,7 +15,7 @@ class GradesCoursesController < ApplicationController
 
   def show
     @pname = params[:pname] || @grades_course.period_name
-    @grades_course = @grades_course.pcourse(@pname[0, 1], current_user.id) if params[:pname]
+    @grades_course = @grades_course.pcourse(@pname[0, 1]) if params[:pname]
   end
 
   def edit
@@ -70,6 +70,7 @@ class GradesCoursesController < ApplicationController
     # return render action: 'new' if GradesCourse.where(period_id: current_period.id, grade_id: @grade.id, course_id: @grades_course.course_id, is_accept: true).size > 0
     @grades_course.teacher_id = current_user.id
     @grades_course.grade_id = @grade.id
+    render_alert '没有可用教材' unless params[:grades_course][:book_id].presence
     if @grades_course.save
       do_lessons
       send_apply_request('apply_courses', grade_id: @grade.id, course_id: @grades_course.course_id)
