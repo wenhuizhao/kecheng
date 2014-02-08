@@ -9,7 +9,7 @@
         else {return false}
       }
 
-    - unless @grades_course.is_open?
+    - if @grades_course.closed?
       .back style='margin: 4px 10px 0 0'  该课程已关闭！
     - else
       .back style='margin: 4px 10px 0 0'  
@@ -31,8 +31,16 @@
   - if @grades_course
     .lessons-content
       - if @grades_course.sections.empty?
-        .alert 该课程暂无相关课程信息
-        = link_to '选择教材', edit_grades_course_path(@grades_course)
+        .modal
+        .select-book
+          .sel-title 请选择新教材，学生教材将同步变更！
+          = form_tag set_book_path
+            = hidden_field_tag :book_id
+            = hidden_field_tag :grades_course_id, @grades_course.id
+            #books = render partial: 'shared/update_books', locals: {books: @grades_course.avbooks}
+            .block style='margin-left: 250px'
+              = submit_tag '确定', class: 'block'
+              = link_to_back('取消', false)
       - else
         .tcontent
           .course-str.btn = link_to '课程', grades_course_path(@grades_course)

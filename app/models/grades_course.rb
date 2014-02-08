@@ -17,7 +17,7 @@ class GradesCourse < ActiveRecord::Base
   has_many :homeworks
   # has_many :students, through: :student_courses
 
-  validates :grade_id, :course_id, :book_id, presence: true
+  validates :grade_id, :course_id, presence: true
   
   # validates :course_id, uniqueness: {scope: :grade_id}
   # validates :book_id, uniqueness: {scope: :course_id}
@@ -36,7 +36,7 @@ class GradesCourse < ActiveRecord::Base
   end
 
   def set_default
-    self.period_id = current_period.id
+    # self.period_id = current_period.id
     self.is_open = true
   end
 
@@ -66,7 +66,11 @@ class GradesCourse < ActiveRecord::Base
   end
 
   def sections
-    book.sections
+    book.try(:sections) || []
+  end
+  
+  def avbooks
+    get_books(grade.grade_num, course)
   end
 
   def course_homeworks
@@ -81,9 +85,9 @@ class GradesCourse < ActiveRecord::Base
     course_homeworks.where(status: nil)
   end
   
-  def pcourse(desc)
-    period_id = Period.where(desc: desc, start_year: period.start_year, end_year: period.end_year).last.try(:id)
-    GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period_id).last
+  def pcourse(desc, teacher_id)
+    period1 = Period.where(desc: desc, start_year: period.start_year, end_year: period.end_year).first_or_create
+    GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period1.id, teacher_id: teacher_id, is_accept: true).first_or_create
   end
 
   def close!

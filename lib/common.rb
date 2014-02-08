@@ -24,4 +24,11 @@ module Common
   def new_homework_page
     controller_name == 'homeworks' && action_name == 'new' rescue nil
   end
+
+  def get_books(grade_num, course)
+    grade_name = App::ChineseNum[grade_num]
+    course_name = course.name
+    @gname = "#{grade_name}年级#{course_name}"
+    books = Book.for_course.select{|b| b.name =~ /#{grade_name}/ && b.name =~ /#{course_name}/}
+  end
 end

@@ -10,10 +10,13 @@ class HomeController < ApplicationController
   end
 
   def update_books
-    grade_name = App::ChineseNum[params[:grade_num].to_i]
-    course_name = Course.find(params[:course_id]).name
-  	books = Book.for_course.select{|b| b.name =~ /#{grade_name}/ && b.name =~ /#{course_name}/}
-    @gname = "#{grade_name}年级#{course_name}"
+    books = get_books(params[:grade_num].to_i, Course.find(params[:course_id]))
     render partial: 'shared/update_books', locals: {books: books}
+  end
+
+  def set_book
+    gce = GradesCourse.find(params[:grades_course_id])
+    gce.update_attribute :book_id, params[:book_id]
+    redirect_to grades_course_path(gce)
   end
 end
