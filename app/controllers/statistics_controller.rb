@@ -11,6 +11,7 @@ class StatisticsController < ApplicationController
   end
   
   def teachers
+    index
     gid, cid = params[:grade_course_id].split('|')
     @grade_course = GradeCourse.new(gid.to_i, Course.find(cid))
     school_id = current_user.is_admin_xld? ? current_user.school_id : params[:school_id]
