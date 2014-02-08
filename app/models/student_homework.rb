@@ -12,6 +12,7 @@ class StudentHomework < ActiveRecord::Base
 
   # scope :one_day, -> {where("student_homeworks.updated_at < #{1.days.from(created_at})")}
   scope :joins_opts, -> (opts) {joins(homework: {grades_course: :grade}).where(opts.join(' and '))}
+  scope :need_check, -> {where("status in ('未批阅', '已改错')")}
 
   def set_status
     self.status = Settings.homework_status.first

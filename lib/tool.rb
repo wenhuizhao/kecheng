@@ -76,7 +76,7 @@ module Tool
 
     def select_unone_day_check(objs)
       objs.select("student_homeworks.id,student_homeworks.status,student_homeworks.times,unix_timestamp(student_homeworks.first_update)-unix_timestamp(student_homeworks.created_at) as s").inject([]) do |ss, h|
-        h.s > 48 * 60 * 60 ? ss : ss << h
+        h.s > 48 * 60 * 60 ? ss << h : ss
       end
     end
   end
