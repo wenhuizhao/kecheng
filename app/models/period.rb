@@ -16,6 +16,10 @@ class Period < ActiveRecord::Base
     self.save
   end
 
+  def short_name
+    "#{start_year}至#{end_year}学年"
+  end
+
   def next_period?
     desc == '下'
   end
