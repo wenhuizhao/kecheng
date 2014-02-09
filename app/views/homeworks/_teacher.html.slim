@@ -1,3 +1,6 @@
+- unless current_user.is_teacher?
+  css:
+    .status_students .students {width: auto;}
 .status_students
   - unless current_user.is_teacher?
     .desc
