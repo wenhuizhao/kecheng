@@ -85,15 +85,19 @@ class GradesCourse < ActiveRecord::Base
     course_homeworks.where(status: nil)
   end
   
-  def pcourse(desc)
-    period1 = Period.where(desc: desc, start_year: period.start_year, end_year: period.end_year).first_or_create
+  def pcourse(des = other_desc)
+    period1 = Period.where(desc: des, start_year: period.start_year, end_year: period.end_year).first_or_create
     GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period1.id, teacher_id: teacher_id, is_accept: true).first_or_create
   end
 
   def close!
     update_attribute :is_open, false
-    desc1 = period.try(:desc) == '上' ? '下' : '上'
-    pcourse(desc1).update_attribute :is_open, false
+    # desc1 = period.try(:desc) == '上' ? '下' : '上'
+    # pcourse(desc1).update_attribute :is_open, false
+  end
+
+  def other_desc
+    period.try(:desc) == '上' ? '下' : '上'
   end
 
   def closed?

@@ -17,6 +17,7 @@ class HomeController < ApplicationController
   def set_book
     gce = GradesCourse.find(params[:grades_course_id])
     gce.update_attribute :book_id, params[:book_id]
+    gce.pcourse.close! if params[:book_id].presence
     redirect_to grades_course_path(gce)
   end
 end
