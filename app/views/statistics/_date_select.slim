@@ -5,4 +5,6 @@
   .inline 至
   .inline = text_field_tag :end_date, @edate
   .inline.icon
+  = hidden_field_tag :from, action_name
+  = hidden_field_tag :grade_course_id, params[:grade_course_id] if action_name == 'teachers'
   = submit_tag '确定', class: 'btn'

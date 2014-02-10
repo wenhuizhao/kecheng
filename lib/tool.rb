@@ -58,7 +58,7 @@ module Tool
     end
 
     def percents_for(obj, month, int = false, year = current_period.start_year, opts = [])
-      year = year.to_i + 1 if month == 1
+      year = year.to_i + 1 if (1..7).to_a.include?(Time.now.month) # month == 1
       percent_between(obj, "#{year}-#{month}-01", "#{year}-#{month}-31", int, opts)
     end
   
@@ -76,7 +76,8 @@ module Tool
     end
 
     def select_unone_day_check(objs)
-      objs.select("student_homeworks.id,student_homeworks.status,student_homeworks.times,unix_timestamp(student_homeworks.first_update)-unix_timestamp(student_homeworks.created_at) as s").inject([]) do |ss, h|
+      s = "student_homeworks"
+      objs.select("#{s}.id,#{s}.status,#{s}.times,unix_timestamp(#{s}.first_update)-unix_timestamp(#{s}.created_at) as s").inject([]) do |ss, h|
         h.s > 48 * 60 * 60 ? ss << h : ss
       end
     end
