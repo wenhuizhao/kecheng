@@ -42,8 +42,10 @@ class UsersController < ApplicationController
     return render_alert('手机号码不正确') if params['user']['phone'].presence && !right_phone(params['user']['phone'])
     if @user.update_attributes(params[:user])
       @user.update_attribute(:role_id, nil) if current_user.is_admin? && current_user.id == @user.id
-      grade = Grade.where(school_id: @user.school_id, grade_num: params[:grade_num].to_i, class_num: params[:class_num].to_i).first_or_create
-      GradeStudent.update_from_admin(grade.id, @user.id) if @user.is_student?
+      if params[:grade_num] 
+        grade = Grade.where(school_id: @user.school_id, grade_num: params[:grade_num].to_i, class_num: params[:class_num].to_i).first_or_create 
+        GradeStudent.update_from_admin(grade.id, @user.id) if @user.is_student?
+      end
       flash[:notice] = '您的修改已保存成功！' 
       re_to_path
     else
@@ -104,7 +106,7 @@ class UsersController < ApplicationController
   end
 
   def re_to_path
-    return redirect_to current_user if params[:profile]
+    return redirect_to @user if params[:profile]
     redirect_to users_path
   end
 
