@@ -43,8 +43,11 @@ class StatisticsController < ApplicationController
   end
 
   def set_month_range
-    @start_date, @end_date = Date.parse(params[:start_date]), Date.parse(params[:end_date])
-    render :index
+    # @sdate, @edate = Date.parse(params[:start_date]), Date.parse(params[:end_date])
+    redirect_to action: params[:from].to_sym, 
+                grade_course_id: params[:grade_course_id], 
+                start_date: params[:start_date], 
+                end_date: params[:end_date] 
   end
 
   private
