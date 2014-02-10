@@ -58,7 +58,7 @@ module Tool
     end
 
     def percents_for(obj, month, int = false, year = current_period.start_year, opts = [])
-      year = year.to_i + 1 if month == 1
+      year = year.to_i + 1 if (1..7).to_a.include?(Time.now.month) # month == 1
       percent_between(obj, "#{year}-#{month}-01", "#{year}-#{month}-31", int, opts)
     end
   
