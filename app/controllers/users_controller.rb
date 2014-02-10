@@ -6,8 +6,10 @@ class UsersController < ApplicationController
   before_filter :get_user, except: [:index, :create_user_from_admin, :new, :set_auth_code, :forget_password]
   
   def index
-    if current_user.is_admin? || current_user.is_admin_jyj?
+    if current_user.is_admin? 
       @users = User.all
+    elsif current_user.is_admin_jyj?
+      @users = current_user.jyj.users # .reject{|u| u.is_admin_jyj?}
     elsif current_user.is_admin_xld?
       @users = current_user.school.users.reject{|u| u.is_admin_jyj?}
     else
@@ -32,8 +34,12 @@ class UsersController < ApplicationController
   def get_grades
     @grades = if current_user.is_admin?
                 Grade.all
-              else
+              elsif current_user.is_admin_jyj?
+                current_user.jyj.grades
+              elsif current_user.is_admin_xld?
                 current_user.school.grades
+              else
+                [] 
               end
 
   end
@@ -56,8 +62,10 @@ class UsersController < ApplicationController
   def create_user_from_admin
     @user = User.new(params[:user])
     if @user.save
-      grade = Grade.where(school_id: @user.school_id, grade_num: params[:grade_num].to_i, class_num: params[:class_num].to_i).first_or_create
-      GradeStudent.build_from_admin(grade.id, @user.id) if @user.is_student?
+      if params[:grade_num] 
+        grade = Grade.where(school_id: @user.school_id, grade_num: params[:grade_num].to_i, class_num: params[:class_num].to_i).first_or_create
+        GradeStudent.build_from_admin(grade.id, @user.id) if @user.is_student?
+      end
       @user.update_attribute(:school_id, current_user.school_id) if current_user.is_admin_xld? && !@user.is_admin_jyj?
       re_to_path
     else
