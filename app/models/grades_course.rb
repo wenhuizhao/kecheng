@@ -36,7 +36,7 @@ class GradesCourse < ActiveRecord::Base
   end
 
   def set_default
-    self.period_id = current_period.id
+    # self.period_id = current_period.id
     self.is_open = true
   end
 
