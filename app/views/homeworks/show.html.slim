@@ -15,13 +15,14 @@
     .title = "#{@homework.full_name}"
     .main-descs
       = render 'teacher' 
-css:
-  .hresult {
-    position: absolute;
-    width: 129px;
-    height: 144px;
-    background: url(/assets/#{@student_homework.png}.png) no-repeat;
-    margin-top: -40px;
-  }
-javascript:
-  $(".hresult").css({"margin-left": $(".title").width() + 30})
+- if @student_homework.png
+  css:
+    .hresult {
+      position: absolute;
+      width: 129px;
+      height: 144px;
+      background: url(/assets/#{@student_homework.png}.png) no-repeat;
+      margin-top: -40px;
+    }
+  javascript:
+    $(".hresult").css({"margin-left": $(".title").width() + 30})
