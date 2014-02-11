@@ -14,6 +14,17 @@ class StudentHomework < ActiveRecord::Base
   scope :joins_opts, -> (opts) {joins(homework: {grades_course: :grade}).where(opts.join(' and '))}
   scope :need_check, -> {where("status in ('未批阅', '已改错')")}
 
+  PNGS = {
+    "优" => "you",
+    "良" => "liang",
+    "中" => "zhong",
+    "差" => "cha"
+  }
+  
+  def png
+    PNGS[level]
+  end
+
   def set_status
     self.status = Settings.homework_status.first
   end
