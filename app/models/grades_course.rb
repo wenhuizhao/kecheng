@@ -36,12 +36,12 @@ class GradesCourse < ActiveRecord::Base
   end
 
   def set_default
-    # self.period_id = current_period.id
+    self.period_id = current_period.id
     self.is_open = true
   end
 
   def period_name
-    "#{period.desc}学期"
+    "#{period.try(:desc)}学期"
   end
   
   def course_name
