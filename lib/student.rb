@@ -32,7 +32,7 @@ module Student
   def grade
     # approved_grades.last
     return nil if is_teacher? || !grade_stus.last
-    grade_stus.last.is_accept ? grade_stus.last.grade : nil
+    grade_stus.last.is_accept ? grade_stus.last.grade : grade_stus.where(is_accept: true).last.try(:grade)
   end
 
   def history_grades
