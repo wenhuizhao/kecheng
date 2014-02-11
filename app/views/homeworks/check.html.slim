@@ -3,6 +3,7 @@
   = link_to_back
   - if @student_homework
     .title = @student_homework.homework.short_name
+    .hresult
     .main-descs
       .main-desc
         - unless @student_homework
@@ -21,5 +22,6 @@
             .block 
               = "作业题目(#{@student_homework.homework.exercises.size})"
             = render 'show_form'
+    = render 'level'
   - else
     .title 无人提交
