@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     def get_common_courses
       return nil unless current_user
       if current_user.is_student?
-        @courses ||= current_user.selected_courses
+        @courses ||= current_user.selected_courses.group('course_id') rescue []
       elsif current_user.is_teacher?
         # @courses ||= current_user.accepted_courses
         @courses ||= current_user.accepted_courses.group('grade_id')

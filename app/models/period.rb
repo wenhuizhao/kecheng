@@ -42,7 +42,7 @@ class Period < ActiveRecord::Base
 
   class << self
     def current_period
-      return Period.first
+      # return Period.first
       last_p = (2..7).to_a.include?(Time.now.month)
       desc = last_p ? "下" : "上"
       year = Time.now.month == 1 || last_p ? Time.now.year - 1 : Time.now.year

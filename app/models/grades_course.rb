@@ -60,6 +60,10 @@ class GradesCourse < ActiveRecord::Base
   def full_name
     grades ? grades + self.course_name : ''
   end
+
+  def total_name
+    "#{full_name} #{period.try(:desc)}"
+  end
   
   def students
     grade.try :students
@@ -86,7 +90,7 @@ class GradesCourse < ActiveRecord::Base
   end
   
   def pcourse(des = other_desc)
-    period1 = Period.where(desc: des, start_year: period.start_year, end_year: period.end_year).first_or_create
+    period1 = Period.where(desc: des, start_year: period.start_year, end_year: period.end_year, is_current: true).first_or_create
     GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period1.id, teacher_id: teacher_id, is_accept: true).first_or_create
   end
 
