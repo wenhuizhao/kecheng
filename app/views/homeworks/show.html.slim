@@ -5,7 +5,7 @@
   = link_to_home
   - if current_user.is_student?
     .title = "#{@homework.short_name}【#{@student_homework.status_name}】"
-    .hresult class="#{@student_homework.png}"
+    .hresult
     .main-descs
       .flt.fleft
       .frt.fright
@@ -15,7 +15,7 @@
     .title = "#{@homework.full_name}"
     .main-descs
       = render 'teacher' 
-- if @student_homework.png
+- if @student_homework && @student_homework.png
   css:
     .hresult {
       position: absolute;
