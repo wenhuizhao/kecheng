@@ -94,6 +94,10 @@ class GradesCourse < ActiveRecord::Base
     GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period1.id, teacher_id: teacher_id, is_accept: true).first_or_create
   end
 
+  def has_next_course?
+    pcourse.id > self.id && pcourse.book_id
+  end
+
   def close!
     update_attribute :is_open, false
     # desc1 = period.try(:desc) == '上' ? '下' : '上'

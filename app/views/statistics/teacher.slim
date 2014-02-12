@@ -15,7 +15,7 @@
             - @grades_courses.each do |c|
               = link_to teacher_sta_path(grades_course_id: c.id)
                 .student class='#{'active' if @grades_course.id == c.id}'
-                  span.stitle.fs24 style="width: 200px;margin: 12px 0 0 -8px" = c.total_name
+                  span.stitle.fs24 style="width: 200px;margin: 12px 0 0 -8px" = c.full_name
       .check-right.tea
         .ltitle-block
           #homework_sta.ltitle.btn class="#{params[:messages] ? '' : 'active'}" data-id='#{@teacher.id}' g-id='#{@grades_course.id}' 作 业

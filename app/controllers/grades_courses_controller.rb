@@ -15,7 +15,7 @@ class GradesCoursesController < ApplicationController
 
   def show
     return render_alert '数据错误' if @grades_course.period.nil?
-    @grades_course = @grades_course.pcourse if @grades_course.period_id != current_period.id
+    @grades_course = @grades_course.pcourse if @grades_course.has_next_course? # period_id != current_period.id
     @pname = params[:pname] || @grades_course.period_name
     @grades_course = @grades_course.pcourse(@pname[0, 1]) if params[:pname]
   end
