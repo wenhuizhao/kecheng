@@ -29,7 +29,7 @@
       = render 'select_period'
   - if @grades_course
     .lessons-content
-      - if @grades_course.sections.empty?
+      - if @grades_course.book.nil?
         .modal
         .select-book
           - books = @grades_course.avbooks

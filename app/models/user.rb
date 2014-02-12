@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
   include Teacher
   
   def diff_courses
-    return accepted_courses.group('grade_id') if is_teacher?
+    return accepted_courses.group('grade_id').reject {|ac| ac.book_id.nil?} if is_teacher?
     courses.group('course_id') rescue []
   end
 
