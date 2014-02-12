@@ -17,7 +17,7 @@ class GradesCourse < ActiveRecord::Base
   has_many :homeworks
   # has_many :students, through: :student_courses
 
-  validates :grade_id, :course_id, presence: true
+  validates :grade_id, :course_id, :period_id, presence: true
   
   # validates :course_id, uniqueness: {scope: :grade_id}
   # validates :book_id, uniqueness: {scope: :course_id}
@@ -89,9 +89,8 @@ class GradesCourse < ActiveRecord::Base
     course_homeworks.where(status: nil)
   end
   
-  def pcourse(des = other_desc)
-    period1 = Period.where(desc: des, start_year: period.start_year, end_year: period.end_year, is_current: true).first_or_create
-    GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period1.id, teacher_id: teacher_id, is_accept: true).first_or_create
+  def pcourse(des = period.try(:other_desc))
+    GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period.brother(des).id, teacher_id: teacher_id, is_accept: true).first_or_create
   end
 
   def has_next_course?
@@ -102,10 +101,6 @@ class GradesCourse < ActiveRecord::Base
     update_attribute :is_open, false
     # desc1 = period.try(:desc) == '上' ? '下' : '上'
     # pcourse(desc1).update_attribute :is_open, false
-  end
-
-  def other_desc
-    period.try(:desc) == '上' ? '下' : '上'
   end
 
   def closed?

@@ -1,5 +1,6 @@
 module Student
   include Common
+  
   def selected_courses
     courses
   end
