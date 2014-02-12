@@ -14,7 +14,7 @@
           - if @grades_courses.size.size > 0
             - @grades_courses.each do |c|
               = link_to teacher_sta_path(grades_course_id: c.id)
-                .student class='#{'active' if @grades_course.id == c.id}'
+                .student class='#{'active' if @grades_course.full_name == c.full_name}'
                   span.stitle.fs24 style="width: 200px;margin: 12px 0 0 -8px" = c.full_name
       .check-right.tea
         .ltitle-block

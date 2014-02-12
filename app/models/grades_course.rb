@@ -94,7 +94,7 @@ class GradesCourse < ActiveRecord::Base
   end
 
   def has_next_course?
-    pcourse.id > self.id && pcourse.book_id
+    (pcourse.id > self.id) && pcourse.book_id
   end
 
   def close!
@@ -114,6 +114,16 @@ class GradesCourse < ActiveRecord::Base
     
     def has_teacher_for?(grade_id, course_id)
       teacher_for(grade_id, course_id).size > 0
+    end
+
+    def opened_course_for(grades_course)
+      where(
+        teacher_id: grades_course.teacher_id, 
+        course_id: grades_course.course_id,
+        is_open: true,
+        is_accept: true,
+        grade_id: grades_course.grade_id
+      ).size > 0
     end
   end
 end
