@@ -4,9 +4,9 @@ module Student
     courses
   end
 
-  def diff_courses
-    courses.group('course_id') rescue []
-  end
+  # def diff_courses
+    # courses.group('course_id') rescue []
+  # end
 
   def courses
     gcs = grade.try(:grades_courses)

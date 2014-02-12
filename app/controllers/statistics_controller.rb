@@ -21,7 +21,7 @@ class StatisticsController < ApplicationController
   def teacher
     @teacher = User.find(params[:teacher_id])
     @messages = Message.all_for(@teacher) if params[:messages]
-    @grades_courses = @teacher.accepted_courses
+    @grades_courses = @teacher.diff_courses
     @grades_course = params[:grades_course_id] ? GradesCourse.find(params[:grades_course_id]) : @grades_courses[0]
   end
   

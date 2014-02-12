@@ -3,7 +3,7 @@ module Teacher
   def accepted_courses
     GradesCourse.accepted_courses_of(self).visiable.order('grade_id')
   end
-  
+
   def wait_to_accept_courses
     GradesCourse.all_courses_of(self).where(is_accept: nil)
   end
