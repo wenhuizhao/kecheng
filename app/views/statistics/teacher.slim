@@ -11,7 +11,7 @@
       .clear
       .check-left.tea
         .students
-          - if @grades_courses.size > 0
+          - if @grades_courses.size.size > 0
             - @grades_courses.each do |c|
               = link_to teacher_sta_path(grades_course_id: c.id)
                 .student class='#{'active' if @grades_course.id == c.id}'

@@ -100,3 +100,8 @@ Period.first.update_attributes(desc: '上', full_name: '2013-2014学年上学期
 #     {real_name: '校领导', login: 'jianshelu_test', school_id: 8, role_id: 4, email: 'a7@admin.com', password: 'testtest', password_confirmation: 'testtest'}
 #   ])
 # end
+if GradesCourse.all.any?{|gce| gce.period_id.nil?}
+  GradesCourse.where("period_id != 1").update_all(period_id: 144)
+  GradesCourse.where("period_id is null").update_all(period_id: 1)
+  Period.find(143).delete rescue nil
+end

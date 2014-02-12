@@ -23,6 +23,7 @@ class StatisticsController < ApplicationController
     @messages = Message.all_for(@teacher) if params[:messages]
     @grades_courses = @teacher.diff_courses
     @grades_course = params[:grades_course_id] ? GradesCourse.find(params[:grades_course_id]) : @grades_courses[0]
+    @grades_course = @grades_course.pcourse if @grades_course.has_next_course? 
   end
   
   def to_line_chart
