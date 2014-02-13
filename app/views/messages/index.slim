@@ -15,6 +15,7 @@
       - @all_messages.each_with_index do |m, i|
         .desc
           - m.with_children.each_with_index do |m, i|
+            - next unless m.sender
             .parent.block 
               = m.sender.name + m.sender.role_name + ': ' 
               = m.content
