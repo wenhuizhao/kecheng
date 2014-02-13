@@ -10,6 +10,10 @@
           | 暂无学生提交作业
         - else
           .check-left.check
+            css:
+              .check, .students .student span {font-size: 18px}
+              .check-left .students .student img {width: 30px; height: 30px;}
+              .check-left .students .student {height: 38px;}
             .ctitle = "作业批阅"
             - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
             .students
