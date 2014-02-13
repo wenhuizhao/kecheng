@@ -99,8 +99,6 @@ class GradesCourse < ActiveRecord::Base
 
   def close!
     update_attribute :is_open, false
-    # desc1 = period.try(:desc) == '上' ? '下' : '上'
-    # pcourse(desc1).update_attribute :is_open, false
   end
 
   def closed?

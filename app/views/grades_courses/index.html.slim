@@ -10,3 +10,4 @@
         .courses.fleft
           - per.history_courses_for(current_user).each do |c|
             .course: span = link_to c.full_name, grades_course_path(c, history: 'true')
+        .clear
