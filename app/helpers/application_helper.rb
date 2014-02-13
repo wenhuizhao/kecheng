@@ -109,7 +109,7 @@ module ApplicationHelper
   end
  
   def clean_content(c, opts = {}, opts2 = {})
-    simple_format(c, opts, opts2).gsub(/[\<&lt;]+!--\[.*?\]-->/,'').html_safe 
+    simple_format(c, opts, opts2.merge(sanitize: false)).gsub(/[\<&lt;]+!--\[.*?\]-->/,'').html_safe 
   end
  
   def include_chart_js

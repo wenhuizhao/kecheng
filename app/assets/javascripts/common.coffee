@@ -87,9 +87,9 @@ $(document).ready ->
     WdatePicker
       dateFmt: 'yyyy年MM月dd日 HH:mm'
 
-  $('.econtent').find('p').find('span').css
-    color: '#848484'
-    'font-family': '"STHeiti" Microsoft YaHei'
+  # $('.econtent').find('p').find('span').css
+  #   color: '#848484'
+  #   'font-family': '"STHeiti" Microsoft YaHei'
 
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')
