@@ -10,6 +10,7 @@ class HomeController < ApplicationController
   end
 
   def update_books
+    return unless params[:course_id]
     books = get_books(params[:grade_num].to_i, Course.find(params[:course_id]))
     render partial: 'shared/update_books', locals: {books: books}
   end
