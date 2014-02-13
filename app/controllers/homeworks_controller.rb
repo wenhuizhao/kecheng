@@ -77,7 +77,7 @@ class HomeworksController < ApplicationController
     else
       @homeworks = current_user.need_modify_homeworks
       size = @homeworks.size.to_s
-      @title = '您要修改的作业' + size + '份'
+      @title = '需要改错的作业' + size + '份'
     end
   end
 

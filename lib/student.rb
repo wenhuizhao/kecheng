@@ -30,7 +30,7 @@ module Student
   end
 
   def approved_grades
-    Grade.joins(:grade_students).where("grades.period_id = #{current_period.id} and grade_students.is_accept = 1 and grade_students.student_id = #{self.id}")
+    Grade.joins(:grade_students).where("grade_students.is_accept = 1 and grade_students.student_id = #{self.id}")
   end
 
   def grade
