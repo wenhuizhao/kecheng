@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   
   before_filter :authenticate_user!, except: [:set_auth_code, :forget_password]
-  before_filter :require_admin, except: [:reset_password, :show, :set_auth_code, :update, :forget_password]
+  before_filter :require_admin, except: [:reset_password, :show, :set_auth_code, :update, :forget_password, :create_user_from_admin]
   before_filter :get_user, except: [:index, :create_user_from_admin, :new, :set_auth_code, :forget_password]
   
   def index
