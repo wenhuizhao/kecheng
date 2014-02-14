@@ -50,6 +50,10 @@ class StudentHomework < ActiveRecord::Base
     exercises.select{|e| e.is_need_canvas?}.uniq
   end
 
+  def canvass
+    canvas_exercises.map{|e| StudentHomeworksExercises.where(exercise_id: e.id, student_homework_id: self.id).last}.flatten.map(&:canvas)
+  end
+
   def score_num
     has_score? ? score : '暂无打分'
   end

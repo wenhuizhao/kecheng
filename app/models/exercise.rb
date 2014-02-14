@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-#encoding: utf-8
 class Exercise < ActiveRecord::Base
   attr_accessible :answer, :note, :title, :photo, :book_id, :category_id, :qtype_id, :exercise_text_id,
                   :options_attributes, :section_id, :answerphoto

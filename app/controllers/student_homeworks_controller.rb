@@ -3,10 +3,6 @@ class StudentHomeworksController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :get_student_homework, except: [:index, :create, :new]
-  
-  def index
-    @student_homeworks = StudentHomework.all
-  end
 
   def show
   end
@@ -21,6 +17,7 @@ class StudentHomeworksController < ApplicationController
   def update
     if @student_homework.update_attributes(params[:student_homework])
       update_exercises
+      save_canvas
       if current_user.is_teacher? 
         return render_alert "作业评级不能为空！" unless @student_homework.level.presence
         return render_alert "请确保所有题目均已批阅！" if @student_homework.student_homeworks_exercises.any? {|e| !e.check_desc.presence}
@@ -44,6 +41,7 @@ class StudentHomeworksController < ApplicationController
     @student_homework
     if @student_homework.save
       update_exercises
+      save_canvas
       return re_to_check if params[:commit] == '提交&下一份'
       reto_homework_path
     else
@@ -63,9 +61,10 @@ class StudentHomeworksController < ApplicationController
   def save_canvas
     @student_homework.canvas_exercises.each_with_index do |e, i| 
       she = find_she(e.id)
-      she.update_attribute :canvas, params[:canvass][i]
+      css = JSON.parse(params[:canvass])
+      she.update_attribute :canvas, css[i].to_json
     end
-    render text: '' 
+    # render text: '' 
   end  
 
   def destroy

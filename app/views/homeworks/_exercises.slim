@@ -43,12 +43,5 @@ javascript:
     canvass.forEach(function(i){
       datas.push(JSON.stringify(i))
     })
-    $.ajax({
-        url: "/save_exer_canvas",
-        type: "post",
-        data: {
-          id: '#{@student_homework.try(:id)}',
-          canvass: datas
-        }
-    });
+    $('#canvass').val("[" + datas + "]")
   }
