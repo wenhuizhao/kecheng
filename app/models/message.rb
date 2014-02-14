@@ -68,7 +68,7 @@ class Message < ActiveRecord::Base
     def all_for(user)
       msgs = messages_of(user) #+ system_msgs
       msgs += apply_grades_msgs.select{|m| user.tgrades.include?(m.grade)} if user.is_teacher?
-      msgs += apply_courses_msgs if user.is_admin_xld?
+      msgs += apply_courses_msgs.where(school_id: user.school_id) if user.is_admin_xld?
       # msgs.sort_by(&:created_at).reverse
       msgs.sort_by(&:created_at).reverse #.reject{|m| !m.parent_id.nil?}
     end

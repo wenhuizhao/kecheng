@@ -6,9 +6,12 @@ class StatisticsController < ApplicationController
   before_filter :month_range
 
   def index
+    @sdate, @edate = params[:start_date] || Date.today.at_beginning_of_month, 
+                     params[:end_date] || Date.today.at_end_of_month
   end
   
   def teachers
+    index
     gid, cid = params[:grade_course_id].split('|')
     @grade_course = GradeCourse.new(gid.to_i, Course.find(cid))
     school_id = current_user.is_admin_xld? ? current_user.school_id : params[:school_id]
@@ -18,8 +21,9 @@ class StatisticsController < ApplicationController
   def teacher
     @teacher = User.find(params[:teacher_id])
     @messages = Message.all_for(@teacher) if params[:messages]
-    @grades_courses = @teacher.accepted_courses
+    @grades_courses = @teacher.diff_courses
     @grades_course = params[:grades_course_id] ? GradesCourse.find(params[:grades_course_id]) : @grades_courses[0]
+    @grades_course = @grades_course.pcourse if @grades_course.has_next_course? 
   end
   
   def to_line_chart
@@ -40,14 +44,20 @@ class StatisticsController < ApplicationController
   end
 
   def set_month_range
-    @start_date, @end_date = Date.parse(params[:start_date]), Date.parse(params[:end_date])
-    render :index
+    # @sdate, @edate = Date.parse(params[:start_date]), Date.parse(params[:end_date])
+    redirect_to action: params[:from].to_sym, 
+                grade_course_id: params[:grade_course_id], 
+                school_id: params[:school_id], 
+                start_date: params[:start_date], 
+                end_date: params[:end_date] 
   end
 
   private
     def month_range
-      @start_year, @end_year = current_period.start_year, 
-                               current_period.end_year
-      @month_range = Period.current_period.months
+      sdate, edate = 6.months.ago.to_date, Date.today
+      @start_year, @end_year = sdate.year, 
+                               edate.year
+      @month_range = (sdate..edate).to_a.map{|t| t.month}.uniq 
+      # @month_range = Period.current_period.months
     end
 end

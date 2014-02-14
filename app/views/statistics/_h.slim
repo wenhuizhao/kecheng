@@ -4,6 +4,9 @@
     .homeworks
       = link_to h.short_name, show_path
       .clear
+      .times
+        = red_content("日批日改#{h.finish_rate}")
+        = " #{into_date(h.created_at)}布置"
       .chart-small.fleft id='#{h.id}'
       = pie_chart h, title: '', data: h.to_chart(false)
       .cdesc.fleft

@@ -58,6 +58,13 @@ class Homework < ActiveRecord::Base
   def teacher
     grades_course.try :teacher
   end
+
+  def finish_rate(int = false)
+    ss = student_homeworks.select("id,status,times,unix_timestamp(first_update)-unix_timestamp(created_at) as s").inject([]) do |ss, h|
+      h.s < 48 * 60 * 60 ? ss << h : ss
+    end
+    to_percent(ss.size, student_homeworks.size)
+  end
   
   ChartColors = {'优' => 'rgb(140, 225, 254)', 
                  '良' => 'rgb(113, 202, 94)', 

@@ -20,7 +20,7 @@ class HomeworksController < ApplicationController
   end
 
   def check
-    @student_homeworks = @homework.student_homeworks
+    @student_homeworks = @homework.student_homeworks.need_check
     @student_homeworks = @homework.student_homeworks.select{|h| h.status == params[:status]} if params[:status]
     @student_homework = if params[:student_id]
                           StudentHomework.where(student_id: params[:student_id], homework_id: params[:id]).last
@@ -77,7 +77,7 @@ class HomeworksController < ApplicationController
     else
       @homeworks = current_user.need_modify_homeworks
       size = @homeworks.size.to_s
-      @title = '您要修改的作业' + size + '份'
+      @title = '需要改错的作业' + size + '份'
     end
   end
 

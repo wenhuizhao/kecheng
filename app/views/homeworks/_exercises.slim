@@ -15,10 +15,11 @@
           = render partial: 'shared/board'
       = render partial: partial_role('_exer'), locals: {hwq: hwq, ans: ans}
       = render partial: 'shared/ask_question', locals: {ans: ans}
-      - if is_right
+      - if is_right || current_user.is_teacher?
         javascript:
           $('##{hwq.id}_e').find('input').attr('disabled', 'disabled');
           $('##{hwq.id}_e').find('textarea').attr('disabled', 'disabled');
+          $('.question-area').find('textarea').removeAttr('disabled')
 
 - ids = exercises.select{|e| e.is_need_canvas?}.collect(&:id)
 - hnum = current_user.is_student? ? 30 : 100
@@ -31,6 +32,7 @@
     $('##{id}_c').parent().css({height: height}).find('canvas').css({
       height: height
     }).attr('height', height);
+    canvas_#{id}.height = height;
     canvas_#{id}.loadFromJSON('#{get_canvas_text(id)}', canvas_#{id}.renderAll.bind(canvas_#{id}));
     canvas_#{id}.freeDrawingBrush.color = "#{color}";
     $('##{id}_e').find('.canvas-container').css({position: "absolute"})

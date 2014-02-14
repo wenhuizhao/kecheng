@@ -1,0 +1,7 @@
+.words.select
+  .word = @pname
+  i.icon
+.opts
+  - pname2 = @pname == '上学期' ? '下学期' : '上学期' 
+  = link_to grades_course_path(pname: pname2) 
+    .words.opt: .word = pname2

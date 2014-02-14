@@ -37,6 +37,7 @@ class JyjsController < ApplicationController
   end
 
   def destroy
+    @jyj.destroy
     redirect_with_message '不能删除', action: :index
   end
   

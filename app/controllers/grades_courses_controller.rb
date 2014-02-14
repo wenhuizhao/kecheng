@@ -14,6 +14,11 @@ class GradesCoursesController < ApplicationController
   end
 
   def show
+    return render_alert '数据错误' if @grades_course.period.nil?
+    if params[:history]
+    elsif @grades_course.has_next_course?
+      @grades_course = @grades_course.pcourse  # period_id != current_period.id
+    end
     @pname = params[:pname] || @grades_course.period_name
     @grades_course = @grades_course.pcourse(@pname[0, 1]) if params[:pname]
   end
@@ -70,6 +75,11 @@ class GradesCoursesController < ApplicationController
     # return render action: 'new' if GradesCourse.where(period_id: current_period.id, grade_id: @grade.id, course_id: @grades_course.course_id, is_accept: true).size > 0
     @grades_course.teacher_id = current_user.id
     @grades_course.grade_id = @grade.id
+    return render_alert '没有可用教材' unless params[:grades_course][:book_id].presence
+    book = Book.find_by_id(params[:grades_course][:book_id])
+    period = book.try(:name).include?(current_period.desc) ? current_period : current_period.brother
+    @grades_course.period_id = period.id
+    return render_alert '您已开通此课程！' if !GradesCourse.opened_course_for(@grades_course)
     if @grades_course.save
       do_lessons
       send_apply_request('apply_courses', grade_id: @grade.id, course_id: @grades_course.course_id)

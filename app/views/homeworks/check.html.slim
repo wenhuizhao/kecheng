@@ -3,12 +3,17 @@
   = link_to_back
   - if @student_homework
     .title = @student_homework.homework.short_name
+    .hresult
     .main-descs
       .main-desc
         - unless @student_homework
           | 暂无学生提交作业
         - else
           .check-left.check
+            css:
+              .check, .students .student span {font-size: 18px}
+              .check-left .students .student img {width: 30px; height: 30px;}
+              .check-left .students .student {height: 38px;}
             .ctitle = "作业批阅"
             - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
             .students
@@ -21,5 +26,6 @@
             .block 
               = "作业题目(#{@student_homework.homework.exercises.size})"
             = render 'show_form'
+    = render 'level'
   - else
     .title 无人提交

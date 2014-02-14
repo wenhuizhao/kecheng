@@ -13,11 +13,8 @@ class ApplicationController < ActionController::Base
 
     def get_common_courses
       return nil unless current_user
-      if current_user.is_student?
-        @courses ||= current_user.selected_courses
-      elsif current_user.is_teacher?
-        # @courses ||= current_user.accepted_courses
-        @courses ||= GradesCourse.all_courses_of(current_user).visiable
+      if current_user.is_student? || current_user.is_teacher?
+        @courses ||= current_user.diff_courses 
       else
         @courses ||= User.find(params[:teacher_id]).accepted_courses if params[:teacher_id]
       end

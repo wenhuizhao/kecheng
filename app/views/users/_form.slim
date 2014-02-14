@@ -12,24 +12,27 @@
       td = label_tag :性别
       td = select :user, :gender, ['男', '女']
 
-    - if current_user.is_admin?
+    - if current_user.is_admin? || current_user.is_admin_jyj?
       tr
         td = label_tag :学校
         td = select :user, :school_id, School.all.map {|r| [r.name, r.id]}
-    tr
-      td = label_tag :班级
-      td 
-        / = select_tag :grade_num, options_for_select(App::Grades.map{|g| [g.values[0], g.keys[0]]})
-        / |年级
-        / = select_tag :class_num, options_for_select(App::Grades.map{|g| [g.values[0], g.keys[0]]})
-        / |班
-        - if @grades
-          - if @user.is_student?
-            = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]}, @user.grade.try(:id))
-          - else
-            = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]})
+    - else
+      = hidden_field :user, :school_id, value: current_user.school_id
+    - if @user.is_student? || @user.new_record?
+      tr
+        td = label_tag :班级
+        td 
+          = select_tag :grade_num, options_for_select(App::Grades.map{|g| [g.values[0], g.keys[0]]}, @user.grade.try(:grade_num))
+          |年级
+          = select_tag :class_num, options_for_select((1..50).to_a, @user.grade.try(:class_num))
+          |班
+        / - if @grades
+        /   - if @user.is_student?
+        /     = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]}, @user.grade.try(:id))
+        /   - else
+        /     = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]})
 
-    - if current_user.admins? && !@user.is_admin?
+    - if current_user.admins?
       tr
         td = label_tag :角色
         td = select :user, :role_id, Role.for_user(current_user).map {|r| [r.name, r.id]}
