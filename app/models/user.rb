@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
     else
       courses = accepted_courses.inject([]) {|hs, pgc| hs << pgc.homeworks}.flatten.select{|h| h.status.nil?}
     end
-    courses.sort_by{|h| h.end_time}
+    courses.select{|h| !h.closed?}.sort_by{|h| h.end_time}
   end
 
   include Student
