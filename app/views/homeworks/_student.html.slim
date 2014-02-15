@@ -38,7 +38,7 @@ css:
         .submit-time.inline.mt15 截止时间：
         = into_datetime @homework.end_time
     = f.hidden_field :homework_id, value: @homework.id
-    = hidden_field_tag :canvass, "#{@student_homework.canvass}"
+    = hidden_field_tag :canvass
     - if @homework.closed?
       / .btn 课程已经关闭
     - else
