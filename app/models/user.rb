@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     if is_student?
       Homework.joins(:student_homeworks).where("student_homeworks.student_id = #{self.id}")
     else
-      Homework.joins(:grades_course).where("grades_courses.teacher_id = #{self.id}")
+      Homework.joins(grades_course: :grade).where("grades_courses.teacher_id = #{self.id}")
     end 
   end 
 
@@ -96,9 +96,15 @@ class User < ActiveRecord::Base
     else
       courses = accepted_courses.inject([]) {|hs, pgc| hs << pgc.homeworks}.flatten.select{|h| h.status.nil?}
     end
-    courses.sort_by{|h| h.end_time}
+    courses.select{|h| !h.closed?}.sort_by{|h| h.end_time}
   end
 
   include Student
   include Teacher
+  
+  def diff_courses
+    return accepted_courses.where('book_id is not null').group('grade_id, course_id') if is_teacher?
+    courses.group('course_id') rescue []
+  end
+
 end

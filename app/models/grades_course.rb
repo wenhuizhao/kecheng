@@ -17,7 +17,7 @@ class GradesCourse < ActiveRecord::Base
   has_many :homeworks
   # has_many :students, through: :student_courses
 
-  validates :grade_id, :course_id, :book_id, presence: true
+  validates :grade_id, :course_id, :period_id, presence: true
   
   # validates :course_id, uniqueness: {scope: :grade_id}
   # validates :book_id, uniqueness: {scope: :course_id}
@@ -36,12 +36,12 @@ class GradesCourse < ActiveRecord::Base
   end
 
   def set_default
-    self.period_id = current_period.id
+    # self.period_id = current_period.id
     self.is_open = true
   end
 
   def period_name
-    "#{period.desc}学期"
+    "#{period.try(:desc)}学期"
   end
   
   def course_name
@@ -60,13 +60,21 @@ class GradesCourse < ActiveRecord::Base
   def full_name
     grades ? grades + self.course_name : ''
   end
+
+  def total_name
+    "#{full_name} #{period.try(:desc)}"
+  end
   
   def students
     grade.try :students
   end
 
   def sections
-    book.sections
+    book.try(:sections) || []
+  end
+  
+  def avbooks
+    get_books(grade.grade_num, course)
   end
 
   def course_homeworks
@@ -81,9 +89,12 @@ class GradesCourse < ActiveRecord::Base
     course_homeworks.where(status: nil)
   end
   
-  def pcourse(desc)
-    period_id = Period.where(desc: desc, start_year: period.start_year, end_year: period.end_year).last.try(:id)
-    GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period_id).last
+  def pcourse(des = period.try(:other_desc))
+    GradesCourse.where(grade_id: grade_id, course_id: course_id, period_id: period.brother(des).id, teacher_id: teacher_id, is_accept: true).first_or_create
+  end
+
+  def has_next_course?
+    (pcourse.id > self.id) && pcourse.book_id
   end
 
   def close!
@@ -101,6 +112,16 @@ class GradesCourse < ActiveRecord::Base
     
     def has_teacher_for?(grade_id, course_id)
       teacher_for(grade_id, course_id).size > 0
+    end
+
+    def opened_course_for(grades_course)
+      where(
+        teacher_id: grades_course.teacher_id, 
+        course_id: grades_course.course_id,
+        is_open: true,
+        is_accept: true,
+        grade_id: grades_course.grade_id
+      ).size > 0
     end
   end
 end

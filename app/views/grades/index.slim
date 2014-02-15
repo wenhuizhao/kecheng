@@ -46,4 +46,5 @@
               td = link_to c.full_name, grade_path(c)
               td.tactions
                 = link_to '编辑', edit_grade_path(c)
+                = link_to '删除', c, confirm: '确定删除么？', method: :delete
 

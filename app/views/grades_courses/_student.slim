@@ -5,17 +5,22 @@
     .tcontent
       css:
         .lessons-content {padding: 0}
-    .lessons
-      - @grades_course.sections.each_with_index do |lesson, i|
-        .lesson
-          .line-node
-          .ltitle = lesson.name
-          .lesson-content style="width: 800px;padding: 20px 0"
-            .area
-              - hs = lesson.course_homeworks(@grades_course)
-              .homeworks
-                - if hs.size == 0
-                   | 暂无作业
-                - else
-                  - hs.each_with_index do |h, j|
-                    .hs = link_to "[#{h.of_user(current_user).try(:status) || '未　做'}]#{h.short_name}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
+    - if @grades_course.sections.empty?
+      .main-descs: .main-desc
+        | 该课程暂无教材！
+    - else
+      .lessons
+        - @grades_course.sections.each_with_index do |lesson, i|
+          .lesson
+            .line-node
+            .ltitle = lesson.name
+            .lesson-content style="width: 800px;padding: 20px 0"
+              .area
+                - hs = lesson.course_homeworks(@grades_course)
+                .homeworks
+                  - if hs.size == 0
+                     | 暂无作业
+                  - else
+                    - hs.each_with_index do |h, j|
+                      - sh = h.of_user(current_user)
+                      .hs = link_to "[#{h.closed? ? '已过期' : sh.status_name}]#{h.short_name}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)

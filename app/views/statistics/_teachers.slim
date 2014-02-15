@@ -15,3 +15,16 @@
             td = percents_for(g, m, false, current_period.start_year, ["grades_courses.course_id = #{@grade_course.course.id}", "grades.grade_num = #{@grade_course.grade_num}"])
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'
   .clear
+  .main-desc
+    #date-select = render 'date_select'
+    #bar
+    = bar_chart  'bar', categories: @teachers.collect(&:real_name), \
+                      percents: range_percents_homework(@teachers, @sdate, @edate), \
+                      time_str: "#{@sdate} - #{@edate}"
+
+javascript:
+  $(document).ready(function() {
+    $('#bar').each(function(i){$(this).find('text').last().hide()});
+    $('.highcharts-legend').hide();
+    $('.highcharts-axis').last().hide();
+  });

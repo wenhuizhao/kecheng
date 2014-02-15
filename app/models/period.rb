@@ -11,9 +11,21 @@ class Period < ActiveRecord::Base
     user.accepted_courses.where(period_id: self.id)
   end
 
+  def brother(des = other_desc)
+    Period.where(desc: des, start_year: start_year, end_year: end_year, is_current: true).first_or_create
+  end
+
+  def other_desc
+    desc == '上' ? '下' : '上'
+  end
+
   def set_full_name
     self.full_name = "#{start_year}-#{end_year}学年#{desc}学期"
     self.save
+  end
+
+  def short_name
+    "#{start_year}至#{end_year}学年"
   end
 
   def next_period?
@@ -38,7 +50,7 @@ class Period < ActiveRecord::Base
 
   class << self
     def current_period
-      return Period.first
+      # return Period.first
       last_p = (2..7).to_a.include?(Time.now.month)
       desc = last_p ? "下" : "上"
       year = Time.now.month == 1 || last_p ? Time.now.year - 1 : Time.now.year

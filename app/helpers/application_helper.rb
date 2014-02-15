@@ -85,13 +85,14 @@ module ApplicationHelper
       next if c.empty? || c == "</span><span>"
       if c == contents.last
         if exer.is_q_and_a? 
-          cs += "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 class='qa_area'>#{ans.to_s.split("@@@")[i]}</textarea>" 
+          cs += "<textarea name='#{exer.id}_#{i + 1}_in' cols=50  rows=5 class='qa_area'>#{ans.to_s.split("@@@")[i]}</textarea>" 
         end
       else
+        val = ans.to_s.split("@@@")[i].to_s.gsub(" ",'')
         if exer.is_fill_blank? || exer.is_multi_choice? 
-          cs += "<input name='#{exer.id}_#{i + 1}_in' value='#{ans.to_s.split("@@@")[i]}' class='exer_input' />"
+          cs += "<input name='#{exer.id}_#{i + 1}_in' value='#{val}' class='exer_input' />"
         else
-          cs += "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 class='exer_textarea'>#{ans.to_s.split("@@@")[i]}</textarea>" 
+          cs += "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 class='exer_textarea'>#{val}</textarea>" 
         end
       end
     end 
@@ -108,7 +109,7 @@ module ApplicationHelper
   end
  
   def clean_content(c, opts = {}, opts2 = {})
-    simple_format(c, opts, opts2).gsub(/[\<&lt;]+!--\[.*?\]-->/,'').html_safe 
+    simple_format(c, opts, opts2.merge(sanitize: false)).gsub(/[\<&lt;]+!--\[.*?\]-->/,'').html_safe 
   end
  
   def include_chart_js

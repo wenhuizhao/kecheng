@@ -14,11 +14,11 @@ css:
           table#exercises
             - @section.exercises.each_with_index do |q, i|
               tr class='#{q.id}'
-                td.top 
+                td.top.etitle
                   = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids.include?(q.id)
                   = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
               tr
-                td = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+                td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
         table style='margin: 0 0 0 30px'
           tr: td: .mb5 作业附加信息
           tr: td = f.text_area :enjoin, rows: 10, cols: 70, placeholder: '内容请写在这里……', id: 'enjoin'

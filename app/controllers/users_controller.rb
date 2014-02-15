@@ -2,12 +2,14 @@
 class UsersController < ApplicationController
   
   before_filter :authenticate_user!, except: [:set_auth_code, :forget_password]
-  before_filter :require_admin, except: [:reset_password, :show, :set_auth_code, :update, :forget_password]
+  before_filter :require_admin, except: [:reset_password, :show, :set_auth_code, :update, :forget_password, :create_user_from_admin]
   before_filter :get_user, except: [:index, :create_user_from_admin, :new, :set_auth_code, :forget_password]
   
   def index
-    if current_user.is_admin? || current_user.is_admin_jyj?
+    if current_user.is_admin? 
       @users = User.all
+    elsif current_user.is_admin_jyj?
+      @users = current_user.jyj.users # .reject{|u| u.is_admin_jyj?}
     elsif current_user.is_admin_xld?
       @users = current_user.school.users.reject{|u| u.is_admin_jyj?}
     else
@@ -32,8 +34,12 @@ class UsersController < ApplicationController
   def get_grades
     @grades = if current_user.is_admin?
                 Grade.all
-              else
+              elsif current_user.is_admin_jyj?
+                current_user.jyj.grades
+              elsif current_user.is_admin_xld?
                 current_user.school.grades
+              else
+                [] 
               end
 
   end
@@ -42,7 +48,10 @@ class UsersController < ApplicationController
     return render_alert('手机号码不正确') if params['user']['phone'].presence && !right_phone(params['user']['phone'])
     if @user.update_attributes(params[:user])
       @user.update_attribute(:role_id, nil) if current_user.is_admin? && current_user.id == @user.id
-      GradeStudent.update_from_admin(params[:grade_id], @user.id) if params[:grade_id] && @user.is_student?
+      if params[:grade_num] 
+        grade = Grade.where(school_id: @user.school_id, grade_num: params[:grade_num].to_i, class_num: params[:class_num].to_i).first_or_create 
+        GradeStudent.update_from_admin(grade.id, @user.id) if @user.is_student?
+      end
       flash[:notice] = '您的修改已保存成功！' 
       re_to_path
     else
@@ -53,7 +62,10 @@ class UsersController < ApplicationController
   def create_user_from_admin
     @user = User.new(params[:user])
     if @user.save
-      GradeStudent.build_from_admin(params[:grade_id], @user.id) if @user.is_student?
+      if params[:grade_num]
+        grade = Grade.where(school_id: @user.school_id, grade_num: params[:grade_num].to_i, class_num: params[:class_num].to_i).first_or_create
+        GradeStudent.build_from_admin(grade.id, @user.id) if @user.is_student?
+      end
       @user.update_attribute(:school_id, current_user.school_id) if current_user.is_admin_xld? && !@user.is_admin_jyj?
       re_to_path
     else
@@ -102,7 +114,7 @@ class UsersController < ApplicationController
   end
 
   def re_to_path
-    return redirect_to current_user if params[:profile]
+    return redirect_to @user if params[:profile]
     redirect_to users_path
   end
 

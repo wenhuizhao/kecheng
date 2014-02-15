@@ -36,6 +36,7 @@ class GradesController < ApplicationController
 
   def create
     @grade = Grade.new(params[:grade])
+    return render_alert '已存在该班级' if Grade.where(grade_num: params[:grade][:grade_num].to_i, class_num: params[:grade][:class_num].to_i, school_id: params[:grade][:school_id].to_i).size > 0
     if @grade.save
       redirect_to grades_path
     else
@@ -44,6 +45,7 @@ class GradesController < ApplicationController
   end
 
   def destroy
+    @grade.destroy
     redirect_with_message '不能删除', action: :index
   end
 

@@ -441,20 +441,20 @@ header
   &.check
     position: fixed
     @include border-radius(15px)
-    // margin: -30px 0 0 -183px
-    margin: -30px 0 0 -283px
+    margin: -30px 0 0 -183px
+    // margin: -30px 0 0 -283px
     background: white
     height: 300px
     overflow-y: scroll
-    // width: 130px
-    width: 230px
+    width: 130px
+    // width: 230px
     .ctitle
-      margin: 0 0 30px 20px
+      margin: 0 0 30px 10px
     .students
       margin: 0 0 0 65px
       .student
         width: 180px
-        margin: 0 0 0 -90px
+        margin: 0 0 0 -100px
   &.tea
     padding: 0
     margin: -32px 0 0 20px
@@ -543,7 +543,7 @@ header
 .lesson-content
   .htitle
     font-size: 22px
-    margin: 0px 10px 20px
+    margin: 10px 10px 20px
   .harea
     padding: 20px
   .line, .harea
@@ -623,7 +623,12 @@ header
   a
     font-weight: normal
 p
-  line-height: 30px
+  line-height: 32px
+  font-size: 18px
+  color: black
+  span
+    font-size: 18px
+    font-weight: normal
 
 #exercises
   img
@@ -644,7 +649,8 @@ p
   .exer_input
     width: 120px
   .exer_textarea
-    width: 600px
+    width: 200px
+    display: inline
 
   width: 860px
   .check-icon-answer
@@ -652,11 +658,17 @@ p
   .etitle
     // width: 35px
     padding: 10px 0 0 0
+    font-size: 20px
+    line-height: 30px
   .econtent
+    font-size: 18px
+    color: black
+    font-weight: normal
     margin: 0 0 0 20px
+    line-height: 32px
   .exercise
     width: 830px
-    margin: 15px 0 30px 0px
+    margin: 28px 0 30px 0px
     //margin: 15px 0
   .answer-content
     img
@@ -794,9 +806,34 @@ p
 .frt
   background: url(/assets/frt.png)
 
+.modal
+  opacity: 0.3
+  filter: alpha(opacity=30)
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 10000
+  background-color: #000
 .wrong
   .wtitle
     display: inline-block
     border: 2px solid red
     padding: 3px
     border-radius: 30px
+.select-book
+  background: white
+  width: 644px
+  height: 558px
+  padding: 65px 53px
+  margin: -180px 0 0 90px
+  // z-index: 100000
+  position: absolute
+  z-index: 10001
+  .sel-title
+    font-size: 24px
+.times
+  padding: 15px
+  font-size: 16px
+  

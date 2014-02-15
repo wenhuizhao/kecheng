@@ -12,6 +12,18 @@ class StudentHomework < ActiveRecord::Base
 
   # scope :one_day, -> {where("student_homeworks.updated_at < #{1.days.from(created_at})")}
   scope :joins_opts, -> (opts) {joins(homework: {grades_course: :grade}).where(opts.join(' and '))}
+  scope :need_check, -> {where("status in ('未批阅', '已改错')")}
+
+  PNGS = {
+    "优" => "you",
+    "良" => "liang",
+    "中" => "zhong",
+    "差" => "cha"
+  }
+  
+  def png
+    PNGS[level]
+  end
 
   def set_status
     self.status = Settings.homework_status.first
@@ -36,6 +48,10 @@ class StudentHomework < ActiveRecord::Base
   
   def canvas_exercises
     exercises.select{|e| e.is_need_canvas?}.uniq
+  end
+
+  def canvass
+    canvas_exercises.map{|e| StudentHomeworksExercises.where(exercise_id: e.id, student_homework_id: self.id).last}.flatten.map(&:canvas)
   end
 
   def score_num
