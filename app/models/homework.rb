@@ -23,7 +23,7 @@ class Homework < ActiveRecord::Base
   end
   
   def of_user(user)
-    student_homeworks.select{|sh| sh.student_id == user.id}.last
+    student_homeworks.where(student_id: user.id).last
   end
    
   def section_num_str
