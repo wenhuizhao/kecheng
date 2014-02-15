@@ -1,0 +1,103 @@
+#board
+  css:
+    .canvas, .inline {border: 1px solid black;}
+    .inline {padding: 2px 5px;margin: 5px;}
+  .inline id='draw#{hid}' 画线
+  .inline id='text_input#{hid}' 输入文字
+  .inline id='save#{hid}'  保存
+  / .inline id='load#{hid}'  加载
+  .inline id='clear#{hid}'  清除笔画
+  .inline id='remove#{hid}'  移除元件
+  
+  canvas.canvas id='#{hid}c' width="800" height="300"
+
+javascript:
+  var canvas_#{hid} = new fabric.Canvas('#{hid}c');
+    
+  jQuery(document).ready( function() {
+      $("#text_input#{hid}").click(function(){
+          canvas_#{hid}.isDrawingMode = false;
+  
+          if (canvas_#{hid}.getContext) {
+              var context = canvas_#{hid}.getContext('2d');
+          }
+  
+          var text, size, color;
+          var mouse_pos = { x:0 , y:0 };
+  
+          text = $('#text#{hid}').val();
+          size = 16 
+          color = '#000'
+  
+          canvas_#{hid}.observe('mouse:down', function(e) {
+              mouse_pos = canvas_#{hid}.getPointer(e.e);
+              size = parseInt(size, 10);
+              canvas_#{hid}.add(new fabric.Text(text, {
+                  fontFamily: 'Arial',
+                  fontSize: size,
+                  left: mouse_pos.x,
+                  top: mouse_pos.y,
+                  textAlign: "left",
+                  fontWeight: 'bold'
+              }));
+              canvas_#{hid}.off('mouse:down');
+              canvas_#{hid}.renderAll();
+              canvas_#{hid}.calcOffset();
+           });
+      });
+    $("#draw#{hid}").click(function(){
+        canvas_#{hid}.isDrawingMode = true;
+        canvas_#{hid}.freeDrawingLineWidth = 5;
+        canvas_#{hid}.renderAll();
+        canvas_#{hid}.calcOffset();
+    });
+
+    $("#save#{hid}").click(function(){
+        canvas_#{hid}.isDrawingMode = false;
+      if(!window.localStorage){alert("This function is not supported by your browser."); return;}
+        var json = JSON.stringify(canvas_#{hid});
+        window.localStorage.setItem("hoge", json);
+    });
+    $("#load#{hid}").click(function(){
+        canvas_#{hid}.isDrawingMode = false;
+        if(!window.localStorage){alert("This function is not supported by your browser."); return;}
+        canvas_#{hid}.clear();
+        canvas_#{hid}.loadFromJSON(window.localStorage.getItem("hoge"));
+        canvas_#{hid}.renderAll();
+        canvas_#{hid}.calcOffset();
+    });
+  
+    $("#clear#{hid}").click(function(){
+        canvas_#{hid}.isDrawingMode = false;
+        canvas_#{hid}.clear();
+    });
+    
+    $("#remove#{hid}").click(function(){
+        canvas_#{hid}.isDrawingMode = false;
+        var activeObject = canvas_#{hid}.getActiveObject(),
+        activeGroup = canvas_#{hid}.getActiveGroup();
+        if (activeObject) {
+           canvas_#{hid}.remove(activeObject);
+        }
+        else if (activeGroup) {
+           var objectsInGroup = activeGroup.getObjects();
+           canvas_#{hid}.discardActiveGroup();
+           objectsInGroup.forEach(function(object) {
+           canvas_#{hid}.remove(object);
+           });
+        }
+    
+    });
+    
+  });
+  
+  canvas_#{hid}.calcOffset();
+  
+  document.onkeyup = function(e) {
+    canvas_#{hid}.renderAll();
+  };
+  
+  setTimeout(function() {
+    canvas_#{hid}.calcOffset();
+  }, 100);
+

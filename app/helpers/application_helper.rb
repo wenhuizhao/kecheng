@@ -76,7 +76,7 @@ module ApplicationHelper
 
   def replaced_exercise(exer, ans = nil)
     content = clean_content(exer.title, {}, wrapper_tag: "div")
-    return content.html_safe if exer.is_need_canvas?
+    return content.html_safe if exer.is_lianxian?
     cs = ""
     contents = blanks_arr(content, exer.qtype_id)
     # contents = simple_format(exer.title).split(/\<u\>.*?\<\/u\>/)
@@ -85,14 +85,14 @@ module ApplicationHelper
       next if c.empty? || c == "</span><span>"
       if c == contents.last
         if exer.is_q_and_a? 
-          cs += "<textarea name='#{exer.id}_#{i + 1}_in' cols=50  rows=5 class='qa_area'>#{ans.to_s.split("@@@")[i]}</textarea>" 
+          cs += "<textarea name='#{exer.id}_#{i + 1}_in'  id='text#{exer.id}' cols=50  rows=5 class='qa_area'>#{ans.to_s.split("@@@")[i]}</textarea>" 
         end
       else
         val = ans.to_s.split("@@@")[i].to_s.gsub(" ",'')
         if exer.is_fill_blank? || exer.is_multi_choice? 
           cs += "<input name='#{exer.id}_#{i + 1}_in' value='#{val}' class='exer_input' />"
         else
-          cs += "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 class='exer_textarea'>#{val}</textarea>" 
+          cs += "<textarea name='#{exer.id}_#{i + 1}_in' id='text#{exer.id}' cols=50 class='exer_textarea'>#{val}</textarea>" 
         end
       end
     end 
