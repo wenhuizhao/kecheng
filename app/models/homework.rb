@@ -18,6 +18,10 @@ class Homework < ActiveRecord::Base
     self.grades_course.students - self.students
   end
   
+  def undo_students
+    student_homeworks.where(status: '未批阅')
+  end
+  
   def of_user(user)
     student_homeworks.select{|sh| sh.student_id == user.id}.last
   end

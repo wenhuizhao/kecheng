@@ -85,7 +85,7 @@ module ApplicationHelper
       next if c.empty? || c == "</span><span>"
       if c == contents.last
         if exer.is_q_and_a? 
-          cs += "<textarea name='#{exer.id}_#{i + 1}_in' cols=50 class='qa_area'>#{ans.to_s.split("@@@")[i]}</textarea>" 
+          cs += "<textarea name='#{exer.id}_#{i + 1}_in' cols=50  rows=5 class='qa_area'>#{ans.to_s.split("@@@")[i]}</textarea>" 
         end
       else
         val = ans.to_s.split("@@@")[i].to_s.gsub(" ",'')
