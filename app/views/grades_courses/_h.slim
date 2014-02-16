@@ -25,15 +25,4 @@ javascript:
         = link_to_function '关闭作业', "close_homework(this)", \
             class: 'btn btn-small fright close-h', style: 'color: white;margin: -50px 0;', "data-uns" => h.unsubmit_students.size, \
             "data-id" => h.id, "data-uds" => h.undo_students.size, "data-sid" => h.section_id  if h.status.nil?
-      .clear
-      .chart-small.fleft id='#{h.id}'
-      = pie_chart h, title: '', data: h.to_chart(false)
-      .cdesc.fleft
-        - Homework::ChartColors.each do |title, color|
-          .c
-            span.color style='background: #{color}'
-            span = title
-        .c
-          span.color style='background: rgb(231, 151, 220)'
-          span 未做
-      .clear
+      = render partial: '/grades_courses/chart', locals: {h: h}

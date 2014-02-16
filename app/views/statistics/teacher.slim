@@ -32,8 +32,3 @@
             .lesson-content: .area
               .htitle 已完成的作业
               = render partial: 'h', locals: {homeworks: closed_hs}
-
-javascript:
-  $(document).ready(function() {
-    $('.chart-small').each(function(i){$(this).find('text').last().hide()});
-  });

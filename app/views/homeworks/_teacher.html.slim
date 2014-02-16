@@ -29,6 +29,9 @@
         .name = status + "#{shs.size}人"
         - shs.each do |sh|
           .student
-            = image_tag avatar_path(sh.student), class: 'savatar'
+            - if current_user.admins?
+              = link_to image_tag(avatar_path(sh.student), class: 'savatar'), check_homework_path(status: status, student_id: sh.student_id) 
+            - else
+              = image_tag avatar_path(sh.student), class: 'savatar'
             span.stitle.fs20 = sh.student.real_name
             span.stitle.fs20 = sh.updated_at.strftime("%m-%d %H:%M")

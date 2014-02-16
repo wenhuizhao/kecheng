@@ -20,6 +20,11 @@
   <!-- <div id='notice'><%= flash[:notice] %></div> -->
   <% if current_user %>
     <%= render 'layouts/common' %>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.chart-small').each(function(i){$(this).find('text').last().hide()});
+      });
+    </script>
   <% else %>
     <div id='header'></div>
     <div id='middle' class='<%= controller_name %>'></div>

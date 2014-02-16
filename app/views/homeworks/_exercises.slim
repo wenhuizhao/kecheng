@@ -13,7 +13,7 @@ css:
         = "、#{hwq.qtype_name}"
       .econtent
         = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
-      = render partial: partial_role('_exer'), locals: {hwq: hwq, ans: ans}
+      = render partial: "/homeworks/#{partial_role('_exer')}", locals: {hwq: hwq, ans: ans}
       = render partial: 'shared/ask_question', locals: {ans: ans}
       - if is_right || current_user.is_teacher?
         javascript:
