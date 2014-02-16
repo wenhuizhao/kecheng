@@ -39,7 +39,7 @@
 
 javascript:
   function save_canvas(){
-    var canvass = [#{ids.map{|i|"canvas_#{i}"}.join(',')}];
+    var canvass = [#{exercises.select{|e| e.is_need_canvas?}.collect(&:id).map{|i|"canvas_#{i}"}.join(',')}];
         datas = [];
     canvass.forEach(function(i){
       datas.push(JSON.stringify(i))
