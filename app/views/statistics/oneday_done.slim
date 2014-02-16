@@ -1,0 +1,20 @@
+= include_chart_js
+css:
+  .center-chart {padding: 50px 0 0 120px;}
+.lists
+  = link_to_home
+  .title = @homework.try(:full_name) || '暂无此学期课程'
+  .select-div.p2
+    css:
+      .select-div {margin: 4px 0 0 10px;height: 49px;}
+      .select-div .words  {height: 29px;background: white;}
+    .words.select
+      .word = into_date @homework.created_at
+  .main-descs
+    .main-desc style='width: 682px'
+      .mtitle 作业成绩分布
+      .mcontent
+        .center-chart = render partial: '/grades_courses/chart', locals: {h: @homework}
+    .main-desc
+      .mtitle = "作业题目(#{@homework.exercises.size})"
+      .mcontent = render partial: '/homeworks/exercises', locals: {exercises: @homework.exercises} 
