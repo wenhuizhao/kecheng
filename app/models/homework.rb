@@ -64,6 +64,9 @@ class Homework < ActiveRecord::Base
   end
 
   def finish_rate(int = false)
+    return '正在进行中' if created_at > 2.days.ago
+    return '尚无学生提交' if unsubmit_students.size == self.grades_course.students.size
+    s = closed? ? '' : " and homeworks.created_at < '#{2.days.ago.to_s[0, 19]}'"
     ss = student_homeworks.select("id,status,times,unix_timestamp(first_update)-unix_timestamp(created_at) as s").inject([]) do |ss, h|
       h.s && h.s < 48 * 60 * 60 ? ss << h : ss
     end

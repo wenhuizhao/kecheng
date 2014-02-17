@@ -78,7 +78,7 @@ class Grade < ActiveRecord::Base
   
   module Name
     def self.cname(gn, cn)
-      "#{gn.to_cnum}年级#{cn.to_cnum}班"
+      "#{gn.try(:to_cnum)}年级#{cn.try(:to_cnum)}班"
     end
 
     def grades
