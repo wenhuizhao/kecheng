@@ -25,6 +25,11 @@ class Homework < ActiveRecord::Base
   def of_user(user)
     student_homeworks.where(student_id: user.id).last
   end
+
+  def status_name_for(sh)
+    return '未完成' if closed?
+    sh.nil? ? '待做' : sh.status_name
+  end
    
   def section_num_str
     "第#{section.num.to_s}课"

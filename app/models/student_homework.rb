@@ -31,7 +31,7 @@ class StudentHomework < ActiveRecord::Base
 
   def status_name
     return '未完成' if homework.try(:closed?)
-    status.nil? ? '未做' : status
+    status.nil? ? '待做' : status
   end
 
   def has_score?
