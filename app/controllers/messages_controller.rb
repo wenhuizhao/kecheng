@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
   def broadcast
     return if request.get?
     return render_alert '请选择至少一个学校' if params[:school_ids].nil? && current_user.is_admin_jyj?
-    return render_alert '请选择至少一个班级' if params[:grade_ids].nil? && current_user.is_admin_xld?
+    return render_alert '请选择至少一个年级' if params[:grade_nums].nil? && current_user.is_admin_xld?
     return render_alert '请选择至少一个角色' if params[:roles].nil?
     roles = {'teacher' => 3, 'student' => 2}
     if current_user.is_admin_jyj?
@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
         end
       end
     elsif current_user.is_admin_xld?
-      Grade.find(params[:grade_ids]).each do |s|
+      Grade.where("grade_num in (#{params[:grade_nums].join(',')}) and school_id = #{current_user.school_id}").each do |s|
         us = params[:roles].map {|r| "#{r}s"}.inject([]) {|us, roles| us << s.send(roles)}.flatten
         us.each do |u|
           Message.transaction do

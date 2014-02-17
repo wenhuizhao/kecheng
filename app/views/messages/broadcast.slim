@@ -1,4 +1,4 @@
-- colls = current_user.is_admin_jyj? ? current_user.jyj.schools : current_user.school.grades
+- colls = current_user.is_admin_jyj? ? current_user.jyj.schools : current_user.school.grades.select('grade_num').order('grade_num').collect(&:grade_num).uniq
 .lists
   .title 发送广播消息
   = link_to_back
@@ -19,10 +19,10 @@
           .block
             = check_all('ssc', '#ss')
             .clear
-            - colls.order('grade_num, class_num').each do |s|
-              .fleft.school 
-                = check_box_tag "grade_ids[]", s.id
-                = s.name
+            - colls.each do |s|
+              .fleft.school
+                = check_box_tag "grade_nums[]", s
+                = "#{s.to_cnum}年级"
       .main-desc#rs style='height: 120px'
         .inline 请选择收信人角色
         .block
