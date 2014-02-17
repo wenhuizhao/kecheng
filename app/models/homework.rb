@@ -65,7 +65,7 @@ class Homework < ActiveRecord::Base
 
   def finish_rate(int = false)
     ss = student_homeworks.select("id,status,times,unix_timestamp(first_update)-unix_timestamp(created_at) as s").inject([]) do |ss, h|
-      h.s < 48 * 60 * 60 ? ss << h : ss
+      h.s && h.s < 48 * 60 * 60 ? ss << h : ss
     end
     to_percent(ss.size, student_homeworks.size)
   end
