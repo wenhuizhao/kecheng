@@ -13,4 +13,9 @@ class Book < ActiveRecord::Base
     all
     # select{|b| b.name =~ /(\[.*?\])/}
   end
+
+  def is_math?
+    name =~ /数学/
+  end
+
 end

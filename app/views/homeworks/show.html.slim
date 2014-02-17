@@ -4,7 +4,7 @@
       .main-descs .main-desc {width: 870px;margin: 0 auto}
   = link_to_home
   - if current_user.is_student?
-    .title = "#{@homework.short_name}【#{@student_homework.status_name}】"
+    .title = "#{@homework.short_name}【#{@homework.closed? ? '未完成' : @student_homework.status_name}】"
     .hresult
     .main-descs
       .flt.fleft

@@ -1,14 +1,88 @@
-= javascript_include_tag 'board-base' 
+#board
+  css:
+    .canvas, .bbtn {border: 1px solid black;}
+    .bbtn {padding: 2px 5px;margin: 5px;cursor: pointer;}
+  .inline.bbtn id='draw#{hid}' 画线
+  .inline.bbtn id='text_input#{hid}' 输入文字
+  / .inline.bbtn id='save#{hid}'  保存
+  / .inline.bbtn id='load#{hid}'  加载
+  .inline.bbtn id='clear#{hid}'  清除笔画
+  .inline.bbtn id='remove#{hid}'  移除元件
+  
+  canvas.canvas id='#{hid}c' width="800" height="300"
 
-#draw |画线
-#text_input 输入文字
-= text_area_tag :text, 'test text', id: "text"
+javascript:
+  var canvas_#{hid} = new fabric.Canvas('#{hid}c');
+    
+  jQuery(document).ready( function() {
+      canvas_#{hid}.loadFromJSON('#{get_canvas_text(hid)}', canvas_#{hid}.renderAll.bind(canvas_#{hid}));
+      $("#text_input#{hid}").click(function(){
+          canvas_#{hid}.isDrawingMode = false;
+          if (canvas_#{hid}.getContext) {
+              var context = canvas_#{hid}.getContext('2d');
+          }
+  
+          var text, size, color;
+          var mouse_pos = { x:0 , y:0 };
+  
+          text = $('#text#{hid}').val();
+          size = 16 
+          color = '#000'
+  
+          canvas_#{hid}.observe('mouse:down', function(e) {
+              mouse_pos = canvas_#{hid}.getPointer(e.e);
+              size = parseInt(size, 10);
+              canvas_#{hid}.add(new fabric.Text(text, {
+                  fontFamily: 'Arial',
+                  fontSize: size,
+                  left: mouse_pos.x,
+                  top: mouse_pos.y,
+                  textAlign: "left",
+                  fontWeight: 'bold'
+              }));
+              canvas_#{hid}.off('mouse:down');
+              canvas_#{hid}.renderAll();
+              canvas_#{hid}.calcOffset();
+           });
+      });
+    $("#draw#{hid}").click(function(){
+        canvas_#{hid}.isDrawingMode = true;
+        canvas_#{hid}.freeDrawingLineWidth = 5;
+        canvas_#{hid}.renderAll();
+        canvas_#{hid}.calcOffset();
+    });
+  
+    $("#clear#{hid}").click(function(){
+        canvas_#{hid}.isDrawingMode = false;
+        canvas_#{hid}.clear();
+    });
+    
+    $("#remove#{hid}").click(function(){
+        canvas_#{hid}.isDrawingMode = false;
+        var activeObject = canvas_#{hid}.getActiveObject(),
+        activeGroup = canvas_#{hid}.getActiveGroup();
+        if (activeObject) {
+           canvas_#{hid}.remove(activeObject);
+        }
+        else if (activeGroup) {
+           var objectsInGroup = activeGroup.getObjects();
+           canvas_#{hid}.discardActiveGroup();
+           objectsInGroup.forEach(function(object) {
+           canvas_#{hid}.remove(object);
+           });
+        }
+    
+    });
+    
+  });
+  
+  canvas_#{hid}.calcOffset();
+  
+  document.onkeyup = function(e) {
+    canvas_#{hid}.renderAll();
+  };
+  
+  setTimeout(function() {
+    canvas_#{hid}.calcOffset();
+  }, 100);
 
-#save  Save canvas to localstorage
-#load  Load canvas from localstorage
-#clear  Clear canvas
-#remove  Remove shapes
-
-canvas#canvas width="700" height="600"
-
-= javascript_include_tag 'board' 

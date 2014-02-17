@@ -23,4 +23,4 @@
                   - else
                     - hs.each_with_index do |h, j|
                       - sh = h.of_user(current_user)
-                      .hs = link_to "[#{h.closed? ? '已过期' : sh.status_name}]#{h.short_name}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
+                      .hs = link_to "[#{h.closed? ? '未完成' : sh.status_name}]#{h.short_name}", section_homework_path(lesson, h, grades_course_id: @grades_course.id)
