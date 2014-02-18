@@ -71,14 +71,20 @@ module Tool
       total = obj.is_a?(GradeCourse) ? total.where("grades.school_id = #{params[:school_id] || current_user.school_id}") : total
       # total = Homework.where("homeworks.created_at between '#{sdate}' and '#{edate}'")
       total_student_homeworks = total.map{|h| h.student_homeworks.joins_opts(opts)}.flatten
-      total_done_student_homeworks = total.map{|h| select_one_day_check(h.student_homeworks.joins_opts(opts))}.flatten
-      to_percent(total_student_homeworks.size - total_done_student_homeworks.size, total_student_homeworks.size, int)
+      total_done_student_homeworks = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts))}.flatten
+      total_undone_student_homeworks = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts), 'over')}.flatten
+      total_size = total_student_homeworks.size - total_undone_student_homeworks.size
+      to_percent(total_size.size - total_done_student_homeworks.size, total_size, int)
     end
 
-    def select_one_day_check(objs)
+    def select_check_hs(objs, type = 'under')
       s = "student_homeworks"
-      objs.select("#{s}.id,#{s}.status,#{s}.times,unix_timestamp(#{s}.first_update)-unix_timestamp(#{s}.created_at) as s").inject([]) do |ss, h|
-        h.s && h.s < 48 * 60 * 60 ? ss << h : ss
+      objs.select("#{s}.id,#{s}.status,#{s}.times,unix_timestamp(#{s}.first_update)-unix_timestamp(homeworks.created_at) as s").inject([]) do |ss, h|
+        if type == 'over'
+          h.s.nil? || (h.s && h.s > 48 * 60 * 60) ? ss << h : ss
+        else
+          h.s && h.s < 48 * 60 * 60 ? ss << h : ss
+        end
       end
     end
   end

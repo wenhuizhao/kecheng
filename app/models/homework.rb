@@ -77,11 +77,12 @@ class Homework < ActiveRecord::Base
   def finish_rate(int = false)
     return '正在进行中' if created_at > 2.days.ago
     return '尚无学生提交' if unsubmit_students.size == self.grades_course.students.size
-    s = closed? ? '' : " and homeworks.created_at < '#{2.days.ago.to_s[0, 19]}'"
-    ss = student_homeworks.select("id,status,times,unix_timestamp(first_update)-unix_timestamp(created_at) as s").inject([]) do |ss, h|
-      h.s && h.s < 48 * 60 * 60 ? ss << h : ss
-    end
-    to_percent(ss.size, student_homeworks.size)
+    # s = closed? ? '' : " and homeworks.created_at < '#{2.days.ago.to_s[0, 19]}'"
+    shs = student_homeworks.joins(:homework)
+    dones = select_check_hs(shs)
+    undones = select_check_hs(shs, 'over')
+    total_size = student_homeworks.size - undones.size
+    to_percent(dones.size, total_size)
   end
   
   ChartColors = {'优' => 'rgb(140, 225, 254)', 
