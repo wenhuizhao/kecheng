@@ -79,7 +79,7 @@ class GradesCoursesController < ApplicationController
     book = Book.find_by_id(params[:grades_course][:book_id])
     period = book.try(:name).include?(current_period.desc) ? current_period : current_period.brother
     @grades_course.period_id = period.id
-    return render_alert '您已开通此课程！' if !GradesCourse.opened_course_for(@grades_course)
+    return render_alert '您已开通此课程！' if GradesCourse.opened_course_for(@grades_course)
     if @grades_course.save
       do_lessons
       send_apply_request('apply_courses', grade_id: @grade.id, course_id: @grades_course.course_id)

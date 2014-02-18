@@ -59,6 +59,7 @@ class StudentHomeworksController < ApplicationController
   end
 
   def save_canvas
+    return unless params[:canvass]
     @student_homework.canvas_exercises.each_with_index do |e, i| 
       she = find_she(e.id)
       css = JSON.parse(params[:canvass])
