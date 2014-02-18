@@ -27,7 +27,13 @@ class Homework < ActiveRecord::Base
   end
 
   def status_name_for(sh)
-    return '未完成' if closed?
+    if closed?
+      return '未完成' if sh.nil?
+      return '未批阅' if sh.status == '未批阅'
+      return '未改错' if sh.status == '待改错'
+      return '完成' if sh.status == '已改错'
+    end
+
     sh.nil? ? '待做' : sh.status_name
   end
    
