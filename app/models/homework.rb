@@ -28,7 +28,7 @@ class Homework < ActiveRecord::Base
 
   def status_name_for(sh)
     if closed?
-      return '未完成' if sh.nil?
+      return '未完成' if sh.nil? || sh.new_record?
       return '未批阅' if sh.status == '未批阅'
       return '未改错' if sh.status == '待改错'
       return '完成' if sh.status == '已改错'
@@ -77,12 +77,10 @@ class Homework < ActiveRecord::Base
   def finish_rate(int = false)
     return '正在进行中' if created_at > 2.days.ago
     return '尚无学生提交' if unsubmit_students.size == self.grades_course.students.size
-    # s = closed? ? '' : " and homeworks.created_at < '#{2.days.ago.to_s[0, 19]}'"
-    shs = student_homeworks.joins(:homework)
-    dones = select_check_hs(shs)
-    undones = select_check_hs(shs, 'over')
-    total_size = student_homeworks.size - undones.size
-    to_percent(dones.size, total_size)
+    shs = select_check_hs(student_homeworks.joins(:homework), 'under', 'created_at')
+    dones = select_check_hs(student_homeworks.joins(:homework))
+    fp = to_percent(dones.size, shs.size)
+    fp == 0 ? '0%' : fp
   end
   
   ChartColors = {'优' => 'rgb(140, 225, 254)', 

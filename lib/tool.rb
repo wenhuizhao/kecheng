@@ -69,19 +69,18 @@ module Tool
     def percent_between(obj, sdate, edate, int = false, opts = [])
       total = obj.homework_rang(sdate, edate).where("grades_courses.is_open = 1 and homeworks.created_at < '#{2.days.ago.to_s[0, 19]}'")
       total = obj.is_a?(GradeCourse) ? total.where("grades.school_id = #{params[:school_id] || current_user.school_id}") : total
-      # total = Homework.where("homeworks.created_at between '#{sdate}' and '#{edate}'")
-      total_student_homeworks = total.map{|h| h.student_homeworks.joins_opts(opts)}.flatten
-      total_done_student_homeworks = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts))}.flatten
-      total_undone_student_homeworks = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts), 'over')}.flatten
-      total_size = total_student_homeworks.size - total_undone_student_homeworks.size
-      to_percent(total_size.size - total_done_student_homeworks.size, total_size, int)
+      total_shs = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts), 'under', 'created_at')}.flatten
+      total_done_shs = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts))}.flatten
+      to_percent(total_shs.size - total_done_shs.size, total_shs.size, int)
     end
 
-    def select_check_hs(objs, type = 'under')
+    def select_check_hs(objs, type = 'under', date_str = 'first_update')
       s = "student_homeworks"
-      objs.select("#{s}.id,#{s}.status,#{s}.times,unix_timestamp(#{s}.first_update)-unix_timestamp(homeworks.created_at) as s").inject([]) do |ss, h|
+      objs.select("#{s}.id,#{s}.status,#{s}.times,unix_timestamp(#{s}.#{date_str})-unix_timestamp(homeworks.created_at) as s").inject([]) do |ss, h|
         if type == 'over'
-          h.s.nil? || (h.s && h.s > 48 * 60 * 60) ? ss << h : ss
+          h.s && h.s > 48 * 60 * 60 ? ss << h : ss
+        elsif type == 'empty'
+          h.s.nil? ? ss << h : ss
         else
           h.s && h.s < 48 * 60 * 60 ? ss << h : ss
         end
