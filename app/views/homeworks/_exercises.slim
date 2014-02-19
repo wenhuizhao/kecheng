@@ -22,7 +22,7 @@
           $('.question-area').find('textarea').removeAttr('disabled')
 
 - ids = exercises.select{|e| e.is_lianxian?}.collect(&:id)
-- hnum = current_user.is_student? ? 30 : 100
+- hnum = current_user.is_student? ? 230 : 300
 - color = current_user.is_student? ? 'blue' : 'red'
 = javascript_include_tag 'exercise'
 - ids.each do |id|
