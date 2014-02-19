@@ -17,7 +17,7 @@
           span.stitle.fs24 = s.real_name
   - Settings.homework_status.each do |status|
     - shs = StudentHomework.where(status: status, homework_id: @homework.id)
-    .status.main-desc
+    .status.main-desc.can_check
       - if current_user.is_teacher?
         .check
           - if shs.size > 0
@@ -28,10 +28,15 @@
       .students
         .name = status + "#{shs.size}人"
         - shs.each do |sh|
-          .student
+          .student data-url="#{check_homework_path(status: status, student_id: sh.student_id)}"
             - if current_user.admins?
-              = link_to image_tag(avatar_path(sh.student), class: 'savatar'), check_homework_path(status: status, student_id: sh.student_id) 
+              = image_tag(avatar_path(sh.student), class: 'savatar')
             - else
               = image_tag avatar_path(sh.student), class: 'savatar'
             span.stitle.fs20 = sh.student.real_name
             span.stitle.fs20 = sh.updated_at.strftime("%m-%d %H:%M")
+- if current_user.admins?
+  javascript:
+    $('.can_check').find('.student').click(function(){redirect_to($(this).attr("data-url"))});
+    
+
