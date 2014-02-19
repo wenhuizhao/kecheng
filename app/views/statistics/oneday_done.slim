@@ -3,18 +3,44 @@ css:
   .center-chart {padding: 50px 0 0 120px;}
 .lists
   = link_to_home
-  .title = @homework.try(:full_name) || '暂无此学期课程'
+  .title = @homework.try(:full_name)
   .select-div.p2
     css:
-      .select-div {margin: 4px 0 0 10px;height: 49px;}
+      .select-div {margin: 4px 0 0 10px;height: 49px;border: 1px #26dec6 solid;color: #26dec6;}
       .select-div .words  {height: 29px;background: white;}
+      .select-div .words .word {font-weight: bold;}
     .words.select
       .word = into_date @homework.created_at
   .main-descs
+    css: 
+      .main-descs .main-desc {display: inline-block}
     .main-desc style='width: 682px'
       .mtitle 作业成绩分布
       .mcontent
         .center-chart = render partial: '/grades_courses/chart', locals: {h: @homework}
-    .main-desc
+    .right-title 日批日改完成明细
+    .right-students.students
+      .rtitle = "未提交的学生#{@homework.unsubmit_students.size}人"
+      / = render partial: 'shared/heads', locals: {users: @homework.unsubmit_students} 
+      - @homework.unsubmit_students.each do |s|
+        .student style='margin: 20px'
+          = image_tag(avatar_path(s), class: 'savatar')
+          span.stitle.f24 style='margin: 25px 10px;font-size: 22px;' = s.real_name
+    / .right-students.students
+    /   .rtitle = "未改错的学生#{@homework.need_modify.size}人" 
+    /   - @homework.need_modify.each do |s|
+    /     .student = image_tag(avatar_path(s), class: 'savatar')
+
+    .main-desc style='width: 682px'
       .mtitle = "作业题目(#{@homework.exercises.size})"
-      .mcontent = render partial: '/homeworks/exercises', locals: {exercises: @homework.exercises} 
+      .mcontent
+        table#exercises
+          - @homework.exercises.each_with_index do |q, i|
+            tr class='#{q.id}'
+              td.top.etitle
+                = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
+            tr
+              td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+= javascript_include_tag 'exercise'
+javascript:
+  $('p').find('span').css({"font-size": '18px', "font-family": "'STHeiti' Microsoft YaHei"});

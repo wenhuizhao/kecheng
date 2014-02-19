@@ -9,7 +9,7 @@
         = " #{into_date(h.created_at)}布置"
       .chart-small.fleft id='#{h.id}'
       = pie_chart h, title: '', data: h.to_chart(false)
-      .cdesc.fleft
+      .cdesc.fleft data-url='#{oneday_done_path(params[:teacher_id], h)}'
         - Homework::ChartColors.each do |title, color|
           .c
             span.color style='background: #{color}'
@@ -20,3 +20,7 @@
       .clear
 css:
    .lesson-content .harea {border: none;}
+   .cdesc {cursor: pointer;}
+
+javascript:
+  $('.cdesc').click(function(){redirect_to($(this).attr('data-url'))})

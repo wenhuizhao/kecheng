@@ -74,6 +74,10 @@ class Homework < ActiveRecord::Base
     grades_course.try :teacher
   end
 
+  def need_modify
+    student_homeworks.where(status: '待改错').map(&:student).flatten
+  end
+
   def finish_rate(int = false)
     return '正在进行中' if created_at > 2.days.ago
     return '尚无学生提交' if unsubmit_students.size == self.grades_course.students.size
