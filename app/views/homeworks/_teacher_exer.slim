@@ -15,5 +15,5 @@
       .inline 
         = image_tag "#{icon}.png", class: 'check-icon', \
             "data-desc" => icon, "data-id" => hwq.id, "data-hid" => @student_homework.try(:id)
-- if hwq.is_need_canvas?
-  = link_to_function '清除划线', "canvas_#{hwq.id}.clear()", class: 'clear_canvas'
+/ - if hwq.is_need_canvas?
+/   = link_to_function '清除划线', "canvas_#{hwq.id}.clear()", class: 'clear_canvas'

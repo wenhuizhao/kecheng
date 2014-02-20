@@ -23,11 +23,12 @@
 
 - ids = exercises.select{|e| e.is_lianxian?}.collect(&:id)
 - hnum = current_user.is_student? ? 230 : 300
+- mode = current_user.is_student? ? true : false
 - color = current_user.is_student? ? 'blue' : 'red'
 = javascript_include_tag 'exercise'
 - ids.each do |id|
   javascript:
-    canvas_#{id} = new fabric.Canvas('#{id}_c', {isDrawingMode: true});
+    canvas_#{id} = new fabric.Canvas('#{id}_c', {isDrawingMode: #{mode}});
     var height = $('##{id}_c').parent().parent().height() - #{hnum};
     $('##{id}_c').parent().css({height: height}).find('canvas').css({
       height: height
