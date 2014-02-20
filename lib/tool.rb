@@ -76,7 +76,7 @@ module Tool
 
     def select_check_hs(objs, type = 'under', date_str = 'first_update')
       s = "student_homeworks"
-      objs.select("#{s}.id,#{s}.status,#{s}.times,unix_timestamp(#{s}.#{date_str})-unix_timestamp(homeworks.created_at) as s").inject([]) do |ss, h|
+      objs.select("#{s}.id,#{s}.status,#{s}.times,#{s}.student_id,#{s}.updated_at,unix_timestamp(#{s}.#{date_str})-unix_timestamp(homeworks.created_at) as s").inject([]) do |ss, h|
         if type == 'over'
           h.s && h.s > 48 * 60 * 60 ? ss << h : ss
         elsif type == 'empty'

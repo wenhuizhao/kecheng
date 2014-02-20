@@ -18,19 +18,19 @@ css:
       .mtitle 作业成绩分布
       .mcontent
         .center-chart = render partial: '/grades_courses/chart', locals: {h: @homework}
-    .right-title 日批日改完成明细
+    .right-title data-url='#{oneday_detail_path(params[:teacher_id], @homework)}' 日批日改完成明细
     .right-students.students
       .rtitle = "未提交的学生#{@homework.unsubmit_students.size}人"
-      / = render partial: 'shared/heads', locals: {users: @homework.unsubmit_students} 
       - @homework.unsubmit_students.each do |s|
         .student style='margin: 20px'
           = image_tag(avatar_path(s), class: 'savatar')
           span.stitle.f24 style='margin: 25px 10px;font-size: 22px;' = s.real_name
-    / .right-students.students
-    /   .rtitle = "未改错的学生#{@homework.need_modify.size}人" 
-    /   - @homework.need_modify.each do |s|
-    /     .student = image_tag(avatar_path(s), class: 'savatar')
-
+    .right-students.students style='margin: 82px 0 0 740px'
+      .rtitle = "未改错的学生#{@homework.need_modify.size}人" 
+      - @homework.need_modify.each do |s|
+        .student style='margin: 20px'
+          = image_tag(avatar_path(s), class: 'savatar')
+          span.stitle.f24 style='margin: 25px 10px;font-size: 22px;' = s.real_name
     .main-desc style='width: 682px'
       .mtitle = "作业题目(#{@homework.exercises.size})"
       .mcontent
@@ -42,3 +42,5 @@ css:
             tr
               td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
 = javascript_include_tag 'exercise'
+javascript:
+  $('.right-title').click(function(){redirect_to($(this).attr('data-url'))})

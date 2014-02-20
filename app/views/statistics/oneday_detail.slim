@@ -1,0 +1,9 @@
+.lists
+  .title 日批日改完成明细
+  = link_to_back
+  .main-descs
+    .status_students
+      = render partial: 's', locals: {status: '已完成日批日改', shs: @homework.oneday_done}
+      = render partial: 's', locals: {status: '未已完成日批日改', shs: @homework.oneday_undone}
+        
+

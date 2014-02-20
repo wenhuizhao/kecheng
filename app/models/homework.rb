@@ -75,7 +75,7 @@ class Homework < ActiveRecord::Base
   end
 
   def need_modify
-    student_homeworks.where(status: '待改错').map(&:student).flatten
+    student_homeworks.where(status: '待改错').map(&:student)
   end
 
   def finish_rate(int = false)
@@ -87,6 +87,14 @@ class Homework < ActiveRecord::Base
     dones = select_check_hs(student_homeworks.joins(:homework))
     fp = to_percent(dones.size, shs.size)
     fp == 0 ? '0%' : fp
+  end
+
+  def oneday_done
+    select_check_hs(student_homeworks.joins(:homework))
+  end
+  
+  def oneday_undone
+    select_check_hs(student_homeworks.joins(:homework), 'under', 'created_at') - oneday_done
   end
   
   ChartColors = {'优' => 'rgb(140, 225, 254)', 

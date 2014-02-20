@@ -45,7 +45,7 @@ module Student
   end
 
   def need_modify_homeworks
-    homeworks.joins(:student_homeworks).where("student_homeworks.status = '待改错'").order('end_time').joins(:grades_course).where("grades_courses.is_open = true")
+    homeworks.where('homeworks.status is null').joins(:student_homeworks).where("student_homeworks.status = '待改错'").order('end_time').joins(:grades_course).where("grades_courses.is_open = true")
   end
 
   include Mgrade

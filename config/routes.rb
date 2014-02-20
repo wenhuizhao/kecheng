@@ -9,6 +9,7 @@ Kecheng::Application.routes.draw do
   get "statistics/teacher/:teacher_id" => "statistics#teacher", as: "teacher_sta"
   get "statistics/teacher/:teacher_id/:messages" => "statistics#teacher", as: "teacher_mess_sta"
   get "statistics/oneday_done/:teacher_id/:homework_id" => "statistics#oneday_done", as: "oneday_done"
+  get "statistics/oneday_detail/:teacher_id/:homework_id" => "statistics#oneday_detail", as: "oneday_detail"
   get "statistics/school/:school_id" => "statistics#index", as: "school_sta"
   post "statistics/to_line_chart"
   post "send_code" => "users#set_auth_code"

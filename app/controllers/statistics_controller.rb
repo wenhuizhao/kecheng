@@ -24,6 +24,10 @@ class StatisticsController < ApplicationController
     @grades_course = @homework.grades_course
   end
 
+  def oneday_detail
+    oneday_done
+  end
+
   def teacher
     @teacher = User.find(params[:teacher_id])
     @messages = Message.all_for(@teacher) if params[:messages]
