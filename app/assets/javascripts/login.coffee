@@ -9,4 +9,4 @@ $(document).ready ->
     $('#middle')
       .css('background','url(\'/assets/login-bg' + bgNum + '.jpg\')')
       .css('background-size', '110% 100%')
-  setInterval changeBg, 3000
+  setInterval changeBg, 5000
