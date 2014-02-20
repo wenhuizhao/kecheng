@@ -107,7 +107,8 @@ class GradesCourse < ActiveRecord::Base
  
   class << self
     def teacher_for(grade_id, course_id, period_id = Period.current_period.id)
-      where(grade_id: grade_id, course_id: course_id, period_id: period_id, is_accept: true)
+      # where(grade_id: grade_id, course_id: course_id, period_id: period_id, is_accept: true)
+      where(grade_id: grade_id, course_id: course_id, is_accept: true).where('book_id is not null')
     end
     
     def has_teacher_for?(grade_id, course_id)

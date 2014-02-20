@@ -75,6 +75,6 @@ class StudentHomework < ActiveRecord::Base
   end
 
   def first_submit?
-    homework.student_homeworks[0] == self
+    homework.student_homeworks[0] == self && student_homeworks_exercises.all?{|e| e.created_at == e.updated_at}
   end
 end
