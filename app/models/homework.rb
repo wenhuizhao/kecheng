@@ -31,7 +31,7 @@ class Homework < ActiveRecord::Base
       return '未完成' if sh.nil? || sh.new_record?
       return '未批阅' if sh.status == '未批阅'
       return '未改错' if sh.status == '待改错'
-      return '完成' if sh.status == '已改错'
+      return '完成' if sh.status == '已完成' || sh.status == '已改错'
     end
 
     sh.nil? ? '待做' : sh.status_name
