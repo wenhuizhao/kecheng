@@ -7,11 +7,12 @@
 - if exercise.is_multi_choice?
   - exercise.options.each_with_index do |o, i|
     - opt = ExerciseOption::OPTION_NUM[i]
-    - if ans
-      = radio_button_tag "#{exercise.id}option", opt, opt == ans.try(:answer)
-    - else
-      = radio_button_tag "#{exercise.id}option", opt
-    = o.full_name.html_safe
+    p.radio
+      - if ans
+        = radio_button_tag "#{exercise.id}option", opt, opt == ans.try(:answer)
+      - else
+        = radio_button_tag "#{exercise.id}option", opt
+      = o.full_name.html_safe
 
 p = exercise.note
 
