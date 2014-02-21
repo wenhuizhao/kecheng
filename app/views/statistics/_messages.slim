@@ -1,5 +1,6 @@
 .descs.sta
   - @messages.each_with_index do |m, i|
+    - next if m.sender.nil?
     .desc.sta
       - m.with_children.each_with_index do |m, i|
         .parent.block 

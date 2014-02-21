@@ -25,13 +25,13 @@ css:
         .student style='margin: 20px'
           = image_tag(avatar_path(s), class: 'savatar')
           span.stitle.f24 style='margin: 25px 10px;font-size: 22px;' = s.real_name
-    .right-students.students style='margin: 82px 0 0 740px'
+    .right-students.students style='margin: 62px 0 0 740px'
       .rtitle = "未改错的学生#{@homework.need_modify.size}人" 
       - @homework.need_modify.each do |s|
         .student style='margin: 20px'
           = image_tag(avatar_path(s), class: 'savatar')
           span.stitle.f24 style='margin: 25px 10px;font-size: 22px;' = s.real_name
-    .main-desc style='width: 682px'
+    .main-desc style='width: 682px;margin-top: -20px;'
       .mtitle = "作业题目(#{@homework.exercises.size})"
       .mcontent
         table#exercises

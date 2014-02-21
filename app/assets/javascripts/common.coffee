@@ -87,11 +87,10 @@ $(document).ready ->
     WdatePicker
       dateFmt: 'yyyy年MM月dd日 HH:mm'
 
-  # $('.econtent').find('p').find('span').css
-  #   color: '#848484'
-  #   'font-family': '"STHeiti" Microsoft YaHei'
-  
   $('#exercises').find('p').find('span').css({"font-size": '18px', "font-family": "'STHeiti' Microsoft YaHei"});
+  # $('.radio').click -> $(this).find('input').attr('checked','checked')
+   
+  scrollTo(0,0)
 
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')
