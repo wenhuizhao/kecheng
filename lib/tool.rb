@@ -58,7 +58,7 @@ module Tool
     end
 
     def percents_for(obj, month, int = false, year = current_period.start_year, opts = [])
-      year = year.to_i + 1 if (1..7).to_a.include?(Time.now.month) # month == 1
+      year = (1..7).to_a.include?(month.to_i) ? year.to_i + 1 : year 
       percent_between(obj, "#{year}-#{month}-01", "#{year}-#{month}-31", int, opts)
     end
   
@@ -68,6 +68,8 @@ module Tool
     
     def percent_between(obj, sdate, edate, int = false, opts = [])
       total = obj.homework_rang(sdate, edate).where("grades_courses.is_open = 1 and (homeworks.created_at < '#{2.days.ago.to_s[0, 19]}' or homeworks.status = '1')")
+      # sc = "grades.school_id = #{params[:school_id] || current_user.school_id}"
+      # te = " and homeworks.teacher_id = #{params[:teacher_id]}" if params[:teacher_id]
       total = obj.is_a?(GradeCourse) ? total.where("grades.school_id = #{params[:school_id] || current_user.school_id}") : total
       total_shs = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts), 'under', 'created_at')}.flatten
       total_done_shs = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts))}.flatten
