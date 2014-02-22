@@ -62,8 +62,8 @@ module Tool
       percent_between(obj, "#{year}-#{month}-01", "#{year}-#{month}-31", int, opts)
     end
   
-    def range_percents_homework(objs, sdate, edate)
-      objs.map {|obj| percent_between(obj, sdate, edate, true) }
+    def range_percents_homework(objs, sdate, edate, opts = [])
+      objs.map {|obj| percent_between(obj, sdate, edate, true, opts) }
     end
     
     def percent_between(obj, sdate, edate, int = false, opts = [])

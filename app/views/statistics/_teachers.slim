@@ -1,3 +1,4 @@
+- opts = ["grades_courses.course_id = #{@grade_course.course.id}", "grades.grade_num = #{@grade_course.grade_num}"]
 .main-desc
   .m20: .title style='border: none' 每月数据
   = form_tag action: :to_line_chart do
@@ -12,14 +13,14 @@
           td = check_box_tag 'teacher_ids[]', g.id
           td = link_to g.real_name, teacher_sta_path(g)
           - months.each do |m|
-            td = percents_for(g, m, false, current_period.start_year, ["grades_courses.course_id = #{@grade_course.course.id}", "grades.grade_num = #{@grade_course.grade_num}"])
+            td = percents_for(g, m, false, current_period.start_year, opts)
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'
   .clear
   .main-desc
     #date-select = render 'date_select'
     #bar
     = bar_chart  'bar', categories: @teachers.collect(&:real_name), \
-                      percents: range_percents_homework(@teachers, @sdate, @edate), \
+                      percents: range_percents_homework(@teachers, @sdate, @edate, opts), \
                       time_str: "#{@sdate} - #{@edate}"
 
 javascript:
