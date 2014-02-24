@@ -11,6 +11,7 @@ class ExerciseOption < ActiveRecord::Base
         break
       end
     end
+    return '' if name.size == 0
     name =~ /[A-F]+/ ? name : "#{OPTION_NUM[index]}#{name =~ /^[,\.。、，]+/ ? "" : ". "}#{name}"
   end
 end
