@@ -14,7 +14,9 @@ module Mgrade
     if self.is_a?(Message) and self.type_name == 'apply_courses'
       ctl = ChangeTeacherLog.where(message_id: self.id).last
       return nil if ctl.nil?
-      GradesCourse.find(ctl.grades_course_id).update_attribute(:teacher_id, ctl.curr_teacher_id)
+      og = GradesCourse.find(ctl.grades_course_id)
+      og.pcourse.update_attribute(:teacher_id, ctl.curr_teacher_id)
+      og.update_attribute(:teacher_id, ctl.curr_teacher_id)
       GradesCourse.find(ctl.new_grades_course_id).delete
     end
   end

@@ -41,6 +41,6 @@ class GradeCourse
   def teachers(school_id = 2)
     # homeworks.map{|h| h.teacher}.uniq
     grades(school_id).inject([]) { |ts, g|
-    ts << GradesCourse.where(grade_id: g.id, course_id: course_id).map{|g| User.find(g.teacher_id)} }.flatten.uniq
+    ts << GradesCourse.where("book_id is not null").where(grade_id: g.id, course_id: course_id).map{|g| User.find(g.teacher_id)} }.flatten.uniq
   end
 end

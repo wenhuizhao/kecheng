@@ -29,7 +29,8 @@
 - ids.each do |id|
   javascript:
     canvas_#{id} = new fabric.Canvas('#{id}_c', {isDrawingMode: #{mode}});
-    var height = $('##{id}_c').parent().parent().height() - #{hnum};
+    // var height = $('##{id}_c').parent().parent().height() - #{hnum};
+    var height = $('##{id}_e').find('.econtent').height() + 60;
     $('##{id}_c').parent().css({height: height}).find('canvas').css({
       height: height
     }).attr('height', height);

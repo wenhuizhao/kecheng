@@ -6,6 +6,7 @@
 
 - if exercise.is_multi_choice?
   - exercise.options.each_with_index do |o, i|
+    - next unless o.full_name.presence
     - opt = ExerciseOption::OPTION_NUM[i]
     p.radio
       - if ans

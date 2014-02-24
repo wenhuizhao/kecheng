@@ -88,6 +88,7 @@ $(document).ready ->
       dateFmt: 'yyyy年MM月dd日 HH:mm'
 
   $('#exercises').find('p').find('span').css({"font-size": '18px', "font-family": "'STHeiti' Microsoft YaHei"});
+  $('#exercises').find('p').css({"font-size": '18px', "font-family": "'STHeiti' Microsoft YaHei"});
   # $('.radio').click -> $(this).find('input').attr('checked','checked')
    
   scrollTo(0,0)
