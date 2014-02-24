@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Mgrade
   
   def grade_num

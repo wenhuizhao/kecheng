@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Period < ActiveRecord::Base
   attr_accessible :desc, :end_year, :full_name, :is_current, :start_year
   after_create :set_full_name

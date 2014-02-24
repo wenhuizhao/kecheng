@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Grade < ActiveRecord::Base
   attr_accessible :class_num, :full_name, :grade_num, :period, :school_id
 

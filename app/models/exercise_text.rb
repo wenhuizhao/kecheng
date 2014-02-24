@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ExerciseText < ActiveRecord::Base
   attr_accessible :book_id, :title, :content, :page, :section_id, :photo
   has_attached_file :photo
