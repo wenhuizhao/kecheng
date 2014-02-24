@@ -79,9 +79,9 @@ class Homework < ActiveRecord::Base
   end
 
   def finish_rate(int = false)
+    return '尚无学生提交' if student_homeworks.empty?
     unless closed?
       return '正在进行中' if created_at > 2.days.ago
-      return '尚无学生提交' if student_homeworks.empty?
     end
     shs = select_check_hs(student_homeworks.joins(:homework), 'under', 'created_at')
     dones = select_check_hs(student_homeworks.joins(:homework))
