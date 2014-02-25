@@ -40,7 +40,9 @@ css:
               td.top.etitle
                 = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
             tr
-              td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+              td.econtent 
+                = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+                .sta_exer = q.answer_sta_of(@homework)
 = javascript_include_tag 'exercise'
 javascript:
   $('.right-title').click(function(){redirect_to($(this).attr('data-url'))})

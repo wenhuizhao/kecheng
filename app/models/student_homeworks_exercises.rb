@@ -4,6 +4,10 @@ class StudentHomeworksExercises < ActiveRecord::Base
   has_many :questions, foreign_key: "student_homeworks_exercise_id"
 
   def right
-  	check_desc =~ /right/
+    check_desc =~ /right/
+  end
+
+  def wrong 
+    check_desc =~ /wrong/
   end
 end

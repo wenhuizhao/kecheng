@@ -50,6 +50,19 @@ class Exercise < ActiveRecord::Base
     # is_q_and_a?
   end
 
+  def answer_sta_of(homework)
+    return '该作业下没有此练习题' if !homework.exercises.include?(self)
+    total = homework.student_homeworks.where("first_update is not null")
+    rnum, wnum = 0, 0
+    total.each do |sh| 
+      she = StudentHomeworksExercises.where(student_homework_id: sh.id, exercise_id: self.id).last 
+      next if she.nil?
+      rnum += 1 if she.right 
+      wnum += 1 if she.wrong 
+    end
+    "做对#{rnum}人，做错#{wnum}人，共#{total.count}人"
+  end
+
   def clean_content
     transformer = lambda do |env|
       node = env[:node]
