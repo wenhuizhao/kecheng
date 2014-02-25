@@ -45,6 +45,9 @@ $(document).ready ->
   # $('.back').on 'click', ->
   #   history.go(-1)
 
+  $('.data-url').click -> redirect_to $(this).attr('data-url')
+  
+
   $('.xld-left').click ->
     redirect_to '/'
   

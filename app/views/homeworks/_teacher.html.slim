@@ -35,7 +35,12 @@
               = image_tag avatar_path(sh.student), class: 'savatar'
             span.stitle.fs20 = sh.student.real_name
             span.stitle.fs20 = sh.updated_at.strftime("%m-%d %H:%M")
+
 - if current_user.admins?
+  .actions1
+    = link_to '作业成绩统计', oneday_done_path(params[:teacher_id], @homework), class: 'back', style: 'float: none;margin-left: 200px'
+    = link_to '日批日改完成明细', oneday_detail_path(params[:teacher_id], @homework), class: 'back', style: 'float: none;margin-left: 50px'
+
   javascript:
     $('.can_check').find('.student').click(function(){redirect_to($(this).attr("data-url"))});
     

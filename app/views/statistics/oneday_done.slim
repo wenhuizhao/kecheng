@@ -1,6 +1,6 @@
 = include_chart_js
 css:
-  .center-chart {padding: 50px 0 0 120px;}
+  .center-chart {padding: 30px 0 0 290px;}
 .lists
   = link_to_back
   .title = @homework.try(:full_name)
@@ -12,26 +12,24 @@ css:
     .words.select
       .word = into_date @homework.created_at
   .main-descs
-    css: 
-      .main-descs .main-desc {display: inline-block}
-    .main-desc style='width: 682px'
+    .main-desc style='height: 260px;'
       .mtitle 作业成绩分布
       .mcontent
         .center-chart = render partial: '/grades_courses/chart', locals: {h: @homework}
-    .right-title data-url='#{oneday_detail_path(params[:teacher_id], @homework)}' 日批日改完成明细
-    .right-students.students
-      .rtitle = "未提交的学生#{@homework.unsubmit_students.size}人"
-      - @homework.unsubmit_students.each do |s|
-        .student style='margin: 20px'
-          = image_tag(avatar_path(s), class: 'savatar')
-          span.stitle.f24 style='margin: 25px 10px;font-size: 22px;' = s.real_name
-    .right-students.students style='margin: 62px 0 0 740px'
-      .rtitle = "未改错的学生#{@homework.need_modify.size}人" 
-      - @homework.need_modify.each do |s|
-        .student style='margin: 20px'
-          = image_tag(avatar_path(s), class: 'savatar')
-          span.stitle.f24 style='margin: 25px 10px;font-size: 22px;' = s.real_name
-    .main-desc style='width: 682px;margin-top: -20px;'
+    / .right-title data-url='#{oneday_detail_path(params[:teacher_id], @homework)}' 日批日改完成明细
+    / .right-students.students
+    /   .rtitle = "未提交的学生#{@homework.unsubmit_students.size}人"
+    /   - @homework.unsubmit_students.each do |s|
+    /     .student style='margin: 20px'
+    /       = image_tag(avatar_path(s), class: 'savatar')
+    /       span.stitle.f24 style='margin: 25px 10px;font-size: 22px;' = s.real_name
+    / .right-students.students style='margin: 62px 0 0 740px'
+    /   .rtitle = "未改错的学生#{@homework.need_modify.size}人" 
+    /   - @homework.need_modify.each do |s|
+    /     .student style='margin: 20px'
+    /       = image_tag(avatar_path(s), class: 'savatar')
+    /       span.stitle.f24 style='margin: 25px 10px;font-size: 22px;' = s.real_name
+    .main-desc style='margin-top: -20px;'
       .mtitle = "作业题目(#{@homework.exercises.size})"
       .mcontent
         table#exercises
@@ -40,7 +38,7 @@ css:
               td.top.etitle
                 = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
             tr
-              td.econtent 
+              td.econtent
                 = render partial: 'exercises/show', locals: {exercise: q, answer: false}
                 .sta_exer = q.answer_sta_of(@homework)
 = javascript_include_tag 'exercise'
