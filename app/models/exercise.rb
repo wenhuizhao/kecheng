@@ -112,7 +112,8 @@ class Exercise < ActiveRecord::Base
   
   class << self  
     def check_icons
-      %w(right wrong edit message niubi)
+      # %w(right wrong edit message niubi)
+      %w(right wrong message niubi)
     end
 
     def checked_icons
