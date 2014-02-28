@@ -61,6 +61,7 @@ class HomeworksController < ApplicationController
 
   def close
     @homework.close!
+    return redirect_to  action: :wait_todo, type: 'undo' if params[:back] == 'wait_todo'
     redirect_to grades_course_path(@grades_course)
   end
 

@@ -7,15 +7,24 @@
       .desc
         .area
           - if current_user.is_teacher?
+            = render 'shared/close_homework'
+            .text = c.grades_course.try(:full_name)
+            .block
             .text = c.full_name
             .date.block 
               .name =  "未提交#{c.unsubmit_students.size}人"
               - Settings.homework_status.each do |status|
                 - shs = StudentHomework.where(status: status, homework_id: c.id)
                 .name = status + "#{shs.size}人"
-              .actions
-                = link_to '明细', show_path
+              .block
+                .name = "发送时间：#{c.created_at.strftime('%F %H:%M')}"
+                .name = "截止时间：#{c.end_time.strftime('%F %H:%M')}"
+              .actions style='margin: 20px 37px -5px 300px'
                 = link_green_btn '批阅', check_homework_path(c)
+                = link_to '明细', show_path
+                = link_to_function '关闭作业', "close_homework(this, #{c.grades_course_id})", "data-uns" => c.unsubmit_students.size, \
+                  "data-id" => c.id, "data-uds" => c.undo_students.size, "data-sid" => c.section_id
+
           - else
             = link_to c.full_name, show_path, class: 'text'
             .date.block

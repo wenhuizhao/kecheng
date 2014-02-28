@@ -96,6 +96,22 @@ $(document).ready ->
    
   scrollTo(0,0)
 
+  # window.close_homework = (obj, gid) ->
+  #   id = $(obj).attr("data-id")
+  #   sid = $(obj).attr("data-sid")
+  #   uds = $(obj).attr("data-uds")
+  #   uns = $(obj).attr("data-uns")
+  #   s = '您确定将本作业关闭吗？关闭后'
+  #   s1 = '学生将不能提交作业.'
+  #   s2 = '您将不能批阅作业.'
+  #   m1 = uns == '0' ? s + s1 : "还有" + uns + "个学生未提交作业，" + s + s1
+  #   m2 = uds == '0' ? s + s2 : "还有" + uds + "个学生的提交的作业等待您批阅，" + s + s2
+  #   m = uds == '0' ? m1 : m2
+  #   if confirm(m)
+  #     redirect_to '/sections/' + sid + '/homeworks/' + id + '/close?grades_course_id=' + gid
+  #   else 
+  #     false
+
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')
     course_id = $(obj).attr('data-id')
