@@ -112,6 +112,15 @@ $(document).ready ->
   #   else 
   #     false
 
+  $('.areas').find('.area').hover ->
+    o = $(this).offset()
+    top = o.top
+    left = o.left
+    $('.area-hover').show()
+    $('.area-hover').css
+      top: top
+      left: left
+  
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')
     course_id = $(obj).attr('data-id')
