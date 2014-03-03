@@ -30,8 +30,8 @@ $(document).ready ->
     $(this).parent().find('.leave-homework').toggle()
     $(this).parent().find('.lesson-content').toggle()
 
-  $('.areas').on 'click', '.area',  ->
-    redirect_to $(this).find('a').attr('href')
+  $('.area-hover').click  ->
+    redirect_to $(this).attr('data-href')
   
   $('.small-title').click ->
      redirect_to '/messages/broadcast'
@@ -117,6 +117,7 @@ $(document).ready ->
     top = o.top
     left = o.left
     $('.area-hover').show()
+    $('.area-hover').attr('data-href', $(this).find('a').attr('href'))
     $('.area-hover').css
       top: top
       left: left
