@@ -119,10 +119,24 @@ header
 
 .con
   padding-top: 105px
+
+.area-hover
+  width: 274px
+  height: 155px
+  position: absolute
+  opacity: 0.33
+  background: white 
+  display: none
+  z-index: 2
+  cursor: pointer
+  filter: alpha(opacity=33)
 .areas
   width: $main-width
   margin: 24px 21px
   position: absolute
+  // .area:hover
+  //   opacity: 0.33
+  //   filter: alpha(opacity=33)
   .area
     @include area
     margin: 0 0 28px 25px
