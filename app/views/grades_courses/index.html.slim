@@ -5,12 +5,12 @@
     - if @all_courses.empty?
       | 暂无历史课程
     - else
-      - pad =  (162 * (@all_courses.size/2.0).round - 20)/2
-      css:
-        .hcourses .period { padding: #{pad}px 25px; }
       - @periods.each do |per|
-        .period.fleft = per.full_name
+        - courses = per.history_courses_for(current_user)
+        - pad =  (162 * (courses.size/2.0).round - 20)/2
+        .period.fleft style="padding: #{pad}px 25px"
+          = per.full_name
         .courses.fleft
-          - per.history_courses_for(current_user).each do |c|
+          - courses.each do |c|
             .course: span = link_to c.full_name, grades_course_path(c, history: 'true')
-        .clear
+        .clear style= 'height: 20px'
