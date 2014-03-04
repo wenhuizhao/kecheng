@@ -122,6 +122,8 @@ $(document).ready ->
       top: top
       left: left
   
+  # $('#register-form').find('input').blur -> $(this).next().addClass('error')
+
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')
     course_id = $(obj).attr('data-id')
