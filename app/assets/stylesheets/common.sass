@@ -24,7 +24,22 @@ table.common
       height: 47px
       font-size: 24px
       background: rgb(238, 238, 238)
-    
+
+.tip, .atip
+  &.error
+    background: url(/assets/error.png) no-repeat
+  &.succ
+    background: url(/assets/succ.png) no-repeat
+  width: 35px
+  height: 34px
+  position: absolute
+
+.tip
+  margin: -50px 0 0 510px
+
+.atip
+  margin: 18px 0 0 310px
+
 .btn
   &.cancle
     // background: rgb(213, 213, 213)
