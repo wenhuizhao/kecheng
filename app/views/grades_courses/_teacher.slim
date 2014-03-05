@@ -55,7 +55,10 @@
           - @grades_course.sections.each_with_index do |lesson, i|
             .lesson
               .line-node
-              .ltitle = lesson.name
+              .ltitle
+                .inline style='vertical-align: top' = lesson.line_num
+                - if lesson.line_name
+                  .inline style='width: 390px' = lesson.line_name 
               - unless @grades_course.closed?
                 .leave-homework = link_to '布置作业', new_section_homework_path(lesson, grades_course_id: @grades_course.id)
               - going_hs, closed_hs = lesson.unfinished_homeworks(@grades_course), lesson.finished_homeworks(@grades_course)

@@ -13,7 +13,10 @@
         - @grades_course.sections.each_with_index do |lesson, i|
           .lesson
             .line-node
-            .ltitle = lesson.name
+            .ltitle
+              .inline style='vertical-align: top' = lesson.line_num
+              - if lesson.line_name
+                .inline style='width: 390px' = lesson.line_name
             .lesson-content style="width: 800px;padding: 20px 0"
               .area
                 - hs = lesson.course_homeworks(@grades_course)

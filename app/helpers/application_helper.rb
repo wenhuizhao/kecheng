@@ -202,4 +202,8 @@ module ApplicationHelper
   def chart(js)
     javascript_tag "$(function () {#{js}});"
   end
+
+  def section_name(s)
+    
+  end
 end
