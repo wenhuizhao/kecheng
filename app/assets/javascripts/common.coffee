@@ -47,7 +47,8 @@ $(document).ready ->
 
   $('.data-url').click -> redirect_to $(this).attr('data-url')
   
-
+  $('.ans-input').removeAttr('disabled')
+  
   $('.xld-left').click ->
     redirect_to '/'
   

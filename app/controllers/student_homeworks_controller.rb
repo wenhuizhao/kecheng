@@ -15,12 +15,12 @@ class StudentHomeworksController < ApplicationController
   end
 
   def update
+    return render_alert "作业评级不能为空！" unless params[:student_homework][:level].presence
     if @student_homework.update_attributes(params[:student_homework])
       update_exercises
       save_canvas
-      if current_user.is_teacher? 
-        return render_alert "作业评级不能为空！" unless @student_homework.level.presence
-        return render_alert "请确保所有题目均已批阅！" if @student_homework.student_homeworks_exercises.any? {|e| !e.check_desc.presence}
+      if current_user.is_teacher?
+        # return render_alert "请确保所有题目均已批阅！" if @student_homework.student_homeworks_exercises.any? {|e| !e.check_desc.presence}
         @student_homework.set_first_check
         if @student_homework.auto_finish? || @student_homework.times == 1
           @student_homework.complete
@@ -75,14 +75,14 @@ class StudentHomeworksController < ApplicationController
 
   def update_exercises
     homework = @student_homework.homework
-    homework.exercises.each do |e|
+    homework.exercises.each_with_index do |e, i|
       she = find_she(e.id)
       if current_user.is_student?
         ans = 1.upto(e.blank_size).inject([]) {|s, i| s << params["#{e.id}_#{i}_in"]}.join("@@@ ")
         she.update_attribute :answer, ans
         she.update_attribute :answer, params["#{e.id}option"] if params["#{e.id}option"]
       elsif current_user.is_teacher?
-        she.update_attributes(teacher_id: current_user.id)
+        she.update_attributes(teacher_id: current_user.id, check_desc: params[:check_desc][i])
       end
       Question.where(user_id: current_user.id, student_homeworks_exercise_id: she.id).first_or_create.update_attribute(:content, params["question#{she.id}"]) if params["question#{she.id}"].presence
     end
