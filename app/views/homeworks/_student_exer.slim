@@ -6,7 +6,7 @@
     |答案
     .inline id="#{hwq.id}title"
       - ans.check_desc.split(",").each do |pic|
-        = image_tag "#{pic}.png", class: 'check-icon-answer'
+        = image_tag "#{pic.presence || 'right'}.png", class: 'check-icon-answer'
           
 - if hwq.is_lianxian?
   = link_to_function '清除划线', "canvas_#{hwq.id}.clear()", class: 'clear_canvas' if !ans.try(:right)
