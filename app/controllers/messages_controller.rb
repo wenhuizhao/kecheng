@@ -84,7 +84,12 @@ class MessagesController < ApplicationController
     desc_tail = (@message.desc =~ /主持/ ? "#{@message.desc.match(/老师(.*?)[\,，]+/).to_a[1]}" : @message.desc).to_s + '的请求' 
     if params[:status]
       @message.sync_role(:refused)
-      Message.create(base_p.merge(desc: '管理员拒绝了您' + desc_tail))
+      if @message.type_name == 'apply_grades'
+        desc = "您加入#{@message.desc.gsub('申请加入','')}的申请已经被拒绝，请重新设置"
+      else
+        desc = '管理员拒绝了您' + desc_tail
+      end
+      Message.create(base_p.merge(desc: desc))
       redirect_with_message '已经拒绝', action: :index
     else
       @message.sync_role(:approved)

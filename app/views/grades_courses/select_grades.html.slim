@@ -10,6 +10,9 @@
         = "班级设置成功,#{current_user.grade.full_name}!"
         .block = link_to '修改班级', '/select_grades?edit=true'
       - elsif current_user.grade_stu && !current_user.grade_accept?
-        = "您已经将班级设置为#{current_user.grade_stu.grade.full_name},请等待该班老师的审批!"
+        - if current_user.grade_stu.is_accept == false
+          = "您加入#{current_user.grade_stu.grade.full_name}的申请已经被拒绝，请重新设置"
+        - else
+          = "您已经将班级设置为#{current_user.grade_stu.grade.full_name},请等待该班老师的审批!"
         .block = link_to '重新设置班级', '/select_grades?edit=true'
       .sure = link_to '确定', root_path, class: 'btn-big'
