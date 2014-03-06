@@ -1,11 +1,12 @@
 = render 'shared/close_homework'
 - homeworks.each do |h|
+  - mtop = h == homeworks[0] ? '-50' : '0'
   .harea
     .homeworks
       .block
         - unless @grades_course.try(:closed?)
           = link_to_function '关闭作业', "close_homework(this, #{@grades_course.id})", \
-              class: 'btn btn-small fright close-h', style: 'color: white;margin: -50px 0px 0 230px;position: absolute', "data-uns" => h.unsubmit_students.size, \
+              class: 'btn btn-small fright close-h', style: "color: white;margin: #{mtop}px 0px 0 230px;position: absolute;", "data-uns" => h.unsubmit_students.size, \
               "data-id" => h.id, "data-uds" => h.undo_students.size, "data-sid" => h.section_id  if h.status.nil?
       table.hharea
         tr: td = link_to h.short_name, section_homework_path(lesson, h, grades_course_id: @grades_course.id)
