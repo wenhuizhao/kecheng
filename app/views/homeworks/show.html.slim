@@ -4,7 +4,7 @@
       .main-descs .main-desc {width: 870px;margin: 0 auto}
   = link_to_home
   - if current_user.is_student?
-    .title = "#{@homework.short_name}【#{@homework.status_name_for(@student_homework)}】"
+    .title style='height: auto;' = "#{@homework.short_name}【#{@homework.status_name_for(@student_homework)}】"
     .hresult
     .main-descs
       .flt.fleft
@@ -12,7 +12,7 @@
       .main-desc
         = render 'student'
   - else
-    .title = "#{@homework.full_name}"
+    .title style='height: auto;' = "#{@homework.full_name}"
     .main-descs
       = render 'teacher' 
 = render 'level'
