@@ -1,19 +1,18 @@
 css:
   input[type=radio] {width: 30px;height: 18px;margin: 0 0 0 20px}
-= form_for @student_homework do |f|
+= form_for @student_homework, html: {onsubmit: 'return check_level()'}  do |f|
   css:
     #content table.list-big tr td {border: none;}
   = render partial: 'exercises', locals: {exercises: @homework.exercises}
   
-  - if !@student_homework.level
-    table.list-big
-      tr: td 作业评级
-      tr: td
-        .levels
-          - Settings.homework_levels.each do |l|
-            .level 
-              = f.radio_button :level, l
-              span = l
+  table.list-big style='display: #{!@student_homework.level ? '' : 'none'}'
+    tr: td 作业评级
+    tr: td
+      .levels
+        - Settings.homework_levels.each do |l|
+          .level 
+            = f.radio_button :level, l
+            span = l
 
   = f.hidden_field :homework_id, value: @homework.id
   = hidden_field_tag :status, params[:status] || @student_homework.status
@@ -27,3 +26,16 @@ css:
       = submit_tag '提交&下一份' if @shs.size > 1
       = submit_tag '完成', class: 'ml10'
       = link_to '取消', section_homework_path(@homework.section, @homework, grades_course_id: @homework.grades_course_id) ,class: 'cancle btn'
+javascript:
+  function check_level(){
+    var levels = $('input:radio[name="student_homework[level]"]:checked').val();
+    if (levels == null) {
+      alert("作业评级不能为空！");
+      return false;
+    }
+    if ($('input[value=""]').size() != 0) {
+      alert("请确保所有题目均已批阅！");
+      return false;
+    }
+    return true;
+  }
