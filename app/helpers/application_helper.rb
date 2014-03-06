@@ -23,12 +23,12 @@ module ApplicationHelper
   def link_to_back(title = '返回', right = true)
     return link_to_function "<span>#{title}</span>".html_safe, 'history.go(-1)', class: 'btn ok' unless right
     a = link_to_function title, 'history.go(-1)'
-    content_tag :div, a, class: 'back'
+    content_tag :div, a, class: 'back lback'
   end
 
   # def link_back(link = session[:back])
   def link_back(link = root_path)
-    content_tag :div, (link_to '返回', link), class: 'back'
+    content_tag :div, (link_to '返回', link), class: 'back lback'
   end
 
   def link_to_home

@@ -51,6 +51,9 @@ $(document).ready ->
   $('.xld-left').click ->
     redirect_to '/'
   
+  $('.lback').click ->
+    history.go(-1)
+ 
   $('.jyj-left').click ->
     redirect_to '/'
  
