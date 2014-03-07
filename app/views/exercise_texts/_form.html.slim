@@ -1,3 +1,4 @@
+<style>table {width:95%}</style>
 = form_for [@section, @exercise_text] do |f|
   = render partial: 'shared/error_msgs', locals: {target: @exercise_text}
   table
@@ -19,7 +20,7 @@
 
     tr
       td = f.label '内容'
-      td = f.text_area :content, {:rows=>20, :cols=>80, :id=>"content"}
+      td = f.text_area :content, {:rows=>20, :cols=>80, :id=>"content", :class=>"ewebeditor"}
 
     tr
       td = f.label '图片'
