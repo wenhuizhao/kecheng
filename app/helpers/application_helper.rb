@@ -112,6 +112,11 @@ module ApplicationHelper
     simple_format(c, opts, opts2.merge(sanitize: false)).gsub(/[\<&lt;]+!--\[.*?\]-->/,'').html_safe 
   end
  
+  def include_tabs
+    javascript_include_tag 'tab'
+    stylesheet_link_tag 'tab'
+  end
+
   def include_chart_js
     javascript_include_tag 'highcharts','exporting'
   end
