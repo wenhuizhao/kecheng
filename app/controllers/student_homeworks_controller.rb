@@ -15,11 +15,11 @@ class StudentHomeworksController < ApplicationController
   end
 
   def update
-    return render_alert "作业评级不能为空！" unless params[:student_homework][:level].presence
     if @student_homework.update_attributes(params[:student_homework])
       update_exercises
       save_canvas
       if current_user.is_teacher?
+        return render_alert "作业评级不能为空！" unless params[:student_homework][:level].presence
         return render_alert "请确保所有题目均已批阅！" if @student_homework.student_homeworks_exercises.any? {|e| !e.check_desc.presence}
         @student_homework.set_first_check
         if @student_homework.auto_finish? || @student_homework.times == 1
