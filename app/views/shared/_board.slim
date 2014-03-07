@@ -2,12 +2,12 @@
   css:
     .canvas, .bbtn {border: 1px solid black;}
     .bbtn {padding: 2px 5px;margin: 5px;cursor: pointer;}
-  .inline.bbtn id='draw#{hid}' 画线
-  .inline.bbtn id='text_input#{hid}' 输入文字
-  / .inline.bbtn id='save#{hid}'  保存
-  / .inline.bbtn id='load#{hid}'  加载
-  .inline.bbtn id='clear#{hid}'  清除笔画
-  .inline.bbtn id='remove#{hid}'  移除元件
+  - if current_user.is_student?
+
+    .inline.bbtn id='draw#{hid}' 画线
+    .inline.bbtn id='text_input#{hid}' 插入文字
+    .inline.bbtn id='clear#{hid}'  清除笔画
+    .inline.bbtn id='remove#{hid}'  移除元件
   
   canvas.canvas id='#{hid}c' width="800" height="300"
 
@@ -16,7 +16,9 @@ javascript:
     
   jQuery(document).ready( function() {
       canvas_#{hid}.loadFromJSON('#{get_canvas_text(hid)}', canvas_#{hid}.renderAll.bind(canvas_#{hid}));
+      // $("#text_input#{hid}").click(function(){
       $("#text_input#{hid}").click(function(){
+         $('##{hid}board_input').toggle();
           canvas_#{hid}.isDrawingMode = false;
           if (canvas_#{hid}.getContext) {
               var context = canvas_#{hid}.getContext('2d');
@@ -25,7 +27,8 @@ javascript:
           var text, size, color;
           var mouse_pos = { x:0 , y:0 };
   
-          text = $('##{hid}_e').find('.qa_area').last().val();
+          // text = $('##{hid}_e').find('.qa_area').last().val();
+          text = $('##{hid}board_input').val()
           size = 16 
           color = '#000'
   
@@ -86,11 +89,3 @@ javascript:
     canvas_#{hid}.calcOffset();
   }, 100);
 
-// = include_tabs
-// .tabbox
-//   ul.tabs#tabs
-//     li.thistab = link_to 'fff', '#'
-//     li = link_to 'fff', '#'
-//   ul.tab_conbox#tab_conbox
-//     li.tab_con style='display: list-item'
-//     li.tab_con

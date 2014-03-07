@@ -1,3 +1,4 @@
+= include_tabs if current_user.is_student?
 #exercises
   - exercises.each_with_index do |hwq, i|
     - if @student_homework
@@ -11,8 +12,6 @@
         = "、#{hwq.qtype_name}"
       .econtent
         = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
-        - if hwq.is_math_qa?
-          = render partial: 'shared/board', locals: {hid: hwq.id}
       = render partial: "/homeworks/#{partial_role('_exer')}", locals: {hwq: hwq, ans: ans}
       = render partial: 'shared/ask_question', locals: {ans: ans}
       - if is_right || current_user.is_teacher?

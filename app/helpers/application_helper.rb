@@ -84,7 +84,7 @@ module ApplicationHelper
       cs += c
       next if c.empty? || c == "</span><span>"
       if c == contents.last
-        if exer.is_q_and_a? 
+        if exer.is_q_and_a? && !exer.is_math_qa?
           cs += "<textarea name='#{exer.id}_#{i + 1}_in'  id='text#{exer.id}' cols=50  rows=5 class='qa_area'>#{ans.to_s.split("@@@")[i]}</textarea>" 
         end
       else
@@ -95,7 +95,7 @@ module ApplicationHelper
           cs += "<textarea name='#{exer.id}_#{i + 1}_in' id='text#{exer.id}' cols=50 class='exer_textarea'>#{val}</textarea>" 
         end
       end
-    end 
+    end
     cs.gsub('@@@','').html_safe
   end
   
@@ -113,8 +113,7 @@ module ApplicationHelper
   end
  
   def include_tabs
-    javascript_include_tag 'tab'
-    stylesheet_link_tag 'tab'
+    javascript_include_tag('tab') + stylesheet_link_tag('tab')
   end
 
   def include_chart_js
