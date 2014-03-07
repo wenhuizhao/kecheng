@@ -32,11 +32,12 @@ class Section < ActiveRecord::Base
   end
 
   def line_num
-    name.split(/([\d\.]{3,})/)[1] || number.match(/[\d\.]+/) 
+    # name.split(/([\d\.]{3,})/)[1] || number.match(/[\d\.]+/) 
+    name.split(/([\d\.]{3,})/)[1] || name 
   end
 
   def line_name
-    name.split(/([\d\.]{3,})/)[2] || name
+    name.split(/([\d\.]{3,})/)[2]
   end
 
 end
