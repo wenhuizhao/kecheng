@@ -127,14 +127,19 @@ $(document).ready ->
       left: left
   
   $('#register-form').find('input').blur -> 
+    hid = $(this).attr('id')
     $.ajax
       url: '/check_user'
       type: 'post'
       data:
-        hid: $(this).attr('id')
+        hid: hid
         val: $(this).val()
       success: (r) =>
         $(this).parent().find(".tip").attr("class", "tip " + r)
+        if hid is 'user_password'
+          $("#user_password_confirmation").val('')
+          $("#user_password_confirmation").parent().find(".tip").attr("class", "tip")
+
         # $(this).parent().find(".atip").attr("class", "atip " + r)
 
   window.click_menu = (cls, id, obj) ->
