@@ -127,7 +127,8 @@ $(document).ready ->
       left: left
   
   $('#register-form').find('input').blur -> 
-    hid = $(this).attr('id')
+    o = $(this)
+    hid = o.attr('id')
     $.ajax
       url: '/check_user'
       type: 'post'
@@ -135,7 +136,13 @@ $(document).ready ->
         hid: hid
         val: $(this).val()
       success: (r) =>
-        $(this).parent().find(".tip").attr("class", "tip " + r)
+        o.parent().find(".tip").attr("class", "tip " + r)
+        if r is 'error'
+          o.css
+            border: "2px solid red"
+        else
+          o.css
+            border: 'none'
         if hid is 'user_password'
           $("#user_password_confirmation").val('')
           $("#user_password_confirmation").parent().find(".tip").attr("class", "tip")
