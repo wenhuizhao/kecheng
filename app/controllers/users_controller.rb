@@ -74,6 +74,8 @@ class UsersController < ApplicationController
   end
   
   def reset_password
+    op = params[:old_password]
+    return render_alert '旧密码不正确' if request.post? && !current_user.valid_password?(op)
     return render_alert '无此权限' if @user != current_user
     update_pass(current_user)
   end
