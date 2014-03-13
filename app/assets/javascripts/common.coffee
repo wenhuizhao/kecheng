@@ -126,7 +126,16 @@ $(document).ready ->
       top: top
       left: left
   
-  # $('#register-form').find('input').blur -> $(this).next().addClass('error')
+  $('#register-form').find('input').blur -> 
+    $.ajax
+      url: '/check_user'
+      type: 'post'
+      data:
+        hid: $(this).attr('id')
+        val: $(this).val()
+      success: (r) =>
+        $(this).parent().find(".tip").attr("class", "tip " + r)
+        # $(this).parent().find(".atip").attr("class", "atip " + r)
 
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')
