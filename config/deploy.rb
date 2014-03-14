@@ -5,7 +5,6 @@ set :stages, ["staging", "production"]
 set :default_stage, "staging"
 set :application, 'kecheng'
 set :repository, 'git@github.com:wenhuizhao/kecheng.git'
-set :branch, "develop"
 set :ssh_options, {:forward_agent => true}
 default_run_options[:pty] = true
 
