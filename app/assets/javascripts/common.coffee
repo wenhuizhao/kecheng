@@ -135,19 +135,28 @@ $(document).ready ->
       data:
         hid: hid
         val: $(this).val()
-      success: (r) =>
-        o.parent().find(".tip").attr("class", "tip " + r)
+      success: (res) =>
+        console.info res
+        r = res.split("/")[0]
+        # console.info res.split("/")[0]
+        tip = o.parent().find(".tip")
+        tip.attr("class", "tip " + r)
         if r is 'error'
           o.css
             border: "2px solid red"
+          tip.find(".mess").html(res.split("/")[1])
         else
           o.css
             border: 'none'
+          tip.find(".mess").html('')
         if hid is 'user_password'
           $("#user_password_confirmation").val('')
           $("#user_password_confirmation").parent().find(".tip").attr("class", "tip")
 
         # $(this).parent().find(".atip").attr("class", "atip " + r)
+
+  window.check_user = ->
+    return false;    
 
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')

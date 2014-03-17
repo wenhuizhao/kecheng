@@ -3,21 +3,21 @@ css:
   .select-div {margin: 10px 0 0 0;font-size: 26px}
 
 #register-form
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {onsubmit: 'return check_user()'}) do |f|
     /= devise_error_messages!
     table
       tr: td
         = f.text_field :login, autofocus: true, placeholder: '用户名'
-        .tip
+        .tip: .mess
       tr: td 
         = f.password_field :password, placeholder: '密码'
-        .tip
+        .tip: .mess
       tr: td 
         = f.password_field :password_confirmation, placeholder: '重复密码'
-        .tip
+        .tip: .mess
       tr: td 
         = f.text_field :real_name, placeholder: '真实姓名'
-        .tip
+        .tip: .mess
       tr: td 
         .genders
           = f.radio_button :gender, '男'
@@ -47,7 +47,7 @@ css:
         = f.hidden_field :school_id, id: 'school_id'
       tr: td 
         = f.text_field :phone, placeholder: '手机号码'
-        .tip
+        .tip: .mess
       tr: td 
         .inline
           = text_field_tag :auth_code, '', placeholder: '验证码'
