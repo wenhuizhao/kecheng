@@ -158,17 +158,42 @@ $(document).ready ->
 
   window.check_user = ->
     errs = []
+    # blanks = []
     b = true
     $('.mess').each (i,o) -> 
       errs.push $(o).html() if $(o).html().length != 0
-    i = errs.length
-    console.info i
-    if $('input:radio[name="user[gender]"]:checked').val() == undefined 
+      # blanks.push $(o).html() if $(o).html() == 'tip'
+    err_length = errs.length
+    console.info err_length
+    # if blanks.length != 0
+    #   m = '信息填写不完整！'
+    #   b = false
+    # else 
+    # else 
+    if $('#user_login').val() == ''
+      m = '用户名不能为空！'
+      b = false
+    else if $('#user_password').val() == ''
+      m = '密码不能为空！'
+      b = false
+    else if $('#user_password_confirmation').val() == ''
+      m = '密码验证不能为空'
+      b = false
+    else if $('#user_real_name').val() == ''
+      m = ' 真实姓名不能为空！'
+      b = false
+    else if $('#user_phone').val() == ''
+      m = '手机号码不能为空！'
+      b = false
+    else if $('#auth_code').val() == ''
+      m = '验证码不能为空！'
+      b = false
+    else if $('input:radio[name="user[gender]"]:checked').val() == undefined 
       m = '请选择性别'
       b = false 
     else if $('#role_id').val() == ''
       m = '请选择角色'
-      b = false 
+      b = false
     else if $('#school_id').val() == ''
       m = '请选择学校'
       b = false
@@ -176,7 +201,9 @@ $(document).ready ->
       errs.forEach (i) ->
         m = i if i != 'tip'
       b = false
-      
+    else
+      b = true
+    
     tip_dialog = $('.tip-mess')
     if b == false
       tip_dialog.css 'visibility', 'visible'
@@ -186,7 +213,35 @@ $(document).ready ->
       tip_dialog.html('')
       
     return b 
-    
+  
+  $('.send-code').click ->
+    if $(this).html().match(/验证/) || $(this).html().match(/重新/)
+      if $('#user_phone').val().match /1[358]+\d[\d]{8}/
+        $(this).html('发送中...').css
+          "font-size": '16px'
+        $.ajax
+          url: "/send_code"
+          type: "post"
+          data:
+            mobile: $("#user_phone").val()
+          success: (r) =>
+            $(this).html '发送成功，120秒后重发'
+            setInterval changeCodeTime, 1000
+            alert(r)
+      else
+        alert '请输入正确手机号码!'
+    else
+      ''
+  
+  window.changeCodeTime = ->
+    o = $('.send-code')
+    n = o.html().match(/[\d]+/).toString()
+    if n == '1'
+      o.html('重新发送').css
+          "font-size": '26px'
+    else
+      o.html '发送成功，' + (Number(n) - 1) + '秒后重发'
+
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')
     course_id = $(obj).attr('data-id')

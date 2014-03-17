@@ -34,7 +34,7 @@ class HomeController < ApplicationController
   }
 
   def check_user
-    col = params[:hid].gsub("user_","")
+    col = params[:hid].to_s.gsub("user_","")
     val = params[:val]
     return render text: "error/#{CheckCols[col]}不能为空！" if val.size == 0
  
@@ -48,12 +48,12 @@ class HomeController < ApplicationController
     when 'real_name'
       err_mess = "真实姓名应是2-30位的中文或英文字符!" if !(val =~ /^[a-zA-Z\u4e00-\u9fa5]{2,30}$/)
     when 'password'
-      err_mess = "真实姓名应是2-30位的中文或英文字符!" if val.size < 6 || val.size > 30
+      err_mess = "密码应是2-30位的中文或英文字符!" if !(val =~ /^[a-zA-Z\u4e00-\u9fa5]{6,30}$/)
       session[:rpass] = val
     when 'password_confirmation'
       err_mess = "两次密码输入不一致!" if session[:rpass] != val
     when 'phone'
-      err_mess = "用户名已被占用!" if User.where(phone: val).count > 0
+      err_mess = "手机号码已被占用!" if User.where(phone: val).count > 0
       err_mess = "手机号码格式不正确!" if !(val =~ /1[358]+\d[\d]{8}/)
     when 'auth_code'
       err_mess = "验证码不正确" if session[:auth_code] != params[:auth_code] 

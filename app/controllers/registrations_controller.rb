@@ -4,8 +4,8 @@ class RegistrationsController < Devise::RegistrationsController
   skip_before_filter :require_admin, :require_teacher
   
   def create
-    return render_alert '非法注册' if params[:role_id].nil?
-    return render_alert '没有选择学校' if params[:school_id].nil?
+    return render_alert '非法注册' if params[:user][:role_id].nil?
+    return render_alert '没有选择学校' if params[:user][:school_id].nil?
     return render_alert '验证码不正确' if session[:auth_code] != params[:auth_code]
     return render_alert '联系方式已经存在' if User.where(phone: params[:user][:phone]).size > 0 rescue nil
     super

@@ -61,18 +61,6 @@ css:
   / = render "devise/shared/links"
 javascript:
   $('.mess').html('tip')
-  $('.send-code').click(function(){
-    $.ajax({
-      url: "/send_code",
-      type: "post",
-      data: {
-        mobile: $("#user_phone").val()
-      },
-      success: function(r) {
-        alert(r);
-      }
-    })
-  });
 
 
 
