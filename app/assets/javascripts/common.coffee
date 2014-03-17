@@ -162,21 +162,28 @@ $(document).ready ->
       errs.push $(o).html() if $(o).html().length != 0
     i = errs.length
     console.info i
+    b = true
     if $('input:radio[name="user[gender]"]:checked').val() == undefined 
-      alert '请选择性别'
-      return false 
+      m = '请选择性别'
+      b = false 
     else if $('#role_id').val() == ''
-      alert '请选择角色'
-      return false 
+      m = '请选择角色'
+      b = false 
     else if $('#school_id').val() == ''
-      alert '请选择学校'
-      return false
+      m = '请选择学校'
+      b = false
       
-    if i == 0
-      return true    
-    else 
-      return false    
-
+    b = false if i > 0
+    tip_dialog = $('.tip-mess')
+    if b == false
+      tip_dialog.css 'visibility', 'visible'
+      tip_dialog.html(m)
+    else
+      tip_dialog.css 'visibility', 'hidden'
+      tip_dialog.html('')
+      
+    return b 
+    
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')
     course_id = $(obj).attr('data-id')
