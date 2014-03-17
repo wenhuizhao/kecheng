@@ -140,6 +140,7 @@ $(document).ready ->
         r = res.split("/")[0]
         # console.info res.split("/")[0]
         tip = o.parent().find(".tip")
+        tip = o.parent().find(".atip") if tip.length == 0
         tip.attr("class", "tip " + r)
         if r is 'error'
           o.css
@@ -156,7 +157,25 @@ $(document).ready ->
         # $(this).parent().find(".atip").attr("class", "atip " + r)
 
   window.check_user = ->
-    return false;    
+    errs = []
+    $('.mess').each (i,o) -> 
+      errs.push $(o).html() if $(o).html().length != 0
+    i = errs.length
+    console.info i
+    if $('input:radio[name="user[gender]"]:checked').val() == undefined 
+      alert '请选择性别'
+      return false 
+    else if $('#role_id').val() == ''
+      alert '请选择角色'
+      return false 
+    else if $('#school_id').val() == ''
+      alert '请选择学校'
+      return false
+      
+    if i == 0
+      return true    
+    else 
+      return false    
 
   window.click_menu = (cls, id, obj) ->
     $(cls).find('.hover').removeClass('hover')

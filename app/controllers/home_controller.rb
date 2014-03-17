@@ -53,6 +53,7 @@ class HomeController < ApplicationController
     when 'password_confirmation'
       err_mess = "两次密码输入不一致!" if session[:rpass] != val
     when 'phone'
+      err_mess = "用户名已被占用!" if User.where(phone: val).count > 0
       err_mess = "手机号码格式不正确!" if !(val =~ /1[358]+\d[\d]{8}/)
     end
     render text: (err_mess.presence ? "error/#{err_mess}" : 'succ')
