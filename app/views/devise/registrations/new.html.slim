@@ -33,7 +33,7 @@ css:
             - Role.limit(2).each do |c|
               .words.opt data-id='#{c.id}'
                 .word = c.name
-        = f.hidden_field :role_id, id: 'role_id'
+        = f.hidden_field :role_id, value: Role.student.id, id: 'role_id'
 
       tr: td 
         .select-div.schools.input
@@ -55,7 +55,6 @@ css:
           .atip
 
     .btns 
-      = f.hidden_field :role_id, value: Role.student.id
       = f.submit "确        认", class: 'btn-login'
 
   / = render "devise/shared/links"
