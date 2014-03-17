@@ -141,7 +141,7 @@ $(document).ready ->
         # console.info res.split("/")[0]
         tip = o.parent().find(".tip")
         tip = o.parent().find(".atip") if tip.length == 0
-        tip.attr("class", "tip " + r)
+        tip.attr("class", "tip " + r) if $(o).attr('id') != 'auth_code'
         if r is 'error'
           o.css
             border: "2px solid red"
@@ -158,11 +158,11 @@ $(document).ready ->
 
   window.check_user = ->
     errs = []
+    b = true
     $('.mess').each (i,o) -> 
       errs.push $(o).html() if $(o).html().length != 0
     i = errs.length
     console.info i
-    b = true
     if $('input:radio[name="user[gender]"]:checked').val() == undefined 
       m = '请选择性别'
       b = false 
@@ -172,8 +172,11 @@ $(document).ready ->
     else if $('#school_id').val() == ''
       m = '请选择学校'
       b = false
+    else if errs.length != 0
+      errs.forEach (i) ->
+        m = i if i != 'tip'
+      b = false
       
-    b = false if i > 0
     tip_dialog = $('.tip-mess')
     if b == false
       tip_dialog.css 'visibility', 'visible'
