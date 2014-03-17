@@ -25,7 +25,7 @@ class HomeController < ApplicationController
   def check_user
     col = params[:hid].gsub("user_","")
     val = params[:val]
-    err = true if val.size < 3
+    err = true if val.size < (col == 'real_name' ? 2 : 3)
     unless err
       case col
       when 'login'
