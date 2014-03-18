@@ -56,7 +56,7 @@ class HomeController < ApplicationController
       err_mess = "手机号码已被占用!" if User.where(phone: val).count > 0
       err_mess = "手机号码格式不正确!" if !(val =~ /1[358]+\d[\d]{8}/)
     when 'auth_code'
-      err_mess = "验证码不正确" if session[:auth_code] != params[:auth_code] 
+      err_mess = "验证码不正确" if session[:auth_code] != val 
     end
     render text: (err_mess.presence ? "error/#{err_mess}" : 'succ')
   end
