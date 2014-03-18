@@ -60,4 +60,34 @@ class HomeController < ApplicationController
     end
     render text: (err_mess.presence ? "error/#{err_mess}" : 'succ')
   end
+
+  # def submit_user 
+  #   err_mess = []
+  #   if params['login']
+  #     if User.where(login: params['login']).count > 0
+  #       err_mess << "用户名已被占用!"
+  #     elsif !(params['login'] =~ /^[a-zA-Z0-9]{2,30}$/)
+  #       err_mess << "用户名应当是2-30位的英文字母、数字组合！"
+  #     end
+  #   end
+
+  #   if params['real_name']
+  #     err_mess << "真实姓名应是2-30位的中文或英文字符!" if !(params['real_name'] =~ /^[a-zA-Z\u4e00-\u9fa5]{2,30}$/)
+  #   end
+  #   if params['password']
+  #     err_mess << "密码应该是6-16位的数字、字母的组合!" if !(params['password'] =~ /^[a-zA-Z0-9]{6,16}$/)
+  #     session[:rpass] = params['password']
+  #   end
+  #   if params['password_confirmation']
+  #     err_mess << "两次密码输入不一致!" if session[:rpass] != params['password_confirmation']
+  #   end
+  #   if params['phone']
+  #     err_mess << "手机号码已被占用!" if User.where(phone: params['phone']).count > 0
+  #     err_mess << "手机号码格式不正确!" if !(params['phone'] =~ /1[358]+\d[\d]{8}/)
+  #   end
+  #   if params['auth_code']
+  #     err_mess << "验证码不正确" if session[:auth_code] != params['auth_code']
+  #   end
+  #   render text: (err_mess.size > 0 ? err_mess[0] : 'succ')
+  # end
 end

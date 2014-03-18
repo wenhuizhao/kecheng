@@ -21,11 +21,11 @@ class ApplicationController < ActionController::Base
     end
     
     def require_teacher
-      return render_alert '您无此权限' if current_user.is_student?
+      # return render_alert '您无此权限' if current_user.is_student?
     end
     
     def require_admin
-      return render_alert '您无此权限' if current_user.is_student? || current_user.is_teacher?
+      # return render_alert '您无此权限' if current_user.is_student? || current_user.is_teacher?
     end
 
     def redirect_with_message(*args)
