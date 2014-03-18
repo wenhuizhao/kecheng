@@ -48,7 +48,7 @@ class HomeController < ApplicationController
     when 'real_name'
       err_mess = "真实姓名应是2-30位的中文或英文字符!" if !(val =~ /^[a-zA-Z\u4e00-\u9fa5]{2,30}$/)
     when 'password'
-      err_mess = "密码应是2-30位的中文或英文字符!" if !(val =~ /^[a-zA-Z\u4e00-\u9fa5]{6,30}$/)
+      err_mess = "密码应该是6-16位的数字、字母的组合!" if !(val =~ /^[a-zA-Z0-9]{6,16}$/)
       session[:rpass] = val
     when 'password_confirmation'
       err_mess = "两次密码输入不一致!" if session[:rpass] != val

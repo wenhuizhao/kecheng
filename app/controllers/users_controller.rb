@@ -113,7 +113,7 @@ class UsersController < ApplicationController
         # render_alert '修改成功,请重新登录！'
         flash[:notice] = '您的修改已保存成功！' 
       else
-        flash[:notice] = '您的修改失败！请输入6-30有效字符组合！' 
+        flash[:notice] = '您的修改失败！请输入6-16位的数字、字母的组合作为密码!' 
       end
     end
   end
