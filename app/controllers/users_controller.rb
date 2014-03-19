@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       @users = current_user.school.users.reject{|u| u.is_admin_jyj?}
     else
       @users = []
+      redirect_to "/"
     end
     @users = page_objs @users
   end
