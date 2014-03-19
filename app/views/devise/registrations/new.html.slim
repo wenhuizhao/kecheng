@@ -5,6 +5,7 @@ css:
 #register-form
   = form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {onsubmit: 'return check_user()'}) do |f|
     /= devise_error.messages!
+    = flash_notice
     table
       tr: td
         = f.text_field :login, autofocus: true, placeholder: '用户名'
