@@ -4,7 +4,7 @@
     - if @student_homework
       - ans = get_hexer(hwq.id)
       - is_right = ans.try(:right)
-    .exercise id='#{hwq.id}_e' class='#{is_right ? 'right' : (ans.try(:check_desc) ? 'wrong' : '')}'
+    .exercise id='#{hwq.id}_e' class='#{is_right ? 'exer-right' : (ans.try(:check_desc) ? 'wrong' : '')}'
       - if hwq.is_lianxian?
         canvas.canvas id='#{hwq.id}_c'  width=830 style='position: absolute;border: none;'
       .etitle

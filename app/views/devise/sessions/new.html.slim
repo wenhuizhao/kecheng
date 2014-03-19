@@ -1,5 +1,5 @@
 #login-form
-  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {onsubmit: 'return check_login()'}) do |f|
     table
       tr
         td = f.text_field :login, autofocus: true, placeholder: '用户名'
@@ -10,7 +10,8 @@
       /   td = select_tag :role_id, options_from_collection_for_select(Role.all, :id, :name)
       tr: td
         = link_to '忘记密码', '/users/forget_password', class: 'forget-pass' 
-    .btns  
+    .btns
+      .tip-mess
       = f.submit "登录", class: 'btn-login'
       = link_to new_registration_path(resource_name), class: 'btn-login mt10'
         span 注册

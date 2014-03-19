@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   
   before_filter :authenticate_user!, except: [:set_auth_code, :forget_password]
-  before_filter :require_admin, except: [:reset_password, :show, :set_auth_code, :update, :forget_password, :create_user_from_admin]
+  before_filter :require_admin, except: [:index, :reset_password, :show, :set_auth_code, :update, :forget_password, :create_user_from_admin]
   before_filter :get_user, except: [:index, :create_user_from_admin, :new, :set_auth_code, :forget_password]
   
   def index
@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       @users = current_user.school.users.reject{|u| u.is_admin_jyj?}
     else
       @users = []
+      redirect_to "/"
     end
     @users = page_objs @users
   end
@@ -74,6 +75,8 @@ class UsersController < ApplicationController
   end
   
   def reset_password
+    op = params[:old_password]
+    return flash[:notice] = '旧密码不正确' if request.post? && !current_user.valid_password?(op)
     return render_alert '无此权限' if @user != current_user
     update_pass(current_user)
   end
@@ -104,12 +107,15 @@ class UsersController < ApplicationController
   
   def update_pass(user)
     if request.post?
-      return render_alert '两次密码输入不一致' if params[:password_confirmation] != params[:password]
-      return render_alert '请输入密码' unless params[:password].presence
+      return flash[:notice] = '两次密码输入不一致' if params[:password_confirmation] != params[:password]
+      return flash[:notice] = '请输入新密码' unless params[:password].presence
       user.password = params[:password]
-      user.save
-      # render_alert '修改成功,请重新登录！'
-      flash[:notice] = '您的修改已保存成功！' 
+      if user.save
+        # render_alert '修改成功,请重新登录！'
+        flash[:notice] = '您的修改已保存成功！' 
+      else
+        flash[:notice] = '您的修改失败！请输入6-16位的数字、字母的组合作为密码!' 
+      end
     end
   end
 

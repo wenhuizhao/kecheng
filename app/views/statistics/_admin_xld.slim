@@ -13,6 +13,7 @@
           td = link_to g.full_name, gteachers_sta_path(g.id.join('|'), school_id: params[:school_id])
           - months.each do |m|
             td = percents_for(g, m)
+    = hidden_field_tag :school_id, params[:school_id]
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'
   .clear
 .main-desc

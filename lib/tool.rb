@@ -67,8 +67,9 @@ module Tool
     end
     
     def percent_between(obj, sdate, edate, int = false, opts = [])
-      total = obj.homework_rang("#{sdate} 00:00:00", "#{edate} 23:59:59").where("grades_courses.is_open = 1 and (homeworks.created_at < '#{56.hours.ago.to_s[0, 19]}' or homeworks.status = '1')")
-      total = obj.is_a?(GradeCourse) ? total.where("grades.school_id = #{params[:school_id] || current_user.school_id}") : total
+      # total = obj.homework_rang("#{sdate} 00:00:00", "#{edate} 23:59:59").where("grades_courses.is_open = 1 and (homeworks.created_at < '#{56.hours.ago.to_s[0, 19]}' or homeworks.status = '1')")
+      total = obj.homework_rang("#{sdate} 00:00:00", "#{edate} 23:59:59").where("(homeworks.created_at < '#{56.hours.ago.to_s[0, 19]}' or homeworks.status = '1')")
+      total = obj.is_a?(GradeCourse) ? total.where("grades.school_id = #{session[:school_id] || params[:school_id] || current_user.school_id}") : total
       total_shs = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts), 'under', 'created_at')}.flatten
       total_done_shs = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts))}.flatten
       to_percent(total_shs.size - total_done_shs.size, total_shs.size, int)

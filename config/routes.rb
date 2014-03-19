@@ -29,6 +29,8 @@ Kecheng::Application.routes.draw do
   post "check_exercise" => "student_homeworks#check_exercise"
   post "save_exer_canvas" => "student_homeworks#save_canvas"
   post "update_books" => "home#update_books"
+  post "check_user" => "home#check_user"
+  post "submit_user" => "home#submit_user"
   devise_for :users, controllers: {
     passwords: 'passwords',
     sessions: 'sessions',

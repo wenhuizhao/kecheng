@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
 
   # validates_uniqueness_of :email, :case_sensitive => false
 
-  validates :login, presence: true, uniqueness: true, length: { minimum: 3, maximum: 20 }
-  # validates :phone, uniqueness: true
-  validates :real_name, presence: true
+  validates :login, :real_name, presence: true, length: { minimum: 2, maximum: 30 }
+  validates :login, uniqueness: true
+  # validates :real_name, presence: true
   
   belongs_to :role
   belongs_to :school
