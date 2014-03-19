@@ -180,7 +180,7 @@ $(document).ready ->
       m = '密码验证不能为空'
       b = false
     else if $('#user_real_name').val() == ''
-      m = ' 真实姓名不能为空！'
+      m = '真实姓名不能为空！'
       b = false
     else if $('#user_phone').val() == ''
       m = '手机号码不能为空！'
@@ -198,10 +198,10 @@ $(document).ready ->
       m = '请选择学校'
       b = false
     else if errs.length != 0
-      errs.forEach (i) ->
-        m = i if i != 'tip'
+      m = errs[0]
       b = false
     else
+      m = ''
       b = true
     
     tip_dialog = $('.tip-mess')
