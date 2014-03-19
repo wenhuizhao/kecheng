@@ -214,6 +214,28 @@ $(document).ready ->
       
     return b 
   
+  window.check_login = ->
+    if $('#user_login').val() == ''
+      m = '用户名不能为空！'
+      b = false
+    else if $('#user_password').val() == ''
+      m = '密码不能为空！'
+      b = false
+    else
+      m = ''
+      b = true
+    
+    tip_dialog = $('.tip-mess')
+    if b == false
+      tip_dialog.css 'visibility', 'visible'
+      tip_dialog.html(m)
+    else
+      tip_dialog.css 'visibility', 'hidden'
+      tip_dialog.html('')
+      
+    return b 
+  
+
   $('.send-code').click ->
     if $(this).html().match(/验证/) || $(this).html().match(/重新/)
       if $('#user_phone').val().match /1[358]+\d[\d]{8}/
