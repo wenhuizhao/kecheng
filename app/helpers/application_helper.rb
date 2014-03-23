@@ -36,7 +36,7 @@ module ApplicationHelper
   end
 
   def check_all(selector = 'select_all', tag = 'body')
-    c = check_box_tag selector, '', false, onclick: "select_all_records('#{selector}','#{tag}')"
+    c = check_box_tag selector, '', false, onClick: "select_all_records(this,'#{tag}')"
     c + content_tag(:span, '全选')
   end
   
