@@ -75,7 +75,7 @@ class GradesCoursesController < ApplicationController
     # return render action: 'new' if GradesCourse.where(period_id: current_period.id, grade_id: @grade.id, course_id: @grades_course.course_id, is_accept: true).size > 0
     @grades_course.teacher_id = current_user.id
     @grades_course.grade_id = @grade.id
-    return render_alert '没有可用教材' unless params[:grades_course][:book_id].presence
+    return render_alert '请您先点击选中教材' unless params[:grades_course][:book_id].presence
     book = Book.find_by_id(params[:grades_course][:book_id])
     period = book.try(:name).include?(current_period.desc) ? current_period : current_period.brother
     @grades_course.period_id = period.id
