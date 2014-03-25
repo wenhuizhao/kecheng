@@ -23,7 +23,7 @@ class Grade < ActiveRecord::Base
   end
   
   def teachers
-    grades_courses.visiable.where('book_id is not null').inject([]) {|ts, gs| ts << gs.teacher}
+    grades_courses.visiable.where('book_id is not null').inject([]) {|ts, gs| ts << gs.teacher}.uniq
     # User.joins(:grades_courses).where("grades_courses.is_accept = 1").joins(:grades)
   end 
  

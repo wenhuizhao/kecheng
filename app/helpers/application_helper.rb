@@ -62,6 +62,7 @@ module ApplicationHelper
   end
 
   def avatar_path(user)
+    return '该用户已被删除！' if user.nil?
     return '/assets/avatar.png' if user.admins?
     "/assets/#{user.role.en_name}-#{user.gender_name}.png"
   end

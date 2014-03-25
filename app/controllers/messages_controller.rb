@@ -25,12 +25,11 @@ class MessagesController < ApplicationController
         end
       end
     elsif current_user.is_admin_xld?
-      Grade.where("grade_num in (#{params[:grade_nums].join(',')}) and school_id = #{current_user.school_id}").each do |s|
-        us = params[:roles].map {|r| "#{r}s"}.inject([]) {|us, roles| us << s.send(roles)}.flatten
-        us.each do |u|
-          Message.transaction do
-            Message.create(desc: params[:desc], sender_id: current_user.id, receiver_id: u.id)
-          end
+      Grade.where("grade_num in (#{params[:grade_nums].join(',')}) and school_id = #{current_user.school_id}").map do |s|
+        params[:roles].map {|r| "#{r}s"}.inject([]) {|us, roles| us << s.send(roles)}.flatten
+      end.flatten.uniq.each do |u|
+        Message.transaction do
+          Message.create(desc: params[:desc], sender_id: current_user.id, receiver_id: u.id)
         end
       end
     end
