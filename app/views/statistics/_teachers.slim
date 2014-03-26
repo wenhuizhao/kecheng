@@ -14,6 +14,7 @@
           td = link_to g.real_name, teacher_sta_path(g)
           - months.each do |m|
             td = percents_for(g, m, false, current_period.start_year, opts)
+    = hidden_field_tag :grade_course_id, params[:grade_course_id]
     = submit_tag '生成图表', class: 'fright', style: 'margin-right: 90px'
   .clear
   .main-desc
