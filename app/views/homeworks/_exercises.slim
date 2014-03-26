@@ -19,6 +19,7 @@
           $('##{hwq.id}_e').find('input').attr('disabled', 'disabled');
           $('##{hwq.id}_e').find('textarea').attr('disabled', 'disabled');
           $('.question-area').find('textarea').removeAttr('disabled')
+          $('.board_input').removeAttr('disabled')
 
 - ids = exercises.select{|e| e.is_lianxian?}.collect(&:id)
 - hnum = current_user.is_student? ? 200 : 300
