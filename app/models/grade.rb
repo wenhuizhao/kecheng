@@ -16,6 +16,12 @@ class Grade < ActiveRecord::Base
   belongs_to :period
   # scope :history_of, -> (user) {all}
   
+  before_create :set_default
+  
+  def set_default
+    self.period_id = Period.current_period.id
+  end
+  
   include Mgrade::Homeworks
   
   def name
