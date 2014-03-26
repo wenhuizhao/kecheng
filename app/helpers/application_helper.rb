@@ -36,7 +36,7 @@ module ApplicationHelper
   end
 
   def check_all(selector = 'select_all', tag = 'body')
-    c = check_box_tag selector, '', false, onclick: "select_all_records('#{selector}','#{tag}')"
+    c = check_box_tag selector, '', false, onClick: "select_all_records(this,'#{tag}')"
     c + content_tag(:span, '全选')
   end
   
@@ -62,6 +62,7 @@ module ApplicationHelper
   end
 
   def avatar_path(user)
+    return '该用户已被删除！' if user.nil?
     return '/assets/avatar.png' if user.admins?
     "/assets/#{user.role.en_name}-#{user.gender_name}.png"
   end

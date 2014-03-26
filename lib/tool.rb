@@ -63,13 +63,23 @@ module Tool
     end
   
     def range_percents_homework(objs, sdate, edate, opts = [])
-      objs.map {|obj| percent_between(obj, sdate, edate, true, opts) }
+      rates = objs.map {|obj| percent_between(obj, sdate, edate, true, opts) }
+      # session[:rates] = rates
     end
     
     def percent_between(obj, sdate, edate, int = false, opts = [])
       # total = obj.homework_rang("#{sdate} 00:00:00", "#{edate} 23:59:59").where("grades_courses.is_open = 1 and (homeworks.created_at < '#{56.hours.ago.to_s[0, 19]}' or homeworks.status = '1')")
       total = obj.homework_rang("#{sdate} 00:00:00", "#{edate} 23:59:59").where("(homeworks.created_at < '#{56.hours.ago.to_s[0, 19]}' or homeworks.status = '1')")
-      total = obj.is_a?(GradeCourse) ? total.where("grades.school_id = #{session[:school_id] || params[:school_id] || current_user.school_id}") : total
+      
+      if obj.class.name == 'GradeCourse'
+        total = total.where("grades.school_id = #{session[:school_id] || params[:school_id] || current_user.school_id}")
+      end
+
+      if params[:grade_course_id] && params[:teacher_ids]
+        gn, cid = params[:grade_course_id].split("|")
+        total = total.where("grades_courses.course_id = #{cid} and grades.grade_num = #{gn}")
+      end
+
       total_shs = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts), 'under', 'created_at')}.flatten
       total_done_shs = total.map{|h| select_check_hs(h.student_homeworks.joins_opts(opts))}.flatten
       to_percent(total_shs.size - total_done_shs.size, total_shs.size, int)

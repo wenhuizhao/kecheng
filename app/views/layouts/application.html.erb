@@ -21,6 +21,12 @@
   <% if current_user %>
     <%= render 'layouts/common' %>
     <script type="text/javascript">
+      function select_all_records(source, tag) {
+        var checkboxes = $(tag).find('input[type="checkbox"]')
+        for(var i=0, n=checkboxes.length;i<n;i++) {
+          checkboxes[i].checked = source.checked;
+        }
+      }
       $(document).ready(function() {
         $('.chart-small').each(function(i){$(this).find('text').last().hide()});
       });

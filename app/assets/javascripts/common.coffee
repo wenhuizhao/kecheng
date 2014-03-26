@@ -289,11 +289,11 @@ $(document).ready ->
     $(obj).parent().find('.leave-homework').toggle()
     $(obj).parent().find('.lesson-content').toggle()
 
-  window.select_all_records = ( id = 'select_all', sel = 'body' ) ->
-    if ($('#' + id).get(0).checked)
-      $(sel).find('input[type="checkbox"]').attr('checked', true)
-    else
-      $(sel).find('input[type="checkbox"]').attr('checked', false)
-    return null
+  # window.select_all_records = ( id = 'select_all', sel = 'body' ) ->
+  #   if ($('#' + id).get(0).checked)
+  #     $(sel).find('input[type="checkbox"]').attr('checked', true)
+  #   else
+  #     $(sel).find('input[type="checkbox"]').attr('checked', false)
+  #   return null
 
 

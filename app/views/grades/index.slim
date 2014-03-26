@@ -9,7 +9,7 @@
         .descs
           - @grades.each do |m|
             .desc
-              .inline = m.period.full_name
+              .inline = m.period.try :full_name
               .grade-status.inline = m.full_name      
       - else
         .title = current_user.grade.full_name
