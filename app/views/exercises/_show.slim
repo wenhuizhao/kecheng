@@ -8,20 +8,31 @@
 = replaced_exercise(exercise, ans.try(:answer))
 
 - if exercise.is_math_qa?
-  - if current_user.is_student?
-    - str = ans.try(:canvas).to_s
-    .tabbox
+  - str = ans.try(:canvas).to_s
+  - has_canvas = str.size > 30
+  .tabbox
+    - if current_user.is_student?
       ul.tabs id='tabs#{hid}'
-        li class='#{str.size > 30 ? '' : 'thistab'}'  = link_to '文字', '#'
-        li class='#{str.size > 30 ? 'thistab' : ''}' = link_to '画图  （输入复杂算式或画图请点画图）', '#'
+        li class='#{has_canvas ? '' : 'thistab'}'  = link_to '文字', '#'
+        li class='#{has_canvas ? 'thistab' : ''}' = link_to '画图  （输入复杂算式或画图请点画图）', '#'
       ul.tab_conbox id='tab_conbox#{hid}'
-        li.tab_con style='#{str.size > 30 ? '' : 'display: list-item'}'
+        li.tab_con style='#{has_canvas ? '' : 'display: list-item'}'
           = text_area_tag "#{hid}_#{i}_in", ans.try(:answer).to_s.split("@@@")[i - 1],  id: "text#{hid}", cols: 50, rows: 5, class: 'qa_area'
-        li.tab_con style='#{str.size > 30 ? 'display: list-item' : ''}'
+        li.tab_con style='#{has_canvas ? 'display: list-item' : ''}'
           = text_field_tag "#{hid}board_input", '', class: 'board_input'
           = render partial: 'shared/board', locals: {hid: exercise.id}
-    javascript:
-      $.jqtab('#tabs#{hid}','#tab_conbox#{hid}','click')
+    - else
+      ul.tab_conbox id='tab_conbox#{hid}'
+        li.tab_con style='display: list-item'
+        - if has_canvas
+          = text_field_tag "#{hid}board_input", '', class: 'board_input'
+          = render partial: 'shared/board', locals: {hid: exercise.id}
+        - else
+          = text_area_tag "#{hid}_#{i}_in", ans.try(:answer).to_s.split("@@@")[i - 1],  id: "text#{hid}", cols: 50, rows: 5, class: 'qa_area'
+
+  javascript:
+    $.jqtab('#tabs#{hid}','#tab_conbox#{hid}','click')
+    
 
 - if exercise.is_multi_choice?
   - exercise.options.each_with_index do |o, i|
