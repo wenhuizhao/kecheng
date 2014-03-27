@@ -1,5 +1,5 @@
 ul,li{list-style: none;}
-a{text-decoration: none;color: #000;font-size: 14px;}
+.tabbox a{text-decoration: none;color: #000;font-size: 14px;}
 
 #tabbox{ width:600px; overflow:hidden; margin:0 auto;}
 .tab_conbox{border: 1px solid #999;border-top: none;}
