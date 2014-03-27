@@ -20,10 +20,12 @@ css:
             - @shs = @student_homeworks.inject([]){|ss, sh| ss << sh.student}
             .students
               - @shs.each do |s|
-                = link_to check_homework_path(@homework, student_id: s.id, status: params[:status])
-                  .student class='#{'active' if @student_homework.student_id == s.id}'
-                    = image_tag avatar_path(s), class: 'savatar'
-                    span.stitle.fs24 = s.real_name
+                - if s.nil?
+                - else
+                  = link_to check_homework_path(@homework, student_id: s.id, status: params[:status])
+                    .student class='#{'active' if @student_homework.student_id == s.id}'
+                      = image_tag avatar_path(s), class: 'savatar'
+                      span.stitle.fs24 = s.real_name
           .check-right
             .block 
               = "作业题目(#{@student_homework.homework.exercises.size})"

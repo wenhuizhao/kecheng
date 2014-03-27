@@ -28,12 +28,12 @@
       .students
         .name = status + "#{shs.size}人"
         - shs.each do |sh|
-          .student data-url="#{check_homework_path(status: status, student_id: sh.student_id)}"
+          .student data-url="#{check_homework_path(status: status, student_id: sh.student_id) if !sh.student.nil?}"
             - if current_user.admins?
-              = image_tag(avatar_path(sh.student), class: 'savatar')
+              = image_tag avatar_path(sh.student), class: 'savatar'
             - else
               = image_tag avatar_path(sh.student), class: 'savatar'
-            span.stitle.fs20 = sh.student.real_name
+            span.stitle.fs20 = sh.student.try :real_name
             span.stitle.fs20 = sh.updated_at.strftime("%m-%d %H:%M")
 
 - if current_user.admins?
