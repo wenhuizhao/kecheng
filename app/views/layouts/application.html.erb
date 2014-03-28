@@ -32,7 +32,9 @@
       });
     </script>
   <% else %>
-    <div id='header'></div>
+    <div id='header'>
+       <div id='logo'><div class='png'></div></div>
+    </div>
     <div id='middle' class='<%= controller_name %>'></div>
     <div class='content'>
       <%= yield %>
