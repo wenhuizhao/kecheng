@@ -1,4 +1,5 @@
 - users.each_with_index do |s, i|
+  - next if s.nil?
   - if current_user.id != s.id
     - grades_page = action_name == 'index' && s.is_teacher?
     .student style="#{grades_page ? 'width: 300px;' : ''}"
