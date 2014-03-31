@@ -1,6 +1,6 @@
 #board
   css:
-    .canvas, .bbtn {border: 1px solid black;}
+    .bbtn {border: 1px solid black;}
     .bbtn {padding: 2px 5px;margin: 5px;cursor: pointer;}
   - if current_user.is_student?
 
@@ -9,7 +9,7 @@
     .inline.bbtn id='clear#{hid}'  清除笔画
     .inline.bbtn id='remove#{hid}'  移除元件
   
-  canvas.canvas id='#{hid}c' width="800" height="300"
+  canvas.canvas id='#{hid}c' width="780" height="300"
 
 javascript:
   var canvas_#{hid} = new fabric.Canvas('#{hid}c');
