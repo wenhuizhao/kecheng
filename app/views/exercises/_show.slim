@@ -12,7 +12,7 @@
   - area_value = ans.try(:answer).to_s.split("@@@")[i - 1]
   - has_canvas = str.size > 30
   .tabbox
-    - if current_user.is_student? || (has_canvas && area_value.size > 0)
+    - if current_user.is_student? || (has_canvas && area_value && area_value.size > 0)
       ul.tabs id='tabs#{hid}'
         li class='#{has_canvas ? '' : 'thistab'}'  = link_to '文字', '#'
         li class='#{has_canvas ? 'thistab' : ''}' = link_to '画图  （输入复杂算式或画图请点画图）', '#'
