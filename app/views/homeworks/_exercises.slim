@@ -28,17 +28,18 @@
 = javascript_include_tag 'exercise'
 - ids.each do |id|
   javascript:
-    canvas_#{id} = new fabric.Canvas('#{id}_c', {isDrawingMode: #{mode}});
-    // var height = $('##{id}_c').parent().parent().height() - #{hnum};
-    var height = $('##{id}_e').find('.econtent').height() + 60;
-    $('##{id}_c').parent().css({height: height}).find('canvas').css({
-      height: height
-    }).attr('height', height);
-    canvas_#{id}.height = height;
-    canvas_#{id}.loadFromJSON('#{get_canvas_text(id)}', canvas_#{id}.renderAll.bind(canvas_#{id}));
-    canvas_#{id}.freeDrawingBrush.color = "#{color}";
-    $('##{id}_e').find('.canvas-container').css({position: "absolute"})
-
+    $(document).ready(function() {
+      canvas_#{id} = new fabric.Canvas('#{id}_c', {isDrawingMode: #{mode}});
+      // var height = $('##{id}_c').parent().parent().height() - #{hnum};
+      var height = $('##{id}_e').find('.econtent').height() + 60;
+      $('##{id}_c').parent().css({height: height}).find('canvas').css({
+        height: height
+      }).attr('height', height);
+      canvas_#{id}.height = height;
+      canvas_#{id}.loadFromJSON('#{get_canvas_text(id)}', canvas_#{id}.renderAll.bind(canvas_#{id}));
+      canvas_#{id}.freeDrawingBrush.color = "#{color}";
+      $('##{id}_e').find('.canvas-container').css({position: "absolute"})
+    });
 javascript:
   function save_canvas(){
     var canvass = [#{exercises.select{|e| e.is_need_canvas?}.collect(&:id).map{|i|"canvas_#{i}"}.join(',')}];

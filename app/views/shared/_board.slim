@@ -1,6 +1,6 @@
 #board
   css:
-    .bbtn {border: 1px solid black;}
+    .bbtn {border: 1px solid black;z-index: 10000;}
     .bbtn {padding: 2px 5px;margin: 5px;cursor: pointer;}
   - if current_user.is_student?
 
@@ -16,30 +16,23 @@ javascript:
     
   jQuery(document).ready( function() {
       canvas_#{hid}.loadFromJSON('#{get_canvas_text(hid)}', canvas_#{hid}.renderAll.bind(canvas_#{hid}));
-      // $("#text_input#{hid}").click(function(){
       $("#text_input#{hid}").click(function(){
-         $('##{hid}board_input').toggle();
-          canvas_#{hid}.isDrawingMode = false;
-          if (canvas_#{hid}.getContext) {
-              var context = canvas_#{hid}.getContext('2d');
+          $('##{hid}board_input').toggle();
+          if ($('##{hid}board_input').css("display") == 'none') {
+             init_c()
           }
-  
-          var text, size, color;
-          var mouse_pos = { x:0 , y:0 };
-  
-          // text = $('##{hid}_e').find('.qa_area').last().val();
-          text = $('##{hid}board_input').val()
-          size = 16 
-          color = '#000'
-  
+      });
+      function init_c(){
+          canvas_#{hid}.isDrawingMode = false;
           canvas_#{hid}.observe('mouse:down', function(e) {
-              mouse_pos = canvas_#{hid}.getPointer(e.e);
-              size = parseInt(size, 10);
-              canvas_#{hid}.add(new fabric.Text(text, {
+              // $('##{hid}board_input').hide();
+              var mouse_pos = canvas_#{hid}.getPointer(e.e);
+              console.info(mouse_pos.x, mouse_pos.y)
+              canvas_#{hid}.add(new fabric.Text($('##{hid}board_input').val(), {
                   fontFamily: 'Arial',
-                  fontSize: size,
-                  left: mouse_pos.x,
-                  top: mouse_pos.y,
+                  fontSize: 16,
+                  left: 350,
+                  top: 100, 
                   textAlign: "left",
                   fontWeight: 'bold'
               }));
@@ -47,7 +40,7 @@ javascript:
               canvas_#{hid}.renderAll();
               canvas_#{hid}.calcOffset();
            });
-      });
+    };
     $("#draw#{hid}").click(function(){
         canvas_#{hid}.isDrawingMode = true;
         canvas_#{hid}.freeDrawingLineWidth = 5;
