@@ -28,7 +28,7 @@
 = javascript_include_tag 'exercise'
 - ids.each do |id|
   javascript:
-    $(document).ready(function() {
+    $(window).load(function() {
       canvas_#{id} = new fabric.Canvas('#{id}_c', {isDrawingMode: #{mode}});
       // var height = $('##{id}_c').parent().parent().height() - #{hnum};
       var height = $('##{id}_e').find('.econtent').height() + 60;
