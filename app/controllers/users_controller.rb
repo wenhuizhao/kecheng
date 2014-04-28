@@ -9,9 +9,9 @@ class UsersController < ApplicationController
     if current_user.is_admin? 
       @users = User.all
     elsif current_user.is_admin_jyj?
-      @users = current_user.jyj.users # .reject{|u| u.is_admin_jyj?}
+      @users = current_user.jyj.users.reject{|u| u.is_admin?}
     elsif current_user.is_admin_xld?
-      @users = current_user.school.users.reject{|u| u.is_admin_jyj?}
+      @users = current_user.school.users.reject{|u| u.is_admin_jyj? || u.is_admin?}
     else
       @users = []
       redirect_to "/"
@@ -48,6 +48,7 @@ class UsersController < ApplicationController
   def update
     return render_alert('手机号码不正确') if params['user']['phone'].presence && !right_phone(params['user']['phone'])
     if @user.update_attributes(params[:user])
+      update_jyj
       @user.update_attribute(:role_id, nil) if current_user.is_admin? && current_user.id == @user.id
       if params[:grade_num] 
         grade = Grade.where(school_id: @user.school_id, grade_num: params[:grade_num].to_i, class_num: params[:class_num].to_i).first_or_create 
@@ -63,6 +64,7 @@ class UsersController < ApplicationController
   def create_user_from_admin
     @user = User.new(params[:user])
     if @user.save
+      update_jyj
       if params[:grade_num]
         grade = Grade.where(school_id: @user.school_id, grade_num: params[:grade_num].to_i, class_num: params[:class_num].to_i).first_or_create
         GradeStudent.build_from_admin(grade.id, @user.id) if @user.is_student?
@@ -126,6 +128,10 @@ class UsersController < ApplicationController
 
   def right_phone(phone)
     phone =~  /1[358]+\d[\d]{8}/
+  end
+
+  def update_jyj
+    #@user.school.update_attribute :jyj_id, params[:jyj_id] #rescue nil
   end
 
   def get_user

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :lastname, :firstname, :login, :gender, :auth_code, :school_id, :role_id, :real_name, :phone
+  attr_accessible :lastname, :jyj_id, :firstname, :login, :gender, :auth_code, :school_id, :role_id, :real_name, :phone
 
   # validates_uniqueness_of :email, :case_sensitive => false
 
@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   
   belongs_to :role
   belongs_to :school
+  belongs_to :jyj
   has_many :student_homeworks, foreign_key: 'student_id'
   
   has_and_belongs_to_many :grades, foreign_key: :student_id, join_table: 'grade_students'
@@ -77,9 +78,10 @@ class User < ActiveRecord::Base
     gender == '男' ? 'male' : 'female'
   end
 
-  def jyj
-    Jyj.first
-  end
+  # def jyj
+    # Jyj.first
+    # school.try :jyj
+  # end
 
   def set_bg_num
     if self.bg_num.to_i < 2

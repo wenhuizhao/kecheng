@@ -5,6 +5,7 @@ class School < ActiveRecord::Base
   has_many :grades_courses, through: :grades
   has_many :grades
   has_many :homeworks, through: :grades
+  belongs_to :jyj
   validates :name, presence: true
   scope :for_user, -> (user) { user.is_admin? ? all : where(id: user.school_id) }
   

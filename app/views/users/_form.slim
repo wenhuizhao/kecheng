@@ -13,9 +13,15 @@
       td = select :user, :gender, ['男', '女']
 
     - if current_user.is_admin? || current_user.is_admin_jyj?
-      tr
-        td = label_tag :学校
-        td = select :user, :school_id, School.all.map {|r| [r.name, r.id]}
+      - if @user.is_admin_jyj? || @user.new_record? 
+        tr
+          td = label_tag :教育局
+          td = select :user, :jyj_id, Jyj.all.collect{|j| [j.name, j.id]}
+      - if @user.is_student? || @user.is_admin_xld? || @user.is_teacher? || @user.new_record?
+        - schools = current_user.is_admin? ? School.all : current_user.jyj.schools
+        tr
+          td = label_tag :学校
+          td = select :user, :school_id, schools.map {|r| [r.name, r.id]}
     - else
       = hidden_field :user, :school_id, value: current_user.school_id
     - if @user.is_student? || @user.new_record?
@@ -32,7 +38,7 @@
         /   - else
         /     = select_tag :grade_id, options_for_select(@grades.map{|g| [g.full_name, g.id]})
 
-    - if current_user.admins?
+    - if current_user.admins? && (!@user.is_admin? || @user.new_record?)
       tr
         td = label_tag :角色
         td = select :user, :role_id, Role.for_user(current_user).map {|r| [r.name, r.id]}
