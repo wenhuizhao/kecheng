@@ -26,7 +26,7 @@
                   "data-id" => c.id, "data-uds" => c.undo_students.size, "data-sid" => c.section_id
 
           - else
-            = link_to c.full_name, show_path, class: 'text'
+            = link_to  '[' + c.grades_course.try(:course).try(:name) + ']' + c.full_name, show_path, class: 'text'
             .date.block
               | 截止时间:
               = into_datetime c.end_time
