@@ -13,7 +13,7 @@ module Common
     return content.split(/[_]{4,}/) if content =~ /[_]{4,}/
     cc = content.split(/(&nbsp;)+/).join.split(/&nbsp;/)
     case qtype_id
-    when 1, 2
+    when 1
       cc
     when 3
       new_homework_page ? [content] : content.split(/[&nbsp;]{12,}/).join('@@@').split("<span>@@@</span>") 
