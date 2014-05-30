@@ -83,6 +83,8 @@ class StudentHomeworksController < ApplicationController
         she.update_attribute :answer, params["#{e.id}option"] if params["#{e.id}option"]
         if e.is_multi_choice? && params["#{e.id}option"].chomp.downcase == e.answer.chomp.downcase
            she.update_attribute :check_desc, 'right'
+        else
+           she.update_attribute :check_desc, 'wrong'
         end
       elsif current_user.is_teacher?
         she.update_attributes(teacher_id: current_user.id, check_desc: params[:check_desc][i])
