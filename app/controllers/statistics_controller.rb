@@ -2,7 +2,7 @@ class StatisticsController < ApplicationController
   
   include Tool::Percent
   
-  before_filter :require_admin
+  before_filter :require_teacher
   before_filter :month_range
 
   def index

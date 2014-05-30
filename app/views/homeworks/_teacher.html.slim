@@ -36,10 +36,11 @@
             span.stitle.fs20 = sh.student.try :real_name
             span.stitle.fs20 = sh.updated_at.strftime("%m-%d %H:%M")
 
-- if current_user.admins?
+- if current_user.admins? || current_user.is_teacher?
+  - teacher_id = current_user.is_teacher? ? current_user.id.to_s : params[:teacher_id]
   .actions1
-    = link_to '作业成绩统计', oneday_done_path(params[:teacher_id], @homework), class: 'back', style: 'float: none;margin-left: 200px'
-    = link_to '日批日改完成明细', oneday_detail_path(params[:teacher_id], @homework), class: 'back', style: 'float: none;margin-left: 50px'
+    = link_to '作业成绩统计', oneday_done_path(teacher_id, @homework), class: 'back', style: 'float: none;margin-left: 200px'
+    = link_to '日批日改完成明细', oneday_detail_path(teacher_id, @homework), class: 'back', style: 'float: none;margin-left: 50px'
 
   javascript:
     $('.can_check').find('.student').click(function(){redirect_to($(this).attr("data-url"))});
