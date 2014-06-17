@@ -2,14 +2,16 @@
 class HomeworksController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :get_homework, except: [:index, :create, :new, :wait_todo]
+  before_filter :get_homework, except: [:index, :create, :new, :wait_todo, :view]
   before_filter :require_teacher, except: [:show, :wait_todo]
   before_filter :get_section, except: [:check, :wait_todo]
   
   def index
     @homeworks = @section.homeworks 
   end
-
+  def view
+    @homework = @section.homeworks.new
+  end
   def show
     @teacher = User.find(params[:teacher_id]) if params[:teacher_id]
     unless current_user.is_student?
@@ -59,6 +61,18 @@ class HomeworksController < ApplicationController
     end
   end
 
+  def prepare
+    categories = params[:category_ids]
+    section = Section.find(params[:section_id])
+
+    if params[:homework][:work_type] == 'homework'
+      @homework = @section.homeworks.new
+      @homework.exercises = section.exercises.reject{|e| categories.blank? || !categories.include?(e.category_id.to_s) }
+      render action: 'new'
+    elsif params[:homework][:work_type] == 'exercise'
+
+    end
+  end
   def close
     @homework.close!
     return redirect_to  action: :wait_todo, type: 'undo' if params[:back] == 'wait_todo'
@@ -85,7 +99,7 @@ class HomeworksController < ApplicationController
   private
 
   def get_homework
-    @homework = Homework.find(params[:id])
+    @homework = Homework.find(params[:id]) if params[:id]
   end
   
   def get_section

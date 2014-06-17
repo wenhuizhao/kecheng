@@ -1,0 +1,52 @@
+css:
+  input[type=radio] {width: 30px;height: 18px;margin: 0 0 0 20px}
+.lists
+  = link_back grades_course_path(@grades_course)
+  .title = @homework.full_name
+  .main-descs
+    .main-desc
+      = form_for [@section, @homework], :url => {:action=>'prepare'} do |f|
+        / = render partial: 'shared/error_msgs', locals: {target: @homework}
+        - if @section.exercises.empty?
+          .area.m19.red 本课尚未添加练习题!!
+        - else
+          = check_all
+          table#exercises
+            - exercises = []
+            - eg = @section.exercises.group_by{|e| e.category_id}
+            - category_ids = eg.keys.sort
+            - category_ids.each do |c_id|
+              - category = Category.find(c_id)
+              - v = eg[c_id]
+              tr
+                td.top
+                  = check_box_tag 'category_ids[]', c_id, false,
+                    :style=>"float:left"
+                  .category = category.name
+              tr
+                td
+                  table
+                    - v.each_with_index do |q, i|
+                      tr
+                        td.top.etitle
+                          = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
+                      tr
+                        td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+                  .block style='margin-left: 450px'
+                    = submit_tag '课堂练习', class: 'btn-small', :onclick=>"return submitform('class_exercise')"
+                    = submit_tag '家庭作业', class: 'btn-small', :onclick=>"return submitform('homework')"
+        = hidden_field_tag :grades_course_id, @grades_course.id
+        = f.hidden_field :grades_course_id, value: @grades_course.id
+        = f.hidden_field :num, value: @section.course_homeworks(@grades_course).size + 1 if action_name == 'new'
+        = f.hidden_field :work_type, value: '', id: 'work_type'
+
+javascript:
+  $('br').remove();
+  function submitform(homework){
+    if(homework == 'homework') {
+      $('#work_type').val('homework');
+    } else {
+      $('#work_type').val('exercise');
+    }
+    return true;
+  }

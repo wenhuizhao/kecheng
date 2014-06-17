@@ -10,6 +10,13 @@ input[type=submit], .btn-big
   height: 40px
 .btn-big
   padding: 10px 0 0 0
+.btn-small
+  @include btn(24px, rgb(207, 216, 169), 1px)
+  padding: 3px
+  width: 120px !important
+  background: #cfd8a9 !important
+  display: inline-block
+  margin-left: 10px
 body
   background: rgb(253,243,240)
 
@@ -682,6 +689,14 @@ p
   width: 820px
   .check-icon-answer
     margin: -15px 0
+  .category
+    padding: 13px 38px
+    background: white
+    border: 1px $blue solid
+    color: $blue
+    font-weight: bold
+    float: left
+    font-size: 24px
   .etitle
     // width: 35px
     padding: 10px 0 0 0
@@ -912,3 +927,10 @@ p
   height: 40px
   z-index: 100
   display: none
+
+.exercise_category
+  padding: 13px 38px
+  background: white
+  border: 1px $blue solid
+  color: $blue
+  font-weight: bold

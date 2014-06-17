@@ -50,6 +50,10 @@ Kecheng::Application.routes.draw do
       member do
         get :close
       end
+      collection do
+        get :view
+        post :prepare
+      end
     end
   end
   
