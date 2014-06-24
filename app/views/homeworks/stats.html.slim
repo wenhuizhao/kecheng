@@ -1,0 +1,25 @@
+= include_chart_js
+css:
+  input[type=radio] {width: 30px;height: 18px;margin: 0 0 0 20px}
+.lists
+  = link_back grades_course_path(@grades_course)
+  .title = @homework.full_name
+  .main-descs
+    .ttab
+      .course-str.btn.white = link_to '两提两练', view_section_homeworks_path(@section, :grades_course_id=>@grades_course),style: 'color: #26dec6'
+      .student-str.btn.white = link_to '课堂练习', records_section_classroomworks_path(@section, :grades_course_id=>@grades_course), style: 'color: #26dec6'
+      .student-str.btn.blue = link_to '作业',view_section_homeworks_path(@section, :grades_course_id=>@grades_course)
+    .main-desc
+        / = render partial: 'shared/error_msgs', locals: {target: @homework}
+        - if @section.exercises.empty?
+          .area.m19.red 本课尚未添加练习题!!
+        - else
+          - going_hs, closed_hs = @section.unfinished_homeworks(@grades_course), @section.finished_homeworks(@grades_course)
+          - if going_hs.size > 0
+            .lesson-content: .area
+            .htitle = @grades_course.closed? ? '未完成' : '进行中的作业'
+            = render partial: 'grades_courses/h', locals: {homeworks: going_hs, lesson: @section}
+          - if closed_hs.size > 0
+            .lesson-content: .area
+            .htitle 已完成的作业
+            = render partial: 'grades_courses/h', locals: {homeworks: closed_hs, lesson: @section}

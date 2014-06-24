@@ -48,8 +48,15 @@ module ApplicationHelper
     get_hexer(e_id).try(:canvas).to_s.html_safe
   end
 
+  def get_cwexer(e_id, s_id = @student_classroomwork.id)
+    StudentClassroomworksExercises.where(student_classroomwork_id: s_id, exercise_id: e_id).last
+  end
+  def get_cw_canvas_text(e_id)
+    get_cwexer(e_id).try(:canvas).to_s.html_safe
+  end
+
   def need_canvas
-    %w(exercises homeworks) 
+    %w(exercises homeworks classroomworks)
   end
 
   def partial_role(part = '')

@@ -1,0 +1,51 @@
+= include_tabs
+#exercises
+  - exercises.each_with_index do |hwq, i|
+    - if @student_classroomwork
+      - ans = get_cwexer(hwq.id)
+      - is_right = ans.try(:right)
+    .exercise id='#{hwq.id}_e' class='#{is_right ? 'exer-right' : (ans.try(:check_desc) ? 'wrong' : '')}'
+      - if hwq.is_lianxian?
+        canvas.canvas id='#{hwq.id}_c'  width=830 style='position: absolute;border: none;'
+      .etitle
+        span.wtitle = App::ChineseNum[i + 1]
+        = "、#{hwq.qtype_name}"
+      .econtent
+        = render partial: 'exercises/show', locals: {exercise: hwq, answer: false}
+      = render partial: "/homeworks/#{partial_role('_exer')}", locals: {hwq: hwq, ans: ans}
+      = render partial: 'shared/ask_question', locals: {ans: ans}
+      - if is_right || current_user.is_teacher?
+        javascript:
+          $('##{hwq.id}_e').find('input').attr('disabled', 'disabled');
+          $('##{hwq.id}_e').find('textarea').attr('disabled', 'disabled');
+          $('.question-area').find('textarea').removeAttr('disabled')
+          $('.board_input').removeAttr('disabled')
+
+- ids = exercises.select{|e| e.is_lianxian?}.collect(&:id)
+- hnum = current_user.is_student? ? 200 : 300
+- mode = current_user.is_student? ? true : false
+- color = current_user.is_student? ? 'blue' : 'red'
+= javascript_include_tag 'exercise'
+- ids.each do |id|
+  javascript:
+    $(window).load(function() {
+      canvas_#{id} = new fabric.Canvas('#{id}_c', {isDrawingMode: #{mode}});
+      // var height = $('##{id}_c').parent().parent().height() - #{hnum};
+      var height = $('##{id}_e').find('.econtent').height() + 60;
+      $('##{id}_c').parent().css({height: height}).find('canvas').css({
+        height: height
+      }).attr('height', height);
+      canvas_#{id}.height = height;
+      canvas_#{id}.loadFromJSON('#{get_cw_canvas_text(id)}', canvas_#{id}.renderAll.bind(canvas_#{id}));
+      canvas_#{id}.freeDrawingBrush.color = "#{color}";
+      $('##{id}_e').find('.canvas-container').css({position: "absolute"})
+    });
+javascript:
+  function save_canvas(){
+    var canvass = [#{exercises.select{|e| e.is_need_canvas?}.collect(&:id).map{|i|"canvas_#{i}"}.join(',')}];
+        datas = [];
+    canvass.forEach(function(i){
+      datas.push(JSON.stringify(i))
+    })
+    $('#canvass').val("[" + datas + "]")
+  }

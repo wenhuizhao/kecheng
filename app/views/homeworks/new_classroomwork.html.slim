@@ -1,0 +1,43 @@
+= include_date_picker_js
+css:
+  input[type=radio] {width: 30px;height: 18px;margin: 0 0 0 20px}
+.lists
+  = link_back grades_course_path(@grades_course)
+  .title = @classroomwork.full_name
+  .main-descs
+    .main-desc
+      = form_for [@section, @classroomwork] do |f|
+        / = render partial: 'shared/error_msgs', locals: {target: @homework}
+        - if @section.exercises.empty?
+          .area.m19.red 本课尚未添加练习题!!
+        - else
+          = check_all
+          table#exercises
+            - exercises = []
+            - eg = @section.exercises.group_by{|e| e.qtype_id}
+            - eg.keys.sort.each {|k| exercises << eg[k]}
+            - exercises.flatten!
+            - exercises.each_with_index do |q, i|
+              tr class='#{q.id}'
+                td.top.etitle
+                  = check_box_tag 'classroomwork[exercise_ids][]', q.id, @classroomwork.exercise_ids.include?(q.id)
+                  = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
+              tr
+                td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+        table style='margin: 0 0 0 30px'
+          tr: td: .mb5 附加信息
+          tr: td = f.text_area :enjoin, rows: 10, cols: 70, placeholder: '内容请写在这里……', id: 'enjoin'
+          tr: td
+            .submit-time.inline.mt15
+              |要求学生提交截止时间：
+              = f.text_field :end_time, value: 1.days.from_now.strftime("%Y年%m月%d日 %H:%M")
+            / = f.datetime_select :end_time, use_month_numbers: true, order: [:year, :month, :day]
+        = hidden_field_tag :grades_course_id, @grades_course.id
+        = f.hidden_field :grades_course_id, value: @grades_course.id
+        = f.hidden_field :num, value: @section.course_homeworks(@grades_course).size + 1 if action_name == 'new'
+        .block style='margin-left: 450px'
+          = submit_tag '发送课堂练习', class: 'block'
+          = link_to root_path, class: 'btn cancle'
+            span 取消
+javascript:
+  $('br').remove();

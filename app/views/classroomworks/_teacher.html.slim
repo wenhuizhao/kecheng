@@ -1,0 +1,48 @@
+- unless current_user.is_teacher?
+  css:
+    .status_students .students {width: auto;}
+.status_students
+  - unless current_user.is_teacher?
+    .desc
+      .teacher.inline = "教师：" + @teacher.real_name
+      .date.inline = "发送时间：" + into_datetime(@classroomwork.created_at)
+  .status.main-desc
+    - if current_user.is_teacher?
+      .check
+    .students
+      .name =  "未提交#{@unsubmit_students.size}人"
+      - @unsubmit_students.each do |s|
+        .student
+          = image_tag avatar_path(s), class: 'savatar'
+          span.stitle.fs24 = s.real_name
+  - Settings.homework_status.each do |status|
+    - shs = StudentClassroomwork.where(status: status, classroomwork_id: @classroomwork.id)
+    .status.main-desc.can_check
+      - if current_user.is_teacher?
+        .check
+          - if shs.size > 0
+            - if (status == '未批阅' || status == '已改错')
+              = link_green_btn '批阅', check_classroomwork_path(status: status)
+            - else
+              = link_green_btn '查看', check_classroomwork_path(status: status)
+      .students
+        .name = status + "#{shs.size}人"
+        - shs.each do |sh|
+          .student data-url="#{check_classroomwork_path(status: status, student_id: sh.student_id) if !sh.student.nil?}"
+            - if current_user.admins?
+              = image_tag avatar_path(sh.student), class: 'savatar'
+            - else
+              = image_tag avatar_path(sh.student), class: 'savatar'
+            span.stitle.fs20 = sh.student.try :real_name
+            span.stitle.fs20 = sh.updated_at.strftime("%m-%d %H:%M")
+
+- if current_user.admins? || current_user.is_teacher?
+  - teacher_id = current_user.is_teacher? ? current_user.id.to_s : params[:teacher_id]
+  .actions1
+    /= link_to '作业成绩统计', oneday_done_path(teacher_id, @classroomework), class: 'back', style: 'float: none;margin-left: 200px'
+    /= link_to '日批日改完成明细', oneday_detail_path(teacher_id, @classroomwork), class: 'back', style: 'float: none;margin-left: 50px'
+
+  javascript:
+    $('.can_check').find('.student').click(function(){redirect_to($(this).attr("data-url"))});
+
+

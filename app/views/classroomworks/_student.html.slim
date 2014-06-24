@@ -1,0 +1,52 @@
+css:
+  #content table.list-big tr td {border: none;}
+  input[type=radio] {width: 30px;height: 18px;margin: 0 0 0 20px}
+  p {line-height: 40px}
+
+- es = @classroomwork.exercises
+- if es.size > 0
+  .alert.red.center
+    - if @classroomwork.closed?
+      = '课堂练习已关闭，你已不能提交！'
+    - else
+      = flash[:notice]
+  = form_for @student_classroomwork, html: {onsubmit: 'save_canvas()'} do |f|
+    - if @student_classroomwork.status && @student_classroomwork.status != '未批阅'
+      / .notice 老师批阅结果
+      / table.list style='margin: 10px 0;'
+      /   tr
+      /     td 级别
+      /     td = @student_homework.level
+      /   /tr
+      /    / td 分数
+      /     /td = @student_homework.score_num
+      /   tr
+      /     td 状态
+      /     td = @student_homework.status
+      = f.hidden_field :status, value: '已改错'
+
+    .content-title
+      .ctitle = "课堂练习题目(#{es.size})"
+    = render partial: 'exercises', locals: {exercises: es}
+
+    table style='margin: 0 0 30px 30px'
+      - if @classroomwork.enjoin.presence
+        tr: td: .mb5 附加信息
+        tr: td = text_area_tag :enjoin, @classroomwork.enjoin, rows: 10, cols: 50, disabled: 'disabled'
+      tr: td
+        .submit-time.inline.mt15 截止时间：
+        = into_datetime @classroomwork.end_time
+    = f.hidden_field :classroomwork_id, value: @classroomwork.id
+    = hidden_field_tag :canvass
+    - if @classroomwork.closed?
+      / .btn 课程已经关闭
+    - else
+      - if @student_classroomwork.is_finished?
+        .btn 已完成
+      - else
+        .block style='margin-left: 450px'
+          = submit_tag '提交练习', class: 'block'
+          = link_to root_path, class: 'btn cancle'
+            span 取消
+- else
+  | 暂无练习题

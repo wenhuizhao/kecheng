@@ -1,0 +1,40 @@
+css:
+  input[type=radio] {width: 30px;height: 18px;margin: 0 0 0 20px}
+.lists
+  = link_back grades_course_path(@grades_course)
+  .title = @homework.full_name
+  .main-descs
+    .ttab
+      - if @category.id == Category.JingYaoJiaoLiu.id
+        .course-str.btn.blue = link_to '信息提炼',  demo_section_homeworks_path(@section, :grades_course_id=>@grades_course, :category_id=>Category.JingYaoJiaoLiu)
+        .student-str.btn.white = link_to '初读点拨', demo_section_homeworks_path(@section, :grades_course_id=>@grades_course, :category_id=>Category.ChuDuDianBo), style: 'color: #26dec6'
+      - else
+        .course-str.btn.white = link_to '信息提炼',  demo_section_homeworks_path(@section, :grades_course_id=>@grades_course, :category_id=>Category.JingYaoJiaoLiu), style: 'color: #26dec6'
+        .student-str.btn.blue = link_to '初读点拨', demo_section_homeworks_path(@section, :grades_course_id=>@grades_course, :category_id=>Category.ChuDuDianBo)
+
+    .main-desc
+      = form_for [@section, @homework], :url => {:action=>'prepare'} do |f|
+        / = render partial: 'shared/error_msgs', locals: {target: @homework}
+        - if @section.exercises.empty?
+          .area.m19.red 本课尚未添加练习题!!
+        - else
+          table#exercises
+            - exercises = @section.exercises.where(:category_id=>@category.id).all
+            - exercises.each_with_index do |q, i|
+              tr
+                td.ex_num id='ex_#{q.id}'  #{i+1}
+              tr
+                td.econtent id='ex_content_#{q.id}' = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+                .block style='margin-left: 450px'
+        = hidden_field_tag :grades_course_id, @grades_course.id
+        = f.hidden_field :grades_course_id, value: @grades_course.id
+
+javascript:
+  $('br').remove();
+  $(document).ready(function() {
+    $('.ex_num')[0].addClass('ex_current');
+    $('.ex_num').click(function() {
+      $('.ex_current').removeClass('ex_current');
+      this.addClass('ex_current');
+    });
+  });

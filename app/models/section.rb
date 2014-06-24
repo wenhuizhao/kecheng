@@ -7,6 +7,7 @@ class Section < ActiveRecord::Base
   has_many :exercises
   has_many :exercise_texts
   has_many :homeworks
+  has_many :classroomworks
 
   after_create :set_num
 
@@ -25,6 +26,18 @@ class Section < ActiveRecord::Base
 
   def unfinished_homeworks(course)
     course_homeworks(course).where(status: nil)
+  end
+
+  def course_classroomworks(course)
+    classroomworks.where(grades_course_id: course.id)
+  end
+
+  def finished_classroomworks(course)
+    course_classroomworks(course).where(status: '1')
+  end
+
+  def unfinished_classroomworks(course)
+    course_classroomworks(course).where(status: nil)
   end
 
   def num_name

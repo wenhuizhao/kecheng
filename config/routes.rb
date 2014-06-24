@@ -31,6 +31,9 @@ Kecheng::Application.routes.draw do
   post "update_books" => "home#update_books"
   post "check_user" => "home#check_user"
   post "submit_user" => "home#submit_user"
+  get "classroomworks_exercise" => "classroomworks#show_exercise"
+  post "classroomworks_exercise" => "classroomworks#update_exercise"
+
   devise_for :users, controllers: {
     passwords: 'passwords',
     sessions: 'sessions',
@@ -52,9 +55,17 @@ Kecheng::Application.routes.draw do
       end
       collection do
         get :view
+        get :demo
+        get :stats
         post :prepare
       end
     end
+    resources :classroomworks do
+      collection do
+        get :records
+      end
+    end
+
   end
   
   resources :qtypes
@@ -65,6 +76,7 @@ Kecheng::Application.routes.draw do
   resources :categories
   resources :courses
   resources :student_homeworks
+  resources :student_classroomworks
   
   get 'accept_select_grades' => 'messages#accept_select_grades', as: 'accept_select_grades'
 
@@ -101,6 +113,15 @@ Kecheng::Application.routes.draw do
       get :wait_todo
     end
   end
+  resources :classroomworks do
+    member do
+      match :check
+    end
+    collection do
+      get :wait_todo
+    end
+  end
+
   resources :users do
     collection do
       post :create_user_from_admin

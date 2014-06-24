@@ -1,0 +1,35 @@
+css:
+  p {line-height: 40px}
+.lists
+  / = link_back grades_course_path(@student_homework.homework.grades_course)
+  = link_to_back
+  - if @student_classroomwork
+    .title = @student_classroomwork.classroomwork.short_name
+    .hresult
+    .main-descs
+      .main-desc
+        - unless @student_classroomwork
+          | 暂无学生提交作业
+        - else
+          .check-left.check
+            css:
+              .check, .students .student span {font-size: 18px}
+              .check-left .students .student img {width: 30px; height: 30px;}
+              .check-left .students .student {height: 38px;}
+            .ctitle = "待批改的学生"
+            - @shs = @student_classroomworks.inject([]){|ss, sh| ss << sh.student}
+            .students
+              - @shs.each do |s|
+                - if s.nil?
+                - else
+                  = link_to check_classroomwork_path(@classroomwork, student_id: s.id, status: params[:status])
+                    .student class='#{'active' if @student_classroomwork.student_id == s.id}'
+                      = image_tag avatar_path(s), class: 'savatar'
+                      span.stitle.fs24 = s.real_name
+          .check-right
+            .block
+              = "作业题目(#{@student_classroomwork.classroomwork.exercises.size})"
+            = render 'show_form'
+    = render 'level'
+  - else
+    .title 无人提交

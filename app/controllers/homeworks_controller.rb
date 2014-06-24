@@ -3,7 +3,7 @@ class HomeworksController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :get_homework, except: [:index, :create, :new, :wait_todo, :view]
-  before_filter :require_teacher, except: [:show, :wait_todo]
+  before_filter :require_teacher, except: [:show, :wait_todo, :view]
   before_filter :get_section, except: [:check, :wait_todo]
   
   def index
@@ -37,7 +37,16 @@ class HomeworksController < ApplicationController
   def new
     @homework = @section.homeworks.new
   end
-
+  def demo
+    @category = Category.find(params[:category_id] ? params[:category_id] : Category.JingYaoJiaoLiu)
+    @homework = @section.homeworks.new
+  end
+  def new_classroomwork
+    @classroomwork = @section.classroomworks.new
+  end
+  def stats
+    @homework = @section.homeworks.new
+  end
   def update
     if @homework.update_attributes(params[:homework])
       redirect_to grades_course_path(@grades_course)
@@ -69,8 +78,10 @@ class HomeworksController < ApplicationController
       @homework = @section.homeworks.new
       @homework.exercises = section.exercises.reject{|e| categories.blank? || !categories.include?(e.category_id.to_s) }
       render action: 'new'
-    elsif params[:homework][:work_type] == 'exercise'
-
+    elsif params[:homework][:work_type] == 'classroomwork'
+      @classroomwork = @section.classroomworks.new
+      @classroomwork.exercises = section.exercises.reject{|e| categories.blank? || !categories.include?(e.category_id.to_s) }
+      render action: 'new_classroomwork'
     end
   end
   def close

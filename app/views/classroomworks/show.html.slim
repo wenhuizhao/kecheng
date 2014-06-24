@@ -1,0 +1,18 @@
+.lists
+  - if current_user.is_student?
+    css:
+      .main-descs .main-desc {width: 870px;margin: 0 auto}
+  = link_to_home
+  - if current_user.is_student?
+    .title style='height: auto;' = "#{@classroomwork.short_name}【#{@classroomwork.status_name_for(@classroom_homework)}】"
+    .hresult
+    .main-descs
+      .flt.fleft
+      .frt.fright
+      .main-desc
+        = render 'student'
+  - else
+    .title style='height: auto;' = "#{@classroomwork.full_name}"
+    .main-descs
+      = render 'teacher'
+= render 'homeworks/level'

@@ -1,6 +1,8 @@
 
 - if @student_homework
   - ans = StudentHomeworksExercises.where(student_homework_id: @student_homework.id, exercise_id: exercise.id).last
+- elsif @student_classroomwork
+  - ans = StudentClassroomworksExercises.where(student_classroomwork_id: @student_classroomwork.id, exercise_id: exercise.id).last
 
 - hid = exercise.id
 - i = blanks_arr(clean_content(exercise.title, {}, wrapper_tag: "div"), exercise.qtype_id).size
@@ -34,7 +36,7 @@
 
   javascript:
     $.jqtab('#tabs#{hid}','#tab_conbox#{hid}','click')
-    
+
 
 - if exercise.is_multi_choice?
   - exercise.options.each_with_index do |o, i|
@@ -57,4 +59,4 @@ p = exercise.note
   - if exercise.answerphoto_file_name.nil?
     = exercise.answer.html_safe
   - else
-    = image_tag exercise.answerphoto.url 
+    = image_tag exercise.answerphoto.url

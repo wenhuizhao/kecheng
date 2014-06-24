@@ -110,7 +110,7 @@ class GradesCoursesController < ApplicationController
     @grades_course.close!
     redirect_to grades_courses_path(history: true)
   end
-  
+
   private
 
   def require_grade

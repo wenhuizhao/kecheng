@@ -1,0 +1,19 @@
+css:
+  input[type=radio] {width: 30px;height: 18px;margin: 0 0 0 20px}
+.lists
+  = link_back grades_course_path(@grades_course)
+  .title = @classroomwork.full_name
+  .main-descs
+    .ttab
+      .student-str.btn.white = "计时"
+    .main-desc
+        / = render partial: 'shared/error_msgs', locals: {target: @homework}
+        - if @section.exercises.empty?
+          .area.m19.red 本课尚未添加练习题!!
+        - else
+          table#exercises
+            tr
+              td.econtent = render partial: 'exercises/show', locals: {exercise: @exercise, answer: false}
+
+javascript:
+  $('br').remove();
