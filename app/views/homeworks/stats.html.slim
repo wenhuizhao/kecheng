@@ -13,6 +13,11 @@ css:
         / = render partial: 'shared/error_msgs', locals: {target: @homework}
         - if @section.exercises.empty?
           .area.m19.red 本课尚未添加练习题!!
+        - elsif current_user.is_student?
+          .lesson-content: .area
+          .text
+            - @homeworks.each do |h|
+              =@homework.section.name
         - else
           - going_hs, closed_hs = @section.unfinished_homeworks(@grades_course), @section.finished_homeworks(@grades_course)
           - if going_hs.size > 0

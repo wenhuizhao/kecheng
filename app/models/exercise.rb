@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'sanitize'
 class Exercise < ActiveRecord::Base
   attr_accessible :answer, :note, :title, :photo, :book_id, :category_id, :qtype_id, :exercise_text_id,
                   :options_attributes, :section_id, :answerphoto
@@ -108,6 +109,10 @@ class Exercise < ActiveRecord::Base
 
   def input_type
     is_fill_blank? ? 'input' : "textarea"
+  end
+
+  def short_answer
+    Sanitize.clean(answer).try(:truncate, 10)
   end
   
   class << self  

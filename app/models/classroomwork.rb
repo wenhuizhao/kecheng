@@ -118,18 +118,19 @@ class Classroomwork < ActiveRecord::Base
     end
   end
 
-  def right_wrongs
-    result = {}
-    exercises.each {|e| result[e.id] = {:right => 0, :wrong =>0}}
-    student_classroomworks.group_by{|sc| sc.exercise_id}.each {|ex_id, scw|
-      result[ex_id] = {
-                        :right => scw.count{|s| s.right},
-                        :wrong => scw.count{|s| s.wrong}
-                      }
+  def right_wrong(exercise_id)
+
+    scwe = student_classroomworks.map{ |sc|
+      sc.student_classroomworks_exercises.where(:exercise_id => exercise_id).last
     }
-    result
+    right = scwe ? scwe.count{|s| s.right} : 0
+    wrong = scwe ? scwe.count{|s| s.wrong} : 0
+    {:right => right, :wrong => wrong}
   end
+
   def student_exercise student_id, exercise_id
-    sce = student_classroomworks_exercises.find{|sce| sce.student_id == student_id && sce.exercise_id == exercise_id}
+    sc = student_classroomworks.where(:student_id => student_id).last
+    return nil if sc.nil?
+    sc.student_classroomworks_exercises.where(:exercise_id => exercise_id)
   end
 end

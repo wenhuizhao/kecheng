@@ -19,9 +19,9 @@ css:
                 td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
               tr
                 - if current_user.is_student?
-                  td.classroomwork_result = "做#{@classroomwork.right_wrongs[q.id][:right]}对人，做错误#{@classroomwork.right_wrongs[q.id][:wrong]}人"
-                - else
                   - sce = @classroomwork.student_exercise(current_user.id, q.id)
-                  td.classroomwork_result = sce.right ? "解答正确" : "解答错误，您的答案是#{sce.answer}，正确答案是#{q.answer}"
+                  td.classroomwork_result = sce && sce.right ? "解答正确" : "解答错误，您的答案是#{sce.try(:answer)}，正确答案是#{q.short_answer}"
+                - else
+                  td.classroomwork_result = "做#{@classroomwork.right_wrong(q.id)[:right]}对人，做错误#{@classroomwork.right_wrong(q.id)[:wrong]}人"
               tr
                 td

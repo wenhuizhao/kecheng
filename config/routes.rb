@@ -31,8 +31,6 @@ Kecheng::Application.routes.draw do
   post "update_books" => "home#update_books"
   post "check_user" => "home#check_user"
   post "submit_user" => "home#submit_user"
-  get "classroomworks_exercise" => "classroomworks#show_exercise"
-  post "classroomworks_exercise" => "classroomworks#update_exercise"
 
   devise_for :users, controllers: {
     passwords: 'passwords',
@@ -63,6 +61,8 @@ Kecheng::Application.routes.draw do
     resources :classroomworks do
       collection do
         get :records
+        get :show_exercise
+        post :update_exercise
       end
     end
 

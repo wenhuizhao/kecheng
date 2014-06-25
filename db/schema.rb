@@ -13,28 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20140621030927) do
 
-  create_table "app_events", :force => true do |t|
-    t.string   "event",      :limit => 64, :null => false
-    t.string   "section",    :limit => 32, :null => false
-    t.integer  "user_id",                  :null => false
-    t.boolean  "successful",               :null => false
-    t.datetime "created_at"
-  end
-
-  add_index "app_events", ["created_at"], :name => "index_app_events_on_created_at"
-  add_index "app_events", ["user_id", "created_at"], :name => "index_app_events_on_user_id_and_created_at"
-
-  create_table "auth_events", :force => true do |t|
-    t.string   "event",      :limit => 64,                    :null => false
-    t.integer  "user_id",                                     :null => false
-    t.string   "remote_ip",  :limit => 16
-    t.boolean  "trusted",                  :default => false, :null => false
-    t.datetime "created_at"
-  end
-
-  add_index "auth_events", ["created_at"], :name => "index_auth_events_on_created_at"
-  add_index "auth_events", ["user_id", "created_at"], :name => "index_auth_events_on_user_id_and_created_at"
-
   create_table "book_categories", :force => true do |t|
     t.string   "name"
     t.integer  "parent_id"
@@ -78,16 +56,6 @@ ActiveRecord::Schema.define(:version => 20140621030927) do
   add_index "change_teacher_logs", ["new_grades_course_id"], :name => "index_change_teacher_logs_on_new_grades_course_id"
   add_index "change_teacher_logs", ["prev_teacher_id"], :name => "index_change_teacher_logs_on_prev_teacher_id"
 
-  create_table "ci_records", :force => true do |t|
-    t.integer  "packing_list_id",               :null => false
-    t.string   "sn",              :limit => 64, :null => false
-    t.integer  "vendor_id",                     :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ci_records", ["packing_list_id", "sn"], :name => "index_ci_records_on_packing_list_id_and_sn", :unique => true
-
   create_table "classroomwork_questions", :force => true do |t|
     t.string   "content"
     t.integer  "student_classroomworks_exercise_id"
@@ -128,134 +96,6 @@ ActiveRecord::Schema.define(:version => 20140621030927) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "dd", :id => false, :force => true do |t|
-    t.string   "fb_id",    :limit => 32
-    t.integer  "count(*)", :limit => 8,  :default => 0, :null => false
-    t.datetime "c"
-    t.datetime "up"
-  end
-
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
-
-  create_table "deletesn", :id => false, :force => true do |t|
-    t.string  "s", :limit => 32
-    t.integer "c"
-  end
-
-  create_table "devices", :force => true do |t|
-    t.string   "sn",                        :limit => 64,                    :null => false
-    t.integer  "vendor_id",                                                  :null => false
-    t.string   "model_code",                :limit => 32, :default => "",    :null => false
-    t.integer  "location_id"
-    t.string   "shipment_status",           :limit => 11,                    :null => false
-    t.string   "wipe_status",               :limit => 10
-    t.datetime "wipe_in_at"
-    t.datetime "wipe_out_at"
-    t.string   "test_status",               :limit => 10
-    t.datetime "test_in_at"
-    t.datetime "test_out_at"
-    t.integer  "packing_list_id"
-    t.datetime "shipped_in_at"
-    t.datetime "shipped_out_at"
-    t.boolean  "deleted",                                 :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "receiving_scan",                          :default => false, :null => false
-    t.string   "wipe_log",                                :default => "",    :null => false
-    t.float    "capacity",                                :default => 0.0,   :null => false
-    t.string   "ex",                        :limit => 32, :default => "",    :null => false
-    t.string   "part_number",               :limit => 32, :default => "",    :null => false
-    t.integer  "cycle",                                                      :null => false
-    t.boolean  "white_glove",                             :default => false, :null => false
-    t.boolean  "special_drive",                           :default => false, :null => false
-    t.string   "fb_id",                     :limit => 32
-    t.integer  "fb_cycle"
-    t.datetime "fb_receiving_confirmed_at"
-    t.datetime "fb_certificate_created_at"
-    t.string   "fb_cert_id",                :limit => 32
-    t.datetime "fb_wipe_result_sent_at"
-    t.datetime "fb_test_result_sent_at"
-    t.datetime "fb_erad_status_sent_at"
-    t.string   "fb_cert_type",              :limit => 4
-    t.string   "fb_erad_status",            :limit => 32
-    t.string   "fb_part_number",            :limit => 32, :default => "",    :null => false
-    t.string   "asset_host_name",           :limit => 64
-  end
-
-  add_index "devices", ["capacity"], :name => "capacity"
-  add_index "devices", ["location_id"], :name => "index_devices_on_location_id"
-  add_index "devices", ["model_code"], :name => "index_devices_on_model_code"
-  add_index "devices", ["packing_list_id"], :name => "index_devices_on_packing_list_id"
-  add_index "devices", ["shipped_in_at"], :name => "index_devices_on_shipped_in_at"
-  add_index "devices", ["sn"], :name => "index_devices_on_sn"
-  add_index "devices", ["test_status"], :name => "index_devices_on_test_status"
-  add_index "devices", ["vendor_id", "location_id", "wipe_status", "test_status"], :name => "combined_index"
-  add_index "devices", ["wipe_status"], :name => "index_devices_on_wipe_status"
-
-  create_table "devices_archive", :force => true do |t|
-    t.string   "sn",                        :limit => 64,                     :null => false
-    t.integer  "vendor_id",                                                   :null => false
-    t.string   "model_code",                :limit => 32,  :default => "",    :null => false
-    t.integer  "location_id"
-    t.string   "shipment_status",           :limit => 11,                     :null => false
-    t.string   "wipe_status",               :limit => 10
-    t.datetime "wipe_in_at"
-    t.datetime "wipe_out_at"
-    t.string   "test_status",               :limit => 10
-    t.datetime "test_in_at"
-    t.datetime "test_out_at"
-    t.integer  "packing_list_id"
-    t.datetime "shipped_in_at"
-    t.datetime "shipped_out_at"
-    t.boolean  "deleted",                                  :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "receiving_scan",                           :default => false, :null => false
-    t.string   "wipe_log",                                 :default => "",    :null => false
-    t.float    "capacity",                                 :default => 0.0,   :null => false
-    t.string   "ex",                        :limit => 32,  :default => "",    :null => false
-    t.string   "part_number",               :limit => 32,  :default => "",    :null => false
-    t.integer  "cycle",                                                       :null => false
-    t.boolean  "white_glove",                              :default => false, :null => false
-    t.boolean  "special_drive",                            :default => false, :null => false
-    t.string   "fb_id",                     :limit => 32
-    t.integer  "fb_cycle"
-    t.datetime "fb_receiving_confirmed_at"
-    t.datetime "fb_certificate_created_at"
-    t.string   "fb_cert_id",                :limit => 32
-    t.datetime "fb_wipe_result_sent_at"
-    t.datetime "fb_test_result_sent_at"
-    t.datetime "fb_erad_status_sent_at"
-    t.string   "fb_cert_type",              :limit => 4
-    t.string   "fb_erad_status",            :limit => 32
-    t.string   "fb_part_number",            :limit => 32,  :default => "",    :null => false
-    t.string   "asset_host_name",           :limit => 64
-    t.string   "notes",                     :limit => 256
-  end
-
-  add_index "devices_archive", ["capacity"], :name => "capacity"
-  add_index "devices_archive", ["location_id"], :name => "index_devices_on_location_id"
-  add_index "devices_archive", ["model_code"], :name => "index_devices_on_model_code"
-  add_index "devices_archive", ["packing_list_id"], :name => "index_devices_on_packing_list_id"
-  add_index "devices_archive", ["shipped_in_at"], :name => "index_devices_on_shipped_in_at"
-  add_index "devices_archive", ["sn"], :name => "index_devices_on_sn"
-  add_index "devices_archive", ["test_status"], :name => "index_devices_on_test_status"
-  add_index "devices_archive", ["vendor_id", "location_id", "wipe_status", "test_status"], :name => "combined_index"
-  add_index "devices_archive", ["wipe_status"], :name => "index_devices_on_wipe_status"
 
   create_table "exercise_options", :force => true do |t|
     t.text     "name"
@@ -308,13 +148,6 @@ ActiveRecord::Schema.define(:version => 20140621030927) do
   create_table "exercises_homeworks", :id => false, :force => true do |t|
     t.integer "exercise_id"
     t.integer "homework_id"
-  end
-
-  create_table "extra_locations", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "location_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "grade_students", :force => true do |t|
@@ -377,15 +210,6 @@ ActiveRecord::Schema.define(:version => 20140621030927) do
   add_index "homeworks", ["grades_course_id"], :name => "index_homeworks_on_grades_course_id"
   add_index "homeworks", ["section_id"], :name => "index_homeworks_on_section_id"
 
-  create_table "ips", :force => true do |t|
-    t.integer  "user_id",                  :null => false
-    t.string   "ip",         :limit => 16, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ips", ["user_id"], :name => "index_ips_on_user_id"
-
   create_table "jyjs", :force => true do |t|
     t.string   "name"
     t.string   "post_code"
@@ -403,24 +227,6 @@ ActiveRecord::Schema.define(:version => 20140621030927) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.integer  "num"
-  end
-
-  create_table "locations", :force => true do |t|
-    t.string   "label",           :limit => 10,                     :null => false
-    t.string   "contact_name",    :limit => 64,                     :null => false
-    t.string   "email",           :limit => 32,                     :null => false
-    t.string   "phone",           :limit => 32
-    t.string   "address",         :limit => 128
-    t.string   "city",            :limit => 64
-    t.string   "state",           :limit => 32
-    t.string   "country",         :limit => 32
-    t.string   "zip",             :limit => 10
-    t.boolean  "deleted",                        :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "time_zone_name",  :limit => 28,                     :null => false
-    t.integer  "num_wipe_system"
-    t.integer  "num_test_system"
   end
 
   create_table "messages", :force => true do |t|
@@ -445,66 +251,6 @@ ActiveRecord::Schema.define(:version => 20140621030927) do
   add_index "messages", ["parent_id"], :name => "index_messages_on_parent_id"
   add_index "messages", ["period_id"], :name => "index_messages_on_period_id"
   add_index "messages", ["school_id"], :name => "index_messages_on_school_id"
-
-  create_table "model_attrs", :force => true do |t|
-    t.string   "name",       :limit => 32,                    :null => false
-    t.string   "value",      :limit => 32,                    :null => false
-    t.boolean  "deleted",                  :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "model_attrs", ["name", "value"], :name => "index_model_attrs_on_name_and_value"
-
-  create_table "models", :force => true do |t|
-    t.string   "code",            :limit => 32
-    t.integer  "manufacturer_id"
-    t.integer  "ex_id"
-    t.integer  "interface_id"
-    t.integer  "size_id"
-    t.integer  "capacity_id"
-    t.boolean  "deleted",                       :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "notifications", :force => true do |t|
-    t.string   "event",      :limit => 64
-    t.string   "role",       :limit => 10
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "operations", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "device_id"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "operations", ["device_id"], :name => "index_operations_on_device_id"
-  add_index "operations", ["name"], :name => "index_operations_on_name"
-  add_index "operations", ["user_id"], :name => "index_operations_on_user_id"
-
-  create_table "packing_lists", :force => true do |t|
-    t.string   "code",        :limit => 64, :null => false
-    t.string   "kind",        :limit => 16, :null => false
-    t.integer  "user_id"
-    t.integer  "location_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "packing_lists", ["code"], :name => "index_packing_lists_on_code"
-  add_index "packing_lists", ["kind", "code"], :name => "index_packing_lists_on_kind_and_code"
-
-  create_table "part_numbers", :force => true do |t|
-    t.string   "code",            :limit => 32,                    :null => false
-    t.boolean  "universal_spare",               :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "periods", :force => true do |t|
     t.string   "full_name"
@@ -575,10 +321,6 @@ ActiveRecord::Schema.define(:version => 20140621030927) do
 
   add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
 
-  create_table "sn_temp", :id => false, :force => true do |t|
-    t.string "sn", :limit => 64, :null => false
-  end
-
   create_table "stu_grade_courses", :force => true do |t|
     t.string   "score"
     t.string   "note"
@@ -599,9 +341,20 @@ ActiveRecord::Schema.define(:version => 20140621030927) do
     t.datetime "updated_at",       :null => false
   end
 
-  create_table "student_classroomworks_exercises", :id => false, :force => true do |t|
-    t.integer "id", :null => false
+  create_table "student_classroomworks_exercises", :force => true do |t|
+    t.integer  "student_classroomwork_id"
+    t.integer  "exercise_id"
+    t.text     "canvas"
+    t.text     "answer"
+    t.integer  "teacher_id"
+    t.string   "check_desc"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
+
+  add_index "student_classroomworks_exercises", ["exercise_id"], :name => "exercise_id"
+  add_index "student_classroomworks_exercises", ["student_classroomwork_id"], :name => "student_classroom_id"
+  add_index "student_classroomworks_exercises", ["teacher_id"], :name => "teacher_id"
 
   create_table "student_courses", :force => true do |t|
     t.integer  "grades_course_id"
@@ -642,109 +395,6 @@ ActiveRecord::Schema.define(:version => 20140621030927) do
   add_index "student_homeworks_exercises", ["exercise_id"], :name => "index_student_homeworks_exercises_on_exercise_id"
   add_index "student_homeworks_exercises", ["student_homework_id"], :name => "index_student_homeworks_exercises_on_student_homework_id"
   add_index "student_homeworks_exercises", ["teacher_id"], :name => "index_student_homeworks_exercises_on_teacher_id"
-
-  create_table "system_events", :force => true do |t|
-    t.string   "path",       :limit => 64
-    t.integer  "user_id"
-    t.boolean  "post"
-    t.boolean  "xhr"
-    t.string   "remote_ip",  :limit => 16
-    t.datetime "created_at"
-  end
-
-  add_index "system_events", ["created_at"], :name => "index_system_events_on_created_at"
-  add_index "system_events", ["user_id"], :name => "index_system_events_on_user_id"
-
-  create_table "t", :id => false, :force => true do |t|
-    t.string "sn",       :limit => 64
-    t.string "part",     :limit => 64
-    t.string "capacity", :limit => 64
-  end
-
-  add_index "t", ["sn"], :name => "sn", :unique => true
-
-  create_table "t5", :id => false, :force => true do |t|
-    t.integer "id"
-  end
-
-  create_table "teches", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "location_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "tins", :id => false, :force => true do |t|
-    t.string "sn",          :limit => 32
-    t.string "wipe_result", :limit => 32
-    t.string "test_result", :limit => 32
-  end
-
-  add_index "tins", ["sn"], :name => "sn", :unique => true
-
-  create_table "tiny_prints", :force => true do |t|
-    t.string   "image_file_name"
-    t.string   "image_file_size"
-    t.string   "image_content_type"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  create_table "tiny_videos", :force => true do |t|
-    t.string   "original_file_name"
-    t.string   "original_file_size"
-    t.string   "original_content_type"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
-  end
-
-  create_table "tt", :id => false, :force => true do |t|
-    t.string "sn",             :limit => 64,                 :null => false
-    t.string "part_number",    :limit => 32, :default => "", :null => false
-    t.string "fb_part_number", :limit => 32, :default => "", :null => false
-    t.string "capacity",       :limit => 32, :default => "", :null => false
-  end
-
-  add_index "tt", ["sn"], :name => "sn", :unique => true
-
-  create_table "ttt", :id => false, :force => true do |t|
-    t.string  "sn",       :limit => 32
-    t.string  "loc",      :limit => 32
-    t.string  "result",   :limit => 32
-    t.string  "tresult",  :limit => 32
-    t.string  "pn",       :limit => 32
-    t.integer "capacity"
-    t.integer "id"
-  end
-
-  add_index "ttt", ["id"], :name => "id", :unique => true
-  add_index "ttt", ["sn"], :name => "sn", :unique => true
-
-  create_table "ttt3", :id => false, :force => true do |t|
-    t.string  "sn",       :limit => 32
-    t.string  "loc",      :limit => 32
-    t.string  "result",   :limit => 32
-    t.string  "tresult",  :limit => 32
-    t.string  "pn",       :limit => 32
-    t.integer "capacity"
-    t.integer "id"
-  end
-
-  add_index "ttt3", ["id"], :name => "id", :unique => true
-  add_index "ttt3", ["sn"], :name => "sn", :unique => true
-
-  create_table "ttt4", :id => false, :force => true do |t|
-    t.string  "sn",       :limit => 32
-    t.string  "loc",      :limit => 32
-    t.string  "result",   :limit => 32
-    t.string  "tresult",  :limit => 32
-    t.string  "pn",       :limit => 32
-    t.integer "capacity"
-    t.integer "id"
-  end
-
-  add_index "ttt4", ["id"], :name => "id", :unique => true
-  add_index "ttt4", ["sn"], :name => "sn", :unique => true
 
   create_table "upload_files", :force => true do |t|
     t.string   "name"
@@ -795,31 +445,5 @@ ActiveRecord::Schema.define(:version => 20140621030927) do
 
   add_index "users_messages", ["message_id"], :name => "index_users_messages_on_message_id"
   add_index "users_messages", ["user_id"], :name => "index_users_messages_on_user_id"
-
-  create_table "vacations", :force => true do |t|
-    t.integer  "user_id",                                          :null => false
-    t.datetime "date_from",                                        :null => false
-    t.datetime "date_to",                                          :null => false
-    t.string   "reported_to",    :limit => 64,                     :null => false
-    t.string   "reason",         :limit => 128,                    :null => false
-    t.boolean  "approved",                      :default => false, :null => false
-    t.integer  "vacation_hours",                :default => 0
-    t.integer  "sick_hours",                    :default => 0
-    t.string   "approved_by",    :limit => 128
-    t.boolean  "sick_leave",                    :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "vendors", :force => true do |t|
-    t.string   "label",         :limit => 32,                    :null => false
-    t.string   "name",          :limit => 32,                    :null => false
-    t.boolean  "separate_cod",                :default => false, :null => false
-    t.boolean  "deleted",                     :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "no_test",                     :default => false, :null => false
-    t.boolean  "wipe_eligible"
-  end
 
 end

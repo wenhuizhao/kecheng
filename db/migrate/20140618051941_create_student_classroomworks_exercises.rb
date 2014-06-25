@@ -10,8 +10,8 @@ class CreateStudentClassroomworksExercises < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :student_classroomworks_exercises, :student_classroomwork_id
-    add_index :student_classroomworks_exercises, :exercise_id
-    add_index :student_classroomworks_exercises, :teacher_id
+    add_index :student_classroomworks_exercises, :student_classroomwork_id, :name=>'student_classroom_id'
+    add_index :student_classroomworks_exercises, :exercise_id, :name => 'exercise_id'
+    add_index :student_classroomworks_exercises, :teacher_id, :name => 'teacher_id'
   end
 end

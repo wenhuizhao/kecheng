@@ -3,7 +3,7 @@ class ClassroomworksController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :get_classroomwork, except: [:index, :create, :new, :wait_todo, :view]
-  before_filter :require_teacher, except: [:show, :wait_todo, :show_exercise]
+  before_filter :require_teacher, except: [:show, :wait_todo, :show_exercise, :records]
   before_filter :get_section, except: [:check, :wait_todo]
 
   def index
@@ -87,7 +87,8 @@ class ClassroomworksController < ApplicationController
   end
 
   def show_exercise
-    @exercise = params[:exercise_id]
+    @classroomwork = Classroomwork.where(:section_id=>@section.id, :grades_course_id => @grades_course.id).last
+    @exercise = Exercise.find(params[:exercise_id])
   end
   def update_exercise
 

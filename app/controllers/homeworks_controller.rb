@@ -3,7 +3,7 @@ class HomeworksController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :get_homework, except: [:index, :create, :new, :wait_todo, :view]
-  before_filter :require_teacher, except: [:show, :wait_todo, :view]
+  before_filter :require_teacher, except: [:show, :wait_todo, :view, :demo, :stats]
   before_filter :get_section, except: [:check, :wait_todo]
   
   def index
@@ -45,7 +45,12 @@ class HomeworksController < ApplicationController
     @classroomwork = @section.classroomworks.new
   end
   def stats
-    @homework = @section.homeworks.new
+    if current_user.is_student?
+      @homeworks = Homework.where(:section_id=>@section.id, :grades_course_id =>@grades_course.id).all
+      @homework = @section.homeworks.new
+    else
+      @homework = @section.homeworks.new
+    end
   end
   def update
     if @homework.update_attributes(params[:homework])

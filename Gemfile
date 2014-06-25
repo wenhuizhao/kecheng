@@ -58,3 +58,4 @@ gem "kaminari", "~> 0.14.1"
 gem 'remotipart', '~> 1.0'
 gem 'sanitize'
 gem 'sidekiq'
+gem 'sanitize'

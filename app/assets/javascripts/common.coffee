@@ -26,9 +26,9 @@ $(document).ready ->
     $('.actions').css
       "margin-left": "620px"
     
-  $('#content').on 'click', '.ltitle',  ->
-    $(this).parent().find('.leave-homework').toggle()
-    $(this).parent().find('.lesson-content').toggle()
+  #$('#content').on 'click', '.ltitle',  ->
+  #  $(this).parent().find('.leave-homework').toggle()
+  #  $(this).parent().find('.lesson-content').toggle()
 
   $('.area-hover').click  ->
     redirect_to $(this).attr('data-href')
