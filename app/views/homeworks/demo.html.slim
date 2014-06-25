@@ -20,11 +20,13 @@ css:
         - else
           table#exercises
             - exercises = @section.exercises.where(:category_id=>@category.id).all
+            tr
+              td
+              - exercises.each_with_index do |q, i|
+                .ex_num id='#{q.id}'  #{i+1}
             - exercises.each_with_index do |q, i|
               tr
-                td.ex_num id='ex_#{q.id}'  #{i+1}
-              tr
-                td.econtent id='ex_content_#{q.id}' = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+                td.ex_content id='ex_content_#{q.id}' = render partial: 'exercises/show', locals: {exercise: q, answer: false}
                 .block style='margin-left: 450px'
         = hidden_field_tag :grades_course_id, @grades_course.id
         = f.hidden_field :grades_course_id, value: @grades_course.id
@@ -32,9 +34,14 @@ css:
 javascript:
   $('br').remove();
   $(document).ready(function() {
-    $('.ex_num')[0].addClass('ex_current');
     $('.ex_num').click(function() {
-      $('.ex_current').removeClass('ex_current');
-      this.addClass('ex_current');
+      $('.ex_num_current').removeClass('ex_num_current');
+      $('.ex_content_current').removeClass("ex_content_current");
+      $(this).addClass("ex_num_current");
+      $("#ex_content_"+this.id).addClass("ex_content_current");
+
     });
+    $('.ex_content').first().addClass('ex_content_current');
+    $('.ex_num').first().addClass('ex_num_current');
+
   });

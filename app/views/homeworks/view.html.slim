@@ -38,8 +38,10 @@ css:
                       tr
                         td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
                   .block style='margin-left: 450px'
-                    - if !current_user.is_student?
-                      = submit_tag '课堂练习', class: 'btn-small', :onclick=>"return submitform('class_exercise')"
+                    - if current_user.is_student?
+                     / = button_to '课堂练习', section_classroomwork_path(@section, @classroomwork),  class: 'btn-small', method: :get
+                    - else
+                      = submit_tag '课堂练习纪录', class: 'btn-small', :onclick=>"return submitform('class_exercise')"
                       = submit_tag '家庭作业', class: 'btn-small', :onclick=>"return submitform('homework')"
         = hidden_field_tag :grades_course_id, @grades_course.id
         = f.hidden_field :grades_course_id, value: @grades_course.id

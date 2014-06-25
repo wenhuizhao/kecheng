@@ -46,7 +46,7 @@ class Classroomwork < ActiveRecord::Base
   end
 
   def tiny_name
-    "#{section.try(:name)}-作业#{num}"
+    "#{section.try(:name)}-课堂练习#{num}"
   end
 
   def full_name

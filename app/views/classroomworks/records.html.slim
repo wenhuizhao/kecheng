@@ -6,7 +6,7 @@ css:
   .main-descs
     .ttab
       .course-str.btn.white = link_to '两提两练', view_section_homeworks_path(@section, :grades_course_id=>@grades_course), style: 'color: #26dec6'
-      .student-str.btn.blue = link_to '课堂练习', records_section_classroomworks_path(@section, :grades_course_id=>@grades_course)
+      .student-str.btn.blue = link_to '课堂练习纪录', records_section_classroomworks_path(@section, :grades_course_id=>@grades_course)
       .student-str.btn.white = link_to '作业', stats_section_homeworks_path(@section, :grades_course_id=>@grades_course),style: 'color: #26dec6'
     .main-desc
         / = render partial: 'shared/error_msgs', locals: {target: @homework}
