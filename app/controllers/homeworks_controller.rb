@@ -79,12 +79,7 @@ class HomeworksController < ApplicationController
   def prepare
     categories = params[:category_ids]
     section = Section.find(params[:section_id])
-    if params[:category_ids].blank?
-      @homework = @section.homeworks.new
-      flash[:notice] = "请选择题目类别"
-      redirect_to view_section_homeworks_url(@section, grades_course_id: @grades_course.id)
-      return
-    end
+
     if params[:homework][:work_type] == 'homework'
       @homework = @section.homeworks.new
       @homework.exercises = section.exercises.reject{|e| categories.blank? || !categories.include?(e.category_id.to_s) }
@@ -94,6 +89,12 @@ class HomeworksController < ApplicationController
       @classroomwork.exercises = section.exercises.reject{|e| categories.blank? || !categories.include?(e.category_id.to_s) }
       render action: 'new_classroomwork'
     elsif params[:homework][:work_type] == 'demo'
+      if params[:category_ids].blank?
+        @homework = @section.homeworks.new
+        flash[:notice] = "请选择题目类别"
+        redirect_to view_section_homeworks_url(@section, grades_course_id: @grades_course.id)
+        return
+      end
       @categories = Category.find(categories)
       @category = params[:category_id] ? Category.find(params[:category_id]) : Category.first
       @homework = @section.homeworks.new

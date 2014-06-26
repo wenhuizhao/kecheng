@@ -12,6 +12,7 @@ css:
       = form_for [@section, @homework], :url => {:action=>'prepare'} do |f|
         / = render partial: 'shared/error_msgs', locals: {target: @homework}
         - if !current_user.is_student?
+          .homework_demo = submit_tag '家庭作业', class: 'btn', :onclick=>"return submitform('homework')"
           .homework_demo = submit_tag '演示', class: 'btn',:onclick=>"return submitform('demo')"
         - if @section.exercises.empty?
           .area.m19.red 本课尚未添加练习题!!
