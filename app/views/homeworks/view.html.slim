@@ -6,13 +6,13 @@ css:
   .main-descs
     .ttab
       .course-str.btn.blue = link_to '两导两练', view_section_homeworks_path(@section, :grades_course_id=>@grades_course)
-      .student-str.btn.white = link_to '课堂练习', records_section_classroomworks_path(@section, :grades_course_id=>@grades_course), style: 'color: #26dec6'
+      .student-str.btn.white = link_to '课堂练习纪录', records_section_classroomworks_path(@section, :grades_course_id=>@grades_course), style: 'color: #26dec6'
       .student-str.btn.white = link_to '作业', stats_section_homeworks_path(@section, :grades_course_id=>@grades_course),style: 'color: #26dec6'
     .main-desc
-      - if !current_user.is_student?
-        .homework_demo = link_to '演示', demo_section_homeworks_path(@section, :grades_course_id=>@grades_course), class: 'btn'
       = form_for [@section, @homework], :url => {:action=>'prepare'} do |f|
         / = render partial: 'shared/error_msgs', locals: {target: @homework}
+        - if !current_user.is_student?
+          .homework_demo = submit_tag '演示', class: 'btn',:onclick=>"return submitform('demo')"
         - if @section.exercises.empty?
           .area.m19.red 本课尚未添加练习题!!
         - else
@@ -44,7 +44,7 @@ css:
                     - if current_user.is_student?
                      / = button_to '课堂练习', section_classroomwork_path(@section, @classroomwork),  class: 'btn-small', method: :get
                     - else
-                      = submit_tag '课堂练习纪录', class: 'btn-small', :onclick=>"return submitform('class_exercise')"
+                      = submit_tag '课堂练习', class: 'btn-small', :onclick=>"return submitform('class_exercise')"
                       = submit_tag '家庭作业', class: 'btn-small', :onclick=>"return submitform('homework')"
         = hidden_field_tag :grades_course_id, @grades_course.id
         = f.hidden_field :grades_course_id, value: @grades_course.id
@@ -56,7 +56,9 @@ javascript:
   function submitform(homework){
     if(homework == 'homework') {
       $('#work_type').val('homework');
-    } else {
+    } else if (homework == "demo") {
+      $('#work_type').val('demo');
+    }else {
       $('#work_type').val('classroomwork');
     }
     return true;

@@ -87,6 +87,10 @@ class HomeworksController < ApplicationController
       @classroomwork = @section.classroomworks.new
       @classroomwork.exercises = section.exercises.reject{|e| categories.blank? || !categories.include?(e.category_id.to_s) }
       render action: 'new_classroomwork'
+    elsif params[:homework][:work_type] == 'demo'
+      @categories = Category.find(categories)
+      @homework = @section.homeworks.new
+      render action: 'demo'
     end
   end
   def close

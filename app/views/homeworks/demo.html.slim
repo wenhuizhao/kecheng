@@ -5,12 +5,8 @@ css:
   .title = @homework.full_name
   .main-descs
     .ttab
-      - if @category.id == Category.JingYaoJiaoLiu.id
-        .course-str.btn.blue = link_to '信息提炼',  demo_section_homeworks_path(@section, :grades_course_id=>@grades_course, :category_id=>Category.JingYaoJiaoLiu)
-        .student-str.btn.white = link_to '初读点拨', demo_section_homeworks_path(@section, :grades_course_id=>@grades_course, :category_id=>Category.ChuDuDianBo), style: 'color: #26dec6'
-      - else
-        .course-str.btn.white = link_to '信息提炼',  demo_section_homeworks_path(@section, :grades_course_id=>@grades_course, :category_id=>Category.JingYaoJiaoLiu), style: 'color: #26dec6'
-        .student-str.btn.blue = link_to '初读点拨', demo_section_homeworks_path(@section, :grades_course_id=>@grades_course, :category_id=>Category.ChuDuDianBo)
+      - @categories.each do |c|
+        .course-str.btn.blue = link_to '信息提炼',  demo_section_homeworks_path(@section, :grades_course_id=>@grades_course, :category_id=>@category)
 
     .main-desc
       = form_for [@section, @homework], :url => {:action=>'prepare'} do |f|
