@@ -3,10 +3,10 @@ css:
 .lists
   = link_back grades_course_path(@grades_course)
   .title = @homework.full_name
+  .notice = flash_notice
   .main-descs
     .ttab
       .course-str.btn.blue = link_to '两导两练', view_section_homeworks_path(@section, :grades_course_id=>@grades_course)
-      .student-str.btn.white = link_to '课堂练习纪录', records_section_classroomworks_path(@section, :grades_course_id=>@grades_course), style: 'color: #26dec6'
       .student-str.btn.white = link_to '作业', stats_section_homeworks_path(@section, :grades_course_id=>@grades_course),style: 'color: #26dec6'
     .main-desc
       = form_for [@section, @homework], :url => {:action=>'prepare'} do |f|
@@ -41,11 +41,11 @@ css:
                       tr
                         td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
                   .block style='margin-left: 450px'
-                    - if current_user.is_student?
+                    / - if current_user.is_student?
                      / = button_to '课堂练习', section_classroomwork_path(@section, @classroomwork),  class: 'btn-small', method: :get
-                    - else
-                      = submit_tag '课堂练习', class: 'btn-small', :onclick=>"return submitform('class_exercise')"
-                      = submit_tag '家庭作业', class: 'btn-small', :onclick=>"return submitform('homework')"
+                    / - else
+                      / = submit_tag '课堂练习', class: 'btn-small', :onclick=>"return submitform('class_exercise')"
+                      / = submit_tag '家庭作业', class: 'btn-small', :onclick=>"return submitform('homework')"
         = hidden_field_tag :grades_course_id, @grades_course.id
         = f.hidden_field :grades_course_id, value: @grades_course.id
         = f.hidden_field :num, value: @section.course_homeworks(@grades_course).size + 1 if action_name == 'new'
