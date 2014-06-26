@@ -5,17 +5,19 @@ css:
   .title = @homework.full_name
   .main-descs
     .ttab
-      .course-str.btn.blue = link_to '两提两练', view_section_homeworks_path(@section, :grades_course_id=>@grades_course)
+      .course-str.btn.blue = link_to '两导两练', view_section_homeworks_path(@section, :grades_course_id=>@grades_course)
       .student-str.btn.white = link_to '课堂练习', records_section_classroomworks_path(@section, :grades_course_id=>@grades_course), style: 'color: #26dec6'
       .student-str.btn.white = link_to '作业', stats_section_homeworks_path(@section, :grades_course_id=>@grades_course),style: 'color: #26dec6'
     .main-desc
-      .homework_demo = link_to '演示', demo_section_homeworks_path(@section, :grades_course_id=>@grades_course), class: 'btn'
+      - if !current_user.is_student?
+        .homework_demo = link_to '演示', demo_section_homeworks_path(@section, :grades_course_id=>@grades_course), class: 'btn'
       = form_for [@section, @homework], :url => {:action=>'prepare'} do |f|
         / = render partial: 'shared/error_msgs', locals: {target: @homework}
         - if @section.exercises.empty?
           .area.m19.red 本课尚未添加练习题!!
         - else
-          = check_all
+          - if !current_user.is_student?
+            = check_all
           table#exercises
             - exercises = []
             - eg = @section.exercises.group_by{|e| e.category_id}
@@ -25,8 +27,9 @@ css:
               - v = eg[c_id]
               tr
                 td.top
-                  = check_box_tag 'category_ids[]', c_id, false,
-                    :style=>"float:left"
+                  - if !current_user.is_student?
+                    = check_box_tag 'category_ids[]', c_id, false,
+                      :style=>"float:left"
                   .category = category.name
               tr
                 td

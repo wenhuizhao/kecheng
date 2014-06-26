@@ -56,9 +56,9 @@
             .lesson
               .line-node
               .ltitle
-                .inline style='vertical-align: top' = link_to lesson.line_num, view_section_homeworks_path(lesson,grades_course_id: @grades_course.id)
+                .inline style='vertical-align: top; width: 100%; height: 100%' = link_to lesson.line_num, view_section_homeworks_path(lesson,grades_course_id: @grades_course.id), {class: :section_link}
                 - if lesson.line_name
-                  .inline style='width: 390px' = link_to lesson.line_name, view_section_homeworks_path(lesson,grades_course_id: @grades_course.id)
+                  .inline style='width: 390px;width: 100%; height: 100%' = link_to lesson.line_name, view_section_homeworks_path(lesson,grades_course_id: @grades_course.id), {class: :section_link}
               - unless @grades_course.closed?
                 .leave-homework = link_to '布置作业', new_section_homework_path(lesson, grades_course_id: @grades_course.id)
               - going_hs, closed_hs = lesson.unfinished_homeworks(@grades_course), lesson.finished_homeworks(@grades_course)
