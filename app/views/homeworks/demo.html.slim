@@ -1,7 +1,7 @@
 css:
   input[type=radio] {width: 30px;height: 18px;margin: 0 0 0 20px}
 .lists
-  = link_back grades_course_path(@grades_course)
+  = link_back view_section_homeworks_path(@section, grades_course_id: @grades_course.id)
   .title = @homework.full_name
   .main-descs
     .ttab

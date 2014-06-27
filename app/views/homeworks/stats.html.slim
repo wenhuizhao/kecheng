@@ -6,8 +6,8 @@ css:
   .title = @homework.full_name
   .main-descs
     .ttab
-      .course-str.btn.white = link_to '两导两练', view_section_homeworks_path(@section, :grades_course_id=>@grades_course),style: 'color: #26dec6'
-      .student-str.btn.blue = link_to '作业',view_section_homeworks_path(@section, :grades_course_id=>@grades_course)
+      .demo_tab = link_to '两导两练', view_section_homeworks_path(@section, :grades_course_id=>@grades_course),style: 'color: #26dec6'
+      .demo_tab_current = link_to '作业',view_section_homeworks_path(@section, :grades_course_id=>@grades_course)
     .main-desc
         / = render partial: 'shared/error_msgs', locals: {target: @homework}
         - if @section.exercises.empty?
@@ -16,11 +16,11 @@ css:
           .lesson-content: .homework
             - hs = @section.course_homeworks(@grades_course)
             - if hs.size == 0
-               .hs  | 暂无作业
+               .hw_stats  | 暂无作业
             - else
               - hs.each_with_index do |h, j|
                 - sh = h.of_user(current_user)
-                .hs = link_to "[#{h.status_name_for(sh)}]#{h.short_name}", section_homework_path(@section, h, grades_course_id: @grades_course.id)
+                .hw_stats = link_to "[#{h.status_name_for(sh)}]#{h.short_name}", section_homework_path(@section, h, grades_course_id: @grades_course.id)
             /- cs = @section.course_classroomworks(@grades_course)
             /- if cs.size == 0
                /.hs | 暂无课堂练习
