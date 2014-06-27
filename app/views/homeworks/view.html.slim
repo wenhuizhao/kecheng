@@ -6,8 +6,9 @@ css:
   .notice = flash_notice
   .main-descs
     .ttab
-      .course-str.btn.blue = link_to '两导两练', view_section_homeworks_path(@section, :grades_course_id=>@grades_course)
-      .student-str.btn.white = link_to '作业', stats_section_homeworks_path(@section, :grades_course_id=>@grades_course),style: 'color: #26dec6'
+      .divide style="clear:both"
+      .demo_tab_current = link_to '两导两练', view_section_homeworks_path(@section, :grades_course_id=>@grades_course)
+      .demo_tab = link_to '作业', stats_section_homeworks_path(@section, :grades_course_id=>@grades_course),style: 'color: #26dec6'
     .main-desc
       = form_for [@section, @homework], :url => {:action=>'prepare'} do |f|
         / = render partial: 'shared/error_msgs', locals: {target: @homework}
