@@ -15,11 +15,11 @@ css:
             - exercises = []
             - eg = @section.exercises.group_by{|e| e.qtype_id}
             - eg.keys.sort.each {|k| exercises << eg[k]}
-            - exercises.flatten!
+            - exercises.flatten!.reject!{|e| @homework.exercise_ids && !@homework.exercise_ids.include?(e.id)}
             - exercises.each_with_index do |q, i|
               tr class='#{q.id}'
                 td.top.etitle
-                  = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids.include?(q.id)
+                  = check_box_tag 'homework[exercise_ids][]', q.id, @homework.exercise_ids && @homework.exercise_ids.include?(q.id)
                   = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
               tr
                 td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}

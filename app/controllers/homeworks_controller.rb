@@ -39,7 +39,8 @@ class HomeworksController < ApplicationController
   end
   def demo
     @category = Category.find(params[:category_id] ? params[:category_id] : Category.first)
-    @categories = Category.find(params[:categories].split(','))
+    category_ids = Category.display_order(params[:categories].split(',').map{|id| id.to_i})
+    @categories = Category.find(category_ids)
     @homework = @section.homeworks.new
   end
   def new_classroomwork

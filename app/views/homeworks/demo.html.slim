@@ -6,7 +6,7 @@ css:
   .main-descs
     .ttab
       .divide style="clear:both"
-      - @categories.each do |c|
+      - @categories.reverse.each do |c|
         - if @category.id == c.id
           .demo_tab_current = link_to c.name,  demo_section_homeworks_path(@section, :grades_course_id=>@grades_course, :category_id=>c, :categories=>@categories.map(&:id).join(','))
         - else
