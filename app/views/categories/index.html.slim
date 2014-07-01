@@ -4,6 +4,7 @@ table
   tr
     th id
     th |名字
+    th |显示次序
     th
     th
     th
@@ -12,6 +13,7 @@ table
     tr
       td = category.id
       td = category.name
+      td = category.display_order
       td = link_to '|查看', category
       td = link_to '|修改', edit_category_path(category)
       td = link_to '|删除', category, :confirm => 'Are you sure?', :method => :delete

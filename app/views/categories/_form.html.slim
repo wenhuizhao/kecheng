@@ -10,6 +10,9 @@
     tr
       td 名称
       td = f.text_field :name
+    tr
+      td 显示次序
+      td = f.number_field :display_order
 
     tr
       td = f.submit 'Save'
