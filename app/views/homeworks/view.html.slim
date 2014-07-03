@@ -21,36 +21,37 @@ css:
           - if !current_user.is_student?
             = check_all
           - 1.upto(@section.num_lessons) do |n|
+            n
             - lesson_categories = @section.lesson_categories(n)
-              .head Lesson + n.to_s
-              table#exercises
-                - exercises = []
-                - eg = @section.exercises.reject{|e| lesson_categories && !lesson_categories.map(&:id).include?(e.category_id)}.group_by{|e| e.category_id}
-                - category_ids = Category.display_order(eg.keys)
-                - category_ids.each do |c_id|
-                  - category = Category.find(c_id)
-                  - v = eg[c_id]
-                  tr
-                    td.top
-                      - if !current_user.is_student?
-                        = check_box_tag 'category_ids[]', c_id, false,
+            - eg = @section.exercises.reject{|e| lesson_categories && !lesson_categories.map(&:id).include?(e.category_id)}.group_by{|e| e.category_id}
+            - if eg.size > 0
+              .lesson_title = "第#{App::ChineseNum[n]}课时"
+            table#exercises
+              - category_ids = Category.display_order(eg.keys)
+              - category_ids.each do |c_id|
+                - category = Category.find(c_id)
+                - v = eg[c_id]
+                tr
+                  td.top
+                    - if !current_user.is_student?
+                      = check_box_tag 'category_ids[]', c_id, false,
                           :style=>"float:left"
-                      .category = category.name
-                  tr
-                    td
-                      table
-                        - v.each_with_index do |q, i|
-                          tr
-                            td.top.etitle
-                              = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
-                          tr
-                            td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
-                      .block style='margin-left: 450px'
-                        / - if current_user.is_student?
-                         / = button_to '课堂练习', section_classroomwork_path(@section, @classroomwork),  class: 'btn-small', method: :get
-                        / - else
-                          / = submit_tag '课堂练习', class: 'btn-small', :onclick=>"return submitform('class_exercise')"
-                          / = submit_tag '家庭作业', class: 'btn-small', :onclick=>"return submitform('homework')"
+                    .category = category.name
+                tr
+                  td
+                    table
+                      - v.each_with_index do |q, i|
+                        tr
+                          td.top.etitle
+                            = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
+                        tr
+                          td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+                    .block style='margin-left: 450px'
+                      / - if current_user.is_student?
+                        / = button_to '课堂练习', section_classroomwork_path(@section, @classroomwork),  class: 'btn-small', method: :get
+                      / - else
+                        / = submit_tag '课堂练习', class: 'btn-small', :onclick=>"return submitform('class_exercise')"
+                        / = submit_tag '家庭作业', class: 'btn-small', :onclick=>"return submitform('homework')"
         = hidden_field_tag :grades_course_id, @grades_course.id
         = f.hidden_field :grades_course_id, value: @grades_course.id
         = f.hidden_field :num, value: @section.course_homeworks(@grades_course).size + 1 if action_name == 'new'

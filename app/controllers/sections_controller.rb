@@ -103,6 +103,6 @@ class SectionsController < ApplicationController
         section_lesson_category.save
       end
     end
-    render action: :edit_lesson_category
+    redirect_to  book_sections_path(@section.book)
   end
 end

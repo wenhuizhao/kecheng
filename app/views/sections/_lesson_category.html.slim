@@ -9,12 +9,12 @@
   table
     tr
       th = '类别'
-      - 1.upto(@section.num_lessons) do |i|
+      - 1.upto(@section.num_lessons.nil? ? 0 : @section.num_lessons) do |i|
         th= '课时' + i.to_s
     - Category.all.each do |c|
       tr
         td=c.name
-        - 1.upto(@section.num_lessons) do |i|
+        - 1.upto(@section.num_lessons.nil? ? 0 : @section.num_lessons) do |i|
           td=radio_button_tag 'cat_' + c.id.to_s, i, @section.lesson_categories(i).include?(c)
 
     tr
