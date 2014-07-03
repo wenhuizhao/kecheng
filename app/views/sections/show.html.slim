@@ -13,6 +13,9 @@ p
   strong 书名:
   = @section.book.nil? ? "" : @section.book.name
 
+p
+  strong 课时数:
+  = @section.num_lessons
 = link_to '修改', edit_section_path(@section)
 '|
 = link_to '返回章节列表', book_sections_path(@section.book)

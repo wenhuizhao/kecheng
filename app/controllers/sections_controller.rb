@@ -87,4 +87,22 @@ class SectionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def edit_lesson_category
+    @section = Section.find(params[:section_id])
+  end
+  def update_lesson_category
+    @section = Section.find(params[:section_id])
+    ActiveRecord::Base.transaction do
+      1.upto(@section.num_lessons) do |n|
+        @section.lesson_categories(n).each { |c| SectionLessonCategory.where(section_id: @section.id, lesson: n, category_id: c.id).last.destroy}
+      end
+      Category.all.each do |c|
+        lesson_num = params["cat_#{c.id}"].to_i
+        section_lesson_category = SectionLessonCategory.new(section_id: @section.id, lesson: lesson_num, category_id: c.id)
+        section_lesson_category.save
+      end
+    end
+    render action: :edit_lesson_category
+  end
 end

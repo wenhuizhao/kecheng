@@ -1,0 +1,22 @@
+= form_for [@book, @section], url: {action: :update_lesson_category} do |f|
+  - if @section.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@section.errors.count, "error")} prohibited this section from being saved:"
+      ul
+        - @section.errors.full_messages.each do |message|
+          li = message
+
+  table
+    tr
+      th = '类别'
+      - 1.upto(@section.num_lessons) do |i|
+        th= '课时' + i.to_s
+    - Category.all.each do |c|
+      tr
+        td=c.name
+        - 1.upto(@section.num_lessons) do |i|
+          td=radio_button_tag 'cat_' + c.id.to_s, i, @section.lesson_categories(i).include?(c)
+
+    tr
+      td =  f.submit '保存'
+

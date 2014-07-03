@@ -53,4 +53,7 @@ class Section < ActiveRecord::Base
     name.split(/([\d\.]{3,})/)[2]
   end
 
+  def lesson_categories lesson
+    SectionLessonCategory.where(section_id: self.id, lesson: lesson).map(&:category)
+  end
 end

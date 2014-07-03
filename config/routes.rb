@@ -39,6 +39,8 @@ Kecheng::Application.routes.draw do
 
   resources :books, shallow: true do
     resources :sections, shallow: true do
+      get :edit_lesson_category
+      put :update_lesson_category
       resources :exercises, shallow: true do
         resources :upload_files
       end

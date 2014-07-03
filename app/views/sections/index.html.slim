@@ -6,6 +6,7 @@ table
     th 章节编号
     th |章节名称
     th |父章节
+    th |课时数
     th |练习题
     th |文章
     th
@@ -17,6 +18,7 @@ table
       td = section.number
       td = section.name
       td = section.parent.nil? ? "" : section.parent.name
+      td = section.num_lessons
       td = link_to '|练习题', section_exercises_path(section)
       td = link_to '|文章', section_exercise_texts_path(section)
       td = link_to '|查看', section
