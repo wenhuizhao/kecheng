@@ -32,5 +32,6 @@ root /var/www/kecheng/current/public;
 
 sudo service nginx start
 
-
+3. 系统架构介绍
+源代码根目录下游app, config, db, doc, lib, public, script, spec, vendor 等几个目录。 主要代码在app 目录下。 
 
