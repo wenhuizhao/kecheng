@@ -37,8 +37,8 @@ class ExercisesController < ApplicationController
   # GET /exercises/new
   # GET /exercises/new.json
   def new
-    @exercise = Exercise.new
     @section = Section.find(params[:section_id])
+    @exercise = @section.exercises.build
     @upload_file = UploadFile.new
     @book = @section.book
     respond_to do |format|
@@ -56,7 +56,8 @@ class ExercisesController < ApplicationController
   # POST /exercises
   # POST /exercises.json
   def create
-    @exercise = Exercise.new(params[:exercise])
+    @section = Section.find(params[:section_id])
+    @exercise = @section.exercises.build(params[:exercise])
 
     respond_to do |format|
       if @exercise.save
