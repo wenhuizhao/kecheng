@@ -90,10 +90,11 @@ class ExercisesController < ApplicationController
   # DELETE /exercises/1.json
   def destroy
     @exercise = Exercise.find(params[:id])
+    section = @exercise.section
     @exercise.destroy
 
     respond_to do |format|
-      format.html { redirect_to exercises_url }
+      format.html { redirect_to section_exercises_path(section) }
       format.json { head :no_content }
     end
   end

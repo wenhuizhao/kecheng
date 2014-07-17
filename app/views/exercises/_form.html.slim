@@ -4,11 +4,11 @@
   table style="table-layout: fixed;"
     tr
       td width="10%" = f.label '书'
-      td width="90%" = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected => @book ? @book.id : (@exercise && @exercise.book ? @exercise.book.id : nil)), {}, {:id=>'book_select'})
+      td width="90%" = f.select(:book_id, options_from_collection_for_select(Book.all, :id, :name, :selected => @book ? @book.id : (@exercise && @exercise.book ? @exercise.book.id : nil)), {}, {:id=>'book_select', :disabled=>true})
 
     tr
       td = f.label '章节'
-      td = f.select(:section_id, {},{}, {:id => "section_select"})
+      td = f.select(:section_id, {},{}, {:id => "section_select", :disabled => true})
 
     tr
       td = f.label '文章'
