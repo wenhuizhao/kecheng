@@ -15,7 +15,7 @@ class Exercise < ActiveRecord::Base
   belongs_to :section
   has_many :upload_files
   before_save :clean_content
-  has_and_belongs_to_many :student_homeworks #, join_table: 'users_messages'
+  has_and_belongs_to_many :student_homeworks , join_table: 'student_homeworks_exercises'
   
   delegate :content, to: :exercise_text
 
