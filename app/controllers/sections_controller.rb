@@ -98,9 +98,14 @@ class SectionsController < ApplicationController
         @section.lesson_categories(n).each { |c| SectionLessonCategory.where(section_id: @section.id, lesson: n, category_id: c.id).last.destroy}
       end
       Category.all.each do |c|
-        lesson_num = params["cat_#{c.id}"].to_i
-        section_lesson_category = SectionLessonCategory.new(section_id: @section.id, lesson: lesson_num, category_id: c.id)
-        section_lesson_category.save
+        s= params["cat_#{c.id}"]
+        puts "---------------#{c.name}--#{s}------"
+        next if params["cat_#{c.id}"].nil?
+        params["cat_#{c.id}"].each do |lesson|
+          lesson_num = lesson.to_i
+          section_lesson_category = SectionLessonCategory.new(section_id: @section.id, lesson: lesson_num, category_id: c.id)
+          section_lesson_category.save
+        end
       end
     end
     redirect_to  book_sections_path(@section.book)
