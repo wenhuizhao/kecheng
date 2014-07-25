@@ -56,4 +56,8 @@ class Section < ActiveRecord::Base
   def lesson_categories lesson
     SectionLessonCategory.where(section_id: self.id, lesson: lesson).map(&:category)
   end
+
+  def lesson_exercises lesson
+    self.exercises.where(:lesson_num=>lesson)
+  end
 end

@@ -99,7 +99,6 @@ class SectionsController < ApplicationController
       end
       Category.all.each do |c|
         s= params["cat_#{c.id}"]
-        puts "---------------#{c.name}--#{s}------"
         next if params["cat_#{c.id}"].nil?
         params["cat_#{c.id}"].each do |lesson|
           lesson_num = lesson.to_i

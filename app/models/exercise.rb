@@ -2,7 +2,7 @@
 require 'sanitize'
 class Exercise < ActiveRecord::Base
   attr_accessible :answer, :note, :title, :photo, :book_id, :category_id, :qtype_id, :exercise_text_id,
-                  :options_attributes, :section_id, :answerphoto
+                  :options_attributes, :section_id, :answerphoto, :lesson_num
   has_attached_file :photo, :styles => {:thumb => "50x50>"}
   has_attached_file :answerphoto, :styles => {:thumb => "50x50>"}
   belongs_to :book
