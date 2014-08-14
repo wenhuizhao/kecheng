@@ -25,7 +25,7 @@ css:
             - lesson_categories = @section.lesson_categories(n)
             /- eg = @section.exercises.reject{|e| lesson_categories && !lesson_categories.map(&:id).include?(e.category_id)}.group_by{|e| e.category_id}
             - eg = @section.lesson_exercises(n).group_by{|e| e.category_id}
-            - if eg.size > 0
+            - if eg.size > 0 and n > 0
               .lesson_title = "第#{App::ChineseNum[n]}课时"
             table#exercises
               - category_ids = Category.display_order(eg.keys)
