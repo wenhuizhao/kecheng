@@ -82,7 +82,8 @@ module ApplicationHelper
     content_tag :span, words, {class: 'red', style: "font-weight: bold;"}.merge(opts)
   end
 
-  def replaced_exercise(exer, ans = nil)
+  def replaced_exercise(exer, ans = nil, disable_input = false)
+    disable = disable_input ? "disabled" : ""
     content = clean_content(exer.title, {}, wrapper_tag: "div")
     return content.html_safe if exer.is_lianxian?
     cs = ""
@@ -93,14 +94,14 @@ module ApplicationHelper
       next if c.empty? || c == "</span><span>"
       if c == contents.last
         if exer.is_q_and_a? && !exer.is_math_qa?
-          cs += "<textarea name='#{exer.id}_#{i + 1}_in'  id='text#{exer.id}' cols=50  rows=5 class='qa_area'>#{ans.to_s.split("@@@")[i]}</textarea>" 
+          cs += "<textarea name='#{exer.id}_#{i + 1}_in'  id='text#{exer.id}' cols=50  rows=5 #{disable} class='qa_area'>#{ans.to_s.split("@@@")[i]}</textarea>"
         end
       else
         val = ans.to_s.split("@@@")[i].to_s.gsub(" ",'')
         if exer.is_fill_blank? || exer.is_multi_choice? 
-          cs += "<input name='#{exer.id}_#{i + 1}_in' value='#{val}' class='exer_input' />"
+          cs += "<input name='#{exer.id}_#{i + 1}_in' value='#{val}' class='exer_input' #{disable} />"
         else
-          cs += "<textarea name='#{exer.id}_#{i + 1}_in' id='text#{exer.id}' cols=50 class='exer_textarea'>#{val}</textarea>" 
+          cs += "<textarea name='#{exer.id}_#{i + 1}_in' id='text#{exer.id}' cols=50 #{disable} class='exer_textarea'>#{val}</textarea>"
         end
       end
     end

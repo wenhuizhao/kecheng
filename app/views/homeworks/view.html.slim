@@ -20,12 +20,13 @@ css:
         - else
           - if !current_user.is_student?
             = check_all
-          - 1.upto(@section.num_lessons) do |n|
+          - 0.upto(@section.num_lessons) do |n|
             n
+            - lesson_zero = n==0
             - lesson_categories = @section.lesson_categories(n)
             /- eg = @section.exercises.reject{|e| lesson_categories && !lesson_categories.map(&:id).include?(e.category_id)}.group_by{|e| e.category_id}
             - eg = @section.lesson_exercises(n).group_by{|e| e.category_id}
-            - if eg.size > 0 and n > 0
+            - if eg.size > 0  and !lesson_zero
               .lesson_title = "第#{App::ChineseNum[n]}课时"
             table#exercises
               - category_ids = Category.display_order(eg.keys)
@@ -36,7 +37,7 @@ css:
                   td.top
                     - if !current_user.is_student?
                       = check_box_tag 'category_ids[]', c_id, false,
-                          :style=>"float:left"
+                          :style=>"float:left;margin:20px 5px 0 0"
                     .category = category.name
                 tr
                   td
@@ -46,7 +47,7 @@ css:
                           td.top.etitle
                             = "#{App::ChineseNum[i + 1]}、#{q.qtype_name}"
                         tr
-                          td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false}
+                          td.econtent = render partial: 'exercises/show', locals: {exercise: q, answer: false, disable_input: lesson_zero}
                     .block style='margin-left: 450px'
                       / - if current_user.is_student?
                         / = button_to '课堂练习', section_classroomwork_path(@section, @classroomwork),  class: 'btn-small', method: :get

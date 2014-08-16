@@ -97,7 +97,7 @@ class HomeworksController < ApplicationController
         return
       end
       @categories = Category.find(categories)
-      @category = params[:category_id] ? Category.find(params[:category_id]) : Category.first
+      @category = params[:category_id] ? Category.find(params[:category_id]) : @categories.last
       @homework = @section.homeworks.new
       render action: 'demo'
     end
